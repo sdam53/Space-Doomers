@@ -1,7 +1,8 @@
-I made it so that it is really easy to find the bounds and buffer for each animation. Though you will have to deal with setting up multiple files for queue.
-
+I made it so that it is really easy to find the bounds and buffer for each animation. 
+Though you will have to deal with setting up multiple files for queue.
 Every png file for animation will have a x start of 0 and a y start of 0 with a buffer of 0.
-The only difference is their width, height, and frame count which I'll will be giving below. This should make it much easier for you.
+The only difference is their width, height, and frame count which I'll will be giving below. 
+This should make it much easier for you.
 
 front death: 369x454px 18 frames
 front idle: 280x339px 25 frames

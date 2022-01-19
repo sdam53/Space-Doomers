@@ -1,7 +1,7 @@
 /** Global Parameters Object */
 const PARAMS = {
   DEBUG: false,
-  SCALE: 1
+  SCALE: 0.3
 };
 
 /** Easy access to math functions */

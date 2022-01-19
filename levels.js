@@ -1,4 +1,5 @@
 var level1 = {
+  
   map: []
 };
 
