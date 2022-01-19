@@ -1,11 +1,11 @@
 var level1 = {
-  var map = [];
+  map: []
 };
 
 var level2 = {
-  var map = [];
+  map: []
 };
 
 var level3 = {
-  var map = [];
+  map: []
 };
