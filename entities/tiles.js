@@ -1,6 +1,6 @@
 class Ground {
-  constructor(game, x, y, w, h) {
-    Object.assign(this, {game, x, y, w, h})
+  constructor(game, x, y, w, h, type) {
+    Object.assign(this, {game, x, y, w, h, type})
 
   }
 
