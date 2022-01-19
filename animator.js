@@ -26,7 +26,7 @@ class Animator {
             this.width, this.height,
             x, y,
             this.width * scale,
-            this.height * scale);m
+            this.height * scale);
 
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'Green';
