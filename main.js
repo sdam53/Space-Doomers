@@ -8,5 +8,7 @@ ASSET_MANAGER.downloadAll(() => {
 
 	gameEngine.init(ctx);
 
+	new SceneManager(gameEngine);
+
 	gameEngine.start();
 });
