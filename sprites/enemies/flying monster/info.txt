@@ -1,0 +1,25 @@
+for each sprite sheet, the starting x and padding will be 0. Each draw will require some x buffer.
+
+up idle:      401x374 29 frames yStart = 0
+up run:       401x366 13 frames yStart = 374
+up attack:    449x387 25 frames yStart = 740
+up hit:       419*354 13 frames yStart = 1127
+up death:     516*511 20 frames yStart = 1638
+
+down idle:    405*362 29 frames yStart = 0
+down run:     402*372 13 frames yStart = 362
+down attack:  448x366 25 frames yStart = 734
+down hit:     412*375 13 frames yStart = 1100
+down death:   512*511 20 frames yStart = 1475
+
+left idle:    244*358 29 frames yStart = 0
+left run:     248*281 13 frames yStart = 358
+left attack:  292*390 25 frames yStart = 639
+left hit:     263*379 13 frames yStart = 1029
+left death:   309*517 20 frames yStart = 1408
+
+right idle:    244*358 29 frames yStart = 0
+right run:     248*281 13 frames yStart = 358
+right attack:  292*390 25 frames yStart = 639
+right hit:     263*379 13 frames yStart = 1029
+right death:   309*517 20 frames yStart = 1408 Reverse frames
