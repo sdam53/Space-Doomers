@@ -5,7 +5,7 @@ const ASSET_MANAGER = new AssetManager();
 ASSET_MANAGER.queueDownload("./sprites/tiles/ground.png");
 ASSET_MANAGER.queueDownload("./sprites/tiles/18.png");
 ASSET_MANAGER.queueDownload("./sprites/tiles/20.png");
-
+ASSET_MANAGER.queueDownload("./sprites/tiles/portal.png");
 
 
 // main player sprites

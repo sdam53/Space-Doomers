@@ -17,9 +17,10 @@ class SceneManager {
 
     loadLevel(level, title) {
         this.x = 0;
-        this.game.addTile(new Ground(this.game, 100,100,50,50, ""));
-
+        this.game.addTile(new Ground(this.game, 100,100,150,150, ""));
         this.game.addEnemy(new FlyingMonster(this.game, 200,200));
+        this.game.addPortal(new Portal(this.game, 100,100));
+
 
     }
 

@@ -11,7 +11,8 @@ class GameEngine {
             player: null,
             enemies: [],
             bullets: [],
-            tiles: []
+            tiles: [],
+            portal: []
         };
         // Entities to be added at the end of each update
         this.entitiesToAdd = [];
@@ -108,6 +109,10 @@ class GameEngine {
         this.entities.tiles.push(entity);
     };
 
+    addPortal(entity) {
+        this.entities.portal.push(entity);
+    };
+
 
 
     draw() {
@@ -115,6 +120,9 @@ class GameEngine {
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
         this.entities.tiles.forEach((tile, i) => {
           tile.draw(this.ctx);
+        });
+        this.entities.portal.forEach((portal, i) => {
+          portal.draw(this.ctx);
         });
         this.entities.enemies.forEach((enemy, i) => {
           enemy.draw(this.ctx);
@@ -132,6 +140,9 @@ class GameEngine {
         //this.entities.forEach(entity => entity.update(this));
         this.entities.tiles.forEach((tile, i) => {
           tile.update();
+        });
+        this.entities.portal.forEach((portal, i) => {
+          portal.update();
         });
         this.entities.enemies.forEach((enemy, i) => {
           enemy.update();
