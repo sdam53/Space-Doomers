@@ -15,7 +15,8 @@ class Ground {
   }
 
   draw(ctx){
-
+    ctx.drawImage(this.tile, this.x, this.y, this.w, this.h);
+/*
     for (let x1 = this.x ; x1 < this.w; x1+=this.size)
     {
         for (let y1 = this.y ; y1 < this.h; y1+=this.size){
@@ -44,5 +45,6 @@ class Ground {
           }
         }
     }
-}
+    */
+  }
 }
