@@ -5,7 +5,7 @@ class Ground {
     this.tile = ASSET_MANAGER.getAsset("./sprites/tiles/ground.png");
     this.wall = ASSET_MANAGER.getAsset("./sprites/tiles/18.png");
     this.corner = ASSET_MANAGER.getAsset("./sprites/tiles/20.png");
-    this.size = PARAMS.BLOCKWIDTH;
+    this.size = this.h/20;
     console.log(PARAMS.BLOCKWIDTH);
   }
 

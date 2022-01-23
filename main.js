@@ -2,6 +2,12 @@ const gameEngine = new GameEngine();
 
 const ASSET_MANAGER = new AssetManager();
 
+ASSET_MANAGER.queueDownload("./sprites/tiles/ground.png");
+ASSET_MANAGER.queueDownload("./sprites/tiles/18.png");
+ASSET_MANAGER.queueDownload("./sprites/tiles/20.png");
+
+
+
 // main player sprites
 ASSET_MANAGER.queueDownload("./sprites/player/player_up_idle.png");
 ASSET_MANAGER.queueDownload("./sprites/player/player_up_run.png");
@@ -19,6 +25,8 @@ ASSET_MANAGER.queueDownload("./sprites/enemies/flying_monster/flying_monster_up.
 ASSET_MANAGER.queueDownload("./sprites/enemies/flying_monster/flying_monster_down.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/flying_monster/flying_monster_left.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/flying_monster/flying_monster_right.png");
+
+
 
 
 ASSET_MANAGER.downloadAll(() => {
