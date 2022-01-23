@@ -7,7 +7,12 @@ class GameEngine {
         this.ctx = null;
 
         // Everything that will be updated and drawn each frame
-        this.entities = [];
+        this.entities = {
+            player: null,
+            enemies: [],
+            bullets: [],
+            tiles: []
+        };
         // Entities to be added at the end of each update
         this.entitiesToAdd = [];
 
@@ -91,35 +96,53 @@ class GameEngine {
         window.addEventListener("keyup", event => this.keys[event.key] = false);
     };
 
-    addEntity(entity) {
-        this.entitiesToAdd.push(entity);
+    addEnemy(entity) {
+        this.entities.enemies.push(entity);
     };
+
+    addBullet(entity) {
+      this.entities.bullets.push(entity);
+    };
+
+    addTile(entity) {
+        this.entities.tiles.push(entity);
+    };
+
+
 
     draw() {
         // Clear the whole canvas with transparent color (rgba(0, 0, 0, 0))
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-
-        // Draw latest things first
-        for (let i = this.entities.length - 1; i >= 0; i--) {
-            this.entities[i].draw(this.ctx, this);
-        }
-
-        this.camera.draw();
+        this.entities.tiles.forEach((tile, i) => {
+          tile.draw(this.ctx);
+        });
+        this.entities.enemies.forEach((enemy, i) => {
+          enemy.draw(this.ctx);
+        });
+        this.entities.bullets.forEach((bullet, i) => {
+          bullet.draw(this.ctx);
+        });
+        this.entities.player.draw(this.ctx, this);
+        this.camera.draw(this.ctx);
     };
 
     update() {
         PARAMS.DEBUG = document.getElementById("debug").checked;
         // Update Entities
-        this.entities.forEach(entity => entity.update(this));
-
+        //this.entities.forEach(entity => entity.update(this));
+        this.entities.tiles.forEach((tile, i) => {
+          tile.update();
+        });
+        this.entities.enemies.forEach((enemy, i) => {
+          enemy.update();
+        });
+        this.entities.bullets.forEach((bullet, i) => {
+          bullet.update();
+        });
         // Remove dead things
-        this.entities = this.entities.filter(entity => !entity.removeFromWorld);
-
-        // Add new things
-        this.entities = this.entities.concat(this.entitiesToAdd);
-        this.entitiesToAdd = [];
-
-        this.camera.update();
+      //  this.entities = this.entities.filter(entity => !entity.removeFromWorld)
+      this.entities.player.update();
+      this.camera.update();
     };
 
     loop() {
