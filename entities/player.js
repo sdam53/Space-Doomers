@@ -65,7 +65,7 @@ class Player {
 
     update() {
         const TICK = this.game.clockTick;
-        const RUN = 200;
+        const RUN = 350;
 
         // Movement and User Input
 
