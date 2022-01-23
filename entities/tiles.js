@@ -6,16 +6,22 @@ class Ground {
     this.wall = ASSET_MANAGER.getAsset("./sprites/tiles/18.png");
     this.corner = ASSET_MANAGER.getAsset("./sprites/tiles/20.png");
     this.size = this.h/20;
-    console.log(PARAMS.BLOCKWIDTH);
   }
 
+  updateBB() {
+    this.BB = new BoundingBox(this.x, this.y, this.w, this.h);
+  }
 
   update() {
-
+    this.updateBB();
   }
 
-  draw(ctx){
+  draw(ctx) {
     ctx.drawImage(this.tile, this.x, this.y, this.w, this.h);
+    if (PARAMS.DEBUG) {
+      ctx.strokeStyle = 'Green';
+      ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+    }
 /*
     for (let x1 = this.x ; x1 < this.w; x1+=this.size)
     {
