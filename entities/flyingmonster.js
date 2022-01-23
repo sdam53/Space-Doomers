@@ -14,14 +14,18 @@ class FlyingMonster {
     this.hp = 100;
     this.velocity = {x: 0, y : 0};
 
-    this.bulletSpeed = 1;
-    this.bulletRate = 150;
+    this.bulletSpeed = 3;
+    this.bulletRate = 50;
     this.bulletTimer = this.bulletRate;
     this.bulletSize = 30;
+    this.bullets = [];
 
     this.animations = [];
     this.loadAnimations();
     this.updateBB();
+
+    //offset to get the middle of sprite
+    this.midPointOffset = {x: 60, y : 38};
   }
 
   loadAnimations() {
@@ -56,17 +60,18 @@ class FlyingMonster {
   }
 
   fourBulletAtk() { //testing. will be used for boss attacks
-    this.game.addEntity(new Bullet(this.game, this.x + 35, this.y + 70, this.bulletSize, this.x + 35, this.y + 80, this.bulletSpeed, this.bullet)); //down
-    this.game.addEntity(new Bullet(this.game, this.x + 35, this.y - 43, this.bulletSize, this.x + 35, this.y - 50, this.bulletSpeed, this.bullet)); //up
-    this.game.addEntity(new Bullet(this.game, this.x - 20 , this.y + 12, this.bulletSize, this.x - 30, this.y + 12, this.bulletSpeed, this.bullet));//left
-    this.game.addEntity(new Bullet(this.game, this.x + 90, this.y + 12, this.bulletSize, this.x + 100, this.y + 12, this.bulletSpeed, this.bullet));//right
+    this.game.addEntity(new Bullet(this.game, this.x + 46, this.y + 80, this.bulletSize, this.x + 46, this.y + 1000, this.bulletSpeed, this.bullet)); //down
+    this.game.addEntity(new Bullet(this.game, this.x + 46, this.y - 34, this.bulletSize, this.x + 46, this.y - 100, this.bulletSpeed, this.bullet)); //up
+    this.game.addEntity(new Bullet(this.game, this.x - 10 , this.y + 20, this.bulletSize, this.x - 15 , this.y + 20, this.bulletSpeed, this.bullet));//left
+    this.game.addEntity(new Bullet(this.game, this.x + 105, this.y + 20, this.bulletSize, this.x + 115, this.y + 20, this.bulletSpeed, this.bullet));//right
   }
 
   eightBulletAtk() {
-    this.game.addEntity(new Bullet(this.game, this.x + 35, this.y + 70, this.bulletSize, this.x + 35, this.y + 80, this.bulletSpeed, this.bullet)); //down
-    this.game.addEntity(new Bullet(this.game, this.x + 35, this.y - 43, this.bulletSize, this.x + 35, this.y - 50, this.bulletSpeed, this.bullet)); //up
-    this.game.addEntity(new Bullet(this.game, this.x - 20 , this.y + 12, this.bulletSize, this.x - 30, this.y + 12, this.bulletSpeed, this.bullet));//left
-    this.game.addEntity(new Bullet(this.game, this.x + 90, this.y + 12, this.bulletSize, this.x + 100, this.y + 12, this.bulletSpeed, this.bullet));//right
+    this.game.addEntity(new Bullet(this.game, this.x + 46, this.y + 80, this.bulletSize, this.x + 46, this.y + 1000, this.bulletSpeed, this.bullet)); //down
+    this.game.addEntity(new Bullet(this.game, this.x + 46, this.y - 34, this.bulletSize, this.x + 46, this.y - 100, this.bulletSpeed, this.bullet)); //up
+    this.game.addEntity(new Bullet(this.game, this.x - 10 , this.y + 20, this.bulletSize, this.x - 15 , this.y + 20, this.bulletSpeed, this.bullet));//left
+    this.game.addEntity(new Bullet(this.game, this.x + 105, this.y + 20, this.bulletSize, this.x + 115, this.y + 20, this.bulletSpeed, this.bullet));//right
+
     this.game.addEntity(new Bullet(this.game, this.x  + 40 + 55 * cos((3 * PI) / 4), this.y + 18 - 55 * sin((3 * PI) / 4), this.bulletSize, this.x + 40 + 100 * cos((3 * PI) / 4), this.y + 18 - 100 * sin((3 * PI) / 4), this.bulletSpeed, this.bullet)); //up left
     this.game.addEntity(new Bullet(this.game, this.x + 40 + 55 * cos((3 * PI) / 4), this.y + 29 + 55 * sin((3 * PI) / 4), this.bulletSize, this.x + 40 + 100 * cos((3 * PI) / 4), this.y + 29 + 100 * sin((3 * PI) / 4), this.bulletSpeed, this.bullet)); //down left
     this.game.addEntity(new Bullet(this.game, this.x + 51 + 55 * cos((PI) / 4), this.y + 29 + 55 * sin((PI) / 4), this.bulletSize, this.x + 51 + 100 * cos((PI) / 4), this.y + 29 + 100 * sin((PI) / 4), this.bulletSpeed, this.bullet)); //down right
@@ -75,7 +80,7 @@ class FlyingMonster {
 
   singleBulletAtlk() {
     if (this.facing === "down") {
-      this.game.addEntity(new Bullet(this.game, this.x + 35, this.y + 70, this.bulletSize, this.game.camera.player.x, this.game.camera.player.y, this.bulletSpeed, this.bullet));
+    //  this.game.addEntity(new Bullet(this.game, this.x + 35, this.y + 70, this.bulletSize, this.game.camera.player.x, this.game.camera.player.y, this.bulletSpeed, this.bullet));
     } else if (this.facing === "up") {
       this.game.addEntity(new Bullet(this.game, this.x + 35, this.y - 43, this.bulletSize, this.game.camera.player.x, this.game.camera.player.y, this.bulletSpeed, this.bullet));
     } else if (this.facing === "left") {
@@ -95,43 +100,30 @@ class FlyingMonster {
 
   }
 
+  checkcollision() {
 
+  }
+
+  //used when shooting
+  //makes the monster the origin then offsets its real x and y to player
+  //then compares x or y values then to the functions f(x) and f(-x)
+  //should maybe use player offsets for mindpoint
+  calculatedDirection() {
+    let player = {x: this.game.player.x - this.x + this.midPointOffset.x, y : this.game.player.y - this.y + this.midPointOffset.y};
+    let monster = {x: 0, y : 0};
+    if ((player.x < monster.x) && (player.y < (-1) * player.x) && (player.y > player.x)) { //left
+      this.facing = "left"
+    } else if ((player.x > monster.x) && (player.y > (-1) * player.x) && (player.y < player.x)) {
+      this.facing = "right";
+    } else if ((player.y > monster.y) && (player.y > (-1) * player.x) && (player.y > player.x)) {
+      this.facing = "down";
+    } else if ((player.y < monster.y) && (player.y < (-1) * player.x) && (player.y < player.x)) {
+      this.facing = "up";
+    }
+  }
 
   update() {
-    if ((this.game.keys["w"])) {
-        this.facing = "up";
-    }
-    if ((this.game.keys["s"])) {
-        this.facing = "down";
-    }
-    if ((this.game.keys["a"])) {
-        this.facing = "left";
-    }
-    if ((this.game.keys["d"])) {
-        this.facing = "right";
-    }
-    if ((this.game.keys["ArrowUp"])) {
-        this.state = "idle";
-    }
-    if ((this.game.keys["ArrowDown"])) {
-        this.state = "attack";
-    }
-    if ((this.game.keys["ArrowRight"])) {
-        this.state = "run";
-    }
-    /*
-    if (this.game.player.y < this.y) { //up
-       this.facing = "up";
-    } else if (this.game.player.y >= this.y) { //down
-      this.facing = "down";
-    }
-     if (this.game.player.x > this.x) { //right
-      this.facing = "right";
-    } else { //left
-      this.facing = "left";
-  }
-  */
-    //  this.figureOutShootDirection();
+    this.calculatedDirection();
     //shoots at player when close
     if (getDistance(this.x, this.y, this.game.player.x, this.game.player.y) < 10000) {
       if (this.bulletTimer <= 0) {
@@ -143,7 +135,6 @@ class FlyingMonster {
         } else {
           this.eightBulletAtk();
         }
-      this.shotgunAttack();
         this.bulletTimer = this.bulletRate;
         this.animations[this.facing + " " + this.state].flag = true;
       }
@@ -152,14 +143,12 @@ class FlyingMonster {
     if (this.bulletTimer <= this.bulletRate) {
       this.bulletTimer--;
     }
-
+    
     this.updateBB();
   }
 
-
   draw(ctx) {
   // offsets for x and y since images are different sizes
-
     if (this.facing === "left") {
         if (this.state === "idle") {
           this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 28, this.y + 2, .3);
@@ -187,37 +176,6 @@ class FlyingMonster {
         this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x, this.y, .3);
       }
     }
-
-
-  //}
-
-  /*
-  if (this.facing === "left") {
-      if (this.state === "idle" || this.state === "run") {
-        this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 90, this.y + 2, 1);
-    } else if (this.state === "attack") {
-        this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 67, this.y -135, 1);
-    }
-  } else if (this.facing === "right") {
-    if (this.state === "idle") {
-      this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 55, this.y, 1);
-    } else if (this.state === "run") {
-      this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 65, this.y - 10, 1);
-    } else if (this.state === "attack") {
-      this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 45, this.y - 130, 1);
-    }
-  } else if (this.facing === "up") {
-    if (this.state === "idle" || this.state === "run") {
-      this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x, this.y, 1);
-    } else if (this.state === "attack") {
-      this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x - 25, this.y - 28, 1);
-    }
-  } else if (this.facing === "down") {
-    if (this.state === "idle" || this.state === "run" || this.state === "attack") {
-      this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x, this.y, 1);
-    }
-  }
-  */
     if (PARAMS.DEBUG) {
       ctx.strokeStyle = 'Red';
       ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
