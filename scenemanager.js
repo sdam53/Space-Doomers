@@ -9,6 +9,8 @@ class SceneManager {
 
         this.player = new Player(this.game, 100, 100);
         this.ground = new Ground(this.game,0,0, PARAMS.CANVAS_WIDTH, PARAMS.CANVAS_HEIGHT, "");
+        // this.ground = new Ground(this.game,0,0, 1400, 800, "");
+
         this.loadLevel(level1, true);
 
     }
