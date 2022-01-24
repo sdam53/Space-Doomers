@@ -63,33 +63,33 @@ class FlyingMonster {
   }
 
   fourBulletAtk() { //testing. will be used for boss attacks
-    this.game.addBullet(new Bullet(this.game, this.x + 46, this.y + 80, this.bulletSize, this.x + 46, this.y + 1000, this.bulletSpeed, this.bullet)); //down
-    this.game.addBullet(new Bullet(this.game, this.x + 46, this.y - 34, this.bulletSize, this.x + 46, this.y - 100, this.bulletSpeed, this.bullet)); //up
-    this.game.addBullet(new Bullet(this.game, this.x - 10 , this.y + 20, this.bulletSize, this.x - 15 , this.y + 20, this.bulletSpeed, this.bullet));//left
-    this.game.addBullet(new Bullet(this.game, this.x + 105, this.y + 20, this.bulletSize, this.x + 115, this.y + 20, this.bulletSpeed, this.bullet));//right
+    this.game.addBullet(new Bullet(this.game, this.x + 46, this.y + 80, this.bulletSize, this.x + 46, this.y + 1000, this.bulletSpeed, "enemy", this.bullet)); //down
+    this.game.addBullet(new Bullet(this.game, this.x + 46, this.y - 34, this.bulletSize, this.x + 46, this.y - 100, this.bulletSpeed, "enemy", this.bullet)); //up
+    this.game.addBullet(new Bullet(this.game, this.x - 10 , this.y + 20, this.bulletSize, this.x - 15 , this.y + 20, this.bulletSpeed, "enemy", this.bullet));//left
+    this.game.addBullet(new Bullet(this.game, this.x + 105, this.y + 20, this.bulletSize, this.x + 115, this.y + 20, this.bulletSpeed, "enemy", this.bullet));//right
   }
 
   eightBulletAtk() {
-    this.game.addBullet(new Bullet(this.game, this.x + 46, this.y + 80, this.bulletSize, this.x + 46, this.y + 1000, this.bulletSpeed, this.bullet)); //down
-    this.game.addBullet(new Bullet(this.game, this.x + 46, this.y - 34, this.bulletSize, this.x + 46, this.y - 100, this.bulletSpeed, this.bullet)); //up
-    this.game.addBullet(new Bullet(this.game, this.x - 10 , this.y + 20, this.bulletSize, this.x - 15 , this.y + 20, this.bulletSpeed, this.bullet));//left
-    this.game.addBullet(new Bullet(this.game, this.x + 105, this.y + 20, this.bulletSize, this.x + 115, this.y + 20, this.bulletSpeed, this.bullet));//right
+    this.game.addBullet(new Bullet(this.game, this.x + 46, this.y + 80, this.bulletSize, this.x + 46, this.y + 1000, this.bulletSpeed, "enemy", this.bullet)); //down
+    this.game.addBullet(new Bullet(this.game, this.x + 46, this.y - 34, this.bulletSize, this.x + 46, this.y - 100, this.bulletSpeed, "enemy", this.bullet)); //up
+    this.game.addBullet(new Bullet(this.game, this.x - 10 , this.y + 20, this.bulletSize, this.x - 15 , this.y + 20, this.bulletSpeed, "enemy", this.bullet));//left
+    this.game.addBullet(new Bullet(this.game, this.x + 105, this.y + 20, this.bulletSize, this.x + 115, this.y + 20, this.bulletSpeed, "enemy", this.bullet));//right
 
-    this.game.addBullet(new Bullet(this.game, this.x  + 40 + 55 * cos((3 * PI) / 4), this.y + 18 - 55 * sin((3 * PI) / 4), this.bulletSize, this.x + 40 + 100 * cos((3 * PI) / 4), this.y + 18 - 100 * sin((3 * PI) / 4), this.bulletSpeed, this.bullet)); //up left
-    this.game.addBullet(new Bullet(this.game, this.x + 40 + 55 * cos((3 * PI) / 4), this.y + 29 + 55 * sin((3 * PI) / 4), this.bulletSize, this.x + 40 + 100 * cos((3 * PI) / 4), this.y + 29 + 100 * sin((3 * PI) / 4), this.bulletSpeed, this.bullet)); //down left
-    this.game.addBullet(new Bullet(this.game, this.x + 51 + 55 * cos((PI) / 4), this.y + 29 + 55 * sin((PI) / 4), this.bulletSize, this.x + 51 + 100 * cos((PI) / 4), this.y + 29 + 100 * sin((PI) / 4), this.bulletSpeed, this.bullet)); //down right
-    this.game.addBullet(new Bullet(this.game, this.x + 51 + 55 * cos((PI) / 4), this.y + 17 - 55 * sin((PI) / 4), this.bulletSize, this.x + 51 + 100 * cos((PI) / 4), this.y + 17 - 100 * sin((PI) / 4), this.bulletSpeed, this.bullet)); //up right
+    this.game.addBullet(new Bullet(this.game, this.x  + 40 + 55 * cos((3 * PI) / 4), this.y + 18 - 55 * sin((3 * PI) / 4), this.bulletSize, this.x + 40 + 100 * cos((3 * PI) / 4), this.y + 18 - 100 * sin((3 * PI) / 4), this.bulletSpeed, "enemy", this.bullet)); //up left
+    this.game.addBullet(new Bullet(this.game, this.x + 40 + 55 * cos((3 * PI) / 4), this.y + 29 + 55 * sin((3 * PI) / 4), this.bulletSize, this.x + 40 + 100 * cos((3 * PI) / 4), this.y + 29 + 100 * sin((3 * PI) / 4), this.bulletSpeed, "enemy", this.bullet)); //down left
+    this.game.addBullet(new Bullet(this.game, this.x + 51 + 55 * cos((PI) / 4), this.y + 29 + 55 * sin((PI) / 4), this.bulletSize, this.x + 51 + 100 * cos((PI) / 4), this.y + 29 + 100 * sin((PI) / 4), this.bulletSpeed, "enemy", this.bullet)); //down right
+    this.game.addBullet(new Bullet(this.game, this.x + 51 + 55 * cos((PI) / 4), this.y + 17 - 55 * sin((PI) / 4), this.bulletSize, this.x + 51 + 100 * cos((PI) / 4), this.y + 17 - 100 * sin((PI) / 4), this.bulletSpeed, "enemy", this.bullet)); //up right
   }
 
   singleBulletAtlk() {
     if (this.facing === "down") {
     //  this.game.addBullet(new Bullet(this.game, this.x + 35, this.y + 70, this.bulletSize, this.game.camera.player.x, this.game.camera.player.y, this.bulletSpeed, this.bullet));
     } else if (this.facing === "up") {
-      this.game.addBullet(new Bullet(this.game, this.x + 35, this.y - 43, this.bulletSize, this.game.camera.player.x, this.game.camera.player.y, this.bulletSpeed, this.bullet));
+      this.game.addBullet(new Bullet(this.game, this.x + 35, this.y - 43, this.bulletSize, this.game.camera.player.x, this.game.camera.player.y, this.bulletSpeed, "enemy", this.bullet));
     } else if (this.facing === "left") {
-      this.game.addBullet(new Bullet(this.game, this.x - 20 , this.y + 12, this.bulletSize, this.game.camera.player.x, this.game.camera.player.y, this.bulletSpeed, this.bullet));
+      this.game.addBullet(new Bullet(this.game, this.x - 20 , this.y + 12, this.bulletSize, this.game.camera.player.x, this.game.camera.player.y, this.bulletSpeed, "enemy", this.bullet));
     } else if (this.facing === "right") {
-      this.game.addBullet(new Bullet(this.game, this.x + 90, this.y + 12, this.bulletSize, this.game.camera.player.x, this.game.camera.player.y, this.bulletSpeed, this.bullet));
+      this.game.addBullet(new Bullet(this.game, this.x + 90, this.y + 12, this.bulletSize, this.game.camera.player.x, this.game.camera.player.y, this.bulletSpeed, "enemy", this.bullet));
     }
   }
 
