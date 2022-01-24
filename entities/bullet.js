@@ -9,8 +9,8 @@ class Bullet {
   bulletSpeed: speed of bullet
   image: bullet image
   */
-  constructor(game, x, y, size, xTarget, yTarget, bulletSpeed, image) {
-    Object.assign(this, {game, x, y, size, xTarget, yTarget, bulletSpeed, image});
+  constructor(game, x, y, size, xTarget, yTarget, bulletSpeed, type, image) {
+    Object.assign(this, {game, x, y, size, xTarget, yTarget, bulletSpeed, type, image});
     this.distance = Math.floor(getDistance(this.xTarget, this.yTarget, this.x, this.y));
     this.xBulletDir = (this.xTarget - this.x) / this.distance;
     this.yBulletDir = (this.yTarget - this.y) / this.distance;
@@ -40,6 +40,7 @@ class Bullet {
   }
 
   update() {
+    //destroys bullet if hits a wall
     if (this.checkWallCollision()) {
       this.destroy();
     } else {
@@ -53,8 +54,18 @@ class Bullet {
     if (this.y < 0 || this.y > PARAMS.CANVAS_HEIGHT) {
       this.destroy();
     }
-
-
+    //damage to enemy
+    this.game.entities.enemies.forEach((enemy, i) => {
+      if ((enemy.BB != null) && enemy.BB.collide(this.BB) && (this.type === "player")) {
+        enemy.hp -=10;
+        console.log(enemy.hp);
+      }
+    });
+    //damage to player
+    if (this.game.player.BB.collide(this.BB) && (this.type == "enemy")) {
+      this.destroy();
+      this.game.player.hp -=10;
+    }
     this.updateBB();
   }
 
