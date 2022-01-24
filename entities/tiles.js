@@ -65,7 +65,7 @@ class Wall {
   updateBB() {
     this.BB = new BoundingBox(this.x, this.y, this.w, this.h);
     this.leftBB = new BoundingBox(this.x, this.y + 10, 3, this.h - 20);
-    this.rightBB = new BoundingBox(this.x + this.w - 3, this.y + 10, 3, this.h - 20);
+    this.rightBB = new BoundingBox(this.x + this.w - 3, this.y + 10, 3, this.h - 20); 
     this.topBB = new BoundingBox(this.x + 10, this.y, this.w - 20, 3);
     this.bottomBB = new BoundingBox(this.x + 10, this.y + this.h - 3, this.w - 20, 3);
   }
