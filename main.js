@@ -26,6 +26,13 @@ ASSET_MANAGER.queueDownload("./sprites/enemies/flying_monster/flying_monster_dow
 ASSET_MANAGER.queueDownload("./sprites/enemies/flying_monster/flying_monster_left.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/flying_monster/flying_monster_right.png");
 
+// music
+ASSET_MANAGER.queueDownload("./music/title.mp3");
+
+// background images
+ASSET_MANAGER.queueDownload("./images/title.png");
+ASSET_MANAGER.queueDownload("./images/credits.jpg");
+ASSET_MANAGER.queueDownload("./images/logo.png");
 
 
 
