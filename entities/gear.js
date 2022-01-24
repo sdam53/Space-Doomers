@@ -13,7 +13,7 @@ class Gear {
 
     updateBB() {
         this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x, this.y, 83, 88);
+        this.BB = new BoundingBox(this.x + 20, this.y + 9, 83, 88);
     }
 
     update() {
@@ -24,8 +24,12 @@ class Gear {
         ctx.drawImage(this.spritesheet,
             1, 1, //source from sheet
             83, 88,
-            this.x, this.y,
+            this.x + 20, this.y + 9,
             83,
             88);
+        if (PARAMS.DEBUG) {
+          ctx.strokeStyle = 'Blue';
+          ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+        }
     }
   }

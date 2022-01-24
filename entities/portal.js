@@ -14,7 +14,7 @@ class Portal {
 
     updateBB() {
         this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x, this.y, 16 * 5, 16 * 5);
+        this.BB = new BoundingBox(this.x + 20, this.y + 23, 16 * 5, 16 * 5);
     }
 
     update() {
@@ -22,6 +22,10 @@ class Portal {
     }
 
     draw(ctx){
-        this.animation.drawFrame(this.game.clockTick, ctx, this.x, this. y, 5);
+        this.animation.drawFrame(this.game.clockTick, ctx, this.x + 20, this. y + 23, 5);
+        if (PARAMS.DEBUG) {
+          ctx.strokeStyle = 'Blue';
+          ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+        }
     }
   }
