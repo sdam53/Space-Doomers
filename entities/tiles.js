@@ -52,5 +52,25 @@ class Ground {
         }
     }
     */
+    }
+}
+
+class Wall {
+  constructor(game, x, y, w, h, type) {
+    Object.assign(this, {game, x, y, w, h, type})
+  }
+
+  updateBB() {
+    this.BB = new BoundingBox(this.x, this.y, this.w, this.h);
+  }
+
+  update() {
+    this.updateBB();
+  }
+  draw(ctx) {
+    if (PARAMS.DEBUG) {
+      ctx.strokeStyle = 'White';
+      ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+    }
   }
 }

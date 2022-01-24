@@ -14,8 +14,8 @@ class FlyingMonster {
     this.hp = 100;
     this.velocity = {x: 0, y : 0};
 
-    this.bulletSpeed = 3;
-    this.bulletRate = 50;
+    this.bulletSpeed = 2;
+    this.bulletRate = 100;
     this.bulletTimer = this.bulletRate;
     this.bulletSize = 30;
     this.bullets = [];

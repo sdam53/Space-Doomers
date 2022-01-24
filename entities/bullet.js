@@ -29,18 +29,23 @@ class Bullet {
     }
 
   }
-
-  update() {
-    this.x += this.bulletSpeed * this.xBulletDir;
-    this.y += this.bulletSpeed * this.yBulletDir;
-
-    var that = this;
-    //doesnt work
-    this.game.entities.tiles.forEach((tile, i) => {
-      if ((tile.BB && that.BB.collide(tile.BB))) {
-        this.destroy();
+  checkWallCollision() {
+    let count = 0;
+    this.game.entities.tiles.forEach((tiles, i) => {
+      if ((tiles instanceof Wall) && (tiles.BB.collide(this.BB))) {
+        count++;
       }
     });
+    return (count >= 1);
+  }
+
+  update() {
+    if (this.checkWallCollision()) {
+      this.destroy();
+    } else {
+      this.x += this.bulletSpeed * this.xBulletDir;
+      this.y += this.bulletSpeed * this.yBulletDir;
+    }
     //destroys bullet if out of map
     if (this.x < 0 || this.x > PARAMS.CANVAS_WIDTH) {
       this.destroy();
