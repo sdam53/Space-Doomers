@@ -72,7 +72,6 @@ class Wall {
   }
   draw(ctx) {
     if (PARAMS.DEBUG && (typeof this.BB != 'undefined')) {
-      console.log(this.BB !=null);
       ctx.strokeStyle = 'Brown';
       ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
     }
