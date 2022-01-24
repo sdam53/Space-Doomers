@@ -63,7 +63,7 @@ class SceneManager {
     update() {
       let midpoint = PARAMS.CANVAS_WIDTH/2
       this.x = this.player.x - midpoint;
-
+      if (this.game.player.hp === 0) this.gameOver = true;
       this.updateAudio();
 
       // this.game.lclick = true;
