@@ -33,12 +33,14 @@ class SceneManager {
         for (let i = 0; i < MAPONE.MAP.length; i++) { //create level
           for (let j = 0; j < MAPONE.MAP[0].length; j++) {
             if (MAPONE.MAP[i][j] === 1) {
-              this.game.addTile(new Ground(this.game, x, y, 150, 150, 1));
+              this.game.addTile(new Ground(this.game, x, y, 125, 125, 1));
+            } else if (MAPONE.MAP[i][j] === 0) {
+              this.game.addTile(new Wall(this.game, x, y, 125, 125, 1));
             }
-            x += 150;
+            x += 125;
           }
           x = 0;
-          y += 150;
+          y += 125;
         }
       }
       //add player
@@ -59,7 +61,7 @@ class SceneManager {
       // this.game.lclick = true;
       console.log("lclick is ", this.game.lclick)
       // if (this.title && this.game.lclick && this.game.mouse.x > 800 && this.game.mouse.x < 1020 && this.game.mouse.y > 170 && this.game.mouse.y < 210)
-      
+
 
       // If title screen
       if (this.title && this.game.lclick) {
@@ -80,7 +82,7 @@ class SceneManager {
             this.credits = false;
             this.loadLevel(true, false);
         }
-      } 
+      }
 
     if (this.transition && this.game.lclick) {
         if (this.game.mouse.x > 1400 && this.game.mouse.x < 11640 && this.game.mouse.y > 760 && this.game.mouse.y < 810) {
@@ -109,7 +111,7 @@ class SceneManager {
 
       // Title Screen
       if (this.title && !this.credits && !this.transition) {
-        
+
         ctx.drawImage(this.titleBackground, 0, 0);
         ctx.drawImage(this.logo, 690, 160);
         ctx.fillStyle = "#4a8437";
@@ -135,22 +137,22 @@ class SceneManager {
         ctx.fillText("• Main Sprites: Moon Tribe", 710, 280);
         ctx.fillText("• Developers: Alex Trinh,", 710, 320);
         ctx.fillText("  Raz Consta, Shilnara Dam", 710, 360);
-    } 
+    }
 
     if (this.transition && !this.title && !this.credits) {
       ctx.drawImage(this.titleBackground, 0, 0);
       ctx.fillStyle = "#e6e4df";
       ctx.font = '30px "Nasa"';
-      ctx.fillText("Landing on an abandoned space station ", 600, 250) 
+      ctx.fillText("Landing on an abandoned space station ", 600, 250)
       ctx.fillText("   by mistake, Rob has to do everything   ", 600, 290);
-      ctx.fillText("   he can to make his way to the emergency", 600, 330); 
-      ctx.fillText("   escape pod and save himself.", 600, 370); 
+      ctx.fillText("   he can to make his way to the emergency", 600, 330);
+      ctx.fillText("   escape pod and save himself.", 600, 370);
       ctx.fillStyle = "#4a8437";
       ctx.fillRect(1400, 760, 240, 50);
       ctx.fillStyle = this.game.mouse && this.game.mouse.x > 1400 && this.game.mouse.x < 1640 && this.game.mouse.y > 760 && this.game.mouse.y < 810 ? "#e6e4df" : "Black";
       ctx.font = '40px "NASA"';
       ctx.fillText("CONTINUE", 1410, 800);
-    }  
+    }
     };
 
     }
