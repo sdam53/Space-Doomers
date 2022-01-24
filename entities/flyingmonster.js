@@ -32,22 +32,22 @@ class FlyingMonster {
     this.animations["left idle"] = new Animator(this.leftSprite, 0, 0, 244, 358, 29, 0.05, 0, false, true);
     this.animations["left run"] = new Animator(this.leftSprite, 0, 358, 248, 281, 13, 0.03, 0, false, true);
     this.animations["left attack"] = new Animator(this.leftSprite, 0, 639, 292, 390, 25, 0.03, 0, false, true);
-    this.animations["left death"] = new Animator(this.leftSprite, 0, 0, 1408, 517, 20, 0.03, 0, false, true); //very wrong
+    this.animations["left death"] = new Animator(this.leftSprite, 0, 1480, 305, 517, 20, 0.1, 5, false, true); //very wrong
 
     this.animations["right idle"] = new Animator(this.rightSprite, 0, 0, 244, 358, 29, 0.05, 0, false, true);
     this.animations["right run"] = new Animator(this.rightSprite, 0, 358, 248, 281, 13, 0.03, 0, false, true);
     this.animations["right attack"] = new Animator(this.rightSprite, 0, 639, 292, 390, 25, 0.03, 0, false, true);
-    this.animations["right death"] = new Animator(this.rightSprite, 0, 1408, 1408, 517, 20, 0.03, 0, false, true); //very wrong
+    this.animations["right death"] = new Animator(this.rightSprite, 0, 1480, 305, 517, 20, 0.1, 5, true, true); //very wrong
 
     this.animations["up idle"] = new Animator(this.upSprite, 0, 0, 401, 374, 29, 0.05, 0, false, true);
     this.animations["up run"] = new Animator(this.upSprite, 0, 374, 401, 366, 13, 0.03, 0, false, true);
     this.animations["up attack"] = new Animator(this.upSprite, 0, 740, 449, 387, 25, 0.03, 0, false, true);
-    this.animations["up death"] = new Animator(this.upSprite, 0, 1638, 516, 511, 16, 0.03, 0, false, true); //sprite height/y is cutting off
+    this.animations["up death"] = new Animator(this.upSprite, 0, 1475, 516, 500, 16, 0.1, 0, false, true);
 
     this.animations["down idle"] = new Animator(this.downSprite, 0, 0, 405, 362, 29, 0.05, 0, false, true);
     this.animations["down run"] = new Animator(this.downSprite, 0, 362, 402, 372, 13, 0.03, 0, false, true);
-    this.animations["down attack"] = new Animator(this.downSprite, 0, 734, 448, 366, 25, 0.03, 0, false, true); //shows next frame a bit
-    this.animations["down death"] = new Animator(this.downSprite, 0, 1475, 512, 511, 16, 0.03, 0, false, true);
+    this.animations["down attack"] = new Animator(this.downSprite, 0, 734, 440, 366, 25, 0.03, 8, false, true);
+    this.animations["down death"] = new Animator(this.downSprite, 0, 1475, 470, 511, 16, 0.1, 42, false, true);
 
 
   }
@@ -150,38 +150,48 @@ class FlyingMonster {
 
   draw(ctx) {
   // offsets for x and y since images are different sizes
-    if (this.facing === "left") {
+    if (this.state === "death") {
+      if (this.facing === "up") {
+        this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x - 18, this.y -50, .3);
+      } else if (this.facing === "down") {
+        this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x , this.y - 45, .3);
+      } else if (this.facing === "left") {
+        this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 20, this.y - 55, .3);
+      } else {
+        this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 15, this.y -55, .3);
+      }
+    } else {
+      if (this.facing === "left") {
+          if (this.state === "idle") {
+            this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 28, this.y + 2, .3);
+        } else if (this.state === "run") {
+          this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 26, this.y - 3, .3);
+        } else if (this.state === "attack") {
+            this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x +20, this.y - 37, .3);
+        }
+      } else if (this.facing === "right") {
         if (this.state === "idle") {
-          this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 28, this.y + 2, .3);
-      } else if (this.state === "run") {
-        this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 26, this.y - 3, .3);
-      } else if (this.state === "attack") {
-          this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x +20, this.y - 37, .3);
-      }
-    } else if (this.facing === "right") {
-      if (this.state === "idle") {
-        this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 19, this.y, .3);
-      } else if (this.state === "run") {
-        this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 20, this.y - 5, .3);
-      } else if (this.state === "attack") {
-        this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 12, this.y - 39, .3);
-      }
-    } else if (this.facing === "up") {
-      if (this.state === "idle" || this.state === "run") {
-        this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x, this.y - 3, .3);
-      } else if (this.state === "attack") {
-        this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x - 8, this.y - 8, .3);
-      }
-    } else if (this.facing === "down") {
-      if (this.state === "idle" || this.state === "run" || this.state === "attack") {
-        this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x, this.y, .3);
+          this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 19, this.y, .3);
+        } else if (this.state === "run") {
+          this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 20, this.y - 5, .3);
+        } else if (this.state === "attack") {
+          this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 12, this.y - 39, .3);
+        }
+      } else if (this.facing === "up") {
+        if (this.state === "idle" || this.state === "run") {
+          this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x, this.y - 3, .3);
+        } else if (this.state === "attack") {
+          this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x - 8, this.y - 8, .3);
+        }
+      } else if (this.facing === "down") {
+        if (this.state === "idle" || this.state === "run" || this.state === "attack") {
+          this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x, this.y, .3);
+        }
       }
     }
     if (PARAMS.DEBUG) {
       ctx.strokeStyle = 'Red';
       ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
     }
-    //ctx.strokeStyle = 'Blue';
-    //ctx.strokeRect(this.x + 200, this.y + 125, 100, 100);
   }
 }
