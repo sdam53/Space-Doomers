@@ -49,8 +49,8 @@ class SceneManager {
 
        if (!title && !transition) {
         this.game.addEnemy(new FlyingMonster(this.game, MAPONE.FLYINGMONSTER[0] * 125, MAPONE.FLYINGMONSTER[1] * 125));
-        this.game.addPowerUp(new Gear(this.game, 500, 650));
-        this.game.addPortal(new Portal(this.game, 270, 520))
+        this.game.addPowerUp(new Gear(this.game, MAPONE.GEARS[0] * 125, MAPONE.GEARS[1] * 125));
+        this.game.addPortal(new Portal(this.game, MAPONE.PORTAL[0] * 125, MAPONE.PORTAL[1] * 125))
        }
 
        if (!this.title) {

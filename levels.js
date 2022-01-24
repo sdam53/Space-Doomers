@@ -8,7 +8,9 @@ const MAPONE = {
        [0,0,1,0,0,1,1,1,1,0,1,1,1,1,0],
        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],
   PLAYER: [0,3],
-  FLYINGMONSTER: [12,5]
+  FLYINGMONSTER: [12,5],
+  GEARS: [5,6],
+  PORTAL: [2,4]
 
 };
 
