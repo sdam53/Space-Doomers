@@ -59,6 +59,23 @@ class Player {
       }
     }
 
+    calculateDirection() {
+
+      let mouse = {x: this.game.mouse.x - this.x, y : this.game.mouse.y - this.y};
+      console.log(this.x);
+      console.log(this.y);
+      let player = {x: 0, y : 0};
+      if ((mouse.x < player.x) && (mouse.y < (-1) * mouse.x) && (mouse.y > mouse.x)) { //left
+        this.facing = "left"
+      } else if ((mouse.x > player.x) && (mouse.y > (-1) * mouse.x) && (mouse.y < mouse.x)) {
+        this.facing = "right";
+      } else if ((mouse.y > player.y) && (mouse.y > (-1) * mouse.x) && (mouse.y > mouse.x)) {
+        this.facing = "down";
+      } else if ((mouse.y < player.y) && (mouse.y < (-1) * mouse.x) && (mouse.y < mouse.x)) {
+        this.facing = "up";
+      }
+    }
+
     die () {
 
     }
@@ -90,6 +107,10 @@ class Player {
         if ((this.game.keys["a"] || this.game.keys["ArrowLeft"]) && (!this.game.keys["d"] && !this.game.keys["ArrowRight"])) { // go left
             this.velocity.x = -RUN;
             this.state = "run";
+        }
+        if ((this.game.lclick)) { //shoot
+            this.state = "idle";
+            this.calculateDirection()
         }
 
         // update direction
