@@ -48,7 +48,8 @@ class SceneManager {
        this.game.entities.player = this.player;
 
        if (!title && !transition) {
-        this.game.addEnemy(new FlyingMonster(this.game, MAPONE.FLYINGMONSTER[0] * 125, MAPONE.FLYINGMONSTER[1] * 125))
+        this.game.addEnemy(new FlyingMonster(this.game, MAPONE.FLYINGMONSTER[0] * 125, MAPONE.FLYINGMONSTER[1] * 125));
+        this.game.addPowerUp(new Gear(this.game, 500, 650));
        }
        
        if (!this.title) {

@@ -12,7 +12,8 @@ class GameEngine {
             enemies: [],
             bullets: [],
             tiles: [],
-            portal: []
+            portal: [],
+            powerup: []
         };
         // Entities to be added at the end of each update
         this.entitiesToAdd = [];
@@ -132,7 +133,9 @@ class GameEngine {
         this.entities.portal.push(entity);
     };
 
-
+    addPowerUp(entity) {
+        this.entities.powerup.push(entity);
+    };
 
     draw() {
         // Clear the whole canvas with transparent color (rgba(0, 0, 0, 0))
@@ -149,6 +152,9 @@ class GameEngine {
         this.entities.bullets.forEach((bullet, i) => {
           bullet.draw(this.ctx);
         });
+        this.entities.powerup.forEach((powerup, i) => {
+            powerup.draw(this.ctx);
+          });
         this.entities.player.draw(this.ctx, this);
         this.camera.draw(this.ctx);
     };
@@ -169,6 +175,9 @@ class GameEngine {
         this.entities.bullets.forEach((bullet, i) => {
           bullet.update();
         });
+        this.entities.powerup.forEach((powerup, i) => {
+            powerup.update();
+          });
         // Remove dead things
         this.entities.bullets = this.entities.bullets.filter(entity => !entity.removeFromWorld);
         this.entities.enemies = this.entities.enemies.filter(entity => !entity.removeFromWorld);
