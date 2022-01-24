@@ -31,7 +31,7 @@ ASSET_MANAGER.queueDownload("./sprites/enemies/flying_monster/flying_monster_rig
 ASSET_MANAGER.queueDownload("./music/title.mp3");
 
 // background images
-ASSET_MANAGER.queueDownload("./images/title.PNG");
+ASSET_MANAGER.queueDownload("./images/title.png");
 ASSET_MANAGER.queueDownload("./images/credits.jpg");
 ASSET_MANAGER.queueDownload("./images/logo.png");
 

@@ -11,7 +11,7 @@ class SceneManager {
         this.player = new Player(this.game, 100, 100);
         this.game.entities.player = this.player;
         this.titleMusicPath = "./music/title.mp3";
-        this.titleBackground = ASSET_MANAGER.getAsset("./images/title.PNG");
+        this.titleBackground = ASSET_MANAGER.getAsset("./images/title.png");
         this.logo = ASSET_MANAGER.getAsset("./images/logo.png");
         this.creditsBackground = ASSET_MANAGER.getAsset("./images/credits.jpg");
 
