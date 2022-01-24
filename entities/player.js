@@ -144,33 +144,24 @@ class Player {
         this.game.entities.tiles.forEach(function (entity) {
           if (entity.BB && that.feetBB.collide(entity.BB)) {
             if (entity instanceof Wall) {
-              if (that.facing == "up")
+              if (entity.leftBB && that.feetBB.collide(entity.leftBB)) // collides with left side of wall
               {
-                if (that.velocity.x > 0) that.x = that.x - 2;
-                else if (that.velocity.x < 0) that.x = that.x + 2;
-                else if (that.velocity.y < 0) that.y = that.y + 2;
+                that.x = that.x - 2;
               }
-              else if (that.facing == "down")
+              if (entity.rightBB && that.feetBB.collide(entity.rightBB)) // collides with right side of wall
               {
-                if (that.velocity.x > 0) that.x = that.x - 2;
-                else if (that.velocity.x < 0) that.x = that.x + 2;
-                else if (that.velocity.y > 0) that.y = that.y - 2;
+                that.x = that.x + 2;
               }
-              else if (that.facing == "left" && that.velocity.x < 0)
+              if (entity.topBB && that.feetBB.collide(entity.topBB)) // collides with top side of wall
               {
-                if (that.velocity.y > 0) that.y = that.y - 2;
-                else if (that.velocity.y < 0) that.y = that.y + 2;
-                else if (that.velocity.x < 0) that.x = that.x + 2;
+                that.y = that.y - 2;
               }
-              else if (that.facing == "right" && that.velocity.x > 0)
+              if (entity.bottomBB && that.feetBB.collide(entity.bottomBB)) // collides with bottom side of wall
               {
-                if (that.velocity.y > 0) that.y = that.y - 2;
-                else if (that.velocity.y < 0) that.y = that.y + 2;
-                else if (that.velocity.x > 0) that.x = that.x - 2;
+                that.y = that.y + 2;
               }
-            }
           }
-        });
+        }});
         this.game.entities.portal.forEach(function (entity) {
           if (entity.BB && that.BB.collide(entity.BB)) {
             if (entity instanceof Portal) {

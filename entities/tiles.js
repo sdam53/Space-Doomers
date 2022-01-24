@@ -58,22 +58,30 @@ class Ground {
 class Wall {
   constructor(game, x, y, w, h, type) {
     Object.assign(this, {game, x, y, w, h, type})
-    this.BB = new BoundingBox(this.x, this.y, this.w, this.h);
     this.updateBB();
 
   }
 
   updateBB() {
     this.BB = new BoundingBox(this.x, this.y, this.w, this.h);
+    this.leftBB = new BoundingBox(this.x, this.y + 10, 3, this.h - 20);
+    this.rightBB = new BoundingBox(this.x + this.w - 3, this.y + 10, 3, this.h - 20); 
+    this.topBB = new BoundingBox(this.x + 10, this.y, this.w - 20, 3);
+    this.bottomBB = new BoundingBox(this.x + 10, this.y + this.h - 3, this.w - 20, 3);
   }
 
   update() {
     this.updateBB();
   }
+
   draw(ctx) {
     if (PARAMS.DEBUG && (typeof this.BB != 'undefined')) {
       ctx.strokeStyle = 'Brown';
-      ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+      // ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+      ctx.strokeRect(this.leftBB.x, this.leftBB.y, this.leftBB.width, this.leftBB.height);
+      ctx.strokeRect(this.rightBB.x, this.rightBB.y, this.rightBB.width, this.rightBB.height);
+      ctx.strokeRect(this.topBB.x, this.topBB.y, this.topBB.width, this.topBB.height);
+      ctx.strokeRect(this.bottomBB.x, this.bottomBB.y, this.bottomBB.width, this.bottomBB.height);
     }
   }
 }
