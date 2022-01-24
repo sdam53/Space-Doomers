@@ -22,6 +22,8 @@ class GameEngine {
         this.mouse = null;
         this.wheel = null;
         this.keys = {"w": false, "a": false, "s": false, "d":false, "ArrowLeft": false, "ArrowRight": false, "ArrowUp": false, "ArrowDown": false, ".": false};
+        this.lclick = false;
+        this.mouse = {x: 0, y: 0};
 
         // THE KILL SWITCH
         this.running = false;
@@ -54,17 +56,18 @@ class GameEngine {
     };
 
     startInput() {
-        const getXandY = e => ({
-            x: e.clientX - this.ctx.canvas.getBoundingClientRect().left,
-            y: e.clientY - this.ctx.canvas.getBoundingClientRect().top
-        });
+        var that = this;
 
-        this.ctx.canvas.addEventListener("mousemove", e => {
-            if (this.options.debugging) {
-                console.log("MOUSE_MOVE", getXandY(e));
-            }
-            this.mouse = getXandY(e);
-        });
+        var getXandY = function (e) {
+            var x = e.clientX - that.ctx.canvas.getBoundingClientRect().left;
+            var y = e.clientY - that.ctx.canvas.getBoundingClientRect().top;
+
+            return { x: x, y: y, radius: 0 };
+        }
+
+        this.ctx.canvas.addEventListener("mousemove", function (e) {
+            that.mouse = getXandY(e);
+        }, false);
 
         this.ctx.canvas.addEventListener("click", e => {
             if (this.options.debugging) {
@@ -72,6 +75,22 @@ class GameEngine {
             }
             this.click = getXandY(e);
         });
+
+        // Added by Raz
+        this.ctx.canvas.addEventListener("mousedown", function (e) {
+            this.lclick = getXandY(e);
+            if (e.button == 0) {
+                that.lclick = true;
+            }
+        }, false);
+
+        // Added by Raz
+        this.ctx.canvas.addEventListener("mouseup", function (e) {
+            this.lclick = getXandY(e);
+            if (e.button == 0) {
+                that.lclick = false;
+            } 
+        }, false);
 
         this.ctx.canvas.addEventListener("wheel", e => {
             if (this.options.debugging) {

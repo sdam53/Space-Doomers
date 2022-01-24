@@ -2,8 +2,26 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <style>
+      body {
+            font-family: 'Nasa', serif;
+            font-size: 24px;
+        }
+        @font-face {
+            font-family: 'Nasa';
+            src: url("./font/nasa.otf");
+        }
+        canvas {
+            padding-left: 0;
+            padding-right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            font-size: 20px;
+        }  
+    </style>
     <meta charset="utf-8">
-    <title>Game Project Title Goes Here</title>
+    <title>Space Doomers</title>
 
     <script type="text/javascript" src="./assetmanager.js"></script>
     <script type="text/javascript" src="./timer.js"></script>
@@ -25,9 +43,9 @@
 
 </head>
 <body>
-    <canvas id="gameWorld" width="1800" height="900" style="background: black; border: 1px solid black" tabindex ="0" autofocus></canvas>
-    <div>
-        <br />
+    <canvas id="gameWorld" width="1875" height="850" style="background: black; border: 1px solid black" tabindex ="0" autofocus></canvas>
+    <div align = "right">
+        <br>
         <input type="checkbox" id="debug"> Debug <input type="checkbox" id="mute"> Mute <input type="range" id="volume" min="0" max="1" value="0.1" step="0.05"> Volume
     </div>
 </body>
