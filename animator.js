@@ -5,6 +5,9 @@ class Animator {
         this.elapsedTime = 0;
         this.totalTime = this.frameCount * this.frameDuration;
 
+        this.frame = 1; //current frame
+        this.flag = false; //animation in progress
+
     };
 
     drawFrame(tick, ctx, x, y, scale) {
@@ -12,6 +15,8 @@ class Animator {
 
         if (this.isDone()) {
             if (this.loop) {
+                this.frame = 1;
+                this.flag = false;
                 this.elapsedTime -= this.totalTime;
             } else {
                 return;
@@ -32,6 +37,7 @@ class Animator {
             ctx.strokeStyle = 'Green';
             ctx.strokeRect(x, y, this.width * scale, this.height * scale);
         }
+        this.frame = frame;
     };
 
     currentFrame() {
