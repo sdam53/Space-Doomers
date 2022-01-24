@@ -18,6 +18,7 @@ class SceneManager {
         this.title = true;
         this.transition = false;
         this.credits = false;
+        this.gameOver = false;
         // this.ground = new Ground(this.game,0,0, 1400, 800, "");
         this.loadLevel(this.title, false);
 
@@ -29,7 +30,7 @@ class SceneManager {
       this.credits = false;
       let x = 0;
       let y = 0;
-      if (!title) {
+      if (!title && !this.gameOver) {
         for (let i = 0; i < MAPONE.MAP.length; i++) { //create level
           for (let j = 0; j < MAPONE.MAP[0].length; j++) {
             if (MAPONE.MAP[i][j] === 1) {
@@ -47,7 +48,7 @@ class SceneManager {
        this.player = new Player(this.game, MAPONE.PLAYER[0] * 125, MAPONE.PLAYER[1] * 125);
        this.game.entities.player = this.player;
 
-       if (!title && !transition) {
+       if (!title && !transition && !this.gameOver) {
         this.game.addEnemy(new FlyingMonster(this.game, MAPONE.FLYINGMONSTER[0] * 125, MAPONE.FLYINGMONSTER[1] * 125));
         this.game.addPowerUp(new Gear(this.game, MAPONE.GEARS[0] * 125, MAPONE.GEARS[1] * 125));
         this.game.addPortal(new Portal(this.game, MAPONE.PORTAL[0] * 125, MAPONE.PORTAL[1] * 125))
@@ -58,6 +59,7 @@ class SceneManager {
         ASSET_MANAGER.playAsset(this.titleMusicPath);
      }
     }
+
     update() {
       let midpoint = PARAMS.CANVAS_WIDTH/2
       this.x = this.player.x - midpoint;
@@ -74,7 +76,6 @@ class SceneManager {
         if (!this.credits && this.game.mouse.x > 300 && this.game.mouse.x < 590 && this.game.mouse.y > 760 && this.game.mouse.y < 810) {
             this.title = false;
             this.player = new Player(this.game, 100, 100);
-            console.log("here")
             this.loadLevel(false, true);
         }
         // Title Screen -> Credits
@@ -90,12 +91,18 @@ class SceneManager {
       }
 
     if (this.transition && this.game.lclick) {
-        if (this.game.mouse.x > 1400 && this.game.mouse.x < 11640 && this.game.mouse.y > 760 && this.game.mouse.y < 810) {
+        if (this.game.mouse.x > 1400 && this.game.mouse.x < 1640 && this.game.mouse.y > 760 && this.game.mouse.y < 810) {
             this.transition = false;
             this.title = false;
             this.player = new Player(this.game, 100, 100);
             this.loadLevel(false, false);
         }
+    }
+    if (this.gameOver && this.game.lclick) {
+      if (this.game.mouse.x > 780 && this.game.mouse.x < 1075 && this.game.mouse.y > 40 && this.game.mouse.y < 90) {
+        this.gameOver = false;
+        this.loadLevel(true, false);
+      }
     }
 
     };
@@ -157,6 +164,14 @@ class SceneManager {
       ctx.fillStyle = this.game.mouse && this.game.mouse.x > 1400 && this.game.mouse.x < 1640 && this.game.mouse.y > 760 && this.game.mouse.y < 810 ? "#e6e4df" : "Black";
       ctx.font = '40px "NASA"';
       ctx.fillText("CONTINUE", 1410, 800);
+    }
+
+    if (this.gameOver) {
+      ctx.drawImage(this.creditsBackground, 0, 0);
+      ctx.fillStyle = "#4191b1";
+      ctx.fillRect(780, 40, 295, 50);
+      ctx.fillStyle = this.game.mouse && this.game.mouse.x > 780 && this.game.mouse.x < 1075 && this.game.mouse.y > 40 && this.game.mouse.y < 90 ? "#e6e4df" : "Black";
+      ctx.fillText("TRY AGAIN", 790, 80);
     }
     };
 
