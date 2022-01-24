@@ -50,8 +50,9 @@ class SceneManager {
        if (!title && !transition) {
         this.game.addEnemy(new FlyingMonster(this.game, MAPONE.FLYINGMONSTER[0] * 125, MAPONE.FLYINGMONSTER[1] * 125));
         this.game.addPowerUp(new Gear(this.game, 500, 650));
+        this.game.addPortal(new Portal(this.game, 270, 520))
        }
-       
+
        if (!this.title) {
         ASSET_MANAGER.pauseBackgroundMusic();
         ASSET_MANAGER.playAsset(this.titleMusicPath);
@@ -64,7 +65,6 @@ class SceneManager {
       this.updateAudio();
 
       // this.game.lclick = true;
-      console.log("lclick is ", this.game.lclick)
       // if (this.title && this.game.lclick && this.game.mouse.x > 800 && this.game.mouse.x < 1020 && this.game.mouse.y > 170 && this.game.mouse.y < 210)
 
 
