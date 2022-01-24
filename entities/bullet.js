@@ -57,8 +57,8 @@ class Bullet {
     //damage to enemy
     this.game.entities.enemies.forEach((enemy, i) => {
       if ((enemy.BB != null) && enemy.BB.collide(this.BB) && (this.type === "player")) {
+        this.destroy();
         enemy.hp -=10;
-        console.log(enemy.hp);
       }
     });
     //damage to player
