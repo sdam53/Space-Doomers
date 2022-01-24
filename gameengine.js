@@ -170,7 +170,8 @@ class GameEngine {
           bullet.update();
         });
         // Remove dead things
-      //  this.entities = this.entities.filter(entity => !entity.removeFromWorld)
+        this.entities.bullets = this.entities.bullets.filter(entity => !entity.removeFromWorld);
+        this.entities.enemies = this.entities.enemies.filter(entity => !entity.removeFromWorld);
       this.entities.player.update();
       this.camera.update();
     };

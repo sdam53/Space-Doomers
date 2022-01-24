@@ -7,6 +7,7 @@ class SceneManager {
         // this.score = 0;
         // this.coins = 0;
 
+
         this.player = new Player(this.game, 100, 100);
         this.game.entities.player = this.player;
         this.titleMusicPath = "./music/title.mp3";
@@ -17,7 +18,6 @@ class SceneManager {
         this.title = true;
         this.transition = false;
         this.credits = false;
-
         // this.ground = new Ground(this.game,0,0, 1400, 800, "");
         this.loadLevel(this.title, false);
 
@@ -29,7 +29,6 @@ class SceneManager {
       this.credits = false;
       let x = 0;
       let y = 0;
-
       if (!title) {
         for (let i = 0; i < MAPONE.MAP.length; i++) { //create level
           for (let j = 0; j < MAPONE.MAP[0].length; j++) {
@@ -43,15 +42,14 @@ class SceneManager {
         }
       }
       //add player
-    //  this.player = new Player(this.game, MAPONE.PLAYER[0], MAPONE.PLAYER[1]);
-    //  this.game.entities.player = this.player;
-      if (!this.title) {
+       this.player = new Player(this.game, MAPONE.PLAYER[0] * 125, MAPONE.PLAYER[1] * 125);
+       this.game.entities.player = this.player;
+       this.game.addEnemy(new FlyingMonster(this.game, MAPONE.FLYINGMONSTER[0] * 125, MAPONE.FLYINGMONSTER[1] * 125))
+       if (!this.title) {
         ASSET_MANAGER.pauseBackgroundMusic();
         ASSET_MANAGER.playAsset(this.titleMusicPath);
-      }
+     }
     }
-
-
     update() {
       let midpoint = PARAMS.CANVAS_WIDTH/2
       this.x = this.player.x - midpoint;

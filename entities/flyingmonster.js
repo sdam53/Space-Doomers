@@ -123,9 +123,10 @@ class FlyingMonster {
   }
 
   update() {
-    this.calculatedDirection();
+
     //shoots at player when close
     if (getDistance(this.x, this.y, this.game.player.x, this.game.player.y) < 1000) {
+      this.calculatedDirection();
       if (this.bulletTimer <= 0) {
         let ran = randomInt(3)
         if (ran === 0) {
