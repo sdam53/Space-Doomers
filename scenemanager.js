@@ -46,7 +46,11 @@ class SceneManager {
       //add player
        this.player = new Player(this.game, MAPONE.PLAYER[0] * 125, MAPONE.PLAYER[1] * 125);
        this.game.entities.player = this.player;
-       this.game.addEnemy(new FlyingMonster(this.game, MAPONE.FLYINGMONSTER[0] * 125, MAPONE.FLYINGMONSTER[1] * 125))
+
+       if (!title && !transition) {
+        this.game.addEnemy(new FlyingMonster(this.game, MAPONE.FLYINGMONSTER[0] * 125, MAPONE.FLYINGMONSTER[1] * 125))
+       }
+       
        if (!this.title) {
         ASSET_MANAGER.pauseBackgroundMusic();
         ASSET_MANAGER.playAsset(this.titleMusicPath);
