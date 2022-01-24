@@ -46,7 +46,7 @@ class Player {
         this.animations["down idle"] = new Animator(this.spritesheet3, 0, 0, 280, 339, 25, 0.05, 0, false, true);
         this.animations["down run"] = new Animator(this.spritesheet4, 0, 0, 299, 343, 16, 0.03, 0, false, true);
 
-        this.animations["death"] = new Animator(this.spritesheet10, 0, 0, 369, 454, 18, 0.05, 0, false, true);
+        this.animations["death"] = new Animator(this.spritesheet10, 0, 0, 369, 454, 18, 0.05, 0, false, false);
     }
 
     updateBB() {
@@ -88,6 +88,10 @@ class Player {
         const TICK = this.game.clockTick;
         const RUN = 350;
 
+        if (this.hp <= 0) {
+          this.state = "death";
+          return;
+        }
         // Movement and User Input
 
         this.velocity.x = 0;
@@ -135,42 +139,27 @@ class Player {
         this.updateBB();
 
         var that = this;
-        this.game.entities.enemies.forEach(function (entity) {
-
-        });
-        this.game.entities.bullets.forEach(function (entity) {
-
-        });
         this.game.entities.tiles.forEach(function (entity) {
           if (entity.BB && that.feetBB.collide(entity.BB)) {
             if (entity instanceof Wall) {
-              if (that.facing == "up")
+              if (entity.leftBB && that.feetBB.collide(entity.leftBB)) // collides with left side of wall
               {
-                if (that.velocity.x > 0) that.x = that.x - 2;
-                else if (that.velocity.x < 0) that.x = that.x + 2;
-                else if (that.velocity.y < 0) that.y = that.y + 2;
+                that.x = that.x - 2;
               }
-              else if (that.facing == "down")
+              if (entity.rightBB && that.feetBB.collide(entity.rightBB)) // collides with right side of wall
               {
-                if (that.velocity.x > 0) that.x = that.x - 2;
-                else if (that.velocity.x < 0) that.x = that.x + 2;
-                else if (that.velocity.y > 0) that.y = that.y - 2;
+                that.x = that.x + 2;
               }
-              else if (that.facing == "left" && that.velocity.x < 0)
+              if (entity.topBB && that.feetBB.collide(entity.topBB)) // collides with top side of wall
               {
-                if (that.velocity.y > 0) that.y = that.y - 2;
-                else if (that.velocity.y < 0) that.y = that.y + 2;
-                else if (that.velocity.x < 0) that.x = that.x + 2;
+                that.y = that.y - 2;
               }
-              else if (that.facing == "right" && that.velocity.x > 0)
+              if (entity.bottomBB && that.feetBB.collide(entity.bottomBB)) // collides with bottom side of wall
               {
-                if (that.velocity.y > 0) that.y = that.y - 2;
-                else if (that.velocity.y < 0) that.y = that.y + 2;
-                else if (that.velocity.x > 0) that.x = that.x - 2;
+                that.y = that.y + 2;
               }
-            }
           }
-        });
+        }});
         this.game.entities.portal.forEach(function (entity) {
           if (entity.BB && that.BB.collide(entity.BB)) {
             if (entity instanceof Portal) {
@@ -194,7 +183,11 @@ class Player {
     draw(ctx) {
         // this.healthbar.draw(ctx);
         // this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y);
-        this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y, 0.3);
+        if (this.hp <= 0) {
+          this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y, 0.3);
+        } else {
+          this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y, 0.3);
+        }
 
         if (PARAMS.DEBUG) {
           ctx.strokeStyle = 'Blue';
