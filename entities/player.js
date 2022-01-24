@@ -20,6 +20,7 @@ class Player {
 
         this.maxhp = 100;
         this.hp = 100;
+        this.gears = 0;
 
         this.velocity = {x: 0, y : 0};
 
@@ -50,20 +51,23 @@ class Player {
 
     updateBB() {
       this.lastBB = this.BB;
-      if (this.facing === "right") {
-        this.BB = new BoundingBox(this.x + 2, this.y + 1, 72, 92);
+      /* if (this.facing === "right") {
+        // this.BB = new BoundingBox(this.x + 2, this.y + 1, 72, 92);
+        this.BB = new BoundingBox(this.x, this.y, 72, 92);
       } else if (this.facing === "left") {
-        this.BB = new BoundingBox(this.x + 5, this.y + 1, 72, 92);
+        // this.BB = new BoundingBox(this.x + 5, this.y + 1, 72, 92);
+        this.BB = new BoundingBox(this.x, this.y, 72, 92);
       } else {
-        this.BB = new BoundingBox(this.x + 7, this.y + 1, 72, 90);
-      }
+        // this.BB = new BoundingBox(this.x + 7, this.y + 1, 72, 90);
+      } */
+
+      this.BB = new BoundingBox(this.x, this.y, 86, 93);
+      this.feetBB = new BoundingBox(this.x + 20, this.y + 73, 50, 20);
     }
 
     calculateDirection() {
 
       let mouse = {x: this.game.mouse.x - this.x, y : this.game.mouse.y - this.y};
-      console.log(this.x);
-      console.log(this.y);
       let player = {x: 0, y : 0};
       if ((mouse.x < player.x) && (mouse.y < (-1) * mouse.x) && (mouse.y > mouse.x)) { //left
         this.facing = "left"
@@ -123,8 +127,69 @@ class Player {
         this.x += this.velocity.x * TICK;
         this.y += this.velocity.y * TICK;
 
+        if (this.x < -30) this.x = -30; // don't let player fall off left edge
+        if (this.y < -50) this.y = -50; // don't let player fall off upper edge
+        if (this.y > 810) this.y = this.y - 5; // don't let playerr fall off lower edge
+        // implement fall off right edge
+
         this.updateBB();
-    }
+
+        var that = this;
+        this.game.entities.enemies.forEach(function (entity) {
+
+        });
+        this.game.entities.bullets.forEach(function (entity) {
+
+        });
+        this.game.entities.tiles.forEach(function (entity) {
+          if (entity.BB && that.feetBB.collide(entity.BB)) {
+            if (entity instanceof Wall) {
+              if (that.facing == "up")
+              {
+                if (that.velocity.x > 0) that.x = that.x - 2;
+                else if (that.velocity.x < 0) that.x = that.x + 2;
+                else if (that.velocity.y < 0) that.y = that.y + 2;
+              }
+              else if (that.facing == "down")
+              {
+                if (that.velocity.x > 0) that.x = that.x - 2;
+                else if (that.velocity.x < 0) that.x = that.x + 2;
+                else if (that.velocity.y > 0) that.y = that.y - 2;
+              }
+              else if (that.facing == "left" && that.velocity.x < 0)
+              {
+                if (that.velocity.y > 0) that.y = that.y - 2;
+                else if (that.velocity.y < 0) that.y = that.y + 2;
+                else if (that.velocity.x < 0) that.x = that.x + 2;
+              }
+              else if (that.facing == "right" && that.velocity.x > 0)
+              {
+                if (that.velocity.y > 0) that.y = that.y - 2;
+                else if (that.velocity.y < 0) that.y = that.y + 2;
+                else if (that.velocity.x > 0) that.x = that.x - 2;
+              }
+            }
+          }
+        });
+        this.game.entities.portal.forEach(function (entity) {
+          if (entity.BB && that.BB.collide(entity.BB)) {
+            if (entity instanceof Portal) {
+              that.x = 1000;
+              that.y = 500;
+            }
+          }
+        });
+        this.game.entities.powerup.forEach(function (entity) {
+          if (entity.BB && that.BB.collide(entity.BB)) {
+            if (entity instanceof Gear) {
+              entity.removeFromWorld = true;
+              console.log("gear is ", that.gears);
+              that.gears++;
+              console.log("gear is ", that.gears);
+            }
+          }
+        });
+      }
 
     draw(ctx) {
         // this.healthbar.draw(ctx);
@@ -134,6 +199,8 @@ class Player {
         if (PARAMS.DEBUG) {
           ctx.strokeStyle = 'Blue';
           ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+          ctx.strokeStyle = "Green";
+          ctx.strokeRect(this.feetBB.x, this.feetBB.y, this.feetBB.width, this.feetBB.height)
         }
     }
 }
