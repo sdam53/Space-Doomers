@@ -18,7 +18,7 @@ class Ground {
 
   draw(ctx) {
     ctx.drawImage(this.tile, this.x, this.y, this.w, this.h);
-    if (PARAMS.DEBUG) {
+    if (PARAMS.DEBUG && (typeof this.BB != 'undefined')) {
       ctx.strokeStyle = 'Green';
       ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
     }
@@ -58,6 +58,9 @@ class Ground {
 class Wall {
   constructor(game, x, y, w, h, type) {
     Object.assign(this, {game, x, y, w, h, type})
+    this.BB = new BoundingBox(this.x, this.y, this.w, this.h);
+    this.updateBB();
+
   }
 
   updateBB() {
@@ -68,8 +71,9 @@ class Wall {
     this.updateBB();
   }
   draw(ctx) {
-    if (PARAMS.DEBUG) {
-      ctx.strokeStyle = 'White';
+    if (PARAMS.DEBUG && (typeof this.BB != 'undefined')) {
+      console.log(this.BB !=null);
+      ctx.strokeStyle = 'Brown';
       ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
     }
   }
