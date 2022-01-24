@@ -24,6 +24,11 @@ class Player {
 
         this.velocity = {x: 0, y : 0};
 
+        this.bulletSpeed = 4;
+        this.bulletRate = 75;
+        this.bulletTimer = this.bulletRate;
+        this.bulletSize = 30;
+
 
         this.animations = [];
         this.loadAnimations();
@@ -116,9 +121,26 @@ class Player {
             this.velocity.x = -RUN;
             this.state = "run";
         }
-        if ((this.game.lclick)) { //shoot
+        //shooting
+        if ((this.game.lclick)) {
+          if (this.bulletTimer <= 0) {
             this.state = "idle";
             this.calculateDirection()
+            if (this.facing === "left") {
+              this.game.addBullet(new Bullet(this.game, this.x - 25, this.y + 55, this.bulletSize, this.game.mouse.x, this.game.mouse.y, this.bulletSpeed, "player", this.spritesheet9))
+            } else if (this.facing === "right") {
+              this.game.addBullet(new Bullet(this.game, this.x + 75, this.y + 55, this.bulletSize, this.game.mouse.x, this.game.mouse.y, this.bulletSpeed, "player", this.spritesheet9))
+            } else if (this.facing === "up") {
+              this.game.addBullet(new Bullet(this.game, this.x + 24, this.y, this.bulletSize, this.game.mouse.x, this.game.mouse.y, this.bulletSpeed, "player", this.spritesheet9))
+            } else {
+              this.game.addBullet(new Bullet(this.game, this.x + 24, this.y + 87, this.bulletSize, this.game.mouse.x, this.game.mouse.y, this.bulletSpeed, "player", this.spritesheet9))
+            }
+            this.bulletTimer = this.bulletRate;
+          }
+        }
+        //shooting cooldown counter
+        if (this.bulletTimer <= this.bulletRate) {
+          this.bulletTimer--;
         }
 
         // update direction
@@ -136,8 +158,8 @@ class Player {
         if (this.y > 810) this.y = this.y - 5; // don't let playerr fall off lower edge
         // implement fall off right edge
 
-        this.updateBB();
 
+        //wall collision
         var that = this;
         this.game.entities.tiles.forEach(function (entity) {
           if (entity.BB && that.feetBB.collide(entity.BB)) {
@@ -178,6 +200,7 @@ class Player {
             }
           }
         });
+        this.updateBB();
       }
 
     draw(ctx) {
