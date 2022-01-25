@@ -34,7 +34,7 @@ ASSET_MANAGER.queueDownload("./music/title.mp3");
 ASSET_MANAGER.queueDownload("./images/title.png");
 ASSET_MANAGER.queueDownload("./images/credits.jpg");
 ASSET_MANAGER.queueDownload("./images/logo.png");
-
+ASSET_MANAGER.queueDownload("./images/over.png");
 
 
 ASSET_MANAGER.downloadAll(() => {

@@ -21,6 +21,7 @@ class SceneManager {
         this.gameOver = false;
         // this.ground = new Ground(this.game,0,0, 1400, 800, "");
         this.loadLevel(this.title, false);
+        this.death = new Animator(this.game.player.spritesheet10, 0, 0, 369, 454, 18, 0.05, 0, false, false);
 
     }
 
@@ -99,7 +100,7 @@ class SceneManager {
         }
     }
     if (this.gameOver && this.game.lclick) {
-      if (this.game.mouse.x > 780 && this.game.mouse.x < 1075 && this.game.mouse.y > 40 && this.game.mouse.y < 90) {
+      if (this.game.mouse.x > 830 && this.game.mouse.x < 1075 && this.game.mouse.y > 40 && this.game.mouse.y < 90) {
         this.gameOver = false;
         this.loadLevel(true, false);
       }
@@ -169,9 +170,14 @@ class SceneManager {
     if (this.gameOver) {
       ctx.drawImage(this.creditsBackground, 0, 0);
       ctx.fillStyle = "#4191b1";
-      ctx.fillRect(780, 40, 295, 50);
-      ctx.fillStyle = this.game.mouse && this.game.mouse.x > 780 && this.game.mouse.x < 1075 && this.game.mouse.y > 40 && this.game.mouse.y < 90 ? "#e6e4df" : "Black";
-      ctx.fillText("TRY AGAIN", 790, 80);
+      ctx.fillRect(830, 40, 245, 50);
+      ctx.fillStyle = this.game.mouse && this.game.mouse.x > 830 && this.game.mouse.x < 1075 && this.game.mouse.y > 40 && this.game.mouse.y < 90 ? "#e6e4df" : "Black";
+      ctx.fillText("TRY AGAIN", 840, 80);
+      ctx.drawImage(ASSET_MANAGER.getAsset("./images/over.png"),200, 200);
+      this.death.drawFrame(this.game.clockTick, ctx, 750, 400, 1);
+      if (this.death.frame > 16) {
+        ctx.drawImage(ASSET_MANAGER.getAsset("./sprites/player/player_down_death.png"), 6273, 0, 369, 454, 750, 400, 369, 454);
+      } 
     }
     };
 
