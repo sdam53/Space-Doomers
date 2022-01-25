@@ -90,7 +90,7 @@ class GameEngine {
             this.lclick = getXandY(e);
             if (e.button == 0) {
                 that.lclick = false;
-            } 
+            }
         }, false);
 
         this.ctx.canvas.addEventListener("wheel", e => {
@@ -181,6 +181,7 @@ class GameEngine {
         // Remove dead things
         this.entities.bullets = this.entities.bullets.filter(entity => !entity.removeFromWorld);
         this.entities.enemies = this.entities.enemies.filter(entity => !entity.removeFromWorld);
+        this.entities.powerup = this.entities.powerup.filter(entity => !entity.removeFromWorld);
       this.entities.player.update();
       this.camera.update();
     };
