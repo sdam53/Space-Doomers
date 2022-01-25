@@ -20,6 +20,7 @@ ASSET_MANAGER.queueDownload("./sprites/player/player_right_idle.png");
 ASSET_MANAGER.queueDownload("./sprites/player/player_right_run.png");
 ASSET_MANAGER.queueDownload("./sprites/player/player_bullet.png");
 ASSET_MANAGER.queueDownload("./sprites/player/player_down_death.png");
+ASSET_MANAGER.queueDownload("./sprites/player/hp_bar.png");
 
 ASSET_MANAGER.queueDownload("./sprites/enemies/flying_monster/flying_monster_bullet.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/flying_monster/flying_monster_up.png");

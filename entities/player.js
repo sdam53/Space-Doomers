@@ -194,9 +194,7 @@ class Player {
           if (entity.BB && that.BB.collide(entity.BB)) {
             if (entity instanceof Gear) {
               entity.removeFromWorld = true;
-              console.log("gear is ", that.gears);
               that.gears++;
-              console.log("gear is ", that.gears);
             }
           }
         });

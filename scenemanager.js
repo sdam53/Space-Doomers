@@ -7,7 +7,8 @@ class SceneManager {
         // this.score = 0;
         // this.coins = 0;
 
-
+        this.hp_bar = ASSET_MANAGER.getAsset("./sprites/player/hp_bar.png");
+        this.gear = ASSET_MANAGER.getAsset("./sprites/tiles/gear.png");
         this.player = new Player(this.game, 100, 100);
         this.game.entities.player = this.player;
         this.titleMusicPath = "./music/title.mp3";
@@ -118,6 +119,16 @@ class SceneManager {
   };
 
     draw(ctx) {
+
+      ctx.fillStyle = "White";
+      ctx.fillText("Hp", 50, 50);
+      ctx.fillRect(50,80,200,20);
+      ctx.drawImage(this.hp_bar, 3, 3, 1, 2, 50, 80, this.player.hp*2, 20);
+      ctx.fillStyle = "White";
+      ctx.fillText("Gear", 300, 50);
+      ctx.drawImage(this.gear, 1, 1, 83, 88, 300, 70, 31, 30);
+      ctx.fillStyle = "White";
+      ctx.fillText("x " + this.player.gears, 350, 100);
       ctx.font = '40px "NASA"';
       ctx.fillStyle = "Red";
       ctx.strokeStyle = "Red";
