@@ -159,8 +159,8 @@ class SceneManager {
         ctx.fillStyle = "Black";
         ctx.fillText("• Code Base: Chris Marriott", 710, 240);
         ctx.fillText("• Main Sprites: Moon Tribe", 710, 280);
-        ctx.fillText("• Developers: Alex Trinh,", 710, 320);
-        ctx.fillText("  Raz Consta, Shilnara Dam", 710, 360);
+        ctx.fillText("• Developers: Alex, Raz", 710, 320);
+        ctx.fillText("  Sasha, Shilnara", 710, 360);
     }
 
     if (this.transition && !this.title && !this.credits) {
