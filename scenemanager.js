@@ -26,6 +26,14 @@ class SceneManager {
 
     }
 
+    clearEntities() {
+      this.game.entities.enemies.forEach(function (entity) {entity.removeFromWorld = true;});
+      this.game.entities.bullets.forEach(function (entity) {entity.removeFromWorld = true;});
+      this.game.entities.tiles.forEach(function (entity) {entity.removeFromWorld = true;});
+      this.game.entities.portal.forEach(function (entity) {entity.removeFromWorld = true;});
+      this.game.entities.powerup.forEach(function (entity) {entity.removeFromWorld = true;});
+    };
+
     loadLevel(title, transition) {
       this.title = title;
       this.transition = transition;
@@ -56,7 +64,7 @@ class SceneManager {
         this.game.addPortal(new Portal(this.game, MAPONE.PORTAL[0] * 125, MAPONE.PORTAL[1] * 125))
        }
 
-       if (!this.title) {
+       if (!this.title && this.transition) {
         ASSET_MANAGER.pauseBackgroundMusic();
         ASSET_MANAGER.playAsset(this.titleMusicPath);
      }
@@ -101,8 +109,10 @@ class SceneManager {
         }
     }
     if (this.gameOver && this.game.lclick) {
+      this.clearEntities();
       if (this.game.mouse.x > 830 && this.game.mouse.x < 1075 && this.game.mouse.y > 40 && this.game.mouse.y < 90) {
         this.gameOver = false;
+        this.player = new Player(this.game, 100, 100);
         this.loadLevel(true, false);
       }
     }

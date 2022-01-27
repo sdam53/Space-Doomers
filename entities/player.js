@@ -86,7 +86,7 @@ class Player {
     }
 
     die () {
-
+      this.dead = true;
     }
 
     update() {
