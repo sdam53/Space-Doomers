@@ -3,10 +3,11 @@ class Bullet {
   game: game engine
   x: x start location
   y: y start location
-  radius:
+  size: desired height/width of image
   xTarget: x target location
   yTarget: y target location
   bulletSpeed: speed of bullet
+  type: bullet's side (enemy/player)
   image: bullet image
   */
   constructor(game, x, y, size, xTarget, yTarget, bulletSpeed, type, image) {
@@ -29,6 +30,8 @@ class Bullet {
     }
 
   }
+
+  //checks if bullet has hit wall.
   checkWallCollision() {
     let count = 0;
     this.game.entities.tiles.forEach((tiles, i) => {
