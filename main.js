@@ -12,6 +12,10 @@ ASSET_MANAGER.queueDownload("./sprites/tiles/metal_tile.png");
 ASSET_MANAGER.queueDownload("./sprites/tiles/cracked_tile.png");
 ASSET_MANAGER.queueDownload("./sprites/traps/spike.png");
 ASSET_MANAGER.queueDownload("./sprites/traps/thorn1.png");
+ASSET_MANAGER.queueDownload("./sprites/chest/chest_open.png");
+ASSET_MANAGER.queueDownload("./sprites/chest/chest_closed.png");
+ASSET_MANAGER.queueDownload("./sprites/door/door_shut.png");
+ASSET_MANAGER.queueDownload("./sprites/door/door_open.png");
 
 
 
