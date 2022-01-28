@@ -2,10 +2,24 @@ class Ground {
   constructor(game, x, y, w, h, type) {
     Object.assign(this, {game, x, y, w, h, type})
 
-    this.tile = ASSET_MANAGER.getAsset("./sprites/tiles/ground.png");
+    this.tile1 = ASSET_MANAGER.getAsset("./sprites/tiles/ground.png");
+    this.tile2 = ASSET_MANAGER.getAsset("./sprites/tiles/broken_stone.png");
+    this.tile3 = ASSET_MANAGER.getAsset("./sprites/tiles/metal_tile.png");
+    this.tile4 = ASSET_MANAGER.getAsset("./sprites/tiles/cracked_tile.png");
+    this.trap1 = ASSET_MANAGER.getAsset("./sprites/traps/spike.png");
+    this.trap2 = ASSET_MANAGER.getAsset("./sprites/traps/thorn1.png");
+    this.chest_open = ASSET_MANAGER.getAsset("./sprites/chest/chest_open.png");
+    this.chest_closed = ASSET_MANAGER.getAsset("./sprites/chest/chest_closed.png");
+    this.door_shut = ASSET_MANAGER.getAsset("./sprites/door/door_shut.png");
+    this.door_open = ASSET_MANAGER.getAsset("./sprites/door/door_open.png");
+    
+
     this.wall = ASSET_MANAGER.getAsset("./sprites/tiles/18.png");
     this.corner = ASSET_MANAGER.getAsset("./sprites/tiles/20.png");
+
     this.size = this.h/20;
+    this.tile = this.door_shut
+    this.trap = this.trap1
   }
 
   updateBB() {
