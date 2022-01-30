@@ -12,7 +12,7 @@ class FlyingMonster {
     this.state = "idle"; // can be idle, run, attack, death
 
     this.hp = 100;
-    this.velocity = {x: 0, y : 0};
+    this.moveSpeed = .75;
 
     this.bulletSpeed = 2;
     this.bulletRate = 100;
@@ -26,6 +26,11 @@ class FlyingMonster {
 
     //offset to get the middle of sprite
     this.midPointOffset = {x: 60, y : 38};
+
+    this.mapX = this.x + this.midPointOffset.x;
+    this.mapY = this.y + this.midPointOffset.y;
+
+
   }
 
   loadAnimations() {
@@ -156,9 +161,43 @@ class FlyingMonster {
     }
 
     this.updateBB();
+
+    this.move();
+
+
     //side scrolling
     this.x += this.game.camera.x;
     this.y += this.game.camera.y;
+
+
+
+  }
+
+  move() {//moves along wall not center fix it
+    let myX = floor(this.mapX / 125);
+    let myY = floor(this.mapY / 125);
+
+    let pX = floor(this.game.player.mapX / 125);
+    let pY = floor(this.game.player.mapY / 125);
+    let path = findPath(new Point(this.game, myX, myY, null), new Point(this.game, pX, pY, null), MAPONE.MAP);
+    
+    if (path != null) {
+      let point = path[0];
+      if (point.y < myY) {
+        console.log("wr");
+        this.y -= this.moveSpeed;
+        this.mapY -= this.moveSpeed;
+      } else if (point.y > myY) {
+        this.y += this.moveSpeed;
+        this.mapY += this.moveSpeed;
+      } else if (point.x < myX) {
+        this.x -= this.moveSpeed;
+        this.mapX -= this.moveSpeed
+      } else {
+        this.x += this.moveSpeed;
+        this.mapX += this.moveSpeed
+      }
+    }
   }
 
   draw(ctx) {
