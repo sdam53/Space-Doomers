@@ -30,7 +30,8 @@ class SceneManager {
     clearEntities() {
       this.game.entities.enemies.forEach(function (entity) {entity.removeFromWorld = true;});
       this.game.entities.bullets.forEach(function (entity) {entity.removeFromWorld = true;});
-      this.game.entities.tiles.forEach(function (entity) {entity.removeFromWorld = true;});
+      //doing this way fixes a retry bug
+      this.game.entities.tiles = []
       this.game.entities.portal.forEach(function (entity) {entity.removeFromWorld = true;});
       this.game.entities.powerup.forEach(function (entity) {entity.removeFromWorld = true;});
     };
@@ -70,6 +71,7 @@ class SceneManager {
         ASSET_MANAGER.playAsset(this.titleMusicPath);
      }
     }
+
 
     update() {
       let midpoint = PARAMS.CANVAS_WIDTH/2
