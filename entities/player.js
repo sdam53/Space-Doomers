@@ -149,13 +149,13 @@ class Player {
         if (this.velocity.y < 0) this.facing = "up";
         if (this.velocity.y > 0) this.facing = "down";
 
-        // update position
-        this.x += this.velocity.x * TICK;
-        this.y += this.velocity.y * TICK;
+        // update position. side scrolling
+        this.x += this.velocity.x * TICK + this.game.camera.x;
+        this.y += this.velocity.y * TICK + this.game.camera.y;
 
-        if (this.x < -30) this.x = -30; // don't let player fall off left edge
-        if (this.y < -50) this.y = -50; // don't let player fall off upper edge
-        if (this.y > 810) this.y = this.y - 5; // don't let playerr fall off lower edge
+        //if (this.x < -30) this.x = -30; // don't let player fall off left edge
+        //if (this.y < -50) this.y = -50; // don't let player fall off upper edge
+        //if (this.y > 810) this.y = this.y - 5; // don't let playerr fall off lower edge
         // implement fall off right edge
 
 
@@ -213,7 +213,7 @@ class Player {
         if (PARAMS.DEBUG) {
           ctx.strokeStyle = 'Blue';
           ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
-          ctx.strokeStyle = "Green";
+          ctx.strokeStyle = "Blue";
           ctx.strokeRect(this.feetBB.x, this.feetBB.y, this.feetBB.width, this.feetBB.height)
         }
     }

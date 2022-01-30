@@ -17,7 +17,9 @@ class Gear {
     }
 
     update() {
-
+      this.updateBB();
+      this.x += this.game.camera.x;
+      this.y += this.game.camera.y;
     }
 
     draw(ctx){

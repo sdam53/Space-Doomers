@@ -70,6 +70,8 @@ class Bullet {
       this.game.player.hp -=10;
     }
     this.updateBB();
+    this.x += this.game.camera.x;
+    this.y += this.game.camera.y;
   }
 
   destroy() {

@@ -3,6 +3,7 @@ class SceneManager {
         this.game = game;
         this.game.camera = this;
         this.x = 0;
+        this.y = 0;
 
         // this.score = 0;
         // this.coins = 0;
@@ -116,8 +117,26 @@ class SceneManager {
         this.loadLevel(true, false);
       }
     }
-
-    };
+    //side scrollling
+    let x1 = PARAMS.CANVAS_WIDTH * 1/4
+    let x2 = PARAMS.CANVAS_WIDTH * 3/4
+    let y1 = PARAMS.CANVAS_HEIGHT * 1/4
+    let y2 = PARAMS.CANVAS_HEIGHT * 3/4
+    if (this.player.x <= x1) {
+      this.x = x1 - this.player.x;
+    } else if (this.player.x >= x2) {
+      this.x = x2- this.player.x;
+    } else {
+      this.x = 0;
+    }
+    if (this.player.y <= y1) {
+      this.y = y1 - this.player.y;
+    } else if (this.player.y >= y2) {
+      this.y = y2 - this.player.y;
+    } else {
+      this.y = 0;
+    }
+  };
 
     updateAudio() {
       var mute = document.getElementById("mute").checked;
@@ -200,6 +219,6 @@ class SceneManager {
         ctx.drawImage(ASSET_MANAGER.getAsset("./sprites/player/player_down_death.png"), 6273, 0, 369, 454, 750, 400, 369, 454);
       } 
     }
-    };
+  };
 
-    }
+}

@@ -156,6 +156,9 @@ class FlyingMonster {
     }
 
     this.updateBB();
+    //side scrolling
+    this.x += this.game.camera.x;
+    this.y += this.game.camera.y;
   }
 
   draw(ctx) {
