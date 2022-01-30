@@ -28,12 +28,13 @@ class SceneManager {
     }
 
     clearEntities() {
-      this.game.entities.enemies.forEach(function (entity) {entity.removeFromWorld = true;});
-      this.game.entities.bullets.forEach(function (entity) {entity.removeFromWorld = true;});
       //doing this way fixes a retry bug
+      //doing for each remove from world still makes it show for some reason
+      this.game.entities.enemies = []
+      this.game.entities.bullets = []
       this.game.entities.tiles = []
-      this.game.entities.portal.forEach(function (entity) {entity.removeFromWorld = true;});
-      this.game.entities.powerup.forEach(function (entity) {entity.removeFromWorld = true;});
+      this.game.entities.portal = []
+      this.game.entities.powerup = []
     };
 
     loadLevel(title, transition) {
