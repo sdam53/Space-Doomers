@@ -65,9 +65,11 @@ class Bullet {
       }
     });
     //damage to player
-    if (this.game.player.BB.collide(this.BB) && (this.type == "enemy")) {
-      this.destroy();
-      this.game.player.hp -=10;
+    if (!PARAMS.GODMODE) {
+      if (this.game.player.BB.collide(this.BB) && (this.type == "enemy")) {
+        this.destroy();
+        this.game.player.hp -=10;
+      }
     }
     this.updateBB();
     this.x += this.game.camera.x;
