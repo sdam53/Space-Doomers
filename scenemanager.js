@@ -44,6 +44,8 @@ class SceneManager {
               this.game.addTile(new Ground(this.game, x, y, 125, 125, 1));
             } else if (MAPONE.MAP[i][j] === 0) {
               this.game.addTile(new Wall(this.game, x, y, 125, 125, 1));
+            } else if (MAPONE.MAP[i][j] === 2) {
+              this.game.addTile(new Trap(this.game, x, y, 125, 125, 1));
             }
             x += 125;
           }
