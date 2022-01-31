@@ -61,14 +61,14 @@ class Bullet {
     this.game.entities.enemies.forEach((enemy, i) => {
       if ((enemy.BB != null) && enemy.BB.collide(this.BB) && (this.type === "player")) {
         this.destroy();
-        enemy.hp -=10;
+        enemy.hp -= 35;
       }
     });
     //damage to player
     if (!PARAMS.GODMODE) {
       if (this.game.player.BB.collide(this.BB) && (this.type == "enemy")) {
         this.destroy();
-        this.game.player.hp -=10;
+        this.game.player.hp -= 10;
       }
     }
     this.updateBB();
