@@ -37,8 +37,8 @@ class Player {
 
         //pixels in respect to map
         //used for pathfinding
-        this.mapX = this.feetBB.x;
-        this.mapY = this.feetBB.y;
+        this.mapX = this.feetBB.x + 25;
+        this.mapY = this.feetBB.y + 10;
     }
 
     loadAnimations() {
@@ -176,22 +176,22 @@ class Player {
               if (entity.leftBB && that.feetBB.collide(entity.leftBB)) // collides with left side of wall
               {
                 that.x = that.x - 2;
-                that.fakeX -= 2;
+                that.mapX -= 2;
               }
               if (entity.rightBB && that.feetBB.collide(entity.rightBB)) // collides with right side of wall
               {
                 that.x = that.x + 2;
-                that.fakeX += 2;
+                that.mapX += 2;
               }
               if (entity.topBB && that.feetBB.collide(entity.topBB)) // collides with top side of wall
               {
                 that.y = that.y - 2;
-                that.fakeY -= 2;
+                that.mapY -= 2;
               }
               if (entity.bottomBB && that.feetBB.collide(entity.bottomBB)) // collides with bottom side of wall
               {
                 that.y = that.y + 2;
-                that.fakeY += 2;
+                that.mapY += 2;
               }
           }
         }});

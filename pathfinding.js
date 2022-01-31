@@ -51,7 +51,15 @@ const contains = (array, point) => {
 }
 
 /**
- * returns array of points to target
+ * checks whether path is straigh
+ * @param {*} path array of paths
+ */
+const checkStraightPath = (path) => {
+    
+}
+
+/**
+ * returns array of cells to target
  * @param {*} start starting point
  * @param {*} end target point
  * @param {*} map 2d array that acts as map
@@ -81,7 +89,7 @@ const findPath = (start, end, map) => {
             }
         }
         if (!finished && newOpen.length === 0) {
-            return null;
+            return [];
         }
     }
     let path = [];
