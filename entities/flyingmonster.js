@@ -7,6 +7,8 @@ class FlyingMonster {
     this.downSprite = ASSET_MANAGER.getAsset("./sprites/enemies/flying_monster/flying_monster_down.png");
     this.leftSprite = ASSET_MANAGER.getAsset("./sprites/enemies/flying_monster/flying_monster_left.png");
     this.rightSprite = ASSET_MANAGER.getAsset("./sprites/enemies/flying_monster/flying_monster_right.png");
+    //temp fix
+    this.rightDeathSprite = ASSET_MANAGER.getAsset("./sprites/enemies/flying_monster/flying_monster_right_death.png");
 
     this.facing = "down"; // can be left, right, up, down
     this.state = "idle"; // can be idle, run, attack, death
@@ -41,7 +43,11 @@ class FlyingMonster {
     this.animations["right idle"] = new Animator(this.rightSprite, 0, 0, 244, 358, 29, 0.05, 0, false, true);
     this.animations["right run"] = new Animator(this.rightSprite, 0, 358, 248, 281, 13, 0.03, 0, false, true);
     this.animations["right attack"] = new Animator(this.rightSprite, 0, 639, 292, 390, 25, 0.03, 0, false, true);
-    this.animations["right death"] = new Animator(this.rightSprite, 0, 1480, 305, 517, 20, 0.05, 5, true, false);
+
+    this.animations["right death"] = new Animator(this.rightDeathSprite, 0, 0, 305, 517, 20, 0.05, 5, false, false);
+
+
+
     this.animations["up idle"] = new Animator(this.upSprite, 0, 0, 401, 374, 29, 0.05, 0, false, true);
     this.animations["up run"] = new Animator(this.upSprite, 0, 374, 401, 366, 13, 0.03, 0, false, true);
     this.animations["up attack"] = new Animator(this.upSprite, 0, 740, 449, 387, 25, 0.03, 0, false, true);
@@ -226,7 +232,7 @@ class FlyingMonster {
         this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x , this.y - 45, .3);
       } else if (this.facing === "left") {
         this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 20, this.y - 55, .3);
-      } else {
+      } else if (this.facing === "right") {
         this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 15, this.y -55, .3);
       }
     } else {
@@ -262,5 +268,7 @@ class FlyingMonster {
       ctx.strokeStyle = 'Red';
       ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
     }
+
   }
+
 }
