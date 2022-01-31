@@ -12,13 +12,12 @@ class FlyingMonster {
     this.state = "idle"; // can be idle, run, attack, death
 
     this.hp = 100;
-    this.velocity = {x: 0, y : 0};
+    this.moveSpeed = .75;
 
     this.bulletSpeed = 2;
     this.bulletRate = 100;
     this.bulletTimer = this.bulletRate;
     this.bulletSize = 30;
-    this.bullets = [];
 
     this.animations = [];
     this.loadAnimations();
@@ -26,30 +25,31 @@ class FlyingMonster {
 
     //offset to get the middle of sprite
     this.midPointOffset = {x: 60, y : 38};
+
+    //info for pathfinding
+    this.mapX = this.x + this.midPointOffset.x;
+    this.mapY = this.y + this.midPointOffset.y;
+    this.origLocation = new Point(this.game, floor(this.mapX / 125), floor(this.mapY / 125), null);
+    this.path;
   }
 
   loadAnimations() {
     this.animations["left idle"] = new Animator(this.leftSprite, 0, 0, 244, 358, 29, 0.05, 0, false, true);
     this.animations["left run"] = new Animator(this.leftSprite, 0, 358, 248, 281, 13, 0.03, 0, false, true);
     this.animations["left attack"] = new Animator(this.leftSprite, 0, 639, 292, 390, 25, 0.03, 0, false, true);
-    this.animations["left death"] = new Animator(this.leftSprite, 0, 1480, 305, 517, 20, 0.05, 5, false, false); //very wrong
-
+    this.animations["left death"] = new Animator(this.leftSprite, 0, 1480, 305, 517, 20, 0.05, 5, false, false);
     this.animations["right idle"] = new Animator(this.rightSprite, 0, 0, 244, 358, 29, 0.05, 0, false, true);
     this.animations["right run"] = new Animator(this.rightSprite, 0, 358, 248, 281, 13, 0.03, 0, false, true);
     this.animations["right attack"] = new Animator(this.rightSprite, 0, 639, 292, 390, 25, 0.03, 0, false, true);
-    this.animations["right death"] = new Animator(this.rightSprite, 0, 1480, 305, 517, 20, 0.05, 5, true, false); //very wrong
-
+    this.animations["right death"] = new Animator(this.rightSprite, 0, 1480, 305, 517, 20, 0.05, 5, true, false);
     this.animations["up idle"] = new Animator(this.upSprite, 0, 0, 401, 374, 29, 0.05, 0, false, true);
     this.animations["up run"] = new Animator(this.upSprite, 0, 374, 401, 366, 13, 0.03, 0, false, true);
     this.animations["up attack"] = new Animator(this.upSprite, 0, 740, 449, 387, 25, 0.03, 0, false, true);
     this.animations["up death"] = new Animator(this.upSprite, 0, 1475, 516, 500, 20, 0.05, 0, false, false);
-
     this.animations["down idle"] = new Animator(this.downSprite, 0, 0, 405, 362, 29, 0.05, 0, false, true);
     this.animations["down run"] = new Animator(this.downSprite, 0, 362, 402, 372, 13, 0.03, 0, false, true);
     this.animations["down attack"] = new Animator(this.downSprite, 0, 734, 440, 366, 25, 0.03, 8, false, true);
     this.animations["down death"] = new Animator(this.downSprite, 0, 1475, 470, 511, 20, 0.05, 42, false, false);
-
-
   }
 
   updateBB() {
@@ -83,7 +83,7 @@ class FlyingMonster {
 
   singleBulletAtlk() {
     if (this.facing === "down") {
-    //  this.game.addBullet(new Bullet(this.game, this.x + 35, this.y + 70, this.bulletSize, this.game.camera.player.x, this.game.camera.player.y, this.bulletSpeed, this.bullet));
+      this.game.addBullet(new Bullet(this.game, this.x + 35, this.y + 70, this.bulletSize, this.game.camera.player.x, this.game.camera.player.y, this.bulletSpeed, "enemy", this.bullet));
     } else if (this.facing === "up") {
       this.game.addBullet(new Bullet(this.game, this.x + 35, this.y - 43, this.bulletSize, this.game.camera.player.x, this.game.camera.player.y, this.bulletSpeed, "enemy", this.bullet));
     } else if (this.facing === "left") {
@@ -100,10 +100,6 @@ class FlyingMonster {
   //  let slope = atan2(this.game.player.x - this.x, this.game.player.y - this.y)
     //this.game.addBullet(new Bullet(this.game, this.x + 200 + 150 * cos(angleRads), this.y + 125 - 150 * sin(angleRads), 5, this.x + 200 + 200 * cos(angleRads), this.y + 125 - 200 * sin(angleRads), 5, this.bullet)); //up left
   //  console.log(slope);
-
-  }
-
-  checkcollision() {
 
   }
 
@@ -125,37 +121,97 @@ class FlyingMonster {
     }
   }
 
-  update() {
+  shoot() {
+    this.calculatedDirection();
+    if (this.bulletTimer <= 0) {
+      let ran = randomInt(3)
+    if (ran === 0) {
+      this.singleBulletAtlk();
+    } else if (ran === 1) {
+      this.fourBulletAtk();
+    } else {
+      this.eightBulletAtk();
+    }
+      this.bulletTimer = this.bulletRate;
+      this.animations[this.facing + " " + this.state].flag = true;
+    }
+    this.getPath();
+  }
 
-    if (this.hp <= 0) {
-      this.state = "death"
-      if (this.animations[this.facing + " " + this.state].frame === 20) {
-        this.removeFromWorld;
+  move() {
+    if (this.path && (typeof this.path[0] != 'undefined')) {
+      if (getDistance(this.mapX, this.mapY, this.path[0].x * 125 + 62, this.path[0].y * 125 + 62) > 5) {
+        switch (this.facing) {
+          case 'up':
+            this.y -= this.moveSpeed;
+            this.mapY -= this.moveSpeed;
+            break;
+          case 'down':
+            this.y += this.moveSpeed;
+            this.mapY += this.moveSpeed;
+            break;
+          case 'left':
+            this.x -= this.moveSpeed;  
+            this.mapX -= this.moveSpeed;
+            break;
+          default:
+            this.x += this.moveSpeed;  
+            this.mapX += this.moveSpeed;
+        }
+      } else {
+        this.getPath();
       }
     } else {
-      //shoots at player when close
-      if (getDistance(this.x, this.y, this.game.player.x, this.game.player.y) < 1000) {
-        this.calculatedDirection();
-        if (this.bulletTimer <= 0) {
-          let ran = randomInt(3)
-          if (ran === 0) {
-            this.singleBulletAtlk();
-          } else if (ran === 1) {
-            this.fourBulletAtk();
-          } else {
-            this.eightBulletAtk();
-          }
-          this.bulletTimer = this.bulletRate;
-          this.animations[this.facing + " " + this.state].flag = true;
-        }
+      this.getPath();
+    }
+  }
+
+  getPath() {
+    let myX = floor(this.mapX / 125);
+    let myY = floor(this.mapY / 125);
+    let pX = floor(this.game.player.mapX / 125);
+    let pY = floor(this.game.player.mapY / 125);
+    this.path = findPath(new Point(this.game, myX, myY, null), new Point(this.game, pX, pY, null), MAPONE.MAP);
+    if (this.path[0] && (typeof this.path[0] != 'undefined')) {
+      if (this.path[0].x > myX) {//right
+        this.facing = "right";
+      } else if (this.path[0].x < myX) {//left
+        this.facing = "left"
+      } else if (this.path[0].y > myY) {//down
+        this.facing = "down"
+      } else { //up
+        this.facing = "up"
       }
     }
+  }
+
+  update() {
+    if (this.hp <= 0) {
+      this.state = "death"
+      if (this.animations[this.facing + " " + this.state].frame === 19) {
+        this.removeFromWorld = true;
+      }
+    } else {
+      if (this.path && (typeof this.path[0] != 'undefined')) {
+        if (this.path.length <= 5) {
+          this.shoot();
+        } else if (this.path.length <= 10) {
+          this.move()
+        } else {
+          this.getPath()
+        }
+      } else {
+        this.getPath();
+      }
+    }
+  
     //shooting cooldown counter
     if (this.bulletTimer <= this.bulletRate) {
       this.bulletTimer--;
     }
 
     this.updateBB();
+
     //side scrolling
     this.x += this.game.camera.x;
     this.y += this.game.camera.y;

@@ -35,6 +35,10 @@ class Player {
 
         this.updateBB();
 
+        //pixels in respect to map
+        //used for pathfinding
+        this.mapX = this.feetBB.x + 25;
+        this.mapY = this.feetBB.y + 10;
     }
 
     loadAnimations() {
@@ -90,6 +94,7 @@ class Player {
     }
 
     update() {
+      
         const TICK = this.game.clockTick;
         const RUN = 350;
 
@@ -153,6 +158,10 @@ class Player {
         this.x += this.velocity.x * TICK + this.game.camera.x;
         this.y += this.velocity.y * TICK + this.game.camera.y;
 
+        this.mapX += this.velocity.x * TICK;
+        this.mapY += this.velocity.y * TICK;
+        //console.log(Math.floor(this.mapX/125), Math.floor(this.mapY/125));
+
         //if (this.x < -30) this.x = -30; // don't let player fall off left edge
         //if (this.y < -50) this.y = -50; // don't let player fall off upper edge
         //if (this.y > 810) this.y = this.y - 5; // don't let playerr fall off lower edge
@@ -167,18 +176,22 @@ class Player {
               if (entity.leftBB && that.feetBB.collide(entity.leftBB)) // collides with left side of wall
               {
                 that.x = that.x - 2;
+                that.mapX -= 2;
               }
               if (entity.rightBB && that.feetBB.collide(entity.rightBB)) // collides with right side of wall
               {
                 that.x = that.x + 2;
+                that.mapX += 2;
               }
               if (entity.topBB && that.feetBB.collide(entity.topBB)) // collides with top side of wall
               {
                 that.y = that.y - 2;
+                that.mapY -= 2;
               }
               if (entity.bottomBB && that.feetBB.collide(entity.bottomBB)) // collides with bottom side of wall
               {
                 that.y = that.y + 2;
+                that.mapY += 2;
               }
           }
         }});
