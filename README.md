@@ -6,7 +6,7 @@ Group Members:
   * [Raz Consta](https://github.com/RazConsta)
 
 How to play:
- * Use w,a,s,d to move and mosuse + click to shoot 
+ * Use w, a, s, d to move and mouse + click to shoot 
 
 Known issues:
  * Teleporter will break pathfinding
