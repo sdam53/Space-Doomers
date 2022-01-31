@@ -128,7 +128,7 @@ class FlyingMonster {
   }
 
   shoot() {
-    this.calculatedDirection();
+    //this.calculatedDirection();
     if (this.bulletTimer <= 0) {
       let ran = randomInt(3)
     if (ran === 0) {
@@ -141,7 +141,6 @@ class FlyingMonster {
       this.bulletTimer = this.bulletRate;
       this.animations[this.facing + " " + this.state].flag = true;
     }
-    this.getPath();
   }
 
   move() {
@@ -168,7 +167,7 @@ class FlyingMonster {
         this.getPath();
       }
     } else {
-      this.getPath();
+      //this.getPath();
     }
   }
 
@@ -198,14 +197,22 @@ class FlyingMonster {
         this.removeFromWorld = true;
       }
     } else {
+      // if (this.path && (typeof this.path[0] != 'undefined')) {
+      //   if (this.path.length <= 5) {
+      //     this.shoot();
+      //   } else if (this.path.length <= 10) {
+      //     this.move()
+      //   } else {
+      //     this.getPath()
+      //   }
+      // } else {
+      //   this.getPath();
+      // }
+      
+
       if (this.path && (typeof this.path[0] != 'undefined')) {
-        if (this.path.length <= 5) {
-          this.shoot();
-        } else if (this.path.length <= 10) {
-          this.move()
-        } else {
-          this.getPath()
-        }
+        this.move()
+        this.shoot();
       } else {
         this.getPath();
       }
