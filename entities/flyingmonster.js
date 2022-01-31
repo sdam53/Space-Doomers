@@ -10,7 +10,7 @@ class FlyingMonster {
 
     this.facing = "down"; // can be left, right, up, down
     this.state = "idle"; // can be idle, run, attack, death
-
+ 
     this.hp = 100;
     this.moveSpeed = .75;
 

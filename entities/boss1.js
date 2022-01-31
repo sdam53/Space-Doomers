@@ -1,4 +1,4 @@
-class Boss1 {
+class Boss {
   constructor(game, x, y) {
     Object.assign(this, {game, x, y})
 
