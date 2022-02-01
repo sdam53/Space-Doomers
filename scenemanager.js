@@ -5,13 +5,8 @@ class SceneManager {
         this.x = 0;
         this.y = 0;
 
-        // this.score = 0;
-        // this.coins = 0;
-
         this.hp_bar = ASSET_MANAGER.getAsset("./sprites/player/hp_bar.png");
         this.gear = ASSET_MANAGER.getAsset("./sprites/tiles/gear.png");
-        this.player = new Player(this.game, 100, 100);
-        this.game.entities.player = this.player;
         this.titleMusicPath = "./music/title.mp3";
         this.titleBackground = ASSET_MANAGER.getAsset("./images/title.png");
         this.logo = ASSET_MANAGER.getAsset("./images/logo.png");
@@ -21,7 +16,6 @@ class SceneManager {
         this.transition = false;
         this.credits = false;
         this.gameOver = false;
-        // this.ground = new Ground(this.game,0,0, 1400, 800, "");
         this.loadLevel(this.title, false);
         this.death = new Animator(this.game.player.spritesheet10, 0, 0, 369, 454, 18, 0.05, 0, false, false);
 
@@ -50,6 +44,8 @@ class SceneManager {
               this.game.addTile(new Ground(this.game, x, y, 125, 125, 1));
             } else if (MAPONE.MAP[i][j] === 0) {
               this.game.addTile(new Wall(this.game, x, y, 125, 125, 1));
+            } else if (MAPONE.MAP[i][j] === 2) {
+              this.game.addTile(new Trap(this.game, x, y, 125, 125, 1));
             }
             x += 125;
           }
@@ -57,20 +53,37 @@ class SceneManager {
           y += 125;
         }
       }
-      //add player
-       this.player = new Player(this.game, MAPONE.PLAYER[0] * 125, MAPONE.PLAYER[1] * 125);
-       this.game.entities.player = this.player;
+      //adding player
+      this.player = new Player(this.game, MAPONE.PLAYER[0] * 125, MAPONE.PLAYER[1] * 125);
+      this.game.entities.player = this.player;
 
-       if (!title && !transition && !this.gameOver) {
-        this.game.addEnemy(new FlyingMonster(this.game, MAPONE.FLYINGMONSTER[0] * 125, MAPONE.FLYINGMONSTER[1] * 125));
-        this.game.addPowerUp(new Gear(this.game, MAPONE.GEARS[0] * 125, MAPONE.GEARS[1] * 125));
-        this.game.addPortal(new Portal(this.game, MAPONE.PORTAL[0] * 125, MAPONE.PORTAL[1] * 125))
-       }
-
-       if (!this.title && this.transition) {
+      //adding level entities
+      if (!title && !transition && !this.gameOver) {
+        if (typeof MAPONE.FLYINGMONSTER[0] != 'undefined') {
+          for (let i = 0; i < MAPONE.FLYINGMONSTER[0].length; i ++) {
+            this.game.addEnemy(new FlyingMonster(this.game, MAPONE.FLYINGMONSTER[0][i] * 125, MAPONE.FLYINGMONSTER[1][i] * 125));
+          }
+        } 
+        if (typeof MAPONE.GREENMONSTER[0] != 'undefined') {
+          for (let i = 0; i < MAPONE.GREENMONSTER[0].length; i ++) {
+            this.game.addEnemy(new GreenMonster(this.game, MAPONE.GREENMONSTER[0][i] * 125, MAPONE.GREENMONSTER[1][i] * 125));
+          }
+        }
+        if (typeof MAPONE.GEARS[0] != 'undefined') {
+          for (let i = 0; i < MAPONE.GEARS[0].length; i ++) {
+            this.game.addPowerUp(new Gear(this.game, MAPONE.GEARS[0][i] * 125, MAPONE.GEARS[1][i] * 125));
+          }
+        } 
+        if (typeof MAPONE.PORTAL[0] != 'undefined') {
+          for (let i = 0; i < MAPONE.PORTAL[0].length; i ++) {
+            this.game.addPortal(new Portal(this.game, MAPONE.PORTAL[0][i] * 125, MAPONE.PORTAL[1][i] * 125));
+          }
+        }
+      }
+      if (!this.title && this.transition) {
         ASSET_MANAGER.pauseBackgroundMusic();
         ASSET_MANAGER.playAsset(this.titleMusicPath);
-     }
+      }
     }
 
 

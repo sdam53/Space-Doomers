@@ -4,3 +4,10 @@ Group Members:
   * [Sasha Gordin](https://github.com/SashaGordin)
   * [Alex Trinh](https://github.com/HTrinh43)
   * [Raz Consta](https://github.com/RazConsta)
+
+How to play:
+ * Use w, a, s, d to move and mouse + click to shoot 
+
+Known issues:
+ * Teleporter will break pathfinding
+ * Sometimes the enemy will move all the way to the right towards the void. This is becasue of the movement implementation, not the pathfinding itself.

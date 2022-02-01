@@ -37,6 +37,7 @@ ASSET_MANAGER.queueDownload("./sprites/enemies/flying_monster/flying_monster_up.
 ASSET_MANAGER.queueDownload("./sprites/enemies/flying_monster/flying_monster_down.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/flying_monster/flying_monster_left.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/flying_monster/flying_monster_right.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/flying_monster/flying_monster_right_death.png");
 
 // boss sprites 
 ASSET_MANAGER.queueDownload("./sprites/enemies/boss/boss left/boss left idle.png");
