@@ -214,10 +214,10 @@ class FlyingMonster {
 
       if (this.path && (typeof this.path[0] != 'undefined')) {
         this.move()
-        this.shoot();
       } else {
         this.getPath();
       }
+      this.shoot();
     }
   
     //shooting cooldown counter
