@@ -14,9 +14,9 @@ class FlyingMonster {
     this.state = "idle"; // can be idle, run, attack, death
  
     this.hp = 100;
-    this.moveSpeed = .75;
+    this.moveSpeed = 150;
 
-    this.bulletSpeed = 2;
+    this.bulletSpeed = 200;
     this.bulletRate = 100;
     this.bulletTimer = this.bulletRate;
     this.bulletSize = 30;
@@ -144,24 +144,26 @@ class FlyingMonster {
   }
 
   move() {
+    const TICK = this.game.clockTick;
+
     if (this.path && (typeof this.path[0] != 'undefined')) {
       if (getDistance(this.mapX, this.mapY, this.path[0].x * 125 + 62, this.path[0].y * 125 + 62) > 5) {
         switch (this.facing) {
           case 'up':
-            this.y -= this.moveSpeed;
-            this.mapY -= this.moveSpeed;
+            this.y -= this.moveSpeed * TICK;
+            this.mapY -= this.moveSpeed * TICK;
             break;
           case 'down':
-            this.y += this.moveSpeed;
-            this.mapY += this.moveSpeed;
+            this.y += this.moveSpeed * TICK;
+            this.mapY += this.moveSpeed * TICK;
             break;
           case 'left':
-            this.x -= this.moveSpeed;  
-            this.mapX -= this.moveSpeed;
+            this.x -= this.moveSpeed * TICK;  
+            this.mapX -= this.moveSpeed * TICK;
             break;
           default:
-            this.x += this.moveSpeed;  
-            this.mapX += this.moveSpeed;
+            this.x += this.moveSpeed * TICK;  
+            this.mapX += this.moveSpeed * TICK;
         }
       } else {
         this.getPath();

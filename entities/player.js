@@ -24,7 +24,7 @@ class Player {
 
         this.velocity = {x: 0, y : 0};
 
-        this.bulletSpeed = 4;
+        this.bulletSpeed = 400;
         this.bulletRate = 75;
         this.bulletTimer = this.bulletRate;
         this.bulletSize = 30;

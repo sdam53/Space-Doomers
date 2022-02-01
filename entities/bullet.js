@@ -43,12 +43,13 @@ class Bullet {
   }
 
   update() {
+    const TICK = this.game.clockTick;
     //destroys bullet if hits a wall
     if (this.checkWallCollision()) {
       this.destroy();
     } else {
-      this.x += this.bulletSpeed * this.xBulletDir;
-      this.y += this.bulletSpeed * this.yBulletDir;
+      this.x += this.bulletSpeed * this.xBulletDir * TICK;
+      this.y += this.bulletSpeed * this.yBulletDir * TICK;
     }
     //destroys bullet if out of map
     if (this.x < 0 || this.x > PARAMS.CANVAS_WIDTH) {
