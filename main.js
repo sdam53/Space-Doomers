@@ -38,6 +38,27 @@ ASSET_MANAGER.queueDownload("./sprites/enemies/flying_monster/flying_monster_dow
 ASSET_MANAGER.queueDownload("./sprites/enemies/flying_monster/flying_monster_left.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/flying_monster/flying_monster_right.png");
 
+// boss sprites 
+ASSET_MANAGER.queueDownload("./sprites/enemies/boss/boss left/boss left idle.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/boss/boss left/boss left run.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/boss/boss left/boss left attack.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/boss/boss left/boss left death.png");
+
+ASSET_MANAGER.queueDownload("./sprites/enemies/boss/boss right/boss right idle.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/boss/boss right/boss right run.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/boss/boss right/boss right attack.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/boss/boss right/boss right death.png");
+
+ASSET_MANAGER.queueDownload("./sprites/enemies/boss/boss up/boss up idle.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/boss/boss up/boss up run.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/boss/boss up/boss up attack.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/boss/boss up/boss up death.png");
+
+ASSET_MANAGER.queueDownload("./sprites/enemies/boss/boss down/boss down idle.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/boss/boss down/boss down run.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/boss/boss down/boss down attack.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/boss/boss down/boss down death.png");
+
 // music
 ASSET_MANAGER.queueDownload("./music/title.mp3");
 
