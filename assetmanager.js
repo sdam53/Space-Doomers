@@ -44,6 +44,7 @@ class AssetManager {
                     this.cache[path] = img;
                     break;
                 case 'mp3':
+                case 'wav':
                     var aud = new Audio();
                     aud.addEventListener("loadeddata", function () {
                         console.log("Loaded " + this.src);

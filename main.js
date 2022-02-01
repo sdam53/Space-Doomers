@@ -62,6 +62,9 @@ ASSET_MANAGER.queueDownload("./sprites/enemies/boss/boss down/boss down death.pn
 
 // music
 ASSET_MANAGER.queueDownload("./music/title.mp3");
+ASSET_MANAGER.queueDownload("./music/player shot sound.wav");
+ASSET_MANAGER.queueDownload("./music/player shot sound 100.wav");
+ASSET_MANAGER.queueDownload("./music/player shot sound 200.wav");
 
 // background images
 ASSET_MANAGER.queueDownload("./images/title.png");

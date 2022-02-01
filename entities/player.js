@@ -130,6 +130,7 @@ class Player {
         if ((this.game.lclick)) {
           if (this.bulletTimer <= 0) {
             this.state = "idle";
+            ASSET_MANAGER.playAsset("./music/player shot sound 200.wav");
             this.calculateDirection()
             if (this.facing === "left") {
               this.game.addBullet(new Bullet(this.game, this.x - 25, this.y + 55, this.bulletSize, this.game.mouse.x, this.game.mouse.y, this.bulletSpeed, "player", this.spritesheet9))
