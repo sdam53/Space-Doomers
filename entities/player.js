@@ -175,23 +175,23 @@ class Player {
             if (entity instanceof Wall) {
               if (entity.leftBB && that.feetBB.collide(entity.leftBB)) // collides with left side of wall
               {
-                that.x = that.x - 2;
-                that.mapX -= 2;
+                that.x = that.x - 200 * TICK;
+                that.mapX -= 200 * TICK;
               }
               if (entity.rightBB && that.feetBB.collide(entity.rightBB)) // collides with right side of wall
               {
-                that.x = that.x + 2;
-                that.mapX += 2;
+                that.x = that.x + 200 * TICK;
+                that.mapX += 200 * TICK;
               }
               if (entity.topBB && that.feetBB.collide(entity.topBB)) // collides with top side of wall
               {
-                that.y = that.y - 2;
-                that.mapY -= 2;
+                that.y = that.y - 200 * TICK;
+                that.mapY -= 200 * TICK;
               }
               if (entity.bottomBB && that.feetBB.collide(entity.bottomBB)) // collides with bottom side of wall
               {
-                that.y = that.y + 2;
-                that.mapY += 2;
+                that.y = that.y + 200 * TICK;
+                that.mapY += 200 * TICK;
               }
           }
         }});
