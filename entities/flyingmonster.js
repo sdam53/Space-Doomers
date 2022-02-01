@@ -193,7 +193,7 @@ class FlyingMonster {
 
   update() {
     if (this.hp <= 0) {
-      this.state = "death"
+      this.state = "death";
       if (this.animations[this.facing + " " + this.state].frame === 19) {
         this.removeFromWorld = true;
       }

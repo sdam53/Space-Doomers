@@ -65,6 +65,13 @@ ASSET_MANAGER.queueDownload("./music/title.mp3");
 ASSET_MANAGER.queueDownload("./music/player shot sound.wav");
 ASSET_MANAGER.queueDownload("./music/player shot sound 100.wav");
 ASSET_MANAGER.queueDownload("./music/player shot sound 200.wav");
+ASSET_MANAGER.queueDownload("./music/portal sound.wav");
+ASSET_MANAGER.queueDownload("./music/gear sound.wav");
+ASSET_MANAGER.queueDownload("./music/click sound.wav");
+ASSET_MANAGER.queueDownload("./music/player death sound.mp3");
+ASSET_MANAGER.queueDownload("./music/player death sound 200.mp3");
+ASSET_MANAGER.queueDownload("./music/flying monster death sound.wav");
+ASSET_MANAGER.queueDownload("./music/flying monster death sound 200.wav");
 
 // background images
 ASSET_MANAGER.queueDownload("./images/title.png");

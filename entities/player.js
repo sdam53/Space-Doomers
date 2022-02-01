@@ -101,6 +101,8 @@ class Player {
         if (this.hp <= 0) {
           this.state = "death";
           return;
+        } else if (this.hp <= 10) {
+          ASSET_MANAGER.playAsset("./music/player death sound 200.mp3");
         }
         // Movement and User Input
 
@@ -127,7 +129,7 @@ class Player {
             this.state = "run";
         }
         //shooting
-        if ((this.game.lclick)) {
+        if ((this.game.lclick) && !this.game.camera.title && !this.game.camera.transition) {
           if (this.bulletTimer <= 0) {
             this.state = "idle";
             ASSET_MANAGER.playAsset("./music/player shot sound 200.wav");
@@ -199,6 +201,7 @@ class Player {
         this.game.entities.portal.forEach(function (entity) {
           if (entity.BB && that.BB.collide(entity.BB)) {
             if (entity instanceof Portal) {
+              ASSET_MANAGER.playAsset("./music/portal sound.wav");
               that.x = 1000;
               that.y = 500;
             }
@@ -207,6 +210,7 @@ class Player {
         this.game.entities.powerup.forEach(function (entity) {
           if (entity.BB && that.BB.collide(entity.BB)) {
             if (entity instanceof Gear) {
+              ASSET_MANAGER.playAsset("./music/gear sound.wav");
               entity.removeFromWorld = true;
               that.gears++;
             }

@@ -62,6 +62,9 @@ class Bullet {
       if ((enemy.BB != null) && enemy.BB.collide(this.BB) && (this.type === "player")) {
         this.destroy();
         enemy.hp -= 35;
+        if (enemy instanceof FlyingMonster) {
+          ASSET_MANAGER.playAsset("./music/flying monster death sound 200.wav");
+        }
       }
     });
     //damage to player

@@ -17,7 +17,8 @@ class SceneManager {
         this.credits = false;
         this.gameOver = false;
         this.loadLevel(this.title, false);
-        this.death = new Animator(this.game.player.spritesheet10, 0, 0, 369, 454, 18, 0.05, 0, false, false);
+        this.death = new Animator(ASSET_MANAGER.getAsset("./sprites/player/player_down_death.png"), 0, 0, 369, 454, 18, 0.05, 0, false, false);
+
 
     }
 
@@ -53,6 +54,7 @@ class SceneManager {
           y += 125;
         }
       }
+
       //adding player
       this.player = new Player(this.game, MAPONE.PLAYER[0] * 125, MAPONE.PLAYER[1] * 125);
       this.game.entities.player = this.player;
@@ -80,6 +82,8 @@ class SceneManager {
           }
         }
       }
+      
+
       if (!this.title && this.transition) {
         ASSET_MANAGER.pauseBackgroundMusic();
         ASSET_MANAGER.playAsset(this.titleMusicPath);
@@ -101,17 +105,20 @@ class SceneManager {
       if (this.title && this.game.lclick) {
         // Title Screen -> Start Game (with transition)
         if (!this.credits && this.game.mouse.x > 300 && this.game.mouse.x < 590 && this.game.mouse.y > 760 && this.game.mouse.y < 810) {
+            ASSET_MANAGER.playAsset("./music/click sound.wav");
             this.title = false;
             this.player = new Player(this.game, 100, 100);
             this.loadLevel(false, true);
         }
         // Title Screen -> Credits
         if (!this.credits && this.game.mouse.x > 1400 && this.game.mouse.x < 1595 && this.game.mouse.y > 760 && this.game.mouse.y < 810) {
+            ASSET_MANAGER.playAsset("./music/click sound.wav");
             this.loadLevel(true, false);
             this.credits = true;
         }
         // Credits -> Title Screen
         if (this.credits && this.game.mouse.x > 780 && this.game.mouse.x < 1075 && this.game.mouse.y > 40 && this.game.mouse.y < 90) {
+            ASSET_MANAGER.playAsset("./music/click sound.wav");
             this.credits = false;
             this.loadLevel(true, false);
         }
@@ -119,6 +126,7 @@ class SceneManager {
 
     if (this.transition && this.game.lclick) {
         if (this.game.mouse.x > 1400 && this.game.mouse.x < 1640 && this.game.mouse.y > 760 && this.game.mouse.y < 810) {
+            ASSET_MANAGER.playAsset("./music/click sound.wav");
             this.transition = false;
             this.title = false;
             this.player = new Player(this.game, 100, 100);
@@ -128,6 +136,7 @@ class SceneManager {
     if (this.gameOver && this.game.lclick) {
       this.clearEntities();
       if (this.game.mouse.x > 830 && this.game.mouse.x < 1075 && this.game.mouse.y > 40 && this.game.mouse.y < 90) {
+        ASSET_MANAGER.playAsset("./music/click sound.wav");
         this.gameOver = false;
         this.player = new Player(this.game, 100, 100);
         this.loadLevel(true, false);
