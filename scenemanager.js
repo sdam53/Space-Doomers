@@ -174,14 +174,13 @@ class SceneManager {
 
     draw(ctx) {
 
-      ctx.fillStyle = "White";
-      ctx.fillText("Hp", 50, 50);
+      ctx.fillStyle = "#39FF14";
+      ctx.fillText("HP", 50, 50);
       ctx.fillRect(50,80,200,20);
       ctx.drawImage(this.hp_bar, 3, 3, 1, 2, 50, 80, this.player.hp*2, 20);
-      ctx.fillStyle = "White";
-      ctx.fillText("Gear", 300, 50);
+
+      ctx.fillText("GEARS", 300, 50);
       ctx.drawImage(this.gear, 1, 1, 83, 88, 300, 70, 31, 30);
-      ctx.fillStyle = "White";
       ctx.fillText("x " + this.player.gears, 350, 100);
       ctx.font = '40px "NASA"';
       ctx.fillStyle = "Red";

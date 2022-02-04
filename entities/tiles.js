@@ -43,7 +43,8 @@ class Ground {
 
 class Wall {
   constructor(game, x, y, w, h, type) {
-    Object.assign(this, {game, x, y, w, h, type})
+    Object.assign(this, {game, x, y, w, h, type});
+    this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tiles/x wall.png");
     this.updateBB();
 
   }
@@ -64,6 +65,7 @@ class Wall {
   }
 
   draw(ctx) {
+    ctx.drawImage(this.spritesheet, this.x, this.y, this.w, this.h);
     if (PARAMS.DEBUG && (typeof this.BB != 'undefined')) {
       ctx.strokeStyle = 'Brown';
        ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
