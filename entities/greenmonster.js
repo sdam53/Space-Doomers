@@ -94,7 +94,7 @@ class GreenMonster {
   }
 
   /**
-   * moves monster towards player
+   * gets path to player in the form of an array of points
    */
   move() {
     const TICK = this.game.clockTick;
@@ -172,7 +172,7 @@ class GreenMonster {
           this.getPath();
         }
       }
-      if (this.atkBB) {
+      if (this.atkBB && PARAMS.GODMOD === false) {
         if (this.attackTimer <= 0) {
           if (this.atkBB.collide(this.game.player.BB)) {
             this.game.player.hp -= 20; //might revamp damage system later
