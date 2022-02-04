@@ -172,7 +172,9 @@ class GreenMonster {
           this.getPath();
         }
       }
-      if (this.atkBB && PARAMS.GODMOD === false) {
+      //console.log(PARAMS.GODMODE);
+
+      if (this.atkBB && PARAMS.GODMODE === false) {
         if (this.attackTimer <= 0) {
           if (this.atkBB.collide(this.game.player.BB)) {
             this.game.player.hp -= 20; //might revamp damage system later
