@@ -21,8 +21,8 @@ const MAPONE = {
     Y = [5,5]
   ],
   GREENMONSTER: [
-    X = [12],
-    Y = [5]
+    X = [2],
+    Y = [12]
   ],
   GEARS: [
     X = [5, 2, 16],
