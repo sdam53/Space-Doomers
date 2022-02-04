@@ -145,9 +145,9 @@ class FlyingMonster {
       if (ran === 0) {
         this.singleBulletAtlk();
       } else if (ran === 1) {
-       // this.fourBulletAtk(50);
+        this.fourBulletAtk(50);
       } else {
-        //this.eightBulletAtk(50);
+        this.eightBulletAtk(50);
       }
       this.bulletTimer = this.bulletRate;
       this.animations[this.facing + " " + this.state].flag = true;
