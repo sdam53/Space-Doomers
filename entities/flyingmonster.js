@@ -92,14 +92,18 @@ class FlyingMonster {
   }
 
   singleBulletAtlk() {
+ 
+
+
+
     if (this.facing === "down") {
-      this.game.addBullet(new Bullet(this.game, this.x + 35, this.y + 70, this.bulletSize, this.game.camera.player.x, this.game.camera.player.y, this.bulletSpeed, "enemy", this.bullet));
+      this.game.addBullet(new Bullet(this.game, this.x + 35, this.y + 70, this.bulletSize, this.game.player.x + 30, this.game.player.y + 40, this.bulletSpeed, "enemy", this.bullet));
     } else if (this.facing === "up") {
-      this.game.addBullet(new Bullet(this.game, this.x + 35, this.y - 43, this.bulletSize, this.game.camera.player.x, this.game.camera.player.y, this.bulletSpeed, "enemy", this.bullet));
+      this.game.addBullet(new Bullet(this.game, this.x + 35, this.y - 43, this.bulletSize, this.game.player.x + 30, this.game.player.y + 40, this.bulletSpeed, "enemy", this.bullet));
     } else if (this.facing === "left") {
-      this.game.addBullet(new Bullet(this.game, this.x - 20 , this.y + 12, this.bulletSize, this.game.camera.player.x, this.game.camera.player.y, this.bulletSpeed, "enemy", this.bullet));
+      this.game.addBullet(new Bullet(this.game, this.x - 20 , this.y + 12, this.bulletSize, this.game.player.x + 30, this.game.player.y + 40, this.bulletSpeed, "enemy", this.bullet));
     } else if (this.facing === "right") {
-      this.game.addBullet(new Bullet(this.game, this.x + 90, this.y + 12, this.bulletSize, this.game.camera.player.x, this.game.camera.player.y, this.bulletSpeed, "enemy", this.bullet));
+      this.game.addBullet(new Bullet(this.game, this.x + 90, this.y + 12, this.bulletSize, this.game.player.x + 30, this.game.player.y + 40, this.bulletSpeed, "enemy", this.bullet));
     }
   }
 
@@ -131,67 +135,84 @@ class FlyingMonster {
     }
   }
 
+  /**
+   * randomly shoots three different bullet patterns. 
+   */
   shoot() {
-    //this.calculatedDirection();
+    this.calculatedDirection();
     if (this.bulletTimer <= 0) {
       let ran = randomInt(3)
-    if (ran === 0) {
-      this.singleBulletAtlk();
-    } else if (ran === 1) {
-      this.fourBulletAtk(50);
-    } else {
-      this.eightBulletAtk(50);
-    }
+      if (ran === 0) {
+        this.singleBulletAtlk();
+      } else if (ran === 1) {
+       // this.fourBulletAtk(50);
+      } else {
+        //this.eightBulletAtk(50);
+      }
       this.bulletTimer = this.bulletRate;
       this.animations[this.facing + " " + this.state].flag = true;
+      this.state = "attack";
     }
   }
 
+  /**
+   * gets path to player in the form of an array of points
+   */
   move() {
     const TICK = this.game.clockTick;
-
-    if (this.path && (typeof this.path[0] != 'undefined')) {
-      if (getDistance(this.mapX, this.mapY, this.path[0].x * 125 + 62, this.path[0].y * 125 + 62) > 5) {
-        switch (this.facing) {
+    if (getDistance(this.mapX, this.mapY, this.path[0].x * 125 + 62, this.path[0].y * 125 + 62) > 5) {
+      if (getDistance(this.mapX, this.mapY, this.game.player.mapX, this.game.player.mapY) > 5) {
+        this.state = "run";
+        switch (this.directionToGo) {
           case 'up':
+            this.facing = "up";
             this.y -= this.moveSpeed * TICK;
             this.mapY -= this.moveSpeed * TICK;
             break;
           case 'down':
+            this.facing = "down";
             this.y += this.moveSpeed * TICK;
             this.mapY += this.moveSpeed * TICK;
             break;
           case 'left':
-            this.x -= this.moveSpeed * TICK;  
+            this.facing = "left";
+            this.x -= this.moveSpeed * TICK;
             this.mapX -= this.moveSpeed * TICK;
             break;
-          default:
-            this.x += this.moveSpeed * TICK;  
+          case 'right':
+            this.facing = "right";
+            this.x += this.moveSpeed * TICK;
             this.mapX += this.moveSpeed * TICK;
+            break;  
         }
       } else {
         this.getPath();
       }
     } else {
-      //this.getPath();
+      this.getPath();
     }
   }
 
+  /**
+   * gets path to player in the form of an array of points
+   */
   getPath() {
     let myX = floor(this.mapX / 125);
     let myY = floor(this.mapY / 125);
     let pX = floor(this.game.player.mapX / 125);
     let pY = floor(this.game.player.mapY / 125);
     this.path = findPath(new Point(this.game, myX, myY, null), new Point(this.game, pX, pY, null), MAPONE.MAP);
-    if (this.path[0] && (typeof this.path[0] != 'undefined')) {
+    if (this.path[0] && (typeof this.path[0] != 'undefined')) { 
       if (this.path[0].x > myX) {//right
-        this.facing = "right";
+        this.directionToGo = "right";
       } else if (this.path[0].x < myX) {//left
-        this.facing = "left"
+        this.directionToGo = "left"
       } else if (this.path[0].y > myY) {//down
-        this.facing = "down"
-      } else { //up
-        this.facing = "up"
+        this.directionToGo = "down"
+      } else if (this.path[0].y < myY) { //up
+        this.directionToGo = "up"
+      } else {
+        this.directionToGo = "none"
       }
     }
   }
@@ -203,25 +224,21 @@ class FlyingMonster {
         this.removeFromWorld = true;
       }
     } else {
-      // if (this.path && (typeof this.path[0] != 'undefined')) {
-      //   if (this.path.length <= 5) {
-      //     this.shoot();
-      //   } else if (this.path.length <= 10) {
-      //     this.move()
-      //   } else {
-      //     this.getPath()
-      //   }
-      // } else {
-      //   this.getPath();
-      // }
-      
-
-      if (this.path && (typeof this.path[0] != 'undefined')) {
-        //this.move()
+      if (getDistance(this.mapX, this.mapY, this.game.player.x + 150, this.game.player.y + 150) < 300) {
+        this.calculatedDirection();
+        if (this.bulletTimer <= 0) {
+            this.shoot();
+        }
       } else {
-        this.getPath();
+        if (this.path && (typeof this.path[0] != 'undefined')) {
+          this.move()
+        } else {
+          this.getPath();
+        }
       }
-      this.shoot();
+      if (this.bulletTimer <= 0) {
+        this.shoot();
+      }
     }
   
     //shooting cooldown counter
