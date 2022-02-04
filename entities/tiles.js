@@ -1,6 +1,6 @@
 class Ground {
-  constructor(game, x, y, w, h, type) {
-    Object.assign(this, {game, x, y, w, h, type})
+  constructor(game, x, y, w, h, type, i, j) {
+    Object.assign(this, {game, x, y, w, h, type, i, j})
 
     this.tile1 = ASSET_MANAGER.getAsset("./sprites/tiles/ground.png");
     this.tile2 = ASSET_MANAGER.getAsset("./sprites/tiles/broken_stone.png");
@@ -20,6 +20,9 @@ class Ground {
     this.size = this.h/20;
     this.tile = this.door_shut
     this.trap = this.trap1
+
+    this.mapY=i*125;
+    this.mapX=j*125;
   }
 
   updateBB() {
@@ -27,6 +30,7 @@ class Ground {
   }
 
   update() {
+
     this.updateBB();
     this.x += this.game.camera.x;
     this.y += this.game.camera.y;
@@ -39,13 +43,19 @@ class Ground {
       ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
     }
   }
+
+  drawMinimap(ctx, mmX, mmY){
+    ctx.fillStyle = "White";
+    ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 125/PARAMS.BITWIDTH , 125/PARAMS.BITWIDTH );
+  }
 }
 
 class Wall {
-  constructor(game, x, y, w, h, type) {
+  constructor(game, x, y, w, h, type,i,j) {
     Object.assign(this, {game, x, y, w, h, type})
     this.updateBB();
-
+    this.mapY=i*125;
+    this.mapX=j*125;
   }
 
   updateBB() {
@@ -72,5 +82,10 @@ class Wall {
       //ctx.strokeRect(this.topBB.x, this.topBB.y, this.topBB.width, this.topBB.height);
       //ctx.strokeRect(this.bottomBB.x, this.bottomBB.y, this.bottomBB.width, this.bottomBB.height);
     }
+  }
+
+  drawMinimap(ctx, mmX, mmY){
+    ctx.fillStyle = "Gray";
+    ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 125/PARAMS.BITWIDTH , 125/PARAMS.BITWIDTH );
   }
 }

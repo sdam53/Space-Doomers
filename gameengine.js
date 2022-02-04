@@ -13,7 +13,8 @@ class GameEngine {
             bullets: [],
             tiles: [],
             portal: [],
-            powerup: []
+            powerup: [],
+            minimap: []
         };
         // Entities to be added at the end of each update
         this.entitiesToAdd = [];
@@ -156,6 +157,7 @@ class GameEngine {
             powerup.draw(this.ctx);
           });
         this.entities.player.draw(this.ctx, this);
+        this.entities.minimap.draw(this.ctx, this);
         this.camera.draw(this.ctx);
     };
 

@@ -235,4 +235,9 @@ class Player {
           ctx.strokeRect(this.feetBB.x, this.feetBB.y, this.feetBB.width, this.feetBB.height)
         }
     }
+
+    drawMinimap(ctx, mmX, mmY){
+      ctx.fillStyle = "Red";
+      ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 93/PARAMS.BITWIDTH , 86/PARAMS.BITWIDTH);
+    }
 }

@@ -83,4 +83,9 @@ class Bullet {
   destroy() {
       this.removeFromWorld = true;
   }
+
+  drawMinimap(ctx, mmX, mmY){
+    // ctx.fillStyle = "White";
+    // ctx.fillRect(mmX + this.BB.x / PARAMS.BITWIDTH, mmY + this.BB.y / PARAMS.BITWIDTH, this.BB.width / PARAMS.BITWIDTH, PARAMS.SCALE * 20);
+  }
 }

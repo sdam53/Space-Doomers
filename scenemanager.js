@@ -42,11 +42,11 @@ class SceneManager {
         for (let i = 0; i < MAPONE.MAP.length; i++) { //create level
           for (let j = 0; j < MAPONE.MAP[0].length; j++) {
             if (MAPONE.MAP[i][j] === 1) {
-              this.game.addTile(new Ground(this.game, x, y, 125, 125, 1));
+              this.game.addTile(new Ground(this.game, x, y, 125, 125, 1, i, j));
             } else if (MAPONE.MAP[i][j] === 0) {
-              this.game.addTile(new Wall(this.game, x, y, 125, 125, 1));
+              this.game.addTile(new Wall(this.game, x, y, 125, 125, 1,i,j));
             } else if (MAPONE.MAP[i][j] === 2) {
-              this.game.addTile(new Trap(this.game, x, y, 125, 125, 1));
+              this.game.addTile(new Trap(this.game, x, y, 125, 125, 1,i,j));
             }
             x += 125;
           }
@@ -58,6 +58,12 @@ class SceneManager {
       //adding player
       this.player = new Player(this.game, MAPONE.PLAYER[0] * 125, MAPONE.PLAYER[1] * 125);
       this.game.entities.player = this.player;
+
+      //adding minimap
+      // this.minimap = new Minimap(this.game, 0, PARAMS.CANVAS_WIDTH - PARAMS.CANVAS_WIDTH/PARAMS.BITWIDTH, 500);
+      this.minimap = new Minimap(this.game, 0, PARAMS.CANVAS_WIDTH - MAPONE.MAP[0].length*125/PARAMS.BITWIDTH, MAPONE.MAP.length*123/PARAMS.BITWIDTH);
+
+      this.game.entities.minimap = this.minimap;
 
       //adding level entities
       if (!title && !transition && !this.gameOver) {

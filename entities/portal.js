@@ -5,6 +5,8 @@ class Portal {
       this.game = game;
       this.x = x;
       this.y = y;
+      this.mapX = x;
+      this.mapY = y;
       this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tiles/portal.png");
       // xStart, yStart, width, height, frameCount, frameDuration, framePadding, reverse, loop
       this.animations = [];
@@ -29,5 +31,10 @@ class Portal {
           ctx.strokeStyle = 'Blue';
           ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
         }
+    }
+
+    drawMinimap(ctx, mmX, mmY){
+      ctx.fillStyle = "Yellow";
+      ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 100/PARAMS.BITWIDTH , 100/PARAMS.BITWIDTH);
     }
   }

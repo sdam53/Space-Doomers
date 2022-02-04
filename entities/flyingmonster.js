@@ -284,4 +284,10 @@ class FlyingMonster {
 
   }
 
+  drawMinimap(ctx, mmX, mmY){
+      ctx.fillStyle = "Blue";
+      ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 10 , 10);
+    
+  }
+
 }
