@@ -27,7 +27,7 @@ class Ground {
   }
 
   update() {
-    this.updateBB();
+   // this.updateBB();
     this.x += this.game.camera.x;
     this.y += this.game.camera.y;
   }

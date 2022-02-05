@@ -1,4 +1,13 @@
 class Portal {
+  /**
+   * class representing a teleporter
+   * @param {*} game game engine
+   * @param {*} x1 teleporter1 x location
+   * @param {*} y1 teleporter1 y location
+   * @param {*} x2 teleporter2 x location
+   * @param {*} y2 teleporter2 y location
+   * @param {*} link teleporter link, if null then wll create and link one with x2, y2
+   */
     constructor(game, x1, y1, x2, y2, link) {
       Object.assign(this, {game, x1, y1, x2, y2, link})
 
@@ -7,8 +16,8 @@ class Portal {
       this.animations = [];
       this.animation = new Animator(this.spritesheet, 1, 1, 16, 16, 12, 0.3, 0, false, true);
 
-      this.cooldown = 3;
-      this.counter = this.cooldown;
+      this.cooldown = 3; //cooldown in seconds
+      this.counter = 0;
       this.linkPortal();
       this.updateBB();
       this.mapX = this.x1;
@@ -35,7 +44,7 @@ class Portal {
         if (this.BB.collide(this.game.player.feetBB)) {
           ASSET_MANAGER.playAsset("./music/portal sound.wav");
           this.game.player.x = this.link.x1 + 17;
-          this.game.player.y = this.link.y1 - 25;
+          this.game.player.y = this.link.y1 - 11;
           this.game.player.mapX = this.link.mapX + 55;
           this.game.player.mapY = this.link.mapY + 83;
           this.counter = this.cooldown;

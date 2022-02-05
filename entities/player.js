@@ -25,8 +25,8 @@ class Player {
         this.velocity = {x: 0, y : 0};
 
         this.bulletSpeed = 400;
-        this.bulletRate = 75;
-        this.bulletTimer = this.bulletRate;
+        this.bulletRate = .5;
+        this.bulletTimer = 0;
         this.bulletSize = 30;
 
 
@@ -121,8 +121,6 @@ class Player {
         if ((this.game.keys["d"] || this.game.keys["ArrowRight"]) && (!this.game.keys["a"] && !this.game.keys["ArrowLeft"])) { // go right: press d and not a
             this.velocity.x = RUN;
             this.state = "run";
-            // if ((this.game.keys["w"] || this.game.keys["ArrowUp"]) && (!this.game.keys["s"] && !this.game.keys["ArrowDown"])) this.velocity.y = -RUN;
-            // else if ((this.game.keys["s"] || this.game.keys["ArrowDown"]) && (!this.game.keys["w"] && !this.game.keys["ArrowUp"])) this.velocity.y = RUN;
         }
         if ((this.game.keys["a"] || this.game.keys["ArrowLeft"]) && (!this.game.keys["d"] && !this.game.keys["ArrowRight"])) { // go left
             this.velocity.x = -RUN;
@@ -147,8 +145,8 @@ class Player {
           }
         }
         //shooting cooldown counter
-        if (this.bulletTimer <= this.bulletRate) {
-          this.bulletTimer--;
+        if (this.bulletTimer >= 0) {
+          this.bulletTimer-=TICK;
         }
 
         // update direction
@@ -178,23 +176,23 @@ class Player {
             if (entity instanceof Wall) {
               if (entity.leftBB && that.feetBB.collide(entity.leftBB)) // collides with left side of wall
               {
-                that.x = that.x - 200 * TICK;
-                that.mapX -= 200 * TICK;
+                that.x = that.x - RUN * TICK;
+                that.mapX -= RUN * TICK;
               }
               if (entity.rightBB && that.feetBB.collide(entity.rightBB)) // collides with right side of wall
               {
-                that.x = that.x + 200 * TICK;
-                that.mapX += 200 * TICK;
+                that.x = that.x + RUN * TICK;
+                that.mapX += RUN * TICK;
               }
               if (entity.topBB && that.feetBB.collide(entity.topBB)) // collides with top side of wall
               {
-                that.y = that.y - 200 * TICK;
-                that.mapY -= 200 * TICK;
+                that.y = that.y - RUN * TICK;
+                that.mapY -= RUN * TICK;
               }
               if (entity.bottomBB && that.feetBB.collide(entity.bottomBB)) // collides with bottom side of wall
               {
-                that.y = that.y + 200 * TICK;
-                that.mapY += 200 * TICK;
+                that.y = that.y + RUN * TICK;
+                that.mapY += RUN * TICK;
               }
           }
         }});
