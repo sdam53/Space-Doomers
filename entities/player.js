@@ -198,15 +198,6 @@ class Player {
               }
           }
         }});
-        this.game.entities.portal.forEach(function (entity) {
-          if (entity.BB && that.BB.collide(entity.BB)) {
-            if (entity instanceof Portal) {
-              ASSET_MANAGER.playAsset("./music/portal sound.wav");
-              that.x = 1000;
-              that.y = 500;
-            }
-          }
-        });
         this.game.entities.powerup.forEach(function (entity) {
           if (entity.BB && that.BB.collide(entity.BB)) {
             if (entity instanceof Gear) {
