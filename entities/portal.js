@@ -11,6 +11,8 @@ class Portal {
       this.counter = this.cooldown;
       this.linkPortal();
       this.updateBB();
+      this.mapX = this.x1;
+      this.mapY = this.y1;
     }
     
     /**
@@ -34,6 +36,8 @@ class Portal {
           ASSET_MANAGER.playAsset("./music/portal sound.wav");
           this.game.player.x = this.link.x1 + 17;
           this.game.player.y = this.link.y1 - 25;
+          this.game.player.mapX = this.link.mapX + 55;
+          this.game.player.mapY = this.link.mapY + 83;
           this.counter = this.cooldown;
           this.link.counter = this.cooldown;
         }
