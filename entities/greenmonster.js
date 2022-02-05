@@ -17,7 +17,7 @@ class GreenMonster {
     this.hp = 125;
     this.moveSpeed = 225;
 
-    this.attackRate = 150; //could use some slight changes
+    this.attackRate = 1; //could use some slight changes
     this.attackTimer = this.attackRate;
 
     this.animations = [];
@@ -184,7 +184,7 @@ class GreenMonster {
       }
     }
     if (this.attackTimer > 0) {
-      this.attackTimer--;
+      this.attackTimer-= this.game.clockTick;
     }
 
     this.updateBB();

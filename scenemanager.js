@@ -77,8 +77,9 @@ class SceneManager {
           }
         } 
         if (typeof MAPONE.PORTAL[0] != 'undefined') {
-          for (let i = 0; i < MAPONE.PORTAL[0].length; i ++) {
-            this.game.addPortal(new Portal(this.game, MAPONE.PORTAL[0][i] * 125, MAPONE.PORTAL[1][i] * 125));
+          for (let i = 0; i < MAPONE.PORTAL[0].length; i+=2) {
+            this.game.addPortal(new Portal(this.game, MAPONE.PORTAL[0][i] * 125, MAPONE.PORTAL[1][i] * 125, MAPONE.PORTAL[0][i + 1] * 125, MAPONE.PORTAL[1][i + 1] * 125, null));
+            console.log(i);
           }
         }
       }
