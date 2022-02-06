@@ -33,7 +33,7 @@ const MAPONE = {
     Y = [4, 12]
   ],
   DOORS : [
-    {x: 8, y: 6, state: "unlocked", direction: "down"},
+    {x: 8, y: 9, state: "unlocked", direction: "down"},
     // {x: 10, y: 3, state: "unlocked", direction: "down"}
   ]
 };
