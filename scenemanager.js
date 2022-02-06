@@ -82,8 +82,12 @@ class SceneManager {
             console.log(i);
           }
         }
+        if (typeof MAPONE.DOORS[0] != 'undefined') {
+          for (let i = 0; i < MAPONE.DOORS.length; i++) {
+            this.game.addPortal(new Door(this.game, MAPONE.DOORS[i].x * 125 - 20, MAPONE.DOORS[i].y * 125, 165, 125, MAPONE.DOORS[i].state, MAPONE.DOORS[i].direction));
+          }
+        }
       }
-      
 
       if (!this.title && this.transition) {
         ASSET_MANAGER.pauseBackgroundMusic();
