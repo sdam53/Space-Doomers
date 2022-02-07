@@ -18,7 +18,7 @@ ASSET_MANAGER.queueDownload("./sprites/door/door_shut.png");
 ASSET_MANAGER.queueDownload("./sprites/door/door_open.png");
 ASSET_MANAGER.queueDownload("./sprites/tiles/x wall.png");
 ASSET_MANAGER.queueDownload("./sprites/tiles/door unlocked.png");
-
+ASSET_MANAGER.queueDownload("./sprites/tiles/door open.png");
 
 // main player sprites
 ASSET_MANAGER.queueDownload("./sprites/player/player_up_idle.png");

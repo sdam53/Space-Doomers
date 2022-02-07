@@ -3,6 +3,7 @@ class Door {
     Object.assign(this, {game, x, y, w, h, state, direction});
     this.sprites = [];
     this.sprites["unlocked down"] = ASSET_MANAGER.getAsset("./sprites/tiles/door unlocked.png");
+    this.sprites["open down"] =     ASSET_MANAGER.getAsset("./sprites/tiles/door open.png");
     this.updateBB();
 
     this.mapX = this.x;
@@ -20,10 +21,20 @@ class Door {
   update() {
       this.x += this.game.camera.x;
       this.y += this.game.camera.y;
+
+      if (this.doorDistance(this.game.entities.player) < 180 && this.state == "unlocked") {
+        this.state = "open";
+      } else if (this.doorDistance(this.game.entities.player) > 180 && this.state == "open") {
+        this.state = "unlocked";
+      }
+  }
+
+  doorDistance(player) {
+    return Math.sqrt(Math.pow(player.x - this.x - this.w / 2, 2) + Math.pow(player.y - this.y - this.h / 2, 2));
   }
 
   draw(ctx) {
-    ctx.drawImage(this.sprites["unlocked down"], this.x, this.y, this.w, this.h);
+    ctx.drawImage(this.sprites[this.state + " " + this.direction], this.x, this.y, this.w, this.h);
     if (PARAMS.DEBUG && (typeof this.BB != 'undefined')) {
       ctx.strokeStyle = 'Brown';
        ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
