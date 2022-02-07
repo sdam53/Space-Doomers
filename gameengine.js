@@ -13,7 +13,8 @@ class GameEngine {
             bullets: [],
             tiles: [],
             portal: [],
-            powerup: []
+            powerup: [],
+            doortrap: []
         };
         // Entities to be added at the end of each update
         this.entitiesToAdd = [];
@@ -137,22 +138,26 @@ class GameEngine {
         this.entities.powerup.push(entity);
     };
 
+    addDoorTrap(entity) {
+        this.entities.powerup.push(entity);
+    };
+
     draw() {
         // Clear the whole canvas with transparent color (rgba(0, 0, 0, 0))
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-        this.entities.tiles.forEach((tile, i) => {
+        this.entities.tiles.forEach((tile) => {
           tile.draw(this.ctx);
         });
-        this.entities.portal.forEach((portal, i) => {
+        this.entities.portal.forEach((portal) => {
           portal.draw(this.ctx);
         });
-        this.entities.enemies.forEach((enemy, i) => {
+        this.entities.enemies.forEach((enemy) => {
           enemy.draw(this.ctx);
         });
-        this.entities.bullets.forEach((bullet, i) => {
+        this.entities.bullets.forEach((bullet) => {
           bullet.draw(this.ctx);
         });
-        this.entities.powerup.forEach((powerup, i) => {
+        this.entities.powerup.forEach((powerup) => {
             powerup.draw(this.ctx);
           });
         this.entities.player.draw(this.ctx, this);
@@ -164,21 +169,24 @@ class GameEngine {
         PARAMS.GODMODE = document.getElementById("godmode").checked;
         // Update Entities
         //this.entities.forEach(entity => entity.update(this));
-        this.entities.tiles.forEach((tile, i) => {
+        this.entities.tiles.forEach((tile) => {
           tile.update();
         });
-        this.entities.portal.forEach((portal, i) => {
+        this.entities.portal.forEach((portal) => {
           portal.update();
         });
-        this.entities.enemies.forEach((enemy, i) => {
+        this.entities.enemies.forEach((enemy) => {
           enemy.update();
         });
-        this.entities.bullets.forEach((bullet, i) => {
+        this.entities.bullets.forEach((bullet) => {
           bullet.update();
         });
-        this.entities.powerup.forEach((powerup, i) => {
+        this.entities.powerup.forEach((powerup) => {
             powerup.update();
-          });
+        });
+        this.entities.doortrap.forEach((trap) => {
+            trap.update();
+        });
         // Remove dead things
         this.entities.bullets = this.entities.bullets.filter(entity => !entity.removeFromWorld);
         this.entities.enemies = this.entities.enemies.filter(entity => !entity.removeFromWorld);

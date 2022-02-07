@@ -34,6 +34,10 @@ let levelOne = {
 	],
 	doors : [
 		{x: 8, y: 9, state: "unlocked", direction: "down"},
+	],
+	doortrap : [
+		{x: 8, y: 0, direction: "down"},
+		{x: 3, y: 13, direction: "right"},
 	]
 };
 

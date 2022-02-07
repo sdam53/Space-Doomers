@@ -30,6 +30,7 @@ class SceneManager {
 		this.game.entities.tiles = []
 		this.game.entities.portals = []
 		this.game.entities.powerup = []
+		this.game.entities.doortrap = []
 	};
 	
 	loadLevel(level, title, transition) {
@@ -56,8 +57,6 @@ class SceneManager {
 			}
 		}
 		
-		console.log(level.player.y)
-
 		//adding player
 		this.player = new Player(this.game, level.player.x * 125, level.player.y * 125);
 		this.game.entities.player = this.player;
@@ -82,12 +81,16 @@ class SceneManager {
 			if (typeof level.portals[0] != 'undefined') {
 				for (let i = 0; i < level.portals[0].length; i+=2) {
 					this.game.addPortal(new Portal(this.game, level.portals[0][i] * 125, level.portals[1][i] * 125, level.portals[0][i + 1] * 125, level.portals[1][i + 1] * 125, null));
-					console.log(i);
 				}
 			}
 			if (typeof level.doors[0] != 'undefined') {
 				for (let i = 0; i < level.doors.length; i++) {
 					this.game.addPortal(new Door(this.game, level.doors[i].x * 125 - 60, level.doors[i].y * 125, 245, 125, level.doors[i].state, level.doors[i].direction));
+				}
+			}
+			if (typeof level.doortrap[0] != 'undefined') {
+				for (let i = 0; i < level.doortrap.length; i++) {
+					this.game.addDoorTrap(new DoorTrap(this.game, level.doortrap[i].x * 125, level.doortrap[i].y * 125, level.doortrap[i].direction));
 				}
 			}
 		}
