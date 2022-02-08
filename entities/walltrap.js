@@ -1,7 +1,7 @@
 /**
  * class representing wall trap that shoots bullets through hall
  */
-class DoorTrap {
+class WallTrap {
     /**
      * 
      * @param {*} game game engine 

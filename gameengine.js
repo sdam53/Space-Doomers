@@ -14,7 +14,7 @@ class GameEngine {
             tiles: [],
             portal: [],
             powerup: [],
-            doortrap: []
+            traps: []
         };
         // Entities to be added at the end of each update
         this.entitiesToAdd = [];
@@ -138,8 +138,8 @@ class GameEngine {
         this.entities.powerup.push(entity);
     };
 
-    addDoorTrap(entity) {
-        this.entities.powerup.push(entity);
+    addTrap(entity) {
+        this.entities.traps.push(entity);
     };
 
     draw() {
@@ -184,7 +184,7 @@ class GameEngine {
         this.entities.powerup.forEach((powerup) => {
             powerup.update();
         });
-        this.entities.doortrap.forEach((trap) => {
+        this.entities.traps.forEach((trap) => {
             trap.update();
         });
         // Remove dead things
