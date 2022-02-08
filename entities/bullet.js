@@ -33,13 +33,14 @@ class Bullet {
 	
 	//checks if bullet has hit wall.
 	checkWallCollision() {
-		let count = 0;
+		let collide = false;
 		this.game.entities.tiles.forEach((tiles, i) => {
 			if ((tiles instanceof Wall) && (tiles.BB.collide(this.BB))) {
-				count++;
+				collide = true;
+				return;
 			}
 		});
-		return (count >= 1);
+		return collide;
 	}
 	
 	update() {

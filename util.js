@@ -1,7 +1,8 @@
 /** Global Parameters Object */
 const PARAMS = {
   DEBUG: false,
-  SCALE: 0.3
+  SCALE: 0.3,
+  BITWIDTH: 10
 };
 
 /** Easy access to math functions */

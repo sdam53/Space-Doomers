@@ -59,6 +59,11 @@ class Portal {
 		this.x1 += this.game.camera.x;
 		this.y1 += this.game.camera.y;
 	}
+  
+  drawMinimap(ctx, mmX, mmY){
+      ctx.fillStyle = "Yellow";
+      ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 100/PARAMS.BITWIDTH , 100/PARAMS.BITWIDTH);
+  }
 	
 	draw(ctx){
 		this.animation.drawFrame(this.game.clockTick, ctx, this.x1 + 20, this.y1 + 23, 5);

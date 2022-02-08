@@ -20,6 +20,9 @@ class Ground {
 		this.size = this.h/20;
 		this.tile = this.door_shut
 		this.trap = this.trap1
+    
+    this.mapY = this.y;
+    this.mapX = this.x;
 	}
 	
 	updateBB() {
@@ -31,7 +34,10 @@ class Ground {
 		this.x += this.game.camera.x;
 		this.y += this.game.camera.y;
 	}
-	
+	drawMinimap(ctx, mmX, mmY){
+    ctx.fillStyle = "White";
+    ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 125/PARAMS.BITWIDTH , 125/PARAMS.BITWIDTH );
+  }
 	draw(ctx) {
 		ctx.drawImage(this.tile1, this.x, this.y, this.w, this.h);
 		if (PARAMS.DEBUG && (typeof this.BB != 'undefined')) {
@@ -39,6 +45,11 @@ class Ground {
 			ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
 		}
 	}
+  
+  drawMinimap(ctx, mmX, mmY){
+    ctx.fillStyle = "White";
+    ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 125/PARAMS.BITWIDTH , 125/PARAMS.BITWIDTH );
+  }
 }
 
 class Wall {
@@ -75,6 +86,9 @@ class Wall {
 			//ctx.strokeRect(this.bottomBB.x, this.bottomBB.y, this.bottomBB.width, this.bottomBB.height);
 		}
 	}
+	drawMinimap(ctx, mmX, mmY){
+		//ctx.fillStyle = "White";
+		//ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 125/PARAMS.BITWIDTH , 125/PARAMS.BITWIDTH );
+	  }
 }
-
 

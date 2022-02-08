@@ -92,10 +92,6 @@ class FlyingMonster {
 	}
 	
 	singleBulletAtlk() {
-		
-		
-		
-		
 		if (this.facing === "down") {
 			this.game.addBullet(new Bullet(this.game, this.x + 35, this.y + 70, this.bulletSize, this.game.player.x + 30, this.game.player.y + 40, this.bulletSpeed, "enemy", this.bullet));
 		} else if (this.facing === "up") {
@@ -252,6 +248,11 @@ class FlyingMonster {
 		this.x += this.game.camera.x;
 		this.y += this.game.camera.y;
 	}
+  
+  drawMinimap(ctx, mmX, mmY){
+      ctx.fillStyle = "Blue";
+      ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 10 , 10);
+  }
 	
 	draw(ctx) {
 		// offsets for x and y since images are different sizes
@@ -302,3 +303,4 @@ class FlyingMonster {
 	}
 	
 }
+
