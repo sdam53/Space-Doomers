@@ -19,7 +19,7 @@ class Minimap {
         this.game.entities.enemies.forEach((enemy, i) => {
             enemy.drawMinimap(ctx, this.y, this.x);
           });
-        this.game.entities.powerup.forEach((powerup, i) => {
+        this.game.entities.powerups.forEach((powerup, i) => {
             powerup.drawMinimap(ctx, this.y, this.x);
           });  
        // this.game.entities.portal.forEach((portal, i) => {
