@@ -25,9 +25,5 @@ class Minimap {
        // this.game.entities.portal.forEach((portal, i) => {
           //  portal.drawMinimap(ctx, this.y, this.x);
          // });
-        
-        for (var i = 0; i < 5; i++){
-            this.game.entities.player.drawMinimap(ctx, this.x, this.y);
-        }
     };
 }
