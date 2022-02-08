@@ -14,6 +14,7 @@ class GameEngine {
             tiles: [],
             portal: [],
             powerup: [],
+            minimap: []
             traps: []
         };
         // Entities to be added at the end of each update
@@ -161,6 +162,7 @@ class GameEngine {
             powerup.draw(this.ctx);
           });
         this.entities.player.draw(this.ctx, this);
+        this.entities.minimap.draw(this.ctx, this);
         this.camera.draw(this.ctx);
     };
 
@@ -191,8 +193,8 @@ class GameEngine {
         this.entities.bullets = this.entities.bullets.filter(entity => !entity.removeFromWorld);
         this.entities.enemies = this.entities.enemies.filter(entity => !entity.removeFromWorld);
         this.entities.powerup = this.entities.powerup.filter(entity => !entity.removeFromWorld);
-      this.entities.player.update();
-      this.camera.update();
+        this.entities.player.update();
+        this.camera.update();
     };
 
     loop() {

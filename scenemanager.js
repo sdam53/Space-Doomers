@@ -56,7 +56,11 @@ class SceneManager {
 				y += 125;
 			}
 		}
-		
+		//adding minimap
+    // this.minimap = new Minimap(this.game, 0, PARAMS.CANVAS_WIDTH - PARAMS.CANVAS_WIDTH/PARAMS.BITWIDTH, 500);
+    this.minimap = new Minimap(this.game, 0, PARAMS.CANVAS_WIDTH - MAPONE.MAP[0].length*125/PARAMS.BITWIDTH, MAPONE.MAP.length*123/PARAMS.BITWIDTH);
+    this.game.entities.minimap = this.minimap;
+    
 		//adding player
 		this.player = new Player(this.game, level.player.x * 125, level.player.y * 125);
 		this.game.entities.player = this.player;
@@ -266,5 +270,4 @@ class SceneManager {
 			} 
 		}
 	};
-	
 }

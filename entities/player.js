@@ -207,6 +207,11 @@ class Player {
 			});
 			this.updateBB();
 		}
+  
+    drawMinimap(ctx, mmX, mmY){
+      ctx.fillStyle = "Red";
+      ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 93/PARAMS.BITWIDTH , 86/PARAMS.BITWIDTH);
+    }
 		
 		draw(ctx) {
 			// this.healthbar.draw(ctx);
@@ -225,4 +230,3 @@ class Player {
 			}
 		}
 	}
-	
