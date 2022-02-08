@@ -38,7 +38,7 @@ let levelOne = {
 		{x: 9, y: 1, state: "locked", direction: "right", requiredGears: 1},
 		{x: 15, y: 13, state: "locked", direction: "right", requiredGears: 2}
 	],
-	walltrap : [
+	walltraps : [
 		{x: 8, y: 0, direction: "down"},
 		{x: 3, y: 13, direction: "right"},
 	]

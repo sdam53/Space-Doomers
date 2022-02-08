@@ -197,7 +197,7 @@ class Player {
 				}
 			}});
 
-			this.game.entities.portalw.forEach(function (entity) {
+			this.game.entities.portals.forEach(function (entity) {
 				if (entity.BB && that.feetBB.collide(entity.BB)) {
 					if (entity instanceof Door) {
 						if (entity.leftBB && that.feetBB.collide(entity.leftBB)) // collides with left side of wall
@@ -223,7 +223,7 @@ class Player {
 					}
 				}});
 
-		this.game.entities.powerup.forEach(function (entity) {
+		this.game.entities.powerups.forEach(function (entity) {
 			if (entity.BB && that.BB.collide(entity.BB)) {
 				if (entity instanceof Gear) {
 					ASSET_MANAGER.playAsset("./music/gear sound.wav");
