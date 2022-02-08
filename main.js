@@ -16,8 +16,9 @@ ASSET_MANAGER.queueDownload("./sprites/chest/chest_open.png");
 ASSET_MANAGER.queueDownload("./sprites/chest/chest_closed.png");
 ASSET_MANAGER.queueDownload("./sprites/door/door_shut.png");
 ASSET_MANAGER.queueDownload("./sprites/door/door_open.png");
-
-
+ASSET_MANAGER.queueDownload("./sprites/tiles/x wall.png");
+ASSET_MANAGER.queueDownload("./sprites/tiles/door unlocked.png");
+ASSET_MANAGER.queueDownload("./sprites/tiles/door open.png");
 
 // main player sprites
 ASSET_MANAGER.queueDownload("./sprites/player/player_up_idle.png");
@@ -32,12 +33,19 @@ ASSET_MANAGER.queueDownload("./sprites/player/player_bullet.png");
 ASSET_MANAGER.queueDownload("./sprites/player/player_down_death.png");
 ASSET_MANAGER.queueDownload("./sprites/player/hp_bar.png");
 
+//flying monster sprites
 ASSET_MANAGER.queueDownload("./sprites/enemies/flying_monster/flying_monster_bullet.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/flying_monster/flying_monster_up.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/flying_monster/flying_monster_down.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/flying_monster/flying_monster_left.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/flying_monster/flying_monster_right.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/flying_monster/flying_monster_right_death.png");
+
+//green monster sprites
+ASSET_MANAGER.queueDownload("./sprites/enemies/green_monster/green_monster_up.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/green_monster/green_monster_down.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/green_monster/green_monster_left.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/green_monster/green_monster_right.png");
 
 // boss sprites 
 ASSET_MANAGER.queueDownload("./sprites/enemies/boss/boss left/boss left idle.png");
