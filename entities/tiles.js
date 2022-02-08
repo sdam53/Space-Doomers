@@ -86,5 +86,9 @@ class Wall {
 			//ctx.strokeRect(this.bottomBB.x, this.bottomBB.y, this.bottomBB.width, this.bottomBB.height);
 		}
 	}
+	drawMinimap(ctx, mmX, mmY){
+		//ctx.fillStyle = "White";
+		//ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 125/PARAMS.BITWIDTH , 125/PARAMS.BITWIDTH );
+	  }
 }
 

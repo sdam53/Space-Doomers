@@ -58,7 +58,7 @@ class SceneManager {
 		}
 		//adding minimap
     // this.minimap = new Minimap(this.game, 0, PARAMS.CANVAS_WIDTH - PARAMS.CANVAS_WIDTH/PARAMS.BITWIDTH, 500);
-    this.minimap = new Minimap(this.game, 0, PARAMS.CANVAS_WIDTH - MAPONE.MAP[0].length*125/PARAMS.BITWIDTH, MAPONE.MAP.length*123/PARAMS.BITWIDTH);
+    this.minimap = new Minimap(this.game, 0, PARAMS.CANVAS_WIDTH - levelOne.map[0].length*125/PARAMS.BITWIDTH, levelOne.map.length*123/PARAMS.BITWIDTH);
     this.game.entities.minimap = this.minimap;
     
 		//adding player

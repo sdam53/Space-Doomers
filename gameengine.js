@@ -14,7 +14,7 @@ class GameEngine {
             tiles: [],
             portal: [],
             powerup: [],
-            minimap: []
+            minimap: [],
             traps: []
         };
         // Entities to be added at the end of each update
