@@ -85,7 +85,8 @@ class SceneManager {
 			}
 			if (typeof level.doors[0] != 'undefined') {
 				for (let i = 0; i < level.doors.length; i++) {
-					this.game.addPortal(new Door(this.game, level.doors[i].x * 125 - 60, level.doors[i].y * 125, 245, 125, level.doors[i].state, level.doors[i].direction));
+					this.game.addPortal(new Door(this.game, level.doors[i].x * 125, level.doors[i].y * 125, 
+												level.doors[i].state, level.doors[i].direction, level.doors[i].requiredGears));
 				}
 			}
 			if (typeof level.walltrap[0] != 'undefined') {

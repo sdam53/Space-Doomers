@@ -17,8 +17,18 @@ ASSET_MANAGER.queueDownload("./sprites/chest/chest_closed.png");
 ASSET_MANAGER.queueDownload("./sprites/door/door_shut.png");
 ASSET_MANAGER.queueDownload("./sprites/door/door_open.png");
 ASSET_MANAGER.queueDownload("./sprites/tiles/x wall.png");
-ASSET_MANAGER.queueDownload("./sprites/tiles/door unlocked.png");
-ASSET_MANAGER.queueDownload("./sprites/tiles/door open.png");
+
+// door sprites
+ASSET_MANAGER.queueDownload("./sprites/door/door open down.png");
+ASSET_MANAGER.queueDownload("./sprites/door/door open left.png");
+ASSET_MANAGER.queueDownload("./sprites/door/door open right.png");
+ASSET_MANAGER.queueDownload("./sprites/door/door unlocked down.png");
+ASSET_MANAGER.queueDownload("./sprites/door/door unlocked left.png");
+ASSET_MANAGER.queueDownload("./sprites/door/door unlocked right.png");
+ASSET_MANAGER.queueDownload("./sprites/door/door locked down.png");
+ASSET_MANAGER.queueDownload("./sprites/door/door locked left.png");
+ASSET_MANAGER.queueDownload("./sprites/door/door locked right.png");
+
 
 // main player sprites
 ASSET_MANAGER.queueDownload("./sprites/player/player_up_idle.png");

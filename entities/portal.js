@@ -16,7 +16,7 @@ class Portal {
 		this.animations = [];
 		this.animation = new Animator(this.spritesheet, 1, 1, 16, 16, 12, 0.3, 0, false, true);
 		
-		this.cooldown = 3; //cooldown in seconds
+		this.cooldown = 5; //cooldown in seconds
 		this.counter = 0;
 		this.linkPortal();
 		this.updateBB();
