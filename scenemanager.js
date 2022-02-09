@@ -18,8 +18,6 @@ class SceneManager {
 		this.gameOver = false;
 		this.loadLevel(levelOne, this.title, false);
 		this.death = new Animator(ASSET_MANAGER.getAsset("./sprites/player/player_down_death.png"), 0, 0, 369, 454, 18, 0.05, 0, false, false);
-		
-		
 	}
 	
 	loadLevel(level, title, transition) {
@@ -157,7 +155,7 @@ class SceneManager {
 			}
 		}
 		if (this.gameOver && this.game.lclick) {
-			this.clearEntities();
+			this.game.clearEntities();
 			if (this.game.mouse.x > 830 && this.game.mouse.x < 1075 && this.game.mouse.y > 40 && this.game.mouse.y < 90) {
 				ASSET_MANAGER.playAsset("./music/click sound.wav");
 				this.gameOver = false;
