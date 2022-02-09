@@ -38,7 +38,7 @@ class Gear {
     }
 
     drawMinimap(ctx, mmX, mmY){
-      ctx.fillStyle = "Green";
+      ctx.fillStyle = "Yellow";
       ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 100/PARAMS.BITWIDTH , 100/PARAMS.BITWIDTH);
     }
   }
