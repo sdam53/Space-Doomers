@@ -90,7 +90,7 @@ class Door {
 	
 	draw(ctx) {
 		ctx.drawImage(this.sprites[this.state + " " + this.direction], this.x, this.y, this.w, this.h);
-		if (PARAMS.DEBUG && (typeof this.BB != 'undefined')) {
+		if (PARAMS.DEBUG && (typeof this.BB != 'undefined') && this.BB) {
 			ctx.strokeStyle = 'Green';
 			ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
 			ctx.strokeRect(this.leftBB.x, this.leftBB.y, this.leftBB.width, this.leftBB.height);
