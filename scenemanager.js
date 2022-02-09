@@ -155,7 +155,7 @@ class SceneManager {
 			}
 		}
 		if (this.gameOver && this.game.lclick) {
-			this.clearEntities();
+			this.game.clearEntities();
 			if (this.game.mouse.x > 830 && this.game.mouse.x < 1075 && this.game.mouse.y > 40 && this.game.mouse.y < 90) {
 				ASSET_MANAGER.playAsset("./music/click sound.wav");
 				this.gameOver = false;
