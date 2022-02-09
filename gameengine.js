@@ -12,10 +12,16 @@ class GameEngine {
             enemies: [],
             bullets: [],
             tiles: [],
+<<<<<<< HEAD
+            portal: [],
+            door: [],
+            powerup: []
+=======
             portals: [],
             powerups: [],
             minimap: [],
             traps: []
+>>>>>>> daa45de7ae05bfe1bd07199dae2022535d934f56
         };
         // Entities to be added at the end of each update
         this.entitiesToAdd = [];
@@ -135,6 +141,10 @@ class GameEngine {
         this.entities.portals.push(entity);
     };
 
+    addDoor(entity) {
+        this.entities.door.push(entity);
+    };
+
     addPowerUp(entity) {
         this.entities.powerups.push(entity);
     };
@@ -161,6 +171,9 @@ class GameEngine {
         this.entities.powerups.forEach((powerups) => {
             powerups.draw(this.ctx);
           });
+        this.entities.door.forEach((door, i) => {
+            door.draw(this.ctx);
+          });
         this.entities.player.draw(this.ctx, this);
         this.entities.minimap.draw(this.ctx, this);
         this.camera.draw(this.ctx);
@@ -183,12 +196,21 @@ class GameEngine {
         this.entities.bullets.forEach((bullet) => {
           bullet.update();
         });
+<<<<<<< HEAD
+        this.entities.powerup.forEach((powerup, i) => {
+            powerup.update();
+          });
+        this.entities.door.forEach((door, i) => {
+            door.update();
+          });
+=======
         this.entities.powerups.forEach((powerups) => {
             powerups.update();
         });
         this.entities.traps.forEach((trap) => {
             trap.update();
         });
+>>>>>>> daa45de7ae05bfe1bd07199dae2022535d934f56
         // Remove dead things
         this.entities.bullets = this.entities.bullets.filter(entity => !entity.removeFromWorld);
         this.entities.enemies = this.entities.enemies.filter(entity => !entity.removeFromWorld);
