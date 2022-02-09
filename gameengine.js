@@ -7,16 +7,8 @@ class GameEngine {
         this.ctx = null;
 
         // Everything that will be updated and drawn each frame
-        this.entities = {
-            player: null,
-            enemies: [],
-            bullets: [],
-            tiles: [],
-            portals: [],
-            powerups: [],
-            minimap: [],
-            traps: []
-        };
+        this.clearEntities();
+
         // Entities to be added at the end of each update
         this.entitiesToAdd = [];
 
@@ -40,6 +32,19 @@ class GameEngine {
             debugging: false,
         };
     };
+
+    clearEntities() {
+        this.entities = {
+            player: null,
+            enemies: [],
+            bullets: [],
+            tiles: [],
+            portals: [],
+            powerups: [],
+            minimap: [],
+            traps: []
+        };
+    }
 
     init(ctx) {
         this.ctx = ctx;
