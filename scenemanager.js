@@ -32,7 +32,7 @@ class SceneManager {
 
 		//adding minimap
     	// this.minimap = new Minimap(this.game, 0, PARAMS.CANVAS_WIDTH - PARAMS.CANVAS_WIDTH/PARAMS.BITWIDTH, 500);
-    	this.minimap = new Minimap(this.game, 0, PARAMS.CANVAS_WIDTH - level.map[0].length * 125 / PARAMS.BITWIDTH, level.map.length *125 / PARAMS.BITWIDTH);
+    	this.minimap = new Minimap(this.game, 0, PARAMS.CANVAS_WIDTH - 250, 250);
     	this.game.entities.minimap = this.minimap;
 
 		// loading Ground, walls and traps
