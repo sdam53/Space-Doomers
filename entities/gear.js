@@ -5,6 +5,8 @@ class Gear {
       this.game = game;
       this.x = x;
       this.y = y;
+      this.mapX = x;
+      this.mapY = y;
       this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tiles/gear.png");
       // xStart, yStart, width, height, frameCount, frameDuration, framePadding, reverse, loop
       this.animation = new Animator(this.spritesheet, 1, 1, 16, 16, 12, 0.3, 0, false, true);
@@ -33,5 +35,10 @@ class Gear {
           ctx.strokeStyle = 'Blue';
           ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
         }
+    }
+
+    drawMinimap(ctx, mmX, mmY){
+      ctx.fillStyle = "Green";
+      ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 100/PARAMS.BITWIDTH , 100/PARAMS.BITWIDTH);
     }
   }

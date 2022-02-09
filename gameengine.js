@@ -12,9 +12,16 @@ class GameEngine {
             enemies: [],
             bullets: [],
             tiles: [],
+<<<<<<< HEAD
             portal: [],
             door: [],
             powerup: []
+=======
+            portals: [],
+            powerups: [],
+            minimap: [],
+            traps: []
+>>>>>>> daa45de7ae05bfe1bd07199dae2022535d934f56
         };
         // Entities to be added at the end of each update
         this.entitiesToAdd = [];
@@ -131,7 +138,7 @@ class GameEngine {
     };
 
     addPortal(entity) {
-        this.entities.portal.push(entity);
+        this.entities.portals.push(entity);
     };
 
     addDoor(entity) {
@@ -139,31 +146,36 @@ class GameEngine {
     };
 
     addPowerUp(entity) {
-        this.entities.powerup.push(entity);
+        this.entities.powerups.push(entity);
+    };
+
+    addTrap(entity) {
+        this.entities.traps.push(entity);
     };
 
     draw() {
         // Clear the whole canvas with transparent color (rgba(0, 0, 0, 0))
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-        this.entities.tiles.forEach((tile, i) => {
+        this.entities.tiles.forEach((tile) => {
           tile.draw(this.ctx);
         });
-        this.entities.portal.forEach((portal, i) => {
-          portal.draw(this.ctx);
+        this.entities.portals.forEach((portals) => {
+          portals.draw(this.ctx);
         });
-        this.entities.enemies.forEach((enemy, i) => {
+        this.entities.enemies.forEach((enemy) => {
           enemy.draw(this.ctx);
         });
-        this.entities.bullets.forEach((bullet, i) => {
+        this.entities.bullets.forEach((bullet) => {
           bullet.draw(this.ctx);
         });
-        this.entities.powerup.forEach((powerup, i) => {
-            powerup.draw(this.ctx);
+        this.entities.powerups.forEach((powerups) => {
+            powerups.draw(this.ctx);
           });
         this.entities.door.forEach((door, i) => {
             door.draw(this.ctx);
           });
         this.entities.player.draw(this.ctx, this);
+        this.entities.minimap.draw(this.ctx, this);
         this.camera.draw(this.ctx);
     };
 
@@ -172,30 +184,39 @@ class GameEngine {
         PARAMS.GODMODE = document.getElementById("godmode").checked;
         // Update Entities
         //this.entities.forEach(entity => entity.update(this));
-        this.entities.tiles.forEach((tile, i) => {
+        this.entities.tiles.forEach((tile) => {
           tile.update();
         });
-        this.entities.portal.forEach((portal, i) => {
-          portal.update();
+        this.entities.portals.forEach((portals) => {
+          portals.update();
         });
-        this.entities.enemies.forEach((enemy, i) => {
+        this.entities.enemies.forEach((enemy) => {
           enemy.update();
         });
-        this.entities.bullets.forEach((bullet, i) => {
+        this.entities.bullets.forEach((bullet) => {
           bullet.update();
         });
+<<<<<<< HEAD
         this.entities.powerup.forEach((powerup, i) => {
             powerup.update();
           });
         this.entities.door.forEach((door, i) => {
             door.update();
           });
+=======
+        this.entities.powerups.forEach((powerups) => {
+            powerups.update();
+        });
+        this.entities.traps.forEach((trap) => {
+            trap.update();
+        });
+>>>>>>> daa45de7ae05bfe1bd07199dae2022535d934f56
         // Remove dead things
         this.entities.bullets = this.entities.bullets.filter(entity => !entity.removeFromWorld);
         this.entities.enemies = this.entities.enemies.filter(entity => !entity.removeFromWorld);
-        this.entities.powerup = this.entities.powerup.filter(entity => !entity.removeFromWorld);
-      this.entities.player.update();
-      this.camera.update();
+        this.entities.powerups = this.entities.powerups.filter(entity => !entity.removeFromWorld);
+        this.entities.player.update();
+        this.camera.update();
     };
 
     loop() {
