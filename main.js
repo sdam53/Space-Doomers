@@ -29,6 +29,10 @@ ASSET_MANAGER.queueDownload("./sprites/door/door locked down.png");
 ASSET_MANAGER.queueDownload("./sprites/door/door locked left.png");
 ASSET_MANAGER.queueDownload("./sprites/door/door locked right.png");
 
+// transition items sprites 
+ASSET_MANAGER.queueDownload("./sprites/transition/level 1 hole.png");
+ASSET_MANAGER.queueDownload("./sprites/transition/level 2 jetpack.png");
+ASSET_MANAGER.queueDownload("./sprites/transition/level 3 pod.png");
 
 // main player sprites
 ASSET_MANAGER.queueDownload("./sprites/player/player_up_idle.png");

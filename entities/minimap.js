@@ -10,8 +10,11 @@ class Minimap {
 
     draw(ctx){
         ctx.strokeStyle="White";
+
+        let level = this.game.camera.level;
+
         // ctx.strokeRect(this.y, this.x, PARAMS.CANVAS_WIDTH/PARAMS.BITWIDTH, PARAMS.CANVAS_HEIGHT/PARAMS.BITWIDTH);
-        ctx.strokeRect(this.y, this.x, levelOne.map[0].length*125/PARAMS.BITWIDTH, levelOne.map.length*125/PARAMS.BITWIDTH);
+        ctx.strokeRect(this.y, this.x, level.map[0].length * 125 / PARAMS.BITWIDTH, level.map.length * 125 / PARAMS.BITWIDTH);
         this.game.entities.tiles.forEach((tile, i) => {
             tile.drawMinimap(ctx, this.y, this.x);
           });

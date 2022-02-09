@@ -41,7 +41,8 @@ let levelOne = {
 	walltraps : [
 		{x: 8, y: 0, direction: "down"},
 		{x: 3, y: 13, direction: "right"},
-	]
+	],
+	transitionItem : {x: 11, y: 2, level: 1}
 };
 
 const levelTwo = {
@@ -79,27 +80,34 @@ const levelTwo = {
 		  [0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,],
 		  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,]],
 
-	PLAYER: [5,3],
-	FLYINGMONSTER: [
-		X = [12,2],
-		Y = [5,5]
+		  player: {x: 4, y: 2},
+		  flying_monsters: [
+			  X = [],
+			  Y = []
+		  ],
+	green_monsters: [
+		X = [],
+		Y = []
 	],
-	GREENMONSTER: [
-		X = [12],
-		Y = [5]
+	gears: [
+		X = [],
+		Y = []
 	],
-	GEARS: [
-		X = [5, 2, 16],
-		Y = [6, 11, 2]
+	portals: [
+		X = [],
+		Y = []
 	],
-	PORTAL: [
-		X = [2],
-		Y = [4]
-	]
+	doors : [
+		
+	],
+	walltraps : [
+		
+	],
+	transitionItem: {x: 6, y: 6, level: 2}
 };
 
-const LEVEL_THREE = {
-	MAP: [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],
+let levelThree = {
+	map: [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],
 			[0,1,1,1,1,1,1,0,1,1,1,1,1,0,0,0,0,0,0,0,0,],
 			[0,0,0,0,0,0,1,0,1,0,1,1,1,1,0,0,1,1,1,0,0,],
 			[0,0,1,1,1,1,1,0,1,0,1,1,1,1,0,0,0,0,1,0,0,],
@@ -114,21 +122,36 @@ const LEVEL_THREE = {
 			[0,0,1,1,1,1,0,0,0,1,1,1,0,1,0,0,1,0,0,0,0,],
 			[0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,],
 			[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,]],
-	PLAYER: [5,3],
-	FLYINGMONSTER: [
+	player: {x: 5, y: 3},
+	flying_monsters: [
 		X = [12,2],
 		Y = [5,5]
 	],
-	GREENMONSTER: [
-		X = [12],
-		Y = [5]
+	green_monsters: [
+		X = [2],
+		Y = [12]
 	],
-	GEARS: [
+	gears: [
 		X = [5, 2, 16],
 		Y = [6, 11, 2]
 	],
-	PORTAL: [
-		X = [2],
-		Y = [4]
-	]
+	portals: [
+		X = [2, 13],
+		Y = [4, 12]
+	],
+	doors : [
+		{x: 5, y: 1, state: "unlocked", direction: "left"},
+		{x: 8, y: 9, state: "locked", direction: "down", requiredGears: 1},
+		{x: 9, y: 1, state: "locked", direction: "right", requiredGears: 1},
+		{x: 15, y: 13, state: "locked", direction: "right", requiredGears: 2}
+	],
+	walltraps : [
+		{x: 8, y: 0, direction: "down"},
+		{x: 3, y: 13, direction: "right"},
+	],
+	transitionItem : {x: 11, y: 2, level: 3}
 };
+
+
+
+

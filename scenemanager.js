@@ -22,22 +22,20 @@ class SceneManager {
 		
 	}
 	
-	clearEntities() {
-		//doing this way fixes a retry bug
-		//doing for each remove from world still makes it show for some reason
-		this.game.entities.enemies = []
-		this.game.entities.bullets = []
-		this.game.entities.tiles = []
-		this.game.entities.portals = []
-		this.game.entities.powerup = []
-		this.game.entities.doortrap = []
-	};
-	
 	loadLevel(level, title, transition) {
+		this.game.clearEntities();
+
 		this.level = level;
 		this.title = title;
 		this.transition = transition;
 		this.credits = false;
+
+		//adding minimap
+    	// this.minimap = new Minimap(this.game, 0, PARAMS.CANVAS_WIDTH - PARAMS.CANVAS_WIDTH/PARAMS.BITWIDTH, 500);
+    	this.minimap = new Minimap(this.game, 0, PARAMS.CANVAS_WIDTH - level.map[0].length * 125 / PARAMS.BITWIDTH, level.map.length *125 / PARAMS.BITWIDTH);
+    	this.game.entities.minimap = this.minimap;
+
+		// loading Ground, walls and traps
 		let x = 0;
 		let y = 0;
 		if (!title && !this.gameOver) {
@@ -56,11 +54,7 @@ class SceneManager {
 				y += 125;
 			}
 		}
-		//adding minimap
-    // this.minimap = new Minimap(this.game, 0, PARAMS.CANVAS_WIDTH - PARAMS.CANVAS_WIDTH/PARAMS.BITWIDTH, 500);
-    this.minimap = new Minimap(this.game, 0, PARAMS.CANVAS_WIDTH - levelOne.map[0].length*125/PARAMS.BITWIDTH, levelOne.map.length*123/PARAMS.BITWIDTH);
-    this.game.entities.minimap = this.minimap;
-    
+		
 		//adding player
 		this.player = new Player(this.game, level.player.x * 125, level.player.y * 125);
 		this.game.entities.player = this.player;
@@ -98,6 +92,9 @@ class SceneManager {
 					this.game.addTrap(new WallTrap(this.game, level.walltraps[i].x * 125, level.walltraps[i].y * 125, level.walltraps[i].direction));
 				}
 			}
+			
+			this.game.addPortal(new TransitionItem(this.game, level.transitionItem.x * 125, level.transitionItem.y * 125, level.transitionItem.level));
+				
 		}
 		
 		if (!this.title && this.transition) {
@@ -108,15 +105,15 @@ class SceneManager {
 	
 	
 	update() {
-		if (this.title == false && this.transition == false && this.credits == false) {
+		//if (this.title == false && this.transition == false && this.credits == false) {
 			if (this.game.keys["8"]) {
-				this.loadLevel(levelOne, false, true);
+				this.loadLevel(levelOne, false, false);
 			} else if (this.game.keys["9"]) {
-				this.loadLevel(LEVEL_TWO, false, true);
+				this.loadLevel(levelTwo, false, false);
 			} else if (this.game.keys["0"]) {
-				this.loadLevel(LEVEL_THREE, false, true);
+				this.loadLevel(levelThree, false, false);
 			} 
-		}
+		// }
 		
 		let midpoint = PARAMS.CANVAS_WIDTH/2
 		this.x = this.player.x - midpoint;
