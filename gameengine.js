@@ -13,6 +13,7 @@ class GameEngine {
             bullets: [],
             tiles: [],
             portal: [],
+            door: [],
             powerup: []
         };
         // Entities to be added at the end of each update
@@ -133,6 +134,10 @@ class GameEngine {
         this.entities.portal.push(entity);
     };
 
+    addDoor(entity) {
+        this.entities.door.push(entity);
+    };
+
     addPowerUp(entity) {
         this.entities.powerup.push(entity);
     };
@@ -154,6 +159,9 @@ class GameEngine {
         });
         this.entities.powerup.forEach((powerup, i) => {
             powerup.draw(this.ctx);
+          });
+        this.entities.door.forEach((door, i) => {
+            door.draw(this.ctx);
           });
         this.entities.player.draw(this.ctx, this);
         this.camera.draw(this.ctx);
@@ -178,6 +186,9 @@ class GameEngine {
         });
         this.entities.powerup.forEach((powerup, i) => {
             powerup.update();
+          });
+        this.entities.door.forEach((door, i) => {
+            door.update();
           });
         // Remove dead things
         this.entities.bullets = this.entities.bullets.filter(entity => !entity.removeFromWorld);

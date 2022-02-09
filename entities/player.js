@@ -196,8 +196,17 @@ class Player {
                 that.y = that.y + 200 * TICK;
                 that.mapY += 200 * TICK;
               }
-          }
+          } 
         }});
+
+        //Load level two when collision with door at end of lvl 1
+        this.game.entities.door.forEach(function (entity) {
+        if (entity instanceof Door && that.feetBB.collide(entity.BB)) {
+          console.log("test");
+          entity.removeFromWorld = true;
+          that.game.camera.loadLevelTwo();
+        }
+      });
         this.game.entities.portal.forEach(function (entity) {
           if (entity.BB && that.BB.collide(entity.BB)) {
             if (entity instanceof Portal) {
