@@ -18,8 +18,6 @@ class SceneManager {
 		this.gameOver = false;
 		this.loadLevel(levelOne, this.title, false);
 		this.death = new Animator(ASSET_MANAGER.getAsset("./sprites/player/player_down_death.png"), 0, 0, 369, 454, 18, 0.05, 0, false, false);
-		
-		
 	}
 	
 	loadLevel(level, title, transition) {
