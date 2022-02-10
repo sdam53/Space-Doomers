@@ -198,27 +198,27 @@ class GameEngine {
             }
 
             // shooting
-            if (!this.mouseActive && (gamepad.buttons[0].pressed || gamepad.buttons[7].pressed) && (Math.abs(gamepad.axes[2]) > 0.05 || Math.abs(gamepad.axes[3] > 0.05))) {
+            if (!this.mouseActive && (gamepad.buttons[0].pressed || gamepad.buttons[7].pressed) && (Math.abs(gamepad.axes[2]) > 0.1 || Math.abs(gamepad.axes[3] > 0.1))) {
                 //console.log(gamepad.axes[2], gamepad.axes[3])
+                console.log("first")
                 this.lclick = true;
                 this.mouse.x = this.player.x + 43 + gamepad.axes[2] * 10;
                 this.mouse.y = this.player.y + 46 + gamepad.axes[3] * 10
                // console.log(Math.atan2(gamepad.axes[3], gamepad.axes[2]) * 180 / Math.PI)
-            } else if (!this.mouseActive && (gamepad.buttons[0].pressed || gamepad.buttons[7].pressed)) {
-                console.log(this.mouse.x, this.mouse.y)
+            } else if (!this.mouseActive && (gamepad.buttons[0].pressed || gamepad.buttons[7].pressed)) { 
                 this.lclick = true;
                 if (this.player.facing == "left") {
-                    this.mouse.x = this.player.x - 10;
-                    this.mouse.y = this.player.y;
+                    this.mouse.x = this.player.x - 100;
+                    this.mouse.y = this.player.y + 55;
                 } else if (this.player.facing == "right") {
-                    this.mouse.x = this.player.x + 10;
-                    this.mouse.y = this.player.y;
+                    this.mouse.x = this.player.x + 100;
+                    this.mouse.y = this.player.y + 55;
                 } else if (this.player.facing == "up") {
-                    this.mouse.x = this.player.x;
-                    this.mouse.y = this.player.y - 10;;
+                    this.mouse.x = this.player.x + 28;
+                    this.mouse.y = this.player.y - 100;
                 } else if (this.player.facing == "down") {
-                    this.mouse.x = this.player.x;
-                    this.mouse.y = this.player.y + 10;
+                    this.mouse.x = this.player.x + 24;
+                    this.mouse.y = this.player.y + 100;
                 } 
             } else if (!this.mouseActive) {
                 this.lclick = false;
