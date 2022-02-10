@@ -242,6 +242,15 @@ class Player {
 			}
 		});
 
+		this.game.entities.portals.forEach(function (entity) {
+			if (entity.BB && that.feetBB.collide(entity.BB)) {
+				if (entity instanceof Powerup) {
+					entity.removeFromWorld = true;
+					that.hp = 100;
+				}
+			}
+		});
+
 		this.updateBB();
 		}
   
