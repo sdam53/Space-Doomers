@@ -31,6 +31,9 @@ class GameEngine {
             },
             debugging: false,
         };
+
+        this.keyboardActive = false;
+        this.mouseActive = false;
     };
 
     clearEntities() {
@@ -86,6 +89,7 @@ class GameEngine {
 
         // Added by Raz
         this.ctx.canvas.addEventListener("mousedown", function (e) {
+            that.mouseActive = true;
             this.lclick = getXandY(e);
             if (e.button == 0) {
                 that.lclick = true;
@@ -94,13 +98,14 @@ class GameEngine {
 
         // Added by Raz
         this.ctx.canvas.addEventListener("mouseup", function (e) {
-            this.lclick = getXandY(e);
+            that.mouseActive = false;
+            that.lclick = getXandY(e);
             if (e.button == 0) {
                 that.lclick = false;
             }
         }, false);
 
-        this.ctx.canvas.addEventListener("wheel", e => {
+        /* this.ctx.canvas.addEventListener("wheel", e => {
             if (this.options.debugging) {
                 console.log("WHEEL", getXandY(e), e.wheelDelta);
             }
@@ -108,7 +113,7 @@ class GameEngine {
                 e.preventDefault(); // Prevent Scrolling
             }
             this.wheel = e;
-        });
+        }); */
 
         this.ctx.canvas.addEventListener("contextmenu", e => {
             if (this.options.debugging) {
@@ -120,8 +125,14 @@ class GameEngine {
             this.rightclick = getXandY(e);
         });
 
-        window.addEventListener("keydown", event => this.keys[event.key] = true);
-        window.addEventListener("keyup", event => this.keys[event.key] = false);
+        window.addEventListener("keydown", event => {
+            this.keys[event.key] = true;
+            this.keyboardActive = true;
+        });
+        window.addEventListener("keyup", event => {
+            this.keys[event.key] = false;
+            this.keyboardActive = false;
+        });
     };
 
     addEnemy(entity) {
@@ -174,7 +185,50 @@ class GameEngine {
         this.camera.draw(this.ctx);
     };
 
+    gamepadUpdate() {
+        this.gamepad = navigator.getGamepads()[0];
+        let gamepad = this.gamepad;
+        if (gamepad != null) {
+            if (!this.keyboardActive) {
+                // movement
+                this.keys["a"] = gamepad.buttons[14].pressed || gamepad.axes[0] < -0.3;
+                this.keys["d"] = gamepad.buttons[15].pressed || gamepad.axes[0] > 0.3;
+                this.keys["w"] = gamepad.buttons[12].pressed || gamepad.axes[1] < -0.3;
+                this.keys["s"] = gamepad.buttons[13].pressed || gamepad.axes[1] > 0.3;
+            }
+
+            // shooting
+            if (!this.mouseActive && (gamepad.buttons[0].pressed || gamepad.buttons[7].pressed) && (Math.abs(gamepad.axes[2]) > 0.05 || Math.abs(gamepad.axes[3] > 0.05))) {
+                //console.log(gamepad.axes[2], gamepad.axes[3])
+                this.lclick = true;
+                this.mouse.x = this.player.x + 43 + gamepad.axes[2] * 10;
+                this.mouse.y = this.player.y + 46 + gamepad.axes[3] * 10
+               // console.log(Math.atan2(gamepad.axes[3], gamepad.axes[2]) * 180 / Math.PI)
+            } else if (!this.mouseActive && (gamepad.buttons[0].pressed || gamepad.buttons[7].pressed)) {
+                console.log(this.mouse.x, this.mouse.y)
+                this.lclick = true;
+                if (this.player.facing == "left") {
+                    this.mouse.x = this.player.x - 10;
+                    this.mouse.y = this.player.y;
+                } else if (this.player.facing == "right") {
+                    this.mouse.x = this.player.x + 10;
+                    this.mouse.y = this.player.y;
+                } else if (this.player.facing == "up") {
+                    this.mouse.x = this.player.x;
+                    this.mouse.y = this.player.y - 10;;
+                } else if (this.player.facing == "down") {
+                    this.mouse.x = this.player.x;
+                    this.mouse.y = this.player.y + 10;
+                } 
+            } else if (!this.mouseActive) {
+                this.lclick = false;
+            }
+        }
+    }
+
     update() {
+        this.gamepadUpdate();
+
         PARAMS.DEBUG = document.getElementById("debug").checked;
         PARAMS.GODMODE = document.getElementById("godmode").checked;
         // Update Entities
