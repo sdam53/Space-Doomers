@@ -81,22 +81,22 @@ let levelTwo = {
 		Y = []
 	],
 	green_monsters: [
-		X = [],
-		Y = []
+	X = [],
+	Y = []
 	],
 	gears: [
-		X = [],
-		Y = []
+	X = [13,2],
+	Y = [6,14]
 	],
 	portals: [
-		X = [],
-		Y = []
+	X = [31,1],
+	Y = [1,19]
 	],
 	doors : [
-		
+	{x: 40, y: 6, state: "locked", direction: "down", requiredGears: 2},
 	],
 	walltraps : [
-		
+	
 	],
 	transitionItem: {x: 6, y: 6, level: 2}
 };
