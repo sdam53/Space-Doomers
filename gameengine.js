@@ -165,7 +165,10 @@ class GameEngine {
         });
         this.entities.powerups.forEach((powerups) => {
             powerups.draw(this.ctx);
-          });
+        });
+        this.entities.traps.forEach((trap) => {
+            trap.draw(this.ctx);
+        });
         this.entities.player.draw(this.ctx, this);
         this.entities.minimap.draw(this.ctx, this);
         this.camera.draw(this.ctx);
