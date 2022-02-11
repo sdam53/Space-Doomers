@@ -96,8 +96,8 @@ let levelTwo = {
 
 		  player: {x: 4, y: 2},
 		  flying_monsters: [
-			  X = [5, 12],
-			  Y = [3, 23]
+			  X = [5, 12, 14],
+			  Y = [3, 23, 15]
 		  ],
 	green_monsters: [
 		X = [],
@@ -108,8 +108,8 @@ let levelTwo = {
 	Y = []
 	],
 	gears: [
-	X = [13,2],
-	Y = [6,14]
+	X = [13,2,2,15],
+	Y = [6,14,12,23]
 	],
 	portals: [
 		X = [31,1,34,7],
