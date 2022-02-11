@@ -42,6 +42,10 @@ let levelOne = {
 		{x: 8, y: 0, direction: "down"},
 		{x: 3, y: 13, direction: "right"},
 	],
+	traps :[
+		X= [6],
+		Y= [6]
+	],
 	transitionItem : {x: 11, y: 2, level: 1}
 };
 
@@ -98,6 +102,7 @@ let levelTwo = {
 	walltraps : [
 		
 	],
+	traps :[],
 	transitionItem: {x: 6, y: 6, level: 2}
 };
 

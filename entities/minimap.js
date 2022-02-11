@@ -40,6 +40,9 @@ class Minimap {
         this.game.entities.powerups.forEach((powerup, i) => {
             powerup.drawMinimap(ctx, y, x);
           });  
-
+        // this.game.entities.traps.forEach((trap, i)=>{
+        //     trap.drawMinimap(ctx, y,x);
+        // }
+        // )
     };
 }

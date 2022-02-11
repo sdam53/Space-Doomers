@@ -92,6 +92,11 @@ class SceneManager {
 					this.game.addTrap(new WallTrap(this.game, level.walltraps[i].x * 125, level.walltraps[i].y * 125, level.walltraps[i].direction));
 				}
 			}
+			if (typeof level.traps[0] != 'undefined') {
+				for (let i = 0; i < level.traps.length; i++) {
+					this.game.addTrap(new Trap(this.game, level.traps[0][i] * 125, level.traps[1][i] * 125));
+				}
+			}
 			
 			this.game.addPortal(new TransitionItem(this.game, level.transitionItem.x * 125, level.transitionItem.y * 125, level.transitionItem.level));
 				
