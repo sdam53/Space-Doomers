@@ -3,7 +3,9 @@ class Player {
 		Object.assign(this, {game, x, y});
 		this.game.player = this;
 		this.game = game;
-		
+
+    //getTrap to check if the character is in a trap or not
+		this.getTrap = false;
 		this.spritesheet1 = ASSET_MANAGER.getAsset("./sprites/player/player_up_idle.png");
 		this.spritesheet2 = ASSET_MANAGER.getAsset("./sprites/player/player_up_run.png");
 		this.spritesheet3 = ASSET_MANAGER.getAsset("./sprites/player/player_down_idle.png");
@@ -129,11 +131,15 @@ class Player {
 		}
 
     if (this.checkSlowTrap()){
+      if (this.getTrap == false)
+        this.hp=this.hp-5;
       this.moveMultiplyer = 0.2;
+      this.getTrap = true;
     }
-    else
+    else{
       this.moveMultiplyer = 1;
-
+      this.getTrap = false;
+    }
 		//shooting
 		if ((this.game.lclick) && !this.game.camera.title && !this.game.camera.transition) {
 			if (this.bulletTimer <= 0) {
@@ -257,7 +263,7 @@ class Player {
 				}
 			}
 		});
-
+    console.log(this.game.camera.level);
 		this.updateBB();
 		}
   

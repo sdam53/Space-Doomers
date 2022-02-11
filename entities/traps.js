@@ -36,9 +36,9 @@ class Trap{
 		ctx.drawImage(this.thorn1,
             1, 1, //source from sheet
             485, 495,
-            this.x, this.y,
-            125,
-            125);
+            this.x+22, this.y+22,
+            80,
+            80);
 		if (PARAMS.DEBUG && (typeof this.BB != 'undefined')) {
 			ctx.strokeStyle = 'Green';
 			ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
