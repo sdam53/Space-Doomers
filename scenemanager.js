@@ -20,18 +20,14 @@ class SceneManager {
 
 		this.time = 0;
 		this.menuCooldown = 0.5;
-	}
 
-	timerOk() {
-		if (this.time > this.menuCooldown) {
-			this.time = 0;
-			return true;
-		} 
-		return false;
+		this.gamepadSelect = 498;
 	}
 	
 	loadLevel(level, title, transition) {
 		this.game.clearEntities();
+		
+		this.gamepadSelect = 498;
 
 		this.level = level;
 		this.levelCount = level.levelCount;
@@ -114,9 +110,28 @@ class SceneManager {
 		}
 	}
 	
+	timerOk() {
+		if (this.time > this.menuCooldown) {
+			this.time = 0;
+			return true;
+		} 
+		return false;
+	}
+
+	gamepadButton() {
+		return this.game.gamepad && (this.game.gamepad.buttons[0].pressed || this.game.gamepad.buttons[7].pressed);
+	}
 	
 	update() {
 		this.time += this.game.clockTick;
+
+		if (this.game.keys["a"]  && this.timerOk()) {
+			this.gamepadSelect--;
+		} else if (this.game.keys["d"] && this.timerOk()) {
+			this.gamepadSelect++;
+		}
+
+		console.log(this.gamepadSelect);
 
 		// (Debug) easy level select
 		if (this.game.keys["8"]) {
@@ -135,52 +150,78 @@ class SceneManager {
 		// this.game.lclick = true;
 		// if (this.title && this.game.lclick && this.game.mouse.x > 800 && this.game.mouse.x < 1020 && this.game.mouse.y > 170 && this.game.mouse.y < 210)
 		
+		console.log(this.gamepadButton());
 		
 		// If title screen
 		if (this.title && this.game.lclick && !this.levelSelect) {
 			// Title Screen -> Start Game (with transition)
-			if (!this.credits && this.game.mouse.x > 300 && this.game.mouse.x < 590 && this.game.mouse.y > 760 && this.game.mouse.y < 810 && this.timerOk()) {
+			if (!this.credits 
+				&& ((this.game.mouse.x > 300 && this.game.mouse.x < 590 && this.game.mouse.y > 760 && this.game.mouse.y < 810) 
+					|| (this.gamepadSelect % 3 == 0 && this.gamepadButton())) 
+				&& this.timerOk()) {
+					
 				ASSET_MANAGER.playAsset("./music/click sound.wav");
 				this.title = false;
 				this.player = new Player(this.game, 100, 100);
 				this.loadLevel(levelOne, false, true);
 			}
+			// Title -> Level Select
+			if (!this.credits 
+				&& ((this.game.mouse.x > 850 && this.game.mouse.x < 1100 && this.game.mouse.y > 800 && this.game.mouse.y < 840) 
+					|| (this.gamepadSelect % 3 == 1 && this.gamepadButton())) 
+				&& this.timerOk()) {
+				this.time = this.game.clockTick;
+				this.levelSelect = true;
+			}
 			// Title Screen -> Credits
-			if (!this.credits && this.game.mouse.x > 1400 && this.game.mouse.x < 1595 && this.game.mouse.y > 760 && this.game.mouse.y < 810 && this.timerOk()) {
+			if (!this.credits 
+				&& ((this.game.mouse.x > 1400 && this.game.mouse.x < 1595 && this.game.mouse.y > 760 && this.game.mouse.y < 810) 
+				    || (this.gamepadSelect % 3 == 2 && this.gamepadButton()))
+				&& this.timerOk()) {
 				ASSET_MANAGER.playAsset("./music/click sound.wav");
 				this.loadLevel(levelOne, true, false);
 				this.credits = true;
 			}
+
 			// Credits -> Title Screen
-			if (this.credits && this.game.mouse.x > 780 && this.game.mouse.x < 1075 && this.game.mouse.y > 40 && this.game.mouse.y < 90 && this.timerOk()) {
+			if (this.credits 
+				&& ((this.game.mouse.x > 780 && this.game.mouse.x < 1075 && this.game.mouse.y > 40 && this.game.mouse.y < 90) 
+				|| this.gamepadButton()) 
+				&& this.timerOk()) {
 				ASSET_MANAGER.playAsset("./music/click sound.wav");
 				this.credits = false;
-				this.loadLevel(true, false);
-			}
-			// Title -> Level Select
-			if (!this.credits && this.game.mouse.x > 850 && this.game.mouse.x < 1100 && this.game.mouse.y > 800 && this.game.mouse.y < 840 && this.timerOk()) {
-				this.time = this.game.clockTick;
-				this.levelSelect = true;
+				this.loadLevel(levelOne, true, false);
 			}
 		}
 
 		if (this.levelSelect && this.game.lclick) {
-			if (this.game.mouse.x > 100 && this.game.mouse.x < 560 && this.game.mouse.y > 760 && this.game.mouse.y < 810 && this.timerOk()) {
+			if (((this.game.mouse.x > 100 && this.game.mouse.x < 560 && this.game.mouse.y > 760 && this.game.mouse.y < 810)
+			 		|| (this.gamepadSelect % 3 == 0 && this.gamepadButton())) 
+				&& this.timerOk()) {
+
 				this.levelSelect = false;
 				this.loadLevel(levelOne, false, true);
 			}
-			else if (this.game.mouse.x > 740 && this.game.mouse.x < 1180 && this.game.mouse.y > 800 && this.game.mouse.y < 840 && this.timerOk()) {
+			else if (((this.game.mouse.x > 740 && this.game.mouse.x < 1180 && this.game.mouse.y > 800 && this.game.mouse.y < 840)
+						|| (this.gamepadSelect % 3 == 1 && this.gamepadButton())) 
+					&& this.timerOk()) {
+
 					this.levelSelect = false;
 					this.loadLevel(levelTwo, false, true);
 			}
-			else if (this.game.mouse.x > 1310 && this.game.mouse.x < 1795 && this.game.mouse.y > 760 && this.game.mouse.y < 810 && this.timerOk()) {
+			else if (((this.game.mouse.x > 1310 && this.game.mouse.x < 1795 && this.game.mouse.y > 760 && this.game.mouse.y < 810)
+						|| (this.gamepadSelect % 3 == 2 && this.gamepadButton()))
+					&& this.timerOk()) {
+
 				this.levelSelect = false;
 				this.loadLevel(levelThree, false, true);
 			}
 		}
 		
 		if (this.transition && this.game.lclick) {
-			if (this.game.mouse.x > 1400 && this.game.mouse.x < 1640 && this.game.mouse.y > 760 && this.game.mouse.y < 810 && this.timerOk()) {
+			if (((this.game.mouse.x > 1400 && this.game.mouse.x < 1640 && this.game.mouse.y > 760 && this.game.mouse.y < 810)
+					|| this.gamepadButton())
+				&& this.timerOk()) {
 				ASSET_MANAGER.playAsset("./music/click sound.wav");
 				this.transition = false;
 				this.title = false;
@@ -190,7 +231,9 @@ class SceneManager {
 		}
 
 		if (this.gameOver && this.game.lclick) {
-			if (this.game.mouse.x > 830 && this.game.mouse.x < 1075 && this.game.mouse.y > 40 && this.game.mouse.y < 90 && this.timerOk()) {
+			if (((this.game.mouse.x > 830 && this.game.mouse.x < 1075 && this.game.mouse.y > 40 && this.game.mouse.y < 90)
+					|| this.gamepadButton())
+				&& this.timerOk()) {
 				ASSET_MANAGER.playAsset("./music/click sound.wav");
 				this.gameOver = false;
 				this.player = new Player(this.game, 100, 100);
@@ -251,19 +294,34 @@ class SceneManager {
 			ctx.fillStyle = "#4a8437";
 
 			ctx.fillRect(300, 760, 290, 50); // left 90 up 50
-			ctx.fillStyle = this.game.mouse && this.game.mouse.x > 300 && this.game.mouse.x < 590 && this.game.mouse.y > 760 && this.game.mouse.y < 810 ? "#e6e4df" : "Black";
+			if ((this.game.mouse && this.game.mouse.x > 300 && this.game.mouse.x < 590 && this.game.mouse.y > 760 && this.game.mouse.y < 810)
+				|| (this.gamepadSelect % 3 == 0)) {
+				ctx.fillStyle = "#e6e4df";
+			} else {
+				ctx.fillStyle = "Black";
+			}
 			ctx.fillText("START GAME", 310, 800);
 
 			ctx.font = '30px "NASA"';
 			ctx.fillStyle = "#fa3b26";
 			ctx.fillRect(850, 800, 250, 40); 
-			ctx.fillStyle = this.game.mouse && this.game.mouse.x > 850 && this.game.mouse.x < 1100 && this.game.mouse.y > 800 && this.game.mouse.y < 840 ? "White" : "Black";
+			if ((this.game.mouse && this.game.mouse.x > 850 && this.game.mouse.x < 1100 && this.game.mouse.y > 800 && this.game.mouse.y < 840) 
+				|| (this.gamepadSelect % 3 == 1)) {
+				ctx.fillStyle = "white";
+			} else {
+				ctx.fillStyle = "Black";
+			}
 			ctx.fillText("LEVEL SELECT", 860, 830);
 
 			ctx.font = '40px "NASA"';
 			ctx.fillStyle = "#ba6cc3";
 			ctx.fillRect(1400, 760, 195, 50);
-			ctx.fillStyle = this.game.mouse && this.game.mouse.x > 1400 && this.game.mouse.x < 1595 && this.game.mouse.y > 760 && this.game.mouse.y < 810 ? "#e6e4df" : "Black";
+			if ((this.game.mouse && this.game.mouse.x > 1400 && this.game.mouse.x < 1595 && this.game.mouse.y > 760 && this.game.mouse.y < 810)
+			 	|| (this.gamepadSelect % 3 == 2)) {
+				ctx.fillStyle = "#e6e4df"; 
+			} else {
+				ctx.fillStyle = "Black";
+			}
 			ctx.fillText("CREDITS", 1410, 800);
 
 		} else if (this.levelSelect) {
@@ -273,19 +331,34 @@ class SceneManager {
 			ctx.fillStyle = "#4a8437";
 
 			ctx.fillRect(100, 760, 460, 50); // left 90 up 50
-			ctx.fillStyle = this.game.mouse && this.game.mouse.x > 100 && this.game.mouse.x < 560 && this.game.mouse.y > 760 && this.game.mouse.y < 810 ? "#e6e4df" : "Black";
+			if ((this.game.mouse && this.game.mouse.x > 100 && this.game.mouse.x < 560 && this.game.mouse.y > 760 && this.game.mouse.y < 810)
+			 	|| (this.gamepadSelect % 3 == 0)) {
+				ctx.fillStyle = "#e6e4df"; 
+			} else {
+				ctx.fillStyle = "Black";
+			}
 			ctx.fillText("LEVEL 1: ROB IS FINE", 110, 800);
 
 			ctx.font = '30px "NASA"';
 			ctx.fillStyle = "#fa3b26";
 			ctx.fillRect(740, 800, 440, 40); 
-			ctx.fillStyle = this.game.mouse && this.game.mouse.x > 740 && this.game.mouse.x < 1180 && this.game.mouse.y > 800 && this.game.mouse.y < 840 ? "White" : "Black";
+			if ((this.game.mouse && this.game.mouse.x > 740 && this.game.mouse.x < 1180 && this.game.mouse.y > 800 && this.game.mouse.y < 840)
+			 	|| (this.gamepadSelect % 3 == 1)) {
+				ctx.fillStyle = "White"; 
+			} else {
+				ctx.fillStyle = "Black";
+			}
 			ctx.fillText("LEVEL 2: TOO. MUCH. RUN.", 750, 830);
 
 			ctx.font = '40px "NASA"';
 			ctx.fillStyle = "#ba6cc3";
 			ctx.fillRect(1310, 760, 485, 50);
-			ctx.fillStyle = this.game.mouse && this.game.mouse.x > 1310 && this.game.mouse.x < 1795 && this.game.mouse.y > 760 && this.game.mouse.y < 810 ? "#e6e4df" : "Black";
+			if ((this.game.mouse && this.game.mouse.x > 1310 && this.game.mouse.x < 1795 && this.game.mouse.y > 760 && this.game.mouse.y < 810)
+			 	|| (this.gamepadSelect % 3 == 2)) {
+				ctx.fillStyle = "#e6e4df"; 
+			} else {
+				ctx.fillStyle = "Black";
+			}
 			ctx.fillText("LEVEL 3: GET THE BAG", 1320, 800);
 		}	// Credits Screen
 			else if (this.title && this.credits && !this.transition && !this.levelSelect) {
