@@ -29,6 +29,9 @@ ASSET_MANAGER.queueDownload("./sprites/door/door locked down.png");
 ASSET_MANAGER.queueDownload("./sprites/door/door locked left.png");
 ASSET_MANAGER.queueDownload("./sprites/door/door locked right.png");
 
+// powerup sprites
+ASSET_MANAGER.queueDownload("./sprites/tiles/healthpack.png")
+
 // transition items sprites 
 ASSET_MANAGER.queueDownload("./sprites/transition/level 1 hole.png");
 ASSET_MANAGER.queueDownload("./sprites/transition/level 2 jetpack.png");
@@ -84,6 +87,10 @@ ASSET_MANAGER.queueDownload("./sprites/enemies/boss/boss down/boss down death.pn
 
 // music
 ASSET_MANAGER.queueDownload("./music/title.mp3");
+ASSET_MANAGER.queueDownload("./music/level 2 song.mp3");
+ASSET_MANAGER.queueDownload("./music/level 3 song.mp3");
+
+// sound effects
 ASSET_MANAGER.queueDownload("./music/player shot sound.wav");
 ASSET_MANAGER.queueDownload("./music/player shot sound 100.wav");
 ASSET_MANAGER.queueDownload("./music/player shot sound 200.wav");
@@ -103,6 +110,10 @@ ASSET_MANAGER.queueDownload("./images/over.png");
 
 
 ASSET_MANAGER.downloadAll(() => {
+	ASSET_MANAGER.autoRepeat("./music/title.mp3");
+	ASSET_MANAGER.autoRepeat("./music/level 2 song.mp3");
+	ASSET_MANAGER.autoRepeat("./music/level 3 song.mp3");
+
 	const canvas = document.getElementById("gameWorld");
 	const ctx = canvas.getContext("2d");
 	ctx.imageSmoothingEnabled = false;

@@ -31,6 +31,9 @@ class GameEngine {
             },
             debugging: false,
         };
+
+        this.keyboardActive = false;
+        this.mouseActive = false;
     };
 
     clearEntities() {
@@ -86,6 +89,7 @@ class GameEngine {
 
         // Added by Raz
         this.ctx.canvas.addEventListener("mousedown", function (e) {
+            that.mouseActive = true;
             this.lclick = getXandY(e);
             if (e.button == 0) {
                 that.lclick = true;
@@ -94,13 +98,14 @@ class GameEngine {
 
         // Added by Raz
         this.ctx.canvas.addEventListener("mouseup", function (e) {
-            this.lclick = getXandY(e);
+            that.mouseActive = false;
+            that.lclick = getXandY(e);
             if (e.button == 0) {
                 that.lclick = false;
             }
         }, false);
 
-        this.ctx.canvas.addEventListener("wheel", e => {
+        /* this.ctx.canvas.addEventListener("wheel", e => {
             if (this.options.debugging) {
                 console.log("WHEEL", getXandY(e), e.wheelDelta);
             }
@@ -108,7 +113,7 @@ class GameEngine {
                 e.preventDefault(); // Prevent Scrolling
             }
             this.wheel = e;
-        });
+        }); */
 
         this.ctx.canvas.addEventListener("contextmenu", e => {
             if (this.options.debugging) {
@@ -120,8 +125,14 @@ class GameEngine {
             this.rightclick = getXandY(e);
         });
 
-        window.addEventListener("keydown", event => this.keys[event.key] = true);
-        window.addEventListener("keyup", event => this.keys[event.key] = false);
+        window.addEventListener("keydown", event => {
+            this.keys[event.key] = true;
+            this.keyboardActive = true;
+        });
+        window.addEventListener("keyup", event => {
+            this.keys[event.key] = false;
+            this.keyboardActive = false;
+        });
     };
 
     addEnemy(entity) {
@@ -165,16 +176,70 @@ class GameEngine {
         });
         this.entities.powerups.forEach((powerups) => {
             powerups.draw(this.ctx);
-          });
+        });
         this.entities.traps.forEach((trap) => {
             trap.draw(this.ctx);
-          });
+        });
         this.entities.player.draw(this.ctx, this);
         this.entities.minimap.draw(this.ctx, this);
         this.camera.draw(this.ctx);
     };
 
+    gamepadUpdate() {
+        this.gamepad = navigator.getGamepads()[0];
+        let gamepad = this.gamepad;
+        if (gamepad != null) {
+            if (!this.keyboardActive) {
+                // movement
+                this.keys["a"] = gamepad.buttons[14].pressed || gamepad.axes[0] < -0.3;
+                this.keys["d"] = gamepad.buttons[15].pressed || gamepad.axes[0] > 0.3;
+                this.keys["w"] = gamepad.buttons[12].pressed || gamepad.axes[1] < -0.3;
+                this.keys["s"] = gamepad.buttons[13].pressed || gamepad.axes[1] > 0.3;
+            }
+
+            // shooting
+            if (!this.mouseActive 
+                && (gamepad.buttons[0].pressed || gamepad.buttons[7].pressed) 
+                && (Math.abs(gamepad.axes[2]) > 0.05 || Math.abs(gamepad.axes[3] > 0.05))) {
+                this.lclick = true;
+               
+                if (this.player.facing == "left") {
+                    this.mouse.x = this.player.x - 25 + gamepad.axes[2] * 100;
+                    this.mouse.y = this.player.y + 55 + gamepad.axes[3] * 100;
+				} else if (this.player.facing == "right") {
+                    this.mouse.x = this.player.x + 75 + gamepad.axes[2] * 100;
+                    this.mouse.y = this.player.y + 55 + gamepad.axes[3] * 100;
+                } else if (this.player.facing == "up") {
+                    this.mouse.x = this.player.x + 24 + gamepad.axes[2] * 100;
+                    this.mouse.y = this.player.y + 0 + gamepad.axes[3] * 100;
+				} else if (this.player.facing == "down") {
+                    this.mouse.x = this.player.x + 24 + gamepad.axes[2] * 100;
+                    this.mouse.y = this.player.y + 87 + gamepad.axes[3] * 100;
+                }
+            } else if (!this.mouseActive && (gamepad.buttons[0].pressed || gamepad.buttons[7].pressed)) { 
+                this.lclick = true;
+                if (this.player.facing == "left") {
+                    this.mouse.x = this.player.x - 100;
+                    this.mouse.y = this.player.y + 55;
+                } else if (this.player.facing == "right") {
+                    this.mouse.x = this.player.x + 100;
+                    this.mouse.y = this.player.y + 55;
+                } else if (this.player.facing == "up") {
+                    this.mouse.x = this.player.x + 28;
+                    this.mouse.y = this.player.y - 100;
+                } else if (this.player.facing == "down") {
+                    this.mouse.x = this.player.x + 24;
+                    this.mouse.y = this.player.y + 100;
+                } 
+            } else if (!this.mouseActive) {
+                this.lclick = false;
+            }
+        }
+    }
+
     update() {
+        this.gamepadUpdate();
+
         PARAMS.DEBUG = document.getElementById("debug").checked;
         PARAMS.GODMODE = document.getElementById("godmode").checked;
         // Update Entities
@@ -201,6 +266,7 @@ class GameEngine {
         this.entities.bullets = this.entities.bullets.filter(entity => !entity.removeFromWorld);
         this.entities.enemies = this.entities.enemies.filter(entity => !entity.removeFromWorld);
         this.entities.powerups = this.entities.powerups.filter(entity => !entity.removeFromWorld);
+        //this.entities.portals = this.entities.portals.filter(entity => !entity.removeFromWorld);
         this.entities.player.update();
         this.camera.update();
     };

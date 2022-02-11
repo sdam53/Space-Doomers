@@ -25,21 +25,37 @@ class TransitionItem {
         this.lastBB = this.BB;
         if (this.level == 1) {
             this.BB = new BoundingBox(this.x + 100, this.y + 70, 40, 40);
+        } else if (this.level == 2) {
+            this.BB = new BoundingBox(this.x + 30, this.y + 20, 60, 70);
+        } else if (this.level == 3) {
+            this.BB = new BoundingBox(this.x + 20, this.y + 20, 210, 210);
         }
-        
     }
 
     update() {
       this.updateBB();
+
+      let player = this.game.player;
+
+      if (this.BB && player.feetBB.collide(this.BB)) {
+            if (this.level == 1) {
+                this.game.camera.loadLevel(levelTwo, false, true);
+            } else if (this.level == 2) {
+                this.game.camera.loadLevel(levelThree, false, true);
+            } else if (this.level == 3) {
+                this.game.camera.loadLevel(levelOne, true, false);
+            }
+        }
+        
       this.x += this.game.camera.x;
       this.y += this.game.camera.y;
     }
 
     draw(ctx){
         ctx.drawImage(this.sprites[this.level], this.x, this.y, this.w, this.h);
-        if (PARAMS.DEBUG) {
-          ctx.strokeStyle = 'Blue';
-          ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
-        }
+        // if (PARAMS.DEBUG) {
+        //   ctx.strokeStyle = 'Blue';
+        //   ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+        // }
     }
   }

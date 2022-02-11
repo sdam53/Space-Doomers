@@ -13,20 +13,20 @@ class Trap{
 	}
 	
 	updateBB() {
-		this.BB = new BoundingBox(this.x, this.y, this.w, this.h);
+		this.BB = new BoundingBox(this.x, this.y, 125, 125);
 	}
 	
 	update() {
 		this.updateBB();
 		this.x += this.game.camera.x;
 		this.y += this.game.camera.y;
-        if (this.game.player.feetBB.collide(this.BB)){
-            this.game.player.moveMultiplyer = 0.75;
-        }
-        else {
-            this.game.player.moveMultiplyer = 1;
+        // if (this.game.player.feetBB.collide(this.BB)){
+        //     this.game.player.moveMultiplyer = 0.2;
+        // }
+        // else {
+        //     this.game.player.moveMultiplyer = 1;
 
-        }
+        // }
 	}
 	drawMinimap(ctx, mmX, mmY){
     ctx.fillStyle = "Black";
@@ -36,9 +36,9 @@ class Trap{
 		ctx.drawImage(this.thorn1,
             1, 1, //source from sheet
             485, 495,
-            this.x + 20, this.y + 9,
-            83,
-            88);
+            this.x, this.y,
+            125,
+            125);
 		if (PARAMS.DEBUG && (typeof this.BB != 'undefined')) {
 			ctx.strokeStyle = 'Green';
 			ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);

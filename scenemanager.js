@@ -7,25 +7,34 @@ class SceneManager {
 		
 		this.hp_bar = ASSET_MANAGER.getAsset("./sprites/player/hp_bar.png");
 		this.gear = ASSET_MANAGER.getAsset("./sprites/tiles/gear.png");
-		this.titleMusicPath = "./music/title.mp3";
 		this.titleBackground = ASSET_MANAGER.getAsset("./images/title.png");
 		this.logo = ASSET_MANAGER.getAsset("./images/logo.png");
 		this.creditsBackground = ASSET_MANAGER.getAsset("./images/credits.jpg");
-		
+
 		this.title = true;
 		this.transition = false;
 		this.credits = false;
 		this.gameOver = false;
 		this.loadLevel(levelOne, this.title, false);
 		this.death = new Animator(ASSET_MANAGER.getAsset("./sprites/player/player_down_death.png"), 0, 0, 369, 454, 18, 0.05, 0, false, false);
-		
-		
+
+		this.time = 0;
+		this.menuCooldown = 0.5;
+	}
+
+	timerOk() {
+		if (this.time > this.menuCooldown) {
+			this.time = 0;
+			return true;
+		} 
+		return false;
 	}
 	
 	loadLevel(level, title, transition) {
 		this.game.clearEntities();
 
 		this.level = level;
+		this.levelCount = level.levelCount;
 		this.title = title;
 		this.transition = transition;
 		this.credits = false;
@@ -99,26 +108,29 @@ class SceneManager {
 			}
 			
 			this.game.addPortal(new TransitionItem(this.game, level.transitionItem.x * 125, level.transitionItem.y * 125, level.transitionItem.level));
-				
+			this.game.addPowerUp(new Powerup(this.game, level.powerup.x *125, level.powerup.y * 125, level.powerup.powerup));	
 		}
 		
+		// Background music
 		if (!this.title && this.transition) {
 			ASSET_MANAGER.pauseBackgroundMusic();
-			ASSET_MANAGER.playAsset(this.titleMusicPath);
+			console.log(this.level.songPath);
+			ASSET_MANAGER.playAsset(level.songPath);
 		}
 	}
 	
 	
 	update() {
-		//if (this.title == false && this.transition == false && this.credits == false) {
-			if (this.game.keys["8"]) {
-				this.loadLevel(levelOne, false, false);
-			} else if (this.game.keys["9"]) {
-				this.loadLevel(levelTwo, false, false);
-			} else if (this.game.keys["0"]) {
-				this.loadLevel(levelThree, false, false);
-			} 
-		// }
+		this.time += this.game.clockTick;
+
+		// (Debug) easy level select
+		if (this.game.keys["8"]) {
+			this.loadLevel(levelOne, false, false);
+		} else if (this.game.keys["9"]) {
+			this.loadLevel(levelTwo, false, false);
+		} else if (this.game.keys["0"]) {
+			this.loadLevel(levelThree, false, false);
+		} 
 		
 		let midpoint = PARAMS.CANVAS_WIDTH/2
 		this.x = this.player.x - midpoint;
@@ -130,46 +142,67 @@ class SceneManager {
 		
 		
 		// If title screen
-		if (this.title && this.game.lclick) {
+		if (this.title && this.game.lclick && !this.levelSelect) {
 			// Title Screen -> Start Game (with transition)
-			if (!this.credits && this.game.mouse.x > 300 && this.game.mouse.x < 590 && this.game.mouse.y > 760 && this.game.mouse.y < 810) {
+			if (!this.credits && this.game.mouse.x > 300 && this.game.mouse.x < 590 && this.game.mouse.y > 760 && this.game.mouse.y < 810 && this.timerOk()) {
 				ASSET_MANAGER.playAsset("./music/click sound.wav");
 				this.title = false;
 				this.player = new Player(this.game, 100, 100);
 				this.loadLevel(levelOne, false, true);
 			}
 			// Title Screen -> Credits
-			if (!this.credits && this.game.mouse.x > 1400 && this.game.mouse.x < 1595 && this.game.mouse.y > 760 && this.game.mouse.y < 810) {
+			if (!this.credits && this.game.mouse.x > 1400 && this.game.mouse.x < 1595 && this.game.mouse.y > 760 && this.game.mouse.y < 810 && this.timerOk()) {
 				ASSET_MANAGER.playAsset("./music/click sound.wav");
 				this.loadLevel(levelOne, true, false);
 				this.credits = true;
 			}
 			// Credits -> Title Screen
-			if (this.credits && this.game.mouse.x > 780 && this.game.mouse.x < 1075 && this.game.mouse.y > 40 && this.game.mouse.y < 90) {
+			if (this.credits && this.game.mouse.x > 780 && this.game.mouse.x < 1075 && this.game.mouse.y > 40 && this.game.mouse.y < 90 && this.timerOk()) {
 				ASSET_MANAGER.playAsset("./music/click sound.wav");
 				this.credits = false;
 				this.loadLevel(true, false);
 			}
+			// Title -> Level Select
+			if (!this.credits && this.game.mouse.x > 850 && this.game.mouse.x < 1100 && this.game.mouse.y > 800 && this.game.mouse.y < 840 && this.timerOk()) {
+				this.time = this.game.clockTick;
+				this.levelSelect = true;
+			}
+		}
+
+		if (this.levelSelect && this.game.lclick) {
+			if (this.game.mouse.x > 100 && this.game.mouse.x < 560 && this.game.mouse.y > 760 && this.game.mouse.y < 810 && this.timerOk()) {
+				this.levelSelect = false;
+				this.loadLevel(levelOne, false, true);
+			}
+			else if (this.game.mouse.x > 740 && this.game.mouse.x < 1180 && this.game.mouse.y > 800 && this.game.mouse.y < 840 && this.timerOk()) {
+					this.levelSelect = false;
+					this.loadLevel(levelTwo, false, true);
+			}
+			else if (this.game.mouse.x > 1310 && this.game.mouse.x < 1795 && this.game.mouse.y > 760 && this.game.mouse.y < 810 && this.timerOk()) {
+				this.levelSelect = false;
+				this.loadLevel(levelThree, false, true);
+			}
 		}
 		
 		if (this.transition && this.game.lclick) {
-			if (this.game.mouse.x > 1400 && this.game.mouse.x < 1640 && this.game.mouse.y > 760 && this.game.mouse.y < 810) {
+			if (this.game.mouse.x > 1400 && this.game.mouse.x < 1640 && this.game.mouse.y > 760 && this.game.mouse.y < 810 && this.timerOk()) {
 				ASSET_MANAGER.playAsset("./music/click sound.wav");
 				this.transition = false;
 				this.title = false;
 				this.player = new Player(this.game, 100, 100);
-				this.loadLevel(levelOne, false, false);
+				this.loadLevel(this.level, false, false);
 			}
 		}
+
 		if (this.gameOver && this.game.lclick) {
-			this.clearEntities();
-			if (this.game.mouse.x > 830 && this.game.mouse.x < 1075 && this.game.mouse.y > 40 && this.game.mouse.y < 90) {
+			if (this.game.mouse.x > 830 && this.game.mouse.x < 1075 && this.game.mouse.y > 40 && this.game.mouse.y < 90 && this.timerOk()) {
 				ASSET_MANAGER.playAsset("./music/click sound.wav");
 				this.gameOver = false;
 				this.player = new Player(this.game, 100, 100);
 				this.loadLevel(levelOne, true, false);
 			}
 		}
+
 		//side scrollling
 		let x1 = PARAMS.CANVAS_WIDTH * 1/4
 		let x2 = PARAMS.CANVAS_WIDTH * 3/4
@@ -199,7 +232,7 @@ class SceneManager {
 		ASSET_MANAGER.adjustVolume(volume);
 		
 	};
-	
+
 	draw(ctx) {
 		
 		ctx.fillStyle = "White"
@@ -216,20 +249,51 @@ class SceneManager {
 		ctx.strokeStyle = "Red";
 		
 		// Title Screen
-		if (this.title && !this.credits && !this.transition) {
+		if (this.title && !this.credits && !this.transition && !this.levelSelect) {
 			
 			ctx.drawImage(this.titleBackground, 0, 0);
 			ctx.drawImage(this.logo, 690, 160);
 			ctx.fillStyle = "#4a8437";
+
 			ctx.fillRect(300, 760, 290, 50); // left 90 up 50
 			ctx.fillStyle = this.game.mouse && this.game.mouse.x > 300 && this.game.mouse.x < 590 && this.game.mouse.y > 760 && this.game.mouse.y < 810 ? "#e6e4df" : "Black";
 			ctx.fillText("START GAME", 310, 800);
+
+			ctx.font = '30px "NASA"';
+			ctx.fillStyle = "#fa3b26";
+			ctx.fillRect(850, 800, 250, 40); 
+			ctx.fillStyle = this.game.mouse && this.game.mouse.x > 850 && this.game.mouse.x < 1100 && this.game.mouse.y > 800 && this.game.mouse.y < 840 ? "White" : "Black";
+			ctx.fillText("LEVEL SELECT", 860, 830);
+
+			ctx.font = '40px "NASA"';
 			ctx.fillStyle = "#ba6cc3";
 			ctx.fillRect(1400, 760, 195, 50);
 			ctx.fillStyle = this.game.mouse && this.game.mouse.x > 1400 && this.game.mouse.x < 1595 && this.game.mouse.y > 760 && this.game.mouse.y < 810 ? "#e6e4df" : "Black";
 			ctx.fillText("CREDITS", 1410, 800);
-			// Credits Screen
-		} else if (this.title && this.credits && !this.transition) {
+
+		} else if (this.levelSelect) {
+			// Level select
+			ctx.drawImage(this.titleBackground, 0, 0);
+			ctx.drawImage(this.logo, 690, 160);
+			ctx.fillStyle = "#4a8437";
+
+			ctx.fillRect(100, 760, 460, 50); // left 90 up 50
+			ctx.fillStyle = this.game.mouse && this.game.mouse.x > 100 && this.game.mouse.x < 560 && this.game.mouse.y > 760 && this.game.mouse.y < 810 ? "#e6e4df" : "Black";
+			ctx.fillText("LEVEL 1: ROB IS FINE", 110, 800);
+
+			ctx.font = '30px "NASA"';
+			ctx.fillStyle = "#fa3b26";
+			ctx.fillRect(740, 800, 440, 40); 
+			ctx.fillStyle = this.game.mouse && this.game.mouse.x > 740 && this.game.mouse.x < 1180 && this.game.mouse.y > 800 && this.game.mouse.y < 840 ? "White" : "Black";
+			ctx.fillText("LEVEL 2: TOO. MUCH. RUN.", 750, 830);
+
+			ctx.font = '40px "NASA"';
+			ctx.fillStyle = "#ba6cc3";
+			ctx.fillRect(1310, 760, 485, 50);
+			ctx.fillStyle = this.game.mouse && this.game.mouse.x > 1310 && this.game.mouse.x < 1795 && this.game.mouse.y > 760 && this.game.mouse.y < 810 ? "#e6e4df" : "Black";
+			ctx.fillText("LEVEL 3: GET THE BAG", 1320, 800);
+		}	// Credits Screen
+			else if (this.title && this.credits && !this.transition && !this.levelSelect) {
 			ctx.drawImage(this.creditsBackground, 0, 0);
 			ctx.fillStyle = "#4191b1";
 			ctx.fillRect(780, 40, 295, 50);
@@ -249,10 +313,9 @@ class SceneManager {
 			ctx.drawImage(this.titleBackground, 0, 0);
 			ctx.fillStyle = "#e6e4df";
 			ctx.font = '30px "Nasa"';
-			ctx.fillText("Landing on an abandoned space station ", 600, 250)
-			ctx.fillText("   by mistake, Rob has to do everything   ", 600, 290);
-			ctx.fillText("   he can to make his way to the emergency", 600, 330);
-			ctx.fillText("   escape pod and save himself.", 600, 370);
+			for (let i = 0; i < this.level.story.length; i++) {
+				ctx.fillText(this.level.story[i], 600, 250 + i * 40);
+			}
 			ctx.fillStyle = "#4a8437";
 			ctx.fillRect(1400, 760, 240, 50);
 			ctx.fillStyle = this.game.mouse && this.game.mouse.x > 1400 && this.game.mouse.x < 1640 && this.game.mouse.y > 760 && this.game.mouse.y < 810 ? "#e6e4df" : "Black";
