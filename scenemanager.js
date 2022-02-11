@@ -1,6 +1,7 @@
 class SceneManager {
 	constructor(game) {
 		this.game = game;
+		this.game.gameLevel = 1;
 		this.game.camera = this;
 		this.x = 0;
 		this.y = 0;
@@ -99,7 +100,7 @@ class SceneManager {
 			}
 			if (typeof level.traps[0] != 'undefined') {
 				for (let i = 0; i < level.traps.length; i++) {
-					this.game.addTrap(new Trap(this.game, level.traps[0][i] * 125, level.traps[1][i] * 125));
+					this.game.addTrap(new Trap(this.game, level.traps[0][i] * 125, level.traps[1][i] * 125, level.traps[2][i]));
 				}
 			}
 			
@@ -141,10 +142,13 @@ class SceneManager {
 		// (Debug) easy level select
 		if (this.game.keys["8"]) {
 			this.loadLevel(levelOne, false, false);
+			this.game.gameLevel = 1;
 		} else if (this.game.keys["9"]) {
 			this.loadLevel(levelTwo, false, false);
+			this.game.gameLevel = 2;
 		} else if (this.game.keys["0"]) {
 			this.loadLevel(levelThree, false, false);
+			this.game.gameLevel = 3;
 		} 
 		
 		let midpoint = PARAMS.CANVAS_WIDTH/2
@@ -206,6 +210,7 @@ class SceneManager {
 
 				this.levelSelect = false;
 				this.loadLevel(levelOne, false, true);
+				this.game.gameLevel = 1;
 			}
 			else if (((this.game.mouse.x > 740 && this.game.mouse.x < 1180 && this.game.mouse.y > 800 && this.game.mouse.y < 840)
 						|| (this.gamepadSelect % 3 == 1 && this.gamepadButton())) 
@@ -213,6 +218,7 @@ class SceneManager {
 
 					this.levelSelect = false;
 					this.loadLevel(levelTwo, false, true);
+					this.game.gameLevel = 2;
 			}
 			else if (((this.game.mouse.x > 1310 && this.game.mouse.x < 1795 && this.game.mouse.y > 760 && this.game.mouse.y < 810)
 						|| (this.gamepadSelect % 3 == 2 && this.gamepadButton()))
@@ -220,6 +226,7 @@ class SceneManager {
 
 				this.levelSelect = false;
 				this.loadLevel(levelThree, false, true);
+				this.game.gameLevel = 3;
 			}
 		}
 		

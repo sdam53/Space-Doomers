@@ -23,6 +23,15 @@ class Ground {
     
     this.mapY = this.y;
     this.mapX = this.x;
+    if (this.game.gameLevel == 1){
+      this.tile = this.tile1;
+    }
+    else if (this.game.gameLevel == 2){
+      this.tile = this.tile2;
+    }
+    else {
+      this.tile = this.tile4;
+    }
 	}
 	
 	updateBB() {
@@ -39,7 +48,7 @@ class Ground {
     ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 125/PARAMS.BITWIDTH , 125/PARAMS.BITWIDTH );
   }
 	draw(ctx) {
-		ctx.drawImage(this.tile1, this.x, this.y, this.w, this.h);
+		ctx.drawImage(this.tile, this.x, this.y, this.w, this.h);
 		if (PARAMS.DEBUG && (typeof this.BB != 'undefined')) {
 			ctx.strokeStyle = 'Green';
 			ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);

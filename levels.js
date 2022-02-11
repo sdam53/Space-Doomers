@@ -40,14 +40,15 @@ let levelOne = {
 		{x: 15, y: 13, state: "locked", direction: "right", requiredGears: 2}
 	],
 	traps: [
-		X = [6],
-		Y = [6]
+		X = [6,8],
+		Y = [6,6],
+		T = ["spike","thorn"]
 	],
 	walltraps : [
 		{x: 8, y: 0, direction: "down"},
 		{x: 3, y: 13, direction: "right"},
 	],
-  	powerup: {},
+  powerup: {},
 	transitionItem : {x: 11, y: 2, level: 1},
 	story: [ // title - level 1
 		"After landing on an abandoned space station ",

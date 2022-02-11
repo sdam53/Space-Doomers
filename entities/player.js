@@ -3,7 +3,9 @@ class Player {
 		Object.assign(this, {game, x, y});
 		this.game.player = this;
 		this.game = game;
-		
+    this.trap_damage =0;
+    //getTrap to check if the character is in a trap or not
+		this.getTrap = false;
 		this.spritesheet1 = ASSET_MANAGER.getAsset("./sprites/player/player_up_idle.png");
 		this.spritesheet2 = ASSET_MANAGER.getAsset("./sprites/player/player_up_run.png");
 		this.spritesheet3 = ASSET_MANAGER.getAsset("./sprites/player/player_down_idle.png");
@@ -99,12 +101,7 @@ class Player {
 		const TICK = this.game.clockTick;
 		const RUN = 350;
 		
-		if (this.hp <= 0) {
-			this.state = "death";
-			return;
-		} else if (this.hp <= 10) {
-			ASSET_MANAGER.playAsset("./music/player death sound 200.mp3");
-		}
+
 		// Movement and User Input
 		
 		this.velocity.x = 0;
@@ -129,11 +126,26 @@ class Player {
 		}
 
     if (this.checkSlowTrap()){
-      this.moveMultiplyer = 0.2;
+      if (this.getTrap == false){
+        this.hp=this.hp-this.trap.damage;
+        if (this.hp == 0)
+          this.hp=0;
+      }
+      if (this.trap.trap_type == "thorn")
+        this.moveMultiplyer = 0.2;
+      this.getTrap = true;
     }
-    else
+    else{
       this.moveMultiplyer = 1;
+      this.getTrap = false;
+    }
 
+    if (this.hp <= 0) {
+			this.state = "death";
+			return;
+		} else if (this.hp <= 10) {
+			ASSET_MANAGER.playAsset("./music/player death sound 200.mp3");
+		}
 		//shooting
 		if ((this.game.lclick) && !this.game.camera.title && !this.game.camera.transition) {
 			if (this.bulletTimer <= 0) {
@@ -289,6 +301,7 @@ class Player {
       this.game.entities.traps.forEach(trap => {
         if (trap instanceof Trap && this.feetBB.collide(trap.BB)){
           collide = true;
+          this.trap = trap;
           return;
         }
       })
