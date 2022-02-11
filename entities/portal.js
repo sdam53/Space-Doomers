@@ -49,6 +49,9 @@ class Portal {
 				this.game.player.mapY = this.link.mapY + 83;
 				this.counter = this.cooldown;
 				this.link.counter = this.cooldown;
+				this.game.entities.enemies.forEach(function (entity) {
+					entity.getPath();
+				});
 			}
 		}
 		this.counter -= this.game.clockTick;

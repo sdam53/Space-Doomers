@@ -79,24 +79,26 @@ class Boss {
 	fourBulletAtk(radius) { 
 		let xStart = this.x + 45;//offsets needed to get to center of sprite
 		let yStart = this.y + 20;
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI /2), yStart + radius * sin(PI /2), this.bulletSize, xStart + 2 * radius * cos(PI /2) , yStart + 2 * radius * sin(PI /2), this.bulletSpeed, "enemy", this.bullet)); //down
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI), yStart + radius * sin(PI), this.bulletSize, xStart + 2 * radius * cos(PI) , yStart + 2 * radius * sin(PI), this.bulletSpeed, "enemy", this.bullet)); //left
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(0), yStart + radius * sin(0), this.bulletSize, xStart + 2 * radius * cos(0) , yStart + 2 * radius * sin(0), this.bulletSpeed, "enemy", this.bullet)); //right
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(3 * PI / 2), yStart + radius * sin(3 * PI / 2), this.bulletSize, xStart + 2 * radius * cos(3 * PI / 2) , yStart + 2 * radius * sin(3 * PI / 2), this.bulletSpeed, "enemy", this.bullet)); //down"
-	  }
+		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI /2), yStart + radius * sin(PI /2), xStart + 2 * radius * cos(PI /2) , yStart + 2 * radius * sin(PI /2), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //down
+		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI), yStart + radius * sin(PI), xStart + 2 * radius * cos(PI) , yStart + 2 * radius * sin(PI), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //left
+		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(0), yStart + radius * sin(0), xStart + 2 * radius * cos(0) , yStart + 2 * radius * sin(0), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //right
+		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(3 * PI / 2), yStart + radius * sin(3 * PI / 2), xStart + 2 * radius * cos(3 * PI / 2) , yStart + 2 * radius * sin(3 * PI / 2), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //down
+		
+	}
 	
-	  eightBulletAtk(radius) {
+	eightBulletAtk(radius) {
 		let xStart = this.x + 45;//offsets needed to get to center of sprite
 		let yStart = this.y + 20;
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI /2), yStart + radius * sin(PI /2), this.bulletSize, xStart + 2 * radius * cos(PI /2) , yStart + 2 * radius * sin(PI /2), this.bulletSpeed, "enemy", this.bullet)); //down
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI), yStart + radius * sin(PI), this.bulletSize, xStart + 2 * radius * cos(PI) , yStart + 2 * radius * sin(PI), this.bulletSpeed, "enemy", this.bullet)); //left
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(0), yStart + radius * sin(0), this.bulletSize, xStart + 2 * radius * cos(0) , yStart + 2 * radius * sin(0), this.bulletSpeed, "enemy", this.bullet)); //right
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(3 * PI / 2), yStart + radius * sin(3 * PI / 2), this.bulletSize, xStart + 2 * radius * cos(3 * PI / 2) , yStart + 2 * radius * sin(3 * PI / 2), this.bulletSpeed, "enemy", this.bullet)); //down
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI /4), yStart + radius * sin(PI /4), this.bulletSize, xStart + 2 * radius * cos(PI /4) , yStart + 2 * radius * sin(PI /4), this.bulletSpeed, "enemy", this.bullet)); //down right
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(3 * PI / 4), yStart + radius * sin(3 * PI / 4), this.bulletSize, xStart + 2 * radius * cos(3 * PI / 4) , yStart + 2 * radius * sin(3 * PI / 4), this.bulletSpeed, "enemy", this.bullet)); //down left
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(5 * PI / 4), yStart + radius * sin(5 * PI / 4), this.bulletSize, xStart + 2 * radius * cos(5 * PI / 4) , yStart + 2 * radius * sin(5 * PI / 4), this.bulletSpeed, "enemy", this.bullet)); //up left
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(7 * PI / 4), yStart + radius * sin(7 * PI / 4), this.bulletSize, xStart + 2 * radius * cos(7 * PI / 4) , yStart + 2 * radius * sin(7 * PI / 4), this.bulletSpeed, "enemy", this.bullet)); //up right
-	  }
+		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI /2), yStart + radius * sin(PI /2), xStart + 2 * radius * cos(PI /2) , yStart + 2 * radius * sin(PI /2), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //down
+		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI), yStart + radius * sin(PI), xStart + 2 * radius * cos(PI) , yStart + 2 * radius * sin(PI), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //left
+		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(0), yStart + radius * sin(0), xStart + 2 * radius * cos(0) , yStart + 2 * radius * sin(0), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //right
+		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(3 * PI / 2), yStart + radius * sin(3 * PI / 2), xStart + 2 * radius * cos(3 * PI / 2) , yStart + 2 * radius * sin(3 * PI / 2), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //down
+		
+		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI /4), yStart + radius * sin(PI /4), xStart + 2 * radius * cos(PI /4) , yStart + 2 * radius * sin(PI /4), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //down right
+		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(3 * PI / 4), yStart + radius * sin(3 * PI / 4), xStart + 2 * radius * cos(3 * PI / 4) , yStart + 2 * radius * sin(3 * PI / 4), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //down left
+		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(5 * PI / 4), yStart + radius * sin(5 * PI / 4), xStart + 2 * radius * cos(5 * PI / 4) , yStart + 2 * radius * sin(5 * PI / 4), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //up left
+		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(7 * PI / 4), yStart + radius * sin(7 * PI / 4), xStart + 2 * radius * cos(7 * PI / 4) , yStart + 2 * radius * sin(7 * PI / 4), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //up right
+	}
 
 	singleBulletAtlk() {
 		if (this.facing === "down") {

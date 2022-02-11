@@ -32,6 +32,7 @@ class GameEngine {
             debugging: false,
         };
 
+        this.gamepad = false;
         this.keyboardActive = false;
         this.mouseActive = false;
     };

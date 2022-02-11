@@ -39,6 +39,11 @@ let levelOne = {
 		{x: 9, y: 1, state: "locked", direction: "right", requiredGears: 1},
 		{x: 15, y: 13, state: "locked", direction: "right", requiredGears: 2}
 	],
+	traps: [
+		X = [6,8],
+		Y = [6,6],
+		T = ["spike","thorn"]
+	],
 	walltraps : [
 		{x: 8, y: 0, direction: "down"},
 		{x: 3, y: 13, direction: "right"},
@@ -50,11 +55,6 @@ let levelOne = {
 		"   by mistake, Rob has to do everything   ",
 		"   he can to make his way to the emergency",
 		"   escape pod and save himself."
-	],
-	traps: [
-		X = [6,8],
-		Y = [6,6],
-		T = ["spike","thorn"]
 	],
 	songPath: "./music/title.mp3"
 };
@@ -130,9 +130,11 @@ let levelTwo = {
 		{x: 34, y: 7, state: "locked", direction: "down", requiredGears: 3},
 		{x: 8, y: 11, state: "locked", direction: "left", requiredGears: 3},
 	],
-	traps: [],
-
-  powerup: {x: 3, y: 26, powerup: "healthpack"},
+	traps: [
+		X = [6],
+		Y = [6]
+	],
+  	powerup: {x: 3, y: 26, powerup: "healthpack"},
 	walltraps : [
 		{x: 39, y: 20, direction: "up"},
 	],
@@ -143,7 +145,6 @@ let levelTwo = {
 		"   spaceship. After picking himself back up, ",
 		"   he hopes he will be more careful next time."
 	],
-	
 	powerup: {x: 3.5, y: 26.5, powerup: "healthpack"},
 	songPath: "./music/level 2 song.mp3"
 };
@@ -188,7 +189,11 @@ let levelThree = {
 		{x: 9, y: 1, state: "locked", direction: "right", requiredGears: 1},
 		{x: 15, y: 13, state: "locked", direction: "right", requiredGears: 2}
 	],
-  powerup: {},
+  	powerup: {},
+	traps: [
+		X = [6],
+		Y = [6]
+	],
 	walltraps : [
 		{x: 8, y: 0, direction: "down"},
 		{x: 3, y: 13, direction: "right"},
