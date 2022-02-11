@@ -104,7 +104,7 @@ class SceneManager {
 			}
 			if (typeof level.traps[0] != 'undefined') {
 				for (let i = 0; i < level.traps.length; i++) {
-					this.game.addTrap(new Trap(this.game, level.traps[0][i] * 125, level.traps[1][i] * 125));
+					this.game.addTrap(new Trap(this.game, level.traps[0][i] * 125, level.traps[1][i] * 125, level.traps[2][i]));
 				}
 			}
 			

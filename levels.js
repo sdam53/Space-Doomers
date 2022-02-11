@@ -52,8 +52,9 @@ let levelOne = {
 		"   escape pod and save himself."
 	],
 	traps: [
-		X = [6],
-		Y = [6]
+		X = [6,8],
+		Y = [6,6],
+		T = ["spike","thorn"]
 	],
 	songPath: "./music/title.mp3"
 };
