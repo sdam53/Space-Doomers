@@ -200,6 +200,8 @@ class Player {
 
 			this.game.entities.portals.forEach(function (entity) {
 				if (entity.BB && that.feetBB.collide(entity.BB)) {
+					//this.game.camera.loadLevel(levelTwo,true,true);
+
 					if (entity instanceof Door) {
 						if (entity.leftBB && that.feetBB.collide(entity.leftBB)) // collides with left side of wall
 						{
@@ -208,16 +210,22 @@ class Player {
 						}
 						if (entity.rightBB && that.feetBB.collide(entity.rightBB)) // collides with right side of wall
 						{
+							entity.removeFromWorld = true;
+
 							that.x = that.x + RUN * TICK;
 							that.mapX += RUN * TICK;
 						}
 						if (entity.topBB && that.feetBB.collide(entity.topBB)) // collides with top side of wall
 						{
+							entity.removeFromWorld = true;
+
 							that.y = that.y - RUN * TICK;
 							that.mapY -= RUN * TICK;
 						}
 						if (entity.bottomBB && that.feetBB.collide(entity.bottomBB)) // collides with bottom side of wall
 						{
+							entity.removeFromWorld = true;
+
 							that.y = that.y + RUN * TICK;
 							that.mapY += RUN * TICK;
 						}
@@ -230,6 +238,15 @@ class Player {
 					ASSET_MANAGER.playAsset("./music/gear sound.wav");
 					entity.removeFromWorld = true;
 					that.gears++;
+				}
+			}
+		});
+
+		this.game.entities.powerups.forEach(function (entity) {
+			if (entity.BB && that.feetBB.collide(entity.BB)) {
+				if (entity instanceof Powerup) {
+					entity.removeFromWorld = true;
+					that.hp = 100;
 				}
 			}
 		});

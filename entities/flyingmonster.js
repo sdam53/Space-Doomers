@@ -16,8 +16,8 @@ class FlyingMonster {
 		this.hp = 100;
 		this.moveSpeed = 150;
 		
-		this.bulletSpeed = 200;
-		this.bulletRate = 100;
+		this.bulletSpeed = 325;
+		this.bulletRate = 1;
 		this.bulletTimer = this.bulletRate;
 		this.bulletSize = 30;
 		
@@ -138,14 +138,7 @@ class FlyingMonster {
 	shoot() {
 		this.calculatedDirection();
 		if (this.bulletTimer <= 0) {
-			let ran = randomInt(3)
-			if (ran === 0) {
-				this.singleBulletAtlk();
-			} else if (ran === 1) {
-				this.fourBulletAtk(50);
-			} else {
-				this.eightBulletAtk(50);
-			}
+			this.singleBulletAtlk();
 			this.bulletTimer = this.bulletRate;
 			this.animations[this.facing + " " + this.state].flag = true;
 			this.state = "attack";
@@ -158,7 +151,6 @@ class FlyingMonster {
 	move() {
 		const TICK = this.game.clockTick;
 		if (getDistance(this.mapX, this.mapY, this.path[0].x * 125 + 62, this.path[0].y * 125 + 62) > 5) {
-			if (getDistance(this.mapX, this.mapY, this.game.player.mapX, this.game.player.mapY) > 5) {
 				this.state = "run";
 				switch (this.directionToGo) {
 					case 'up':
@@ -182,9 +174,6 @@ class FlyingMonster {
 					this.mapX += this.moveSpeed * TICK;
 					break;  
 				}
-			} else {
-				this.getPath();
-			}
 		} else {
 			this.getPath();
 		}
@@ -198,7 +187,7 @@ class FlyingMonster {
 		let myY = floor(this.mapY / 125);
 		let pX = floor(this.game.player.mapX / 125);
 		let pY = floor(this.game.player.mapY / 125);
-		this.path = findPath(new Point(this.game, myX, myY, null), new Point(this.game, pX, pY, null), this.game.camera.level.map);
+		this.path = findPath(new Point(this.game, myX, myY, null), new Point(this.game, pX, pY, null), this.game.camera.level.map, this.game);
 		if (this.path[0] && (typeof this.path[0] != 'undefined')) { 
 			if (this.path[0].x > myX) {//right
 				this.directionToGo = "right";
@@ -220,27 +209,44 @@ class FlyingMonster {
 			if (this.animations[this.facing + " " + this.state].frame === 19) {
 				this.removeFromWorld = true;
 			}
-		} else {
-			if (getDistance(this.mapX, this.mapY, this.game.player.x + 150, this.game.player.y + 150) < 300) {
-				this.calculatedDirection();
-				if (this.bulletTimer <= 0) {
-					this.shoot();
-				}
-			} else {
-				if (this.path && (typeof this.path[0] != 'undefined')) {
+		 } else {
+		// 	if (getDistance(this.mapX, this.mapY, this.game.player.x + 150, this.game.player.y + 150) < 300) {
+		// 		this.calculatedDirection();
+		// 		if (this.bulletTimer <= 0) {
+		// 			this.shoot();
+		// 		}
+		// 	} else {
+		// 		if (this.path && (typeof this.path[0] != 'undefined')) {
+		// 			this.move()
+		// 		} else {
+		// 			this.getPath();
+		// 		}
+		// 	}
+		// 	if (this.bulletTimer <= 0) {
+		// 		this.shoot();
+				
+		// 	}
+
+
+
+			if (this.path && (typeof this.path[0] != 'undefined')) {
+				if (this.path.length > 1) {
 					this.move()
 				} else {
 					this.getPath();
 				}
+				if (getDistance(this.x, this.y, this.game.player.x + 150, this.game.player.y + 150) < 1000) {
+					this.shoot();
+				}
+			} else {
+				this.getPath();
 			}
-			if (this.bulletTimer <= 0) {
-				this.shoot();
-			}
+			
 		}
 		
 		//shooting cooldown counter
 		if (this.bulletTimer <= this.bulletRate) {
-			this.bulletTimer--;
+			this.bulletTimer -= this.game.clockTick;
 		}
 		
 		this.updateBB();
