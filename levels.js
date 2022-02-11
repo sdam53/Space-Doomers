@@ -51,6 +51,10 @@ let levelOne = {
 		"   he can to make his way to the emergency",
 		"   escape pod and save himself."
 	],
+	traps: [
+		X = [6],
+		Y = [6]
+	],
 	songPath: "./music/title.mp3"
 };
 
@@ -124,17 +128,9 @@ let levelTwo = {
 		{x: 6, y: 28, state: "locked", direction: "down", requiredGears: 3},
 		{x: 34, y: 7, state: "locked", direction: "down", requiredGears: 3},
 		{x: 8, y: 11, state: "locked", direction: "left", requiredGears: 3},
-
-
-
-
-
-
-
-
-
-
 	],
+	traps: [],
+
   powerup: {x: 3, y: 26, powerup: "healthpack"},
 	walltraps : [
 		{x: 39, y: 20, direction: "up"},

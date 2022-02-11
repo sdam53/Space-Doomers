@@ -29,7 +29,7 @@ class Player {
 		this.bulletTimer = 0;
 		this.bulletSize = 30;
 		this.bulletRicochet = 0;
-		
+		this.moveMultiplyer = 1;
 		
 		this.animations = [];
 		this.loadAnimations();
@@ -127,6 +127,13 @@ class Player {
 			this.velocity.x = -RUN;
 			this.state = "run";
 		}
+
+    if (this.checkSlowTrap()){
+      this.moveMultiplyer = 0.2;
+    }
+    else
+      this.moveMultiplyer = 1;
+
 		//shooting
 		if ((this.game.lclick) && !this.game.camera.title && !this.game.camera.transition) {
 			if (this.bulletTimer <= 0) {
@@ -157,11 +164,11 @@ class Player {
 		if (this.velocity.y > 0) this.facing = "down";
 		
 		// update position. side scrolling
-		this.x += this.velocity.x * TICK + this.game.camera.x;
-		this.y += this.velocity.y * TICK + this.game.camera.y;
+		this.x += (this.velocity.x * TICK)*this.moveMultiplyer + this.game.camera.x;
+		this.y += (this.velocity.y * TICK)*this.moveMultiplyer + this.game.camera.y;
 		
-		this.mapX += this.velocity.x * TICK;
-		this.mapY += this.velocity.y * TICK;
+		this.mapX += this.velocity.x * TICK *this.moveMultiplyer;
+		this.mapY += this.velocity.y * TICK *this.moveMultiplyer;
 		//console.log(Math.floor(this.mapX/125), Math.floor(this.mapY/125));
 		
 		//if (this.x < -30) this.x = -30; // don't let player fall off left edge
@@ -275,4 +282,16 @@ class Player {
 				ctx.strokeRect(this.feetBB.x, this.feetBB.y, this.feetBB.width, this.feetBB.height)
 			}
 		}
+
+
+    checkSlowTrap(){
+      let collide = false;
+      this.game.entities.traps.forEach(trap => {
+        if (trap instanceof Trap && this.feetBB.collide(trap.BB)){
+          collide = true;
+          return;
+        }
+      })
+      return collide;
+    }
 	}

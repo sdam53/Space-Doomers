@@ -193,11 +193,10 @@ class GreenMonster {
 		this.y += this.game.camera.y;
 	}
   
-  drawMinimap(ctx, mmX, mmY){
-    // ctx.fillStyle = "White";
-    // ctx.fillRect(mmX + this.BB.x / PARAMS.BITWIDTH, mmY + this.BB.y / PARAMS.BITWIDTH, this.BB.width / PARAMS.BITWIDTH, PARAMS.SCALE * 20);
-  }
-	
+	drawMinimap(ctx, mmX, mmY){
+		ctx.fillStyle = "Green";
+		ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 10 , 10);
+	}
 	draw(ctx) {
 		let xOffset = 0; // 0 offset is idle
 		let yOffset = 0;

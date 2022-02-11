@@ -22,10 +22,10 @@ class Powerup {
 
     draw(ctx){
         ctx.drawImage(this.sprites, this.x+35, this.y+30, 50, 50);
-        if (PARAMS.DEBUG) {
-          ctx.strokeStyle = 'Blue';
-          ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
-        }
+        // if (PARAMS.DEBUG) {
+        //   ctx.strokeStyle = 'Blue';
+        //   ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+        // }
     }
     
     drawMinimap(ctx, mmX, mmY){

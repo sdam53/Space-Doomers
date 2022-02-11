@@ -25,7 +25,8 @@ class Gear {
     }
 
     draw(ctx){
-        ctx.drawImage(this.spritesheet,
+        ctx.drawImage(
+          this.spritesheet,
             1, 1, //source from sheet
             83, 88,
             this.x + 20, this.y + 9,
@@ -38,7 +39,7 @@ class Gear {
     }
 
     drawMinimap(ctx, mmX, mmY){
-      ctx.fillStyle = "Green";
+      ctx.fillStyle = "Yellow";
       ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 100/PARAMS.BITWIDTH , 100/PARAMS.BITWIDTH);
     }
   }
