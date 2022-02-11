@@ -53,9 +53,9 @@ class TransitionItem {
 
     draw(ctx){
         ctx.drawImage(this.sprites[this.level], this.x, this.y, this.w, this.h);
-        if (PARAMS.DEBUG) {
-          ctx.strokeStyle = 'Blue';
-          ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
-        }
+        // if (PARAMS.DEBUG) {
+        //   ctx.strokeStyle = 'Blue';
+        //   ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+        // }
     }
   }

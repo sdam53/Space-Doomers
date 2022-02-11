@@ -41,7 +41,7 @@ class SceneManager {
 
 		//adding minimap
     	// this.minimap = new Minimap(this.game, 0, PARAMS.CANVAS_WIDTH - PARAMS.CANVAS_WIDTH/PARAMS.BITWIDTH, 500);
-    	this.minimap = new Minimap(this.game, 0, PARAMS.CANVAS_WIDTH - level.map[0].length * 125 / PARAMS.BITWIDTH, level.map.length *125 / PARAMS.BITWIDTH);
+    	this.minimap = new Minimap(this.game, 0, PARAMS.CANVAS_WIDTH - 250, 250);
     	this.game.entities.minimap = this.minimap;
 
 		// loading Ground, walls and traps
@@ -99,6 +99,11 @@ class SceneManager {
 			if (typeof level.walltraps[0] != 'undefined') {
 				for (let i = 0; i < level.walltraps.length; i++) {
 					this.game.addTrap(new WallTrap(this.game, level.walltraps[i].x * 125, level.walltraps[i].y * 125, level.walltraps[i].direction));
+				}
+			}
+			if (typeof level.traps[0] != 'undefined') {
+				for (let i = 0; i < level.traps.length; i++) {
+					this.game.addTrap(new Trap(this.game, level.traps[0][i] * 125, level.traps[1][i] * 125));
 				}
 			}
 			
