@@ -39,9 +39,9 @@ class TransitionItem {
 
       if (this.BB && player.feetBB.collide(this.BB)) {
             if (this.level == 1) {
-                this.game.camera.loadLevel(levelTwo, false, false);
+                this.game.camera.loadLevel(levelTwo, false, true);
             } else if (this.level == 2) {
-                this.game.camera.loadLevel(levelThree, false, false);
+                this.game.camera.loadLevel(levelThree, false, true);
             } else if (this.level == 3) {
                 this.game.camera.loadLevel(levelOne, true, false);
             }
