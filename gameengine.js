@@ -209,6 +209,7 @@ class GameEngine {
 				} else if (this.player.facing == "right") {
                     this.mouse.x = this.player.x + 75 + gamepad.axes[2] * 100;
                     this.mouse.y = this.player.y + 55 + gamepad.axes[3] * 100;
+                } else if (this.player.facing == "up") {
                     this.mouse.x = this.player.x + 24 + gamepad.axes[2] * 100;
                     this.mouse.y = this.player.y + 0 + gamepad.axes[3] * 100;
 				} else if (this.player.facing == "down") {
