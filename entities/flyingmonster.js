@@ -29,8 +29,8 @@ class FlyingMonster {
 		this.midPointOffset = {x: 60, y : 38};
 		
 		//info for pathfinding
-		this.mapX = this.x + this.midPointOffset.x;
-		this.mapY = this.y + this.midPointOffset.y;
+		this.mapX = this.x + 62//this.midPointOffset.x;
+		this.mapY = this.y + + 62//this.midPointOffset.y;
 		this.origLocation = new Point(this.game, floor(this.mapX / 125), floor(this.mapY / 125), null);
 		this.path;
 	}
@@ -45,8 +45,6 @@ class FlyingMonster {
 		this.animations["right attack"] = new Animator(this.rightSprite, 0, 639, 292, 390, 25, 0.03, 0, false, true);
 		
 		this.animations["right death"] = new Animator(this.rightDeathSprite, 0, 0, 305, 517, 20, 0.05, 5, false, false);
-		
-		
 		
 		this.animations["up idle"] = new Animator(this.upSprite, 0, 0, 401, 374, 29, 0.05, 0, false, true);
 		this.animations["up run"] = new Animator(this.upSprite, 0, 374, 401, 366, 13, 0.03, 0, false, true);
@@ -66,30 +64,6 @@ class FlyingMonster {
 		if (this.hp <= 0) {
 			this.BB = null;
 		}
-	}
-	
-	fourBulletAtk(radius) { 
-		let xStart = this.x + 45;//offsets needed to get to center of sprite
-		let yStart = this.y + 20;
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI /2), yStart + radius * sin(PI /2), xStart + 2 * radius * cos(PI /2) , yStart + 2 * radius * sin(PI /2), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //down
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI), yStart + radius * sin(PI), xStart + 2 * radius * cos(PI) , yStart + 2 * radius * sin(PI), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //left
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(0), yStart + radius * sin(0), xStart + 2 * radius * cos(0) , yStart + 2 * radius * sin(0), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //right
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(3 * PI / 2), yStart + radius * sin(3 * PI / 2), xStart + 2 * radius * cos(3 * PI / 2) , yStart + 2 * radius * sin(3 * PI / 2), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //down
-		
-	}
-	
-	eightBulletAtk(radius) {
-		let xStart = this.x + 45;//offsets needed to get to center of sprite
-		let yStart = this.y + 20;
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI /2), yStart + radius * sin(PI /2), xStart + 2 * radius * cos(PI /2) , yStart + 2 * radius * sin(PI /2), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //down
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI), yStart + radius * sin(PI), xStart + 2 * radius * cos(PI) , yStart + 2 * radius * sin(PI), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //left
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(0), yStart + radius * sin(0), xStart + 2 * radius * cos(0) , yStart + 2 * radius * sin(0), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //right
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(3 * PI / 2), yStart + radius * sin(3 * PI / 2), xStart + 2 * radius * cos(3 * PI / 2) , yStart + 2 * radius * sin(3 * PI / 2), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //down
-		
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI /4), yStart + radius * sin(PI /4), xStart + 2 * radius * cos(PI /4) , yStart + 2 * radius * sin(PI /4), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //down right
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(3 * PI / 4), yStart + radius * sin(3 * PI / 4), xStart + 2 * radius * cos(3 * PI / 4) , yStart + 2 * radius * sin(3 * PI / 4), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //down left
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(5 * PI / 4), yStart + radius * sin(5 * PI / 4), xStart + 2 * radius * cos(5 * PI / 4) , yStart + 2 * radius * sin(5 * PI / 4), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //up left
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(7 * PI / 4), yStart + radius * sin(7 * PI / 4), xStart + 2 * radius * cos(7 * PI / 4) , yStart + 2 * radius * sin(7 * PI / 4), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //up right
 	}
 	
 	singleBulletAtlk() {
@@ -140,7 +114,6 @@ class FlyingMonster {
 		if (this.bulletTimer <= 0) {
 			this.singleBulletAtlk();
 			this.bulletTimer = this.bulletRate;
-			this.animations[this.facing + " " + this.state].flag = true;
 			this.state = "attack";
 		}
 	}
@@ -154,25 +127,25 @@ class FlyingMonster {
 				this.state = "run";
 				switch (this.directionToGo) {
 					case 'up':
-					this.facing = "up";
-					this.y -= this.moveSpeed * TICK;
-					this.mapY -= this.moveSpeed * TICK;
-					break;
+					  this.facing = "up";
+	  				this.y -= this.moveSpeed * TICK;
+		  			this.mapY -= this.moveSpeed * TICK;
+			  		break;
 					case 'down':
-					this.facing = "down";
-					this.y += this.moveSpeed * TICK;
-					this.mapY += this.moveSpeed * TICK;
-					break;
+  					this.facing = "down";
+	  				this.y += this.moveSpeed * TICK;
+		  			this.mapY += this.moveSpeed * TICK;
+			  		break;
 					case 'left':
-					this.facing = "left";
-					this.x -= this.moveSpeed * TICK;
-					this.mapX -= this.moveSpeed * TICK;
-					break;
+  					this.facing = "left";
+	  				this.x -= this.moveSpeed * TICK;
+		  			this.mapX -= this.moveSpeed * TICK;
+			  		break;
 					case 'right':
-					this.facing = "right";
-					this.x += this.moveSpeed * TICK;
-					this.mapX += this.moveSpeed * TICK;
-					break;  
+  					this.facing = "right";
+	  				this.x += this.moveSpeed * TICK;
+		  			this.mapX += this.moveSpeed * TICK;
+			  		break;   
 				}
 		} else {
 			this.getPath();
@@ -210,25 +183,6 @@ class FlyingMonster {
 				this.removeFromWorld = true;
 			}
 		 } else {
-		// 	if (getDistance(this.mapX, this.mapY, this.game.player.x + 150, this.game.player.y + 150) < 300) {
-		// 		this.calculatedDirection();
-		// 		if (this.bulletTimer <= 0) {
-		// 			this.shoot();
-		// 		}
-		// 	} else {
-		// 		if (this.path && (typeof this.path[0] != 'undefined')) {
-		// 			this.move()
-		// 		} else {
-		// 			this.getPath();
-		// 		}
-		// 	}
-		// 	if (this.bulletTimer <= 0) {
-		// 		this.shoot();
-				
-		// 	}
-
-
-
 			if (this.path && (typeof this.path[0] != 'undefined')) {
 				if (this.path.length > 1) {
 					this.move()
