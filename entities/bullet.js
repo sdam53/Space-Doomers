@@ -39,6 +39,17 @@ class Bullet {
 		});
 		return collide;
 	}
+
+	checkDoorCollision() {
+		let doors = this.game.entities.portals;
+		for (let i = 0; i < doors.length; i++) {
+			if (doors[i] instanceof Door && doors[i].BB && this.BB.collide(doors[i].BB)) {
+				this.removeFromWorld = true;
+				return false;
+			}
+		}
+		return true;
+	}
 	
 	update() {
 		const TICK = this.game.clockTick;
@@ -46,7 +57,7 @@ class Bullet {
 		//destroys bullet if hits a wall
 		if (collide[0]) {
 			if (this.ricochet <= 0) {
-				this.destroy();
+				this.removeFromWorld = true;
 				return;
 			} else {
 				if (collide[1] === "vertical") {
@@ -57,12 +68,11 @@ class Bullet {
 				this.ricochet--;
 			}
 		} 
-		this.x += this.bulletSpeed * this.xBulletDir * TICK;
-		this.y += this.bulletSpeed * this.yBulletDir * TICK;
+		
 		//damage to enemy
 		this.game.entities.enemies.forEach((enemy, i) => {
 			if ((enemy.BB != null) && enemy.BB.collide(this.BB) && (this.type === "player")) {
-				this.destroy();
+				this.removeFromWorld = true;
 				enemy.hp -= 35;
 				if (enemy instanceof FlyingMonster) {
 					ASSET_MANAGER.playAsset("./music/flying monster death sound 200.wav");
@@ -72,13 +82,16 @@ class Bullet {
 		//damage to player
 		if (!PARAMS.GODMODE) {
 			if (this.game.player.BB.collide(this.BB) && (this.type == "enemy")) {
-				this.destroy();
+				this.removeFromWorld = true;
 				this.game.player.hp -= 10;
 			}
 		}
-		this.updateBB();
+		this.checkDoorCollision();
+		this.x += this.bulletSpeed * this.xBulletDir * TICK;
+		this.y += this.bulletSpeed * this.yBulletDir * TICK;
 		this.x += this.game.camera.x;
 		this.y += this.game.camera.y;
+		this.updateBB();
 	}
 
 	draw(ctx) {
@@ -88,9 +101,5 @@ class Bullet {
 			ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
 		}
 		
-	}
-	
-	destroy() {
-		this.removeFromWorld = true;
 	}
 }
