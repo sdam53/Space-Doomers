@@ -242,7 +242,7 @@ class Player {
 			}
 		});
 
-		this.game.entities.portals.forEach(function (entity) {
+		this.game.entities.powerups.forEach(function (entity) {
 			if (entity.BB && that.feetBB.collide(entity.BB)) {
 				if (entity instanceof Powerup) {
 					entity.removeFromWorld = true;
