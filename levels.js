@@ -30,8 +30,8 @@ let levelOne = {
 		Y = [6, 11, 2]
 	],
 	portals: [
-		X = [2, 13, 1, 1],
-		Y = [4, 12, 1, 2]
+		X = [2, 13],
+		Y = [4, 12]
 	],
 	doors : [
 		{x: 5, y: 1, state: "unlocked", direction: "left"},
