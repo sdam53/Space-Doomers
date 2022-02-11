@@ -15,7 +15,6 @@ class Powerup {
 
     update() {
         this.updateBB();
-        console.log("this.powerup");
         this.x += this.game.camera.x;
         this.y += this.game.camera.y;
 

@@ -7,9 +7,15 @@
  * @param {*} myMap 2d array as map
  * @returns boolean whether it is valid location
  */
-const isWalkable = (point, myMap) => {
+const isWalkable = (point, myMap, game) => {
     if (point.y < 0 || point.y > myMap.length - 1) return false;
     if (point.x < 0 || point.y > myMap[0].length - 1) return false;
+    let doors = game.camera.level.doors;
+    for (let i = 0; i < doors.length; i++) {
+        if (point.x === doors[i].x && point.y === doors[i].y ) {
+            return false;
+        }
+    }
     return myMap[point.y][point.x] === 1;
 };
 
@@ -19,16 +25,16 @@ const isWalkable = (point, myMap) => {
  * @param {*} map 2d array as map
  * @returns array of neighboring cells
  */
-const findNeighbors = (point, map) => {
+const findNeighbors = (point, map, game) => {
     neighbors = []
     let up = point.offset(0,  1);
     let down = point.offset(0,  -1);
     let left = point.offset(-1, 0);
     let right = point.offset(1, 0);
-    if (isWalkable(up, map)) neighbors.push(up);
-    if (isWalkable(down, map)) neighbors.push(down);
-    if (isWalkable(left, map)) neighbors.push(left);
-    if (isWalkable(right, map)) neighbors.push(right);
+    if (isWalkable(up, map, game)) neighbors.push(up);
+    if (isWalkable(down, map, game)) neighbors.push(down);
+    if (isWalkable(left, map, game)) neighbors.push(left);
+    if (isWalkable(right, map, game)) neighbors.push(right);
     return neighbors;
 };
 
@@ -65,7 +71,7 @@ const checkStraightPath = (path) => {
  * @param {*} map 2d array that acts as map
  * @returns array to target
  */
-const findPath = (start, end, map) => {
+const findPath = (start, end, map, game) => {
     let finished = false;
     let used = [];
     used.push(start);
@@ -73,7 +79,7 @@ const findPath = (start, end, map) => {
         let newOpen = [];
         for (let i = 0; i < used.length; i++) {
             let point = used[i];
-            let temp = findNeighbors(point, map)
+            let temp = findNeighbors(point, map, game)
             temp.forEach((neighbor) => {
                 if (!contains(used, neighbor) && !contains(newOpen, neighbor)) {
                     newOpen.push(neighbor);
