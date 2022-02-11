@@ -103,7 +103,7 @@ class SceneManager {
 			}
 			
 			this.game.addPortal(new TransitionItem(this.game, level.transitionItem.x * 125, level.transitionItem.y * 125, level.transitionItem.level));
-				
+			this.game.addPowerUp(new Powerup(this.game, level.powerup.x *125, level.powerup.y * 125, level.powerup.powerup));	
 		}
 		
 		// Background music

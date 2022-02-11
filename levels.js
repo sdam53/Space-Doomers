@@ -30,8 +30,8 @@ let levelOne = {
 		Y = [6, 11, 2]
 	],
 	portals: [
-		X = [2, 13],
-		Y = [4, 12]
+		X = [2, 13, 1, 1],
+		Y = [4, 12, 1, 2]
 	],
 	doors : [
 		{x: 5, y: 1, state: "unlocked", direction: "left"},
@@ -43,6 +43,7 @@ let levelOne = {
 		{x: 8, y: 0, direction: "down"},
 		{x: 3, y: 13, direction: "right"},
 	],
+  powerup: {},
 	transitionItem : {x: 11, y: 2, level: 1},
 	story: [ // title - level 1
 		"After landing on an abandoned space station ",
@@ -108,6 +109,7 @@ let levelTwo = {
 	doors : [
 	{x: 40, y: 6, state: "locked", direction: "down", requiredGears: 2},
 	],
+  powerup: {x: 3, y: 26, powerup: "healthpack"},
 	walltraps : [
 	
 	],
@@ -161,6 +163,7 @@ let levelThree = {
 		{x: 9, y: 1, state: "locked", direction: "right", requiredGears: 1},
 		{x: 15, y: 13, state: "locked", direction: "right", requiredGears: 2}
 	],
+  powerup: {},
 	walltraps : [
 		{x: 8, y: 0, direction: "down"},
 		{x: 3, y: 13, direction: "right"},
@@ -182,7 +185,4 @@ let finalStory = [
 		"	wants to see what other",
 		"	adventures he can find."
 ]
-
-
-
 
