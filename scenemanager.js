@@ -95,7 +95,7 @@ class SceneManager {
 			}
 			if (typeof level.walltraps[0] != 'undefined') {
 				for (let i = 0; i < level.walltraps.length; i++) {
-					this.game.addTrap(new WallTrap(this.game, level.walltraps[i].x * 125, level.walltraps[i].y * 125, level.walltraps[i].direction));
+					this.game.addTrap(new WallTrap(this.game, level.walltraps[i].x * 125, level.walltraps[i].y * 125, level.walltraps[i].direction, level.walltraps[i].rate));
 				}
 			}
 			if (typeof level.traps[0] != 'undefined') {
@@ -111,7 +111,6 @@ class SceneManager {
 		// Background music
 		if (!this.title && this.transition) {
 			ASSET_MANAGER.pauseBackgroundMusic();
-			console.log(this.level.songPath);
 			ASSET_MANAGER.playAsset(level.songPath);
 		}
 	}
@@ -137,8 +136,6 @@ class SceneManager {
 			this.gamepadSelect++;
 		}
 
-		console.log(this.gamepadSelect);
-
 		// (Debug) easy level select
 		if (this.game.keys["8"]) {
 			this.loadLevel(levelOne, false, false);
@@ -158,9 +155,7 @@ class SceneManager {
 		
 		// this.game.lclick = true;
 		// if (this.title && this.game.lclick && this.game.mouse.x > 800 && this.game.mouse.x < 1020 && this.game.mouse.y > 170 && this.game.mouse.y < 210)
-		
-		console.log(this.gamepadButton());
-		
+				
 		// If title screen
 		if (this.title && this.game.lclick && !this.levelSelect) {
 			// Title Screen -> Start Game (with transition)

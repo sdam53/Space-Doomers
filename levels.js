@@ -45,8 +45,8 @@ let levelOne = {
 		T = ["spike","thorn"]
 	],
 	walltraps : [
-		{x: 8, y: 0, direction: "down"},
-		{x: 3, y: 13, direction: "right"},
+		{x: 8, y: 0, direction: "down", rate: 3},
+		{x: 3, y: 13, direction: "right", rate: 4},
 	],
   powerup: {},
 	transitionItem : {x: 11, y: 2, level: 1},
@@ -99,11 +99,11 @@ let levelTwo = {
 		  [0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,],
 		  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,]],
 
-		  player: {x: 4, y: 2},
-		  flying_monsters: [
-			  X = [5, 12, 14],
-			  Y = [3, 23, 15]
-		  ],
+	player: {x: 4, y: 2},
+    flying_monsters: [
+	    X = [5, 12, 14],
+	    Y = [3, 23, 15]
+    ],
 	green_monsters: [
 		X = [],
 		Y = []
@@ -132,11 +132,12 @@ let levelTwo = {
 	],
 	traps: [
 		X = [6],
-		Y = [6]
+		Y = [6],
+		T = ["spike"]
 	],
   	powerup: {x: 3, y: 26, powerup: "healthpack"},
 	walltraps : [
-		{x: 39, y: 20, direction: "up"},
+		{x: 39, y: 20, direction: "up", rate: 5},
 	],
 	transitionItem: {x: 39.5, y: 34.5, level: 2},
 	story: [ //Level 1 - Level 2                    //

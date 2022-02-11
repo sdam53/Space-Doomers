@@ -9,15 +9,14 @@ class WallTrap {
      * @param {*} y y location
      * @param {*} direction direction of bullets
      */
-	constructor(game, x, y, direction) {
-		Object.assign(this, {game, x, y, direction});
+	constructor(game, x, y, direction, bulletRate) {
+		Object.assign(this, {game, x, y, direction, bulletRate});
 		//this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tiles/x wall.png");
 		//will work on sprites later
         this.bullet = ASSET_MANAGER.getAsset("./sprites/enemies/flying_monster/flying_monster_bullet.png");
         //this.updateBB();
         this.radius = 85;
         this.bulletSpeed = 300;
-		this.bulletRate = 1.2;
 		this.bulletTimer = 0;
 		this.bulletSize = 30;
 		
