@@ -48,7 +48,7 @@ let levelOne = {
 		{x: 8, y: 0, direction: "down", rate: 3},
 		{x: 3, y: 13, direction: "right", rate: 4},
 	],
-  powerup: {},
+  	powerup: [{x: 2, y: 5, powerup: "ricochet"}],
 	transitionItem : {x: 11, y: 2, level: 1},
 	story: [ // title - level 1
 		"After landing on an abandoned space station ",
@@ -135,7 +135,7 @@ let levelTwo = {
 		Y = [6],
 		T = ["spike"]
 	],
-  	powerup: {x: 3, y: 26, powerup: "healthpack"},
+  	powerup: [{x: 3, y: 26, powerup: "healthpack"}],
 	walltraps : [
 		{x: 39, y: 20, direction: "up", rate: 5},
 	],
@@ -190,15 +190,16 @@ let levelThree = {
 		{x: 9, y: 1, state: "locked", direction: "right", requiredGears: 1},
 		{x: 15, y: 13, state: "locked", direction: "right", requiredGears: 2}
 	],
-  	powerup: {},
 	traps: [
-		X = [6],
-		Y = [6]
+		X = [6,8],
+		Y = [6,6],
+		T = ["spike","thorn"]
 	],
 	walltraps : [
-		{x: 8, y: 0, direction: "down"},
-		{x: 3, y: 13, direction: "right"},
+		{x: 8, y: 0, direction: "down", rate: 3},
+		{x: 3, y: 13, direction: "right", rate: 4},
 	],
+  	powerup: [{x: 2, y: 5, powerup: "ricochet"}],
 	transitionItem : {x: 11, y: 2, level: 3},
 	story: [                                        //
 		"Rob quickly puts the jetpack on but is ",

@@ -103,9 +103,12 @@ class SceneManager {
 					this.game.addTrap(new Trap(this.game, level.traps[0][i] * 125, level.traps[1][i] * 125, level.traps[2][i]));
 				}
 			}
-			
+			if (typeof level.powerup[0] != 'undefined') {
+				for (let i = 0; i < level.powerup.length; i++) {
+					this.game.addPowerUp(new Powerup(this.game, level.powerup[i].x * 125, level.powerup[i].y * 125, level.powerup[i].powerup));
+				}
+			}
 			this.game.addPortal(new TransitionItem(this.game, level.transitionItem.x * 125, level.transitionItem.y * 125, level.transitionItem.level));
-			this.game.addPowerUp(new Powerup(this.game, level.powerup.x *125, level.powerup.y * 125, level.powerup.powerup));	
 		}
 		
 		// Background music
