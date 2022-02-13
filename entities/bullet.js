@@ -43,7 +43,7 @@ class Bullet {
 	checkDoorCollision() {
 		let doors = this.game.entities.portals;
 		for (let i = 0; i < doors.length; i++) {
-			if (doors[i] instanceof Door && doors[i].BB && this.BB.collide(doors[i].BB)) {
+			if (doors[i] instanceof Door && doors[i].BB2 && this.BB.collide(doors[i].BB2)) {
 				this.removeFromWorld = true;
 				return false;
 			}
