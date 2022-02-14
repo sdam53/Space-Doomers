@@ -168,11 +168,11 @@ class GameEngine {
         this.entities.tiles.forEach((tile) => {
           tile.draw(this.ctx);
         });
-        this.entities.traps.forEach((trap) => {
-            if (trap.trap_type === "thorn") {
-                trap.draw2(this.ctx);
-            }
-        });
+        //this.entities.traps.forEach((trap) => {
+            //if (trap.trap_type === "thorn") {
+             //   trap.draw2(this.ctx);
+            //}
+        //});
         this.entities.portals.forEach((portals) => {
           portals.draw(this.ctx);
         });
