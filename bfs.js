@@ -57,21 +57,13 @@ const contains = (array, point) => {
 }
 
 /**
- * checks whether path is straigh
- * @param {*} path array of paths
- */
-const checkStraightPath = (path) => {
-    
-}
-
-/**
  * returns array of cells to target
  * @param {*} start starting point
  * @param {*} end target point
  * @param {*} map 2d array that acts as map
  * @returns array to target
  */
-const findPath = (start, end, map, game) => {
+const BFS = (start, end, map, game) => {
     let finished = false;
     let used = [];
     used.push(start);
