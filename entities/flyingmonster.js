@@ -31,7 +31,6 @@ class FlyingMonster {
 		//info for pathfinding
 		this.mapX = this.x + 62//this.midPointOffset.x;
 		this.mapY = this.y + + 62//this.midPointOffset.y;
-		this.origLocation = new Point(this.game, floor(this.mapX / 125), floor(this.mapY / 125), null);
 		this.path;
 	}
 	
@@ -160,7 +159,11 @@ class FlyingMonster {
 		let myY = floor(this.mapY / 125);
 		let pX = floor(this.game.player.mapX / 125);
 		let pY = floor(this.game.player.mapY / 125);
-		this.path = findPath(new Point(this.game, myX, myY, null), new Point(this.game, pX, pY, null), this.game.camera.level.map, this.game);
+		if (this.game.pathfindingChoice === "bfs") {
+			this.path = BFS(new Point(this.game, myX, myY, null), new Point(this.game, pX, pY, null), this.game.camera.level.map, this.game);
+		} else {
+			this.path = aStarPath(new Point(this.game, myX, myY, null), new Point(this.game, pX, pY, null), this.game.camera.level.map, this.game).reverse();
+		}
 		if (this.path[0] && (typeof this.path[0] != 'undefined')) { 
 			if (this.path[0].x > myX) {//right
 				this.directionToGo = "right";
@@ -185,7 +188,7 @@ class FlyingMonster {
 		 } else {
 			if (this.path && (typeof this.path[0] != 'undefined')) {
 				if (this.path.length > 1) {
-					this.move()
+					this.move();
 				} else {
 					this.getPath();
 				}

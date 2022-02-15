@@ -35,6 +35,8 @@ class GameEngine {
         this.gamepad = false;
         this.keyboardActive = false;
         this.mouseActive = false;
+
+        this.pathfindingChoice = "astar";//bfs or astar
     };
 
     clearEntities() {
@@ -180,8 +182,7 @@ class GameEngine {
         });
         this.entities.powerups.forEach((powerups) => {
             powerups.draw(this.ctx);
-        });
-        
+        });        
         this.entities.player.draw(this.ctx, this);
         this.entities.traps.forEach((trap) => {
             if (trap.trap_type === "thorn") {
