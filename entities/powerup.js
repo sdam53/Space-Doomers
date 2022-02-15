@@ -21,6 +21,7 @@ class Powerup {
     update() {
         if (this.powerup === "ricochet") {
             if (this.BB.collide(this.game.player.feetBB)) {
+                ASSET_MANAGER.playAsset("./music/weapon_powerup.mp3");
                 this.game.player.bulletRicochet = 3;
                 this.removeFromWorld = true;
             }

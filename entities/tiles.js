@@ -27,7 +27,7 @@ class Ground {
       this.tile = this.tile1;
     }
     else if (this.game.gameLevel == 2){
-      this.tile = this.tile2;
+      this.tile = this.tile1;
     }
     else {
       this.tile = this.tile4;

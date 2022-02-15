@@ -166,6 +166,9 @@ class GameEngine {
         this.entities.tiles.forEach((tile) => {
           tile.draw(this.ctx);
         });
+        this.entities.traps.forEach((trap) => {
+           trap.draw(this.ctx);
+        });
         this.entities.portals.forEach((portals) => {
           portals.draw(this.ctx);
         });
@@ -178,10 +181,13 @@ class GameEngine {
         this.entities.powerups.forEach((powerups) => {
             powerups.draw(this.ctx);
         });
-        this.entities.traps.forEach((trap) => {
-            trap.draw(this.ctx);
-        });
+        
         this.entities.player.draw(this.ctx, this);
+        this.entities.traps.forEach((trap) => {
+            if (trap.trap_type === "thorn") {
+                trap.layer(this.ctx)
+            }
+        });
         this.entities.minimap.draw(this.ctx, this);
         this.camera.draw(this.ctx);
     };

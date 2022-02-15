@@ -40,9 +40,9 @@ let levelOne = {
 		{x: 15, y: 13, state: "locked", direction: "right", requiredGears: 2}
 	],
 	traps: [
-		X = [6,8],
-		Y = [6,6],
-		T = ["spike","thorn"]
+		X = [6,8,7],
+		Y = [6,6,6],
+		T = ["spike","thorn", "thorn"]
 	],
 	walltraps : [
 		{x: 8, y: 0, direction: "down", rate: 3},
@@ -131,9 +131,9 @@ let levelTwo = {
 		{x: 8, y: 11, state: "locked", direction: "left", requiredGears: 3},
 	],
 	traps: [
-		X = [6],
-		Y = [6],
-		T = ["spike"]
+		X = [17,18,19,20],
+		Y = [8,8,8,8],
+		T = ["thorn","thorn","thorn","thorn"]
 	],
   	powerup: [{x: 3, y: 26, powerup: "healthpack"}],
 	walltraps : [
