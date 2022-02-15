@@ -36,7 +36,7 @@ class GameEngine {
         this.keyboardActive = false;
         this.mouseActive = false;
 
-        this.pathfindingChoice = "astar";//bfs or astar
+        this.pathfindingChoice = "bfs";//bfs or astar
     };
 
     clearEntities() {
