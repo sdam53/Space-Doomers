@@ -8,3 +8,4 @@ Group Members:
 How to play:
  * Use w, a, s, d to move and mouse + click to shoot 
 
+Weapon Powerup Sound effect obtained from https://www.zapsplat.com
