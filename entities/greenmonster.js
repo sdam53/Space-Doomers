@@ -168,7 +168,7 @@ class GreenMonster {
 			if (this.animations[this.facing + " " + this.state].frame === 2) {
 				this.removeFromWorld = true;
 			}
-		} else if (!(this.x > this.game.ctx.canvas.width || this.x < 0 || this.y > this.game.ctx.canvas.height || this.y < 0) || this.offscreen || getDistance(this.game.player.x, this.game.player.y, this.x, this.y) < 500) {
+		} else if (!(this.x > this.game.ctx.canvas.width || this.x < 0 || this.y > this.game.ctx.canvas.height || this.y < 0) || this.offscreen) {
 			if (this.BB.collide(this.game.player.BB)) {
 				this.calculatedDirection();
 				this.state = "attack";

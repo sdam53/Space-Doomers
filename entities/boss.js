@@ -224,7 +224,7 @@ class Boss {
 			if (this.animations[this.facing + " " + this.state].frame === 16) {
 				this.removeFromWorld = true;
 			}
-		 } else if (!(this.x > this.game.ctx.canvas.width || this.x < 0 || this.y > this.game.ctx.canvas.height || this.y < 0) || this.offscreen || getDistance(this.game.player.x, this.game.player.y, this.x, this.y) < 750) {
+		 } else if (!(this.x > this.game.ctx.canvas.width || this.x < 0 || this.y > this.game.ctx.canvas.height || this.y < 0) || this.offscreen) {
 			if (this.path && (typeof this.path[0] != 'undefined')) {
 				if (this.path.length > 1) {
 					this.move();
