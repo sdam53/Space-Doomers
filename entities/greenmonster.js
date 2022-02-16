@@ -164,7 +164,6 @@ class GreenMonster {
 			this.state = "death";
 			if (this.animations[this.facing + " " + this.state].frame === 2) {
 				this.removeFromWorld = true;
-				console.log("here");
 			}
 		} else {
 			if (this.BB.collide(this.game.player.BB)) {
