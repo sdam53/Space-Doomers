@@ -98,7 +98,7 @@ class GreenMonster {
 	*/
 	move() {
 		const TICK = this.game.clockTick;
-		if (getDistance(this.mapX, this.mapY, this.path[0].x * 125 + 62, this.path[0].y * 125 + 62) > 5) {
+		if (getDistance(this.mapX, this.mapY, this.path[0].x * 125 + 62, this.path[0].y * 125 + 62) > 25) {
 			if (getDistance(this.mapX, this.mapY, this.game.player.mapX, this.game.player.mapY) > 5) {
 				this.state = "run";
 				switch (this.directionToGo) {

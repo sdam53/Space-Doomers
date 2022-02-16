@@ -102,12 +102,12 @@ let levelTwo = {
 
 	player: {x: 4, y: 2},
     flying_monsters: [
-	    X = [8, 8, 12, 12, 5, 12, 27, 20, 26, 24, 20, 21, 29, 29, 33, 33],
-	    Y = [30, 34, 30, 34, 9, 23, 18, 10, 13, 11, 18, 32, 30, 34, 30, 34]
+	    X = [8, 12, 5, 12, 27, 20, 20, 29, 33],
+	    Y = [30, 34, 9, 23, 18, 10, 18, 30, 34]
     ],
 	green_monsters: [
-		X = [10, 4, 19, 24, 22, 22, 19, 19, 23, 23, 31],
-		Y = [32, 17,4,5, 19, 13, 30, 34, 30, 34, 32]
+		X = [4, 19, 24, 22, 22, 19, 23],
+		Y = [17,4,5, 19, 13, 34, 30]
 	],
 
 	gears: [
@@ -132,9 +132,9 @@ let levelTwo = {
 
 	],
 	traps: [
-		X = [5,6,17,18,19,20,32,34,34,32,31,31, 20, 9, 16, 32, 8, 11],
-		Y = [6,6,8,8,8,8,5,5,4,3,3,3, 31, 33, 29, 30, 30, 31],
-		T = ["spike", "spike", "thorn","thorn","thorn","thorn", "thorn", "thorn", "spike","spike","spike","spike","thorn", "thorn", "thorn", "thorn", "thorn", "spike"]
+		X = [5,6,17,18,19,20,32,34,34,32,31,31, 20, 9, 16, 32, 8, 11, 16, 22, 13, 26, 27,32,31,30,30, 35],
+		Y = [6,6,8,8,8,8,5,5,4,3,3,3, 31, 33, 29, 30, 30, 31, 33, 34, 29, 30, 30, 34, 34, 34, 33, 32],
+		T = ["spike", "spike", "thorn","thorn","thorn","thorn", "thorn", "thorn", "spike","spike","spike","spike","thorn", "thorn", "thorn", "thorn", "thorn", "spike", "spike", "spike", "thorn","spike", "spike", "thorn", "thorn", "thorn", "thorn", "spike"]
 	],
   	powerup: [{x: 3, y: 26, powerup: "healthpack"},
 	  		  {x: 13, y: 11, powerup: "healthpack"},
