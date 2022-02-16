@@ -7,11 +7,6 @@ class BlueMonster {
 		this.leftSprite = ASSET_MANAGER.getAsset("./sprites/enemies/blue_monster/blue_monster_left.png");
 		this.rightSprite = ASSET_MANAGER.getAsset("./sprites/enemies/blue_monster/blue_monster_right.png"); 
 
-        /* this.upSprite = ASSET_MANAGER.getAsset("./sprites/enemies/green_monster/green_monster_up.png");
-		this.downSprite = ASSET_MANAGER.getAsset("./sprites/enemies/green_monster/green_monster_down.png");
-		this.leftSprite = ASSET_MANAGER.getAsset("./sprites/enemies/green_monster/green_monster_left.png");
-		this.rightSprite = ASSET_MANAGER.getAsset("./sprites/enemies/green_monster/green_monster_right.png"); */
-		
 		//offset to get be in center of tile
 		this.x += 25;
 		this.y += 25;
