@@ -1,16 +1,16 @@
-class Boss {
+class Smol {
     constructor(game, x, y) {
       Object.assign(this, {game, x, y})
 
       this.facing = "down";
 	  this.state = "idle";
 
-	  this.hp = 100;
+	  this.hp = 40;
 
-	  this.moveSpeed = 100;
+	  this.moveSpeed = 200;
 	  
 
-	  this.bulletSpeed = 300;
+	  this.bulletSpeed = 100;
 	  this.bulletRate = 1.01; //needs to be slightly tweaked. animation is a bit faster
 	  this.bulletTimer = 0;
 	  this.bulletSize = 30;
@@ -18,8 +18,6 @@ class Boss {
 	  this.animations = [];
 	  this.loadAnimations();
 	  this.updateBB();
-
-	  this.hp = 1000;
 
 	  //offset to get the middle of sprite and feet
 	  this.offset = {x: 110, y : 110, feet: 170};
@@ -29,27 +27,27 @@ class Boss {
     }
 
 	loadAnimations () {
-		this.bullet 			= ASSET_MANAGER.getAsset("./sprites/enemies/boss/boss bullet.png");
+		this.bullet 			= ASSET_MANAGER.getAsset("./sprites/enemies/smol/smol bullet.png");
 
-		this.leftIdleSprite 	= ASSET_MANAGER.getAsset("./sprites/enemies/boss/boss left/boss left idle.png");
-		this.leftRunSprite 		= ASSET_MANAGER.getAsset("./sprites/enemies/boss/boss left/boss left run.png");
-		this.leftAttackSprite 	= ASSET_MANAGER.getAsset("./sprites/enemies/boss/boss left/boss left attack.png");
-		this.leftDeathSprite 	= ASSET_MANAGER.getAsset("./sprites/enemies/boss/boss left/boss left death.png");
+		this.leftIdleSprite 	= ASSET_MANAGER.getAsset("./sprites/enemies/smol/smol left/smol left idle.png");
+		this.leftRunSprite 		= ASSET_MANAGER.getAsset("./sprites/enemies/smol/smol left/smol left run.png");
+		this.leftAttackSprite 	= ASSET_MANAGER.getAsset("./sprites/enemies/smol/smol left/smol left attack.png");
+		this.leftDeathSprite 	= ASSET_MANAGER.getAsset("./sprites/enemies/smol/smol left/smol left death.png");
 
-		this.rightIdleSprite 	= ASSET_MANAGER.getAsset("./sprites/enemies/boss/boss right/boss right idle.png");
-		this.rightRunSprite 	= ASSET_MANAGER.getAsset("./sprites/enemies/boss/boss right/boss right run.png");
-		this.rightAttackSprite 	= ASSET_MANAGER.getAsset("./sprites/enemies/boss/boss right/boss right attack.png");
-		this.rightDeathSprite 	= ASSET_MANAGER.getAsset("./sprites/enemies/boss/boss right/boss right death.png");
+		this.rightIdleSprite 	= ASSET_MANAGER.getAsset("./sprites/enemies/smol/smol right/smol right idle.png");
+		this.rightRunSprite 	= ASSET_MANAGER.getAsset("./sprites/enemies/smol/smol right/smol right run.png");
+		this.rightAttackSprite 	= ASSET_MANAGER.getAsset("./sprites/enemies/smol/smol right/smol right attack.png");
+		this.rightDeathSprite 	= ASSET_MANAGER.getAsset("./sprites/enemies/smol/smol right/smol right death.png");
 
-		this.upIdleSprite 		= ASSET_MANAGER.getAsset("./sprites/enemies/boss/boss up/boss up idle.png");
-		this.upRunSprite 		= ASSET_MANAGER.getAsset("./sprites/enemies/boss/boss up/boss up run.png");
-		this.upAttackSprite 	= ASSET_MANAGER.getAsset("./sprites/enemies/boss/boss up/boss up attack.png");
-		this.upDeathSprite 		= ASSET_MANAGER.getAsset("./sprites/enemies/boss/boss up/boss up death.png");
+		this.upIdleSprite 		= ASSET_MANAGER.getAsset("./sprites/enemies/smol/smol up/smol up idle.png");
+		this.upRunSprite 		= ASSET_MANAGER.getAsset("./sprites/enemies/smol/smol up/smol up run.png");
+		this.upAttackSprite 	= ASSET_MANAGER.getAsset("./sprites/enemies/smol/smol up/smol up attack.png");
+		this.upDeathSprite 		= ASSET_MANAGER.getAsset("./sprites/enemies/smol/smol up/smol up death.png");
 
-		this.downIdleSprite 	= ASSET_MANAGER.getAsset("./sprites/enemies/boss/boss down/boss down idle.png");
-		this.downRunSprite 		= ASSET_MANAGER.getAsset("./sprites/enemies/boss/boss down/boss down run.png");
-		this.downAttackSprite 	= ASSET_MANAGER.getAsset("./sprites/enemies/boss/boss down/boss down attack.png");
-		this.downDeathSprite 	= ASSET_MANAGER.getAsset("./sprites/enemies/boss/boss down/boss down death.png");
+		this.downIdleSprite 	= ASSET_MANAGER.getAsset("./sprites/enemies/smol/smol down/smol down idle.png");
+		this.downRunSprite 		= ASSET_MANAGER.getAsset("./sprites/enemies/smol/smol down/smol down run.png");
+		this.downAttackSprite 	= ASSET_MANAGER.getAsset("./sprites/enemies/smol/smol down/smol down attack.png");
+		this.downDeathSprite 	= ASSET_MANAGER.getAsset("./sprites/enemies/smol/smol down/smol down death.png");
 
 		this.animations["left idle"] 	= new Animator(this.leftIdleSprite, 0, 0, 403, 603, 36, 0.04, 0, false, true);
 		this.animations["left run"] 	= new Animator(this.leftRunSprite, 0, 0, 405, 659, 20, 0.03, 0, false, true);
@@ -281,7 +279,7 @@ class Boss {
 				else if (this.state == "attack") xOffset = -20, yOffset = -30;
 			}
 		}
-		this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x + xOffset, this.y + yOffset, 0.3);
+		this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x + xOffset, this.y + yOffset, 0.1);
 
 		if (PARAMS.DEBUG && this.BB) {
 			ctx.strokeStyle = 'Red';

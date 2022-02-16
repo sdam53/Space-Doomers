@@ -87,6 +87,16 @@ class SceneManager {
 					this.game.addEnemy(new BlueMonster(this.game, level.blue_monsters[0][i] * 125, level.blue_monsters[1][i] * 125, level.blue_monsters[2][i]));
 				}
 			}
+			if (level.blue_monsters) {
+				for (let i = 0; i < level.blue_monsters[0].length; i ++) {
+					this.game.addEnemy(new BlueMonster(this.game, level.blue_monsters[0][i] * 125, level.blue_monsters[1][i] * 125, level.blue_monsters[2][i]));
+				}
+			}
+			if (level.smols) {
+				for (let i = 0; i < level.smols.length; i++) {
+					this.game.addEnemy(new Smol(this.game, level.smols[i].x * 125 - 55, level.smols[i].y * 125 - 85));
+				}
+			}
 			if (level.gears) {
 				for (let i = 0; i < level.gears[0].length; i ++) {
 					this.game.addPowerUp(new Gear(this.game, level.gears[0][i] * 125, level.gears[1][i] * 125));
@@ -119,7 +129,6 @@ class SceneManager {
 				}
 			}
 			if (level.boss) {
-				console.log(level.boss[0].x, level.boss[0].y);
 				for (let i = 0; i < level.boss.length; i++) {
 					this.game.addEnemy(new Boss(this.game, level.boss[i].x * 125 - 55, level.boss[i].y * 125 - 85));
 				}

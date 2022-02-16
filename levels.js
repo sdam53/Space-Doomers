@@ -37,7 +37,10 @@ let levelOne = {
 		X = [4],
 		Y = [12],
 		OFFSCREEN = [true]
-
+	],
+	smols: [
+		{x: 13, y: 4},
+		{x: 13, y: 5}
 	],
 	boss: [{x: 11, y: 4}],
 	gears: [

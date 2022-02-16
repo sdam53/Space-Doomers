@@ -82,6 +82,8 @@ ASSET_MANAGER.queueDownload("./sprites/enemies/blue_monster/blue_monster_left.pn
 ASSET_MANAGER.queueDownload("./sprites/enemies/blue_monster/blue_monster_right.png");
 
 // boss sprites 
+ASSET_MANAGER.queueDownload("./sprites/enemies/boss/boss bullet.png");
+
 ASSET_MANAGER.queueDownload("./sprites/enemies/boss/boss left/boss left idle.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/boss/boss left/boss left run.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/boss/boss left/boss left attack.png");
@@ -101,6 +103,29 @@ ASSET_MANAGER.queueDownload("./sprites/enemies/boss/boss down/boss down idle.png
 ASSET_MANAGER.queueDownload("./sprites/enemies/boss/boss down/boss down run.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/boss/boss down/boss down attack.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/boss/boss down/boss down death.png");
+
+// smol sprites
+ASSET_MANAGER.queueDownload("./sprites/enemies/smol/smol bullet.png");
+
+ASSET_MANAGER.queueDownload("./sprites/enemies/smol/smol left/smol left idle.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/smol/smol left/smol left run.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/smol/smol left/smol left attack.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/smol/smol left/smol left death.png");
+
+ASSET_MANAGER.queueDownload("./sprites/enemies/smol/smol right/smol right idle.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/smol/smol right/smol right run.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/smol/smol right/smol right attack.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/smol/smol right/smol right death.png");
+
+ASSET_MANAGER.queueDownload("./sprites/enemies/smol/smol up/smol up idle.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/smol/smol up/smol up run.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/smol/smol up/smol up attack.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/smol/smol up/smol up death.png");
+
+ASSET_MANAGER.queueDownload("./sprites/enemies/smol/smol down/smol down idle.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/smol/smol down/smol down run.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/smol/smol down/smol down attack.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/smol/smol down/smol down death.png");
 
 // music
 ASSET_MANAGER.queueDownload("./music/title.mp3");
