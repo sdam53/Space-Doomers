@@ -32,6 +32,7 @@ class Player {
 		this.bulletSize = 30;
 		this.bulletRicochet = 0;
 		this.moveMultiplyer = 1;
+		this.shotgun = {shotgun: true, amount: 1};//ammount means how many pairs, ie 1 will give 3 bullets, 2 will give 5...
 		
 		this.animations = [];
 		this.loadAnimations();
@@ -153,13 +154,13 @@ class Player {
 				ASSET_MANAGER.playAsset("./music/player shot sound 200.wav");
 				this.calculateDirection()
 				if (this.facing === "left") {
-					this.game.addBullet(new Bullet(this.game, this.x - 25, this.y + 55, this.game.mouse.x, this.game.mouse.y, this.bulletSize, this.bulletSpeed, this.bulletRicochet, "player", this.spritesheet9));
+					this.game.addBullet(new Bullet(this.game, this.x - 25, this.y + 55, this.game.mouse.x, this.game.mouse.y, this.bulletSize, this.bulletSpeed, this.bulletRicochet, this.shotgun, "player", this.spritesheet9));
 				} else if (this.facing === "right") {
-					this.game.addBullet(new Bullet(this.game, this.x + 75, this.y + 55, this.game.mouse.x, this.game.mouse.y, this.bulletSize, this.bulletSpeed, this.bulletRicochet, "player", this.spritesheet9));
+					this.game.addBullet(new Bullet(this.game, this.x + 75, this.y + 55, this.game.mouse.x, this.game.mouse.y, this.bulletSize, this.bulletSpeed, this.bulletRicochet, this.shotgun, "player", this.spritesheet9));
 				} else if (this.facing === "up") {
-					this.game.addBullet(new Bullet(this.game, this.x + 24, this.y, this.game.mouse.x, this.game.mouse.y, this.bulletSize, this.bulletSpeed, this.bulletRicochet, "player", this.spritesheet9));
+					this.game.addBullet(new Bullet(this.game, this.x + 24, this.y, this.game.mouse.x, this.game.mouse.y, this.bulletSize, this.bulletSpeed, this.bulletRicochet, this.shotgun, "player", this.spritesheet9));
 				} else {
-					this.game.addBullet(new Bullet(this.game, this.x + 24, this.y + 87, this.game.mouse.x, this.game.mouse.y, this.bulletSize, this.bulletSpeed, this.bulletRicochet, "player", this.spritesheet9));
+					this.game.addBullet(new Bullet(this.game, this.x + 24, this.y + 87, this.game.mouse.x, this.game.mouse.y, this.bulletSize, this.bulletSpeed, this.bulletRicochet, this.shotgun, "player", this.spritesheet9));
 				}
 				this.bulletTimer = this.bulletRate;
 			}

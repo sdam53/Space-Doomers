@@ -174,11 +174,11 @@ class GameEngine {
         this.entities.portals.forEach((portals) => {
           portals.draw(this.ctx);
         });
+        this.entities.bullets.forEach((bullet) => {
+            bullet.draw(this.ctx);
+          });
         this.entities.enemies.forEach((enemy) => {
           enemy.draw(this.ctx);
-        });
-        this.entities.bullets.forEach((bullet) => {
-          bullet.draw(this.ctx);
         });
         this.entities.powerups.forEach((powerups) => {
             powerups.draw(this.ctx);

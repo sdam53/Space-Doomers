@@ -108,6 +108,11 @@ class SceneManager {
 					this.game.addPowerUp(new Powerup(this.game, level.powerup[i].x * 125, level.powerup[i].y * 125, level.powerup[i].powerup));
 				}
 			}
+			if (typeof level.boss != 'undefined') {
+				for (let i = 0; i < level.boss.length; i++) {
+					this.game.addEnemy(new Boss(this.game, level.boss[i].x * 125 - 55, level.boss[i].y * 125 - 85));
+				}
+			}
 			this.game.addPortal(new TransitionItem(this.game, level.transitionItem.x * 125, level.transitionItem.y * 125, level.transitionItem.level));
 		}
 		

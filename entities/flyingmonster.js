@@ -67,13 +67,13 @@ class FlyingMonster {
 	
 	singleBulletAtlk() {
 		if (this.facing === "down") {
-			this.game.addBullet(new Bullet(this.game, this.x + 35, this.y + 70, this.game.player.x + 30, this.game.player.y + 40, this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet));
+			this.game.addBullet(new Bullet(this.game, this.x + 35, this.y + 70, this.game.player.x + 30, this.game.player.y + 40, this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet));
 		} else if (this.facing === "up") {
-			this.game.addBullet(new Bullet(this.game, this.x + 35, this.y - 43, this.game.player.x + 30, this.game.player.y + 40, this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet));
+			this.game.addBullet(new Bullet(this.game, this.x + 35, this.y - 43, this.game.player.x + 30, this.game.player.y + 40, this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet));
 		} else if (this.facing === "left") {
-			this.game.addBullet(new Bullet(this.game, this.x - 20, this.y + 12, this.game.player.x + 30, this.game.player.y + 40, this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet));
+			this.game.addBullet(new Bullet(this.game, this.x - 20, this.y + 12, this.game.player.x + 30, this.game.player.y + 40, this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet));
 		} else if (this.facing === "right") {
-			this.game.addBullet(new Bullet(this.game, this.x + 90, this.y + 12, this.game.player.x + 30, this.game.player.y + 40, this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet));
+			this.game.addBullet(new Bullet(this.game, this.x + 90, this.y + 12, this.game.player.x + 30, this.game.player.y + 40, this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet));
 		}
 	}
 	
