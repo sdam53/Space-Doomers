@@ -109,7 +109,7 @@ let levelTwo = {
 		X = [],
 		Y = []
 	],
-	boss: [{}],
+	boss: [],
 	gears: [
 	X = [13,2,2,15],
 	Y = [6,14,12,23]
@@ -174,7 +174,7 @@ let levelThree = {
 		X = [0],
 		Y = [0]
 	],
-	boss: [{}],
+	boss: [],
 	gears: [
 		X = [5, 2, 16],
 		Y = [6, 11, 2]
