@@ -109,6 +109,8 @@ class SceneManager {
 				}
 			}
 			this.game.addPortal(new TransitionItem(this.game, level.transitionItem.x * 125, level.transitionItem.y * 125, level.transitionItem.level));
+			this.game.addEnemy(new Boss(this.game, level.boss.x * 125 - 55, level.boss.y * 125 - 85));
+
 		}
 		
 		// Background music
