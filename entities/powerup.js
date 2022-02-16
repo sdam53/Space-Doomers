@@ -1,7 +1,7 @@
 class Powerup {
     constructor(game, x, y, powerup) {
         Object.assign(this, {game, x, y, powerup});
-        if (powerup === "heathpack") {
+        if (powerup === "healthpack") {
             this.sprites = ASSET_MANAGER.getAsset("./sprites/tiles/healthpack.png");
         } else if (powerup === "ricochet") {
             this.sprites = ASSET_MANAGER.getAsset("./sprites/tiles/ricochet.png");
@@ -34,7 +34,7 @@ class Powerup {
     }
 
     draw(ctx){
-        if (this.powerup === "heathpack") {
+        if (this.powerup === "healthpack") {
             ctx.drawImage(this.sprites, this.x+35, this.y+30, 50, 50);
         } else if (this.powerup === "ricochet") {
             ctx.drawImage(this.sprites, this.x + 12, this.y + 12, 100, 100);
