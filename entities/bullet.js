@@ -18,7 +18,7 @@ class Bullet {
 		this.xBulletDir = (this.xTarget - this.x) / this.distance;
 		this.yBulletDir = (this.yTarget - this.y) / this.distance;
 		this.updateBB();
-		if (this.shotgun) {
+		if (this.shotgun.shotgun) {
 			this.bulletSpeed *= 1.5
 			this.shotgunAtk();
 		}

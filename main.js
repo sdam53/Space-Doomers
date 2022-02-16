@@ -33,6 +33,7 @@ ASSET_MANAGER.queueDownload("./sprites/door/door locked right.png");
 // powerup sprites
 ASSET_MANAGER.queueDownload("./sprites/tiles/healthpack.png")
 ASSET_MANAGER.queueDownload("./sprites/tiles/ricochet.png")
+ASSET_MANAGER.queueDownload("./sprites/tiles/shotgun.png")
 
 // transition items sprites 
 ASSET_MANAGER.queueDownload("./sprites/transition/level 1 hole.png");

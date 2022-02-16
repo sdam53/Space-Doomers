@@ -5,6 +5,8 @@ class Powerup {
             this.sprites = ASSET_MANAGER.getAsset("./sprites/tiles/healthpack.png");
         } else if (powerup === "ricochet") {
             this.sprites = ASSET_MANAGER.getAsset("./sprites/tiles/ricochet.png");
+        } else if (powerup === "shotgun") {
+            this.sprites = ASSET_MANAGER.getAsset("./sprites/tiles/shotgun.png");
         }
         this.updateBB();
     }
@@ -15,6 +17,8 @@ class Powerup {
             this.BB = new BoundingBox(this.x+30, this.y+30, 50, 50)
         } else if (this.powerup === "ricochet") {
             this.BB = new BoundingBox(this.x + 12, this.y + 25, 100, 70)
+        } else if (this.powerup === "shotgun") {
+            this.BB = new BoundingBox(this.x + 12, this.y + 25, 100, 70)
         }
     }
 
@@ -23,6 +27,12 @@ class Powerup {
             if (this.BB.collide(this.game.player.feetBB)) {
                 ASSET_MANAGER.playAsset("./music/weapon_powerup.mp3");
                 this.game.player.bulletRicochet = 3;
+                this.removeFromWorld = true;
+            }
+        } else if (this.powerup === "shotgun") {
+            if (this.BB.collide(this.game.player.feetBB)) {
+                ASSET_MANAGER.playAsset("./music/weapon_powerup.mp3");
+                this.game.player.shotgun.shotgun = true;
                 this.removeFromWorld = true;
             }
         }
@@ -37,6 +47,8 @@ class Powerup {
         if (this.powerup === "healthpack") {
             ctx.drawImage(this.sprites, this.x+35, this.y+30, 50, 50);
         } else if (this.powerup === "ricochet") {
+            ctx.drawImage(this.sprites, this.x + 12, this.y + 12, 100, 100);
+        } else if (this.powerup === "shotgun") {
             ctx.drawImage(this.sprites, this.x + 12, this.y + 12, 100, 100);
         }
         if (PARAMS.DEBUG) {
