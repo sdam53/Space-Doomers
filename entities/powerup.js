@@ -18,7 +18,7 @@ class Powerup {
         } else if (this.powerup === "ricochet") {
             this.BB = new BoundingBox(this.x + 12, this.y + 25, 100, 70)
         } else if (this.powerup === "shotgun") {
-            this.BB = new BoundingBox(this.x + 12, this.y + 25, 100, 70)
+            this.BB = new BoundingBox(this.x + 20, this.y + 35, 80, 50)
         }
     }
 
