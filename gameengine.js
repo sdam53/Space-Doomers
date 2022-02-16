@@ -93,17 +93,17 @@ class GameEngine {
         // Added by Raz
         this.ctx.canvas.addEventListener("mousedown", function (e) {
             that.mouseActive = true;
-            this.lclick = getXandY(e);
             if (e.button == 0) {
+                this.lclick = getXandY(e);
                 that.lclick = true;
-            }
+           }
         }, false);
 
         // Added by Raz
         this.ctx.canvas.addEventListener("mouseup", function (e) {
             that.mouseActive = false;
-            that.lclick = getXandY(e);
             if (e.button == 0) {
+                that.lclick = getXandY(e);
                 that.lclick = false;
             }
         }, false);

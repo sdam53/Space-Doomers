@@ -67,48 +67,53 @@ class SceneManager {
 		
 		//adding level entities
 		if (!title && !transition && !this.gameOver) {
-			if (typeof level.flying_monsters[0] != 'undefined') {
+			if (level.flying_monsters) {
 				for (let i = 0; i < level.flying_monsters[0].length; i ++) {
 					this.game.addEnemy(new FlyingMonster(this.game, level.flying_monsters[0][i] * 125, level.flying_monsters[1][i] * 125, level.flying_monsters[2][i]));
 				}
 			} 
-			if (typeof level.green_monsters[0] != 'undefined') {
+			if (level.green_monsters) {
 				for (let i = 0; i < level.green_monsters[0].length; i ++) {
 					this.game.addEnemy(new GreenMonster(this.game, level.green_monsters[0][i] * 125, level.green_monsters[1][i] * 125, level.green_monsters[2][i]));
 				}
 			}
-			if (typeof level.gears[0] != 'undefined') {
+			if (level.blue_monsters) {
+				for (let i = 0; i < level.blue_monsters[0].length; i ++) {
+					this.game.addEnemy(new BlueMonster(this.game, level.blue_monsters[0][i] * 125, level.blue_monsters[1][i] * 125, level.blue_monsters[2][i]));
+				}
+			}
+			if (level.gears) {
 				for (let i = 0; i < level.gears[0].length; i ++) {
 					this.game.addPowerUp(new Gear(this.game, level.gears[0][i] * 125, level.gears[1][i] * 125));
 				}
 			} 
-			if (typeof level.portals[0] != 'undefined') {
+			if (level.portals) {
 				for (let i = 0; i < level.portals[0].length; i+=2) {
 					this.game.addPortal(new Portal(this.game, level.portals[0][i] * 125, level.portals[1][i] * 125, level.portals[0][i + 1] * 125, level.portals[1][i + 1] * 125, null));
 				}
 			}
-			if (typeof level.doors[0] != 'undefined') {
+			if (level.doors) {
 				for (let i = 0; i < level.doors.length; i++) {
 					this.game.addPortal(new Door(this.game, level.doors[i].x * 125, level.doors[i].y * 125, 
 												level.doors[i].state, level.doors[i].direction, level.doors[i].requiredGears));
 				}
 			}
-			if (typeof level.walltraps[0] != 'undefined') {
+			if (level.walltraps[0]) {
 				for (let i = 0; i < level.walltraps.length; i++) {
 					this.game.addTrap(new WallTrap(this.game, level.walltraps[i].x * 125, level.walltraps[i].y * 125, level.walltraps[i].direction, level.walltraps[i].rate));
 				}
 			}
-			if (typeof level.traps[0] != 'undefined') {
+			if (level.traps[0]) {
 				for (let i = 0; i < level.traps[0].length; i++) {
 					this.game.addTrap(new Trap(this.game, level.traps[0][i] * 125, level.traps[1][i] * 125, level.traps[2][i]));
 				}
 			}
-			if (typeof level.powerup[0] != 'undefined') {
+			if (level.powerup) {
 				for (let i = 0; i < level.powerup.length; i++) {
 					this.game.addPowerUp(new Powerup(this.game, level.powerup[i].x * 125, level.powerup[i].y * 125, level.powerup[i].powerup));
 				}
 			}
-			if (typeof level.boss != 'undefined') {
+			if (level.boss) {
 				console.log(level.boss[0].x, level.boss[0].y);
 				for (let i = 0; i < level.boss.length; i++) {
 					this.game.addEnemy(new Boss(this.game, level.boss[i].x * 125 - 55, level.boss[i].y * 125 - 85));

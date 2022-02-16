@@ -22,7 +22,13 @@ let levelOne = {
 		Y = [5,5],
 		OFFSCREEN = [true,true]
 	],
-	green_monsters: [
+	/* green_monsters: [
+		X = [2],
+		Y = [12],
+		OFFSCREEN = [true]
+
+	],*/
+	blue_monsters: [
 		X = [2],
 		Y = [12],
 		OFFSCREEN = [true]
@@ -114,6 +120,11 @@ let levelTwo = {
 		Y = [17, 4, 5, 19, 13, 34, 30],
 		OFFSCREEN = [false,false,false,false,false,false,false]
 	],
+	blue_monsters: [
+		X = [4],
+		Y = [19],
+		OFFSCREEN = [false]
+	],
 	boss: [{x: 33, y: 34}],
 	gears: [
 	X = [13,2,2,15],
@@ -191,6 +202,11 @@ let levelThree = {
 	green_monsters: [
 		X = [2],
 		Y = [12],
+		OFFSCREEN = [true]
+	], 
+	blue_monsters: [
+		X = [2],
+		Y = [14],
 		OFFSCREEN = [true]
 	],
 	boss: [{x: 11, y: 4}],

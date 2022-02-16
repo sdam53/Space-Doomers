@@ -67,6 +67,12 @@ ASSET_MANAGER.queueDownload("./sprites/enemies/green_monster/green_monster_down.
 ASSET_MANAGER.queueDownload("./sprites/enemies/green_monster/green_monster_left.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/green_monster/green_monster_right.png");
 
+// blue monster sprites
+ASSET_MANAGER.queueDownload("./sprites/enemies/blue_monster/blue_monster_up.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/blue_monster/blue_monster_down.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/blue_monster/blue_monster_left.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/blue_monster/blue_monster_right.png");
+
 // boss sprites 
 ASSET_MANAGER.queueDownload("./sprites/enemies/boss/boss left/boss left idle.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/boss/boss left/boss left run.png");
