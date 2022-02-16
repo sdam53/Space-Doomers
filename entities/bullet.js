@@ -8,6 +8,7 @@ class Bullet {
 	size: desired height/width of image
 	bulletSpeed: speed of bullet
 	ricochet: value for how many times to ricochet
+	shotgun: tuple with whether its shotgun shot and how much spread
 	type: bullet's side (enemy/player)
 	image: bullet image
 	*/
@@ -18,6 +19,7 @@ class Bullet {
 		this.yBulletDir = (this.yTarget - this.y) / this.distance;
 		this.updateBB();
 		if (this.shotgun) {
+			this.bulletSpeed *= 1.5
 			this.shotgunAtk();
 		}
 	}
@@ -29,12 +31,18 @@ class Bullet {
 	shotgunAtk() {
 		let end = {x: this.xTarget - this.x, y: this.yTarget - this.y};
 		let angle = atan2(end.y, end.x);
-		this.game.addBullet(new Bullet(this.game, this.x + cos(angle), this.y + sin(angle), 
-		 										  this.x + 2 * cos(angle - PI / 32), this.y + 2 * sin(angle - PI / 32),
-		 							    		  this.size, this.bulletSpeed, this.ricochet, false, this.type, this.image));
-		this.game.addBullet(new Bullet(this.game, this.x + cos(angle), this.y + sin(angle), 
-												  this.x + 2 * cos(angle + PI / 32), this.y + 2 * sin(angle + PI / 32),
-									    		  this.size, this.bulletSpeed, this.ricochet, false, this.type, this.image));
+		let angleOffset = 0;
+		for (let i = 0; i < this.shotgun.amount; i++) {
+			angleOffset += (PI/32);
+			this.game.addBullet(new Bullet(this.game, 
+				this.x + cos(angle), this.y + sin(angle), 
+				this.x + 2 * cos(angle - angleOffset), this.y + 2 * sin(angle - angleOffset),
+				this.size, this.bulletSpeed, this.ricochet, false, this.type, this.image));
+			this.game.addBullet(new Bullet(this.game, 
+				this.x + cos(angle), this.y + sin(angle), 
+		   		this.x + 2 * cos(angle + angleOffset), this.y + 2 * sin(angle + angleOffset),
+		   		this.size, this.bulletSpeed, this.ricochet, false, this.type, this.image));
+		}
 	}
 
 	//checks if bullet has hit wall.
@@ -55,6 +63,7 @@ class Bullet {
 	}
 
 	checkDoorCollision() {//add bouncing
+		
 		let doors = this.game.entities.portals;
 		for (let i = 0; i < doors.length; i++) {
 			if (doors[i] instanceof Door && doors[i].BB2 && this.BB.collide(doors[i].BB2)) {
