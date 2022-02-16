@@ -181,7 +181,9 @@ class Boss {
 			  		break;   
 				}
 		} else {
-			this.getPath();
+			if (randomInt(7) % 2 === 0) {
+				this.getPath();
+			}
 		}
 	}
 
@@ -222,18 +224,22 @@ class Boss {
 			if (this.animations[this.facing + " " + this.state].frame === 16) {
 				this.removeFromWorld = true;
 			}
-		 } else if (!(this.x > this.game.ctx.canvas.width || this.x < 0 || this.y > this.game.ctx.canvas.height || this.y < 0) || this.offscreen || getDistance(this.game.player.x, this.game.player.y, this.x, this.y) < 750) {
+		 } else if (!(this.x > this.game.ctx.canvas.width || this.x < 0 || this.y > this.game.ctx.canvas.height || this.y < 0) || this.offscreen) {
 			if (this.path && (typeof this.path[0] != 'undefined')) {
 				if (this.path.length > 1) {
 					this.move();
 				} else {
-					this.getPath();
+					if (randomInt(7) % 2 === 0) {
+						this.getPath();
+					}
 				}
 				if (getDistance(this.x, this.y, this.game.player.x + 150, this.game.player.y + 150) < 1000) {
 					this.shoot();
 				}
 			} else {
-				this.getPath();
+				if (randomInt(7) % 2 === 0) {
+					this.getPath();
+				}
 				this.state = "idle"
 			}
 			

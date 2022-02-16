@@ -122,7 +122,7 @@ class FlyingMonster {
 	*/
 	move() {
 		const TICK = this.game.clockTick;
-		if (getDistance(this.mapX, this.mapY, this.path[0].x * 125 + 62, this.path[0].y * 125 + 62) > 5) {
+		if (getDistance(this.mapX, this.mapY, this.path[0].x * 125 + 62, this.path[0].y * 125 + 62) > 25) {
 				this.state = "run";
 				switch (this.directionToGo) {
 					case 'up':
@@ -147,7 +147,9 @@ class FlyingMonster {
 			  		break;   
 				}
 		} else {
-			this.getPath();
+			if (randomInt(7) % 2 === 0) {
+				this.getPath();
+			}
 		}
 	}
 	
@@ -185,18 +187,22 @@ class FlyingMonster {
 			if (this.animations[this.facing + " " + this.state].frame === 19) {
 				this.removeFromWorld = true;
 			}
-		 } else if (!(this.x > this.game.ctx.canvas.width || this.x < 0 || this.y > this.game.ctx.canvas.height || this.y < 0) || this.offscreen || getDistance(this.game.player.x, this.game.player.y, this.x, this.y) > 1000) {
+		 } else if (!(this.x > this.game.ctx.canvas.width || this.x < 0 || this.y > this.game.ctx.canvas.height || this.y < 0) || this.offscreen) {
 				if (this.path && (typeof this.path[0] != 'undefined')) {
 					if (this.path.length > 1) {
 						this.move();
 					} else {
-						this.getPath();
+						if (randomInt(7) % 2 === 0) {
+							this.getPath();
+						}
 					}
 					if (getDistance(this.x, this.y, this.game.player.x + 150, this.game.player.y + 150) < 1000) {
 						this.shoot();
 					}
 				} else {
-					this.getPath();
+					if (randomInt(7) % 2 === 0) {
+						this.getPath();
+					}
 				}
 		 }
 		 
