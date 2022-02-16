@@ -181,7 +181,9 @@ class Boss {
 			  		break;   
 				}
 		} else {
-			this.getPath();
+			if (randomInt(7) % 2 === 0) {
+				this.getPath();
+			}
 		}
 	}
 
@@ -227,13 +229,17 @@ class Boss {
 				if (this.path.length > 1) {
 					this.move();
 				} else {
-					this.getPath();
+					if (randomInt(7) % 2 === 0) {
+						this.getPath();
+					}
 				}
 				if (getDistance(this.x, this.y, this.game.player.x + 150, this.game.player.y + 150) < 1000) {
 					this.shoot();
 				}
 			} else {
-				this.getPath();
+				if (randomInt(7) % 2 === 0) {
+					this.getPath();
+				}
 				this.state = "idle"
 			}
 			
