@@ -32,7 +32,7 @@ class Player {
 		this.bulletSize = 30;
 		this.bulletRicochet = 0;
 		this.moveMultiplyer = 1;
-		this.shotgun = {shotgun: false, amount: 1};//ammount means how many pairs, ie 1 will give 3 bullets, 2 will give 5...
+		this.shotgun = {shotgun: false, amount: 10};//ammount means how many pairs, ie 1 will give 3 bullets, 2 will give 5...
 		
 		this.animations = [];
 		this.loadAnimations();
@@ -97,9 +97,7 @@ class Player {
 		this.dead = true;
 	}
 	
-	update() {
-		console.log(this.shotgun.shotgun);
-		
+	update() {		
 		const TICK = this.game.clockTick;
 		const RUN = 350;
 		
