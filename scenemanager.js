@@ -98,12 +98,12 @@ class SceneManager {
 												level.doors[i].state, level.doors[i].direction, level.doors[i].requiredGears));
 				}
 			}
-			if (level.walltraps[0]) {
+			if (level.walltraps) {
 				for (let i = 0; i < level.walltraps.length; i++) {
 					this.game.addTrap(new WallTrap(this.game, level.walltraps[i].x * 125, level.walltraps[i].y * 125, level.walltraps[i].direction, level.walltraps[i].rate));
 				}
 			}
-			if (level.traps[0]) {
+			if (level.traps) {
 				for (let i = 0; i < level.traps[0].length; i++) {
 					this.game.addTrap(new Trap(this.game, level.traps[0][i] * 125, level.traps[1][i] * 125, level.traps[2][i]));
 				}
