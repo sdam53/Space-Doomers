@@ -61,6 +61,14 @@ ASSET_MANAGER.queueDownload("./sprites/enemies/flying_monster/flying_monster_lef
 ASSET_MANAGER.queueDownload("./sprites/enemies/flying_monster/flying_monster_right.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/flying_monster/flying_monster_right_death.png");
 
+//red monster sprites
+ASSET_MANAGER.queueDownload("./sprites/enemies/red_monster/red_monster_bullet.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/red_monster/red_monster_up.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/red_monster/red_monster_down.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/red_monster/red_monster_left.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/red_monster/red_monster_right.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/red_monster/red_monster_right_death.png");
+
 //green monster sprites
 ASSET_MANAGER.queueDownload("./sprites/enemies/green_monster/green_monster_up.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/green_monster/green_monster_down.png");

@@ -72,6 +72,11 @@ class SceneManager {
 					this.game.addEnemy(new FlyingMonster(this.game, level.flying_monsters[0][i] * 125, level.flying_monsters[1][i] * 125, level.flying_monsters[2][i]));
 				}
 			} 
+			if (level.red_monsters) {
+				for (let i = 0; i < level.red_monsters[0].length; i ++) {
+					this.game.addEnemy(new RedMonster(this.game, level.red_monsters[0][i] * 125, level.red_monsters[1][i] * 125, level.red_monsters[2][i]));
+				}
+			} 
 			if (level.green_monsters) {
 				for (let i = 0; i < level.green_monsters[0].length; i ++) {
 					this.game.addEnemy(new GreenMonster(this.game, level.green_monsters[0][i] * 125, level.green_monsters[1][i] * 125, level.green_monsters[2][i]));

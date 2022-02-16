@@ -22,14 +22,19 @@ let levelOne = {
 		Y = [5,5],
 		OFFSCREEN = [true,true]
 	],
-	/* green_monsters: [
+	red_monsters: [
+		X = [2],
+		Y = [1],
+		OFFSCREEN = [true, true]
+	],
+	green_monsters: [
 		X = [2],
 		Y = [12],
 		OFFSCREEN = [true]
 
-	],*/
+	],
 	blue_monsters: [
-		X = [2],
+		X = [4],
 		Y = [12],
 		OFFSCREEN = [true]
 

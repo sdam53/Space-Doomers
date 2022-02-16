@@ -14,8 +14,8 @@ class BlueMonster {
 		this.facing = "down"; // can be left, right, up, down
 		this.state = "idle"; // can be idle, run, attack, death
 		
-		this.hp = 125;
-		this.moveSpeed = 125;
+		this.hp = 175;
+		this.moveSpeed = 100;
 		
 		this.attackRate = 1; //could use some slight changes
 		this.attackTimer = this.attackRate;
