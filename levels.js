@@ -19,11 +19,14 @@ let levelOne = {
 	player: {x: 5, y: 3},
 	flying_monsters: [
 		X = [12,2],
-		Y = [5,5]
+		Y = [5,5],
+		OFFSCREEN = [true,true]
 	],
 	green_monsters: [
 		X = [2],
-		Y = [12]
+		Y = [12],
+		OFFSCREEN = [true]
+
 	],
 	boss: [{x: 11, y: 4}],
 	gears: [
@@ -102,14 +105,16 @@ let levelTwo = {
 
 	player: {x: 4, y: 2},
     flying_monsters: [
-	    X = [5, 12, 27, 20, 20],
-	    Y = [9, 23, 18, 10, 18]
+	    X = [8, 12, 5, 12, 27, 20, 20, 29, 33],
+	    Y = [30, 34, 8, 23, 18, 10, 18, 30, 34],
+		OFFSCREEN = [false,false,false,false,false,false,false,false,false]
     ],
 	green_monsters: [
-		X = [4, 19, 24, 22, 22],
-		Y = [17,4,5, 19, 13]
+		X = [4, 19, 24, 22, 22, 19, 23],
+		Y = [17, 4, 5, 19, 13, 34, 30],
+		OFFSCREEN = [false,false,false,false,false,false,false]
 	],
-
+	boss: [{x: 33, y: 34}],
 	gears: [
 	X = [13,2,2,15],
 	Y = [6,14,12,23]
@@ -131,9 +136,6 @@ let levelTwo = {
 		{x: 25, y: 18, state: "locked", direction: "left", requiredGears: 3},
 		{x: 17, y: 5, state: "locked", direction: "right", requiredGears: 0},
 		{x: 32, y: 7, state: "locked", direction: "down", requiredGears: 1},
-
-
-
 	],
 	traps: [
 		X = [5,6,17,18,19,20,32,34,34,32,31,31, 20, 9, 16, 32, 8, 11, 16, 22, 13, 26, 27,32,31,30,30, 35,2,3,2,1,1,4],
@@ -182,14 +184,16 @@ let levelThree = {
 			[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,]],
 	player: {x: 5, y: 3},
 	flying_monsters: [
-		X = [],
-		Y = []
+		X = [12,2],
+		Y = [5,5],
+		OFFSCREEN = [true,true]
 	],
 	green_monsters: [
-		X = [0],
-		Y = [0]
+		X = [2],
+		Y = [12],
+		OFFSCREEN = [true]
 	],
-	boss: [],
+	boss: [{x: 11, y: 4}],
 	gears: [
 		X = [5, 2, 16],
 		Y = [6, 11, 2]

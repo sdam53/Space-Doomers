@@ -69,12 +69,12 @@ class SceneManager {
 		if (!title && !transition && !this.gameOver) {
 			if (typeof level.flying_monsters[0] != 'undefined') {
 				for (let i = 0; i < level.flying_monsters[0].length; i ++) {
-					this.game.addEnemy(new FlyingMonster(this.game, level.flying_monsters[0][i] * 125, level.flying_monsters[1][i] * 125));
+					this.game.addEnemy(new FlyingMonster(this.game, level.flying_monsters[0][i] * 125, level.flying_monsters[1][i] * 125, level.flying_monsters[2][i]));
 				}
 			} 
 			if (typeof level.green_monsters[0] != 'undefined') {
 				for (let i = 0; i < level.green_monsters[0].length; i ++) {
-					this.game.addEnemy(new GreenMonster(this.game, level.green_monsters[0][i] * 125, level.green_monsters[1][i] * 125));
+					this.game.addEnemy(new GreenMonster(this.game, level.green_monsters[0][i] * 125, level.green_monsters[1][i] * 125, level.green_monsters[2][i]));
 				}
 			}
 			if (typeof level.gears[0] != 'undefined') {
@@ -109,6 +109,7 @@ class SceneManager {
 				}
 			}
 			if (typeof level.boss != 'undefined') {
+				console.log(level.boss[0].x, level.boss[0].y);
 				for (let i = 0; i < level.boss.length; i++) {
 					this.game.addEnemy(new Boss(this.game, level.boss[i].x * 125 - 55, level.boss[i].y * 125 - 85));
 				}

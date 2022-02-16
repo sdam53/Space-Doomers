@@ -1,6 +1,6 @@
 class FlyingMonster {
-	constructor(game, x, y) {
-		Object.assign(this, {game, x, y})
+	constructor(game, x, y, offscreen) {
+		Object.assign(this, {game, x, y, offscreen})
 		
 		this.bullet = ASSET_MANAGER.getAsset("./sprites/enemies/flying_monster/flying_monster_bullet.png");
 		this.upSprite = ASSET_MANAGER.getAsset("./sprites/enemies/flying_monster/flying_monster_up.png");
@@ -185,21 +185,23 @@ class FlyingMonster {
 			if (this.animations[this.facing + " " + this.state].frame === 19) {
 				this.removeFromWorld = true;
 			}
-		 } else {
-			if (this.path && (typeof this.path[0] != 'undefined')) {
-				if (this.path.length > 1) {
-					this.move();
+		 } else if (!(this.x > this.game.ctx.canvas.width || this.x < 0 || this.y > this.game.ctx.canvas.height || this.y < 0) || this.offscreen || getDistance(this.game.player.x, this.game.player.y, this.x, this.y) > 1000) {
+				if (this.path && (typeof this.path[0] != 'undefined')) {
+					if (this.path.length > 1) {
+						this.move();
+					} else {
+						this.getPath();
+					}
+					if (getDistance(this.x, this.y, this.game.player.x + 150, this.game.player.y + 150) < 1000) {
+						this.shoot();
+					}
 				} else {
 					this.getPath();
 				}
-				if (getDistance(this.x, this.y, this.game.player.x + 150, this.game.player.y + 150) < 1000) {
-					this.shoot();
-				}
-			} else {
-				this.getPath();
-			}
-			
-		}
+		 }
+		 
+		 
+		
 		
 		//shooting cooldown counter
 		if (this.bulletTimer <= this.bulletRate) {

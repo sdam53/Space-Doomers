@@ -1,6 +1,6 @@
 class GreenMonster {
-	constructor(game, x, y) {
-		Object.assign(this, {game, x, y})
+	constructor(game, x, y, offscreen) {
+		Object.assign(this, {game, x, y, offscreen})
 		
 		this.upSprite = ASSET_MANAGER.getAsset("./sprites/enemies/green_monster/green_monster_up.png");
 		this.downSprite = ASSET_MANAGER.getAsset("./sprites/enemies/green_monster/green_monster_down.png");
@@ -160,12 +160,13 @@ class GreenMonster {
 	}
 	
 	update() {
+		//console.log(this.offscreen);
 		if (this.hp <= 0) {
 			this.state = "death";
 			if (this.animations[this.facing + " " + this.state].frame === 2) {
 				this.removeFromWorld = true;
 			}
-		} else {
+		} else if (!(this.x > this.game.ctx.canvas.width || this.x < 0 || this.y > this.game.ctx.canvas.height || this.y < 0) || this.offscreen || getDistance(this.game.player.x, this.game.player.y, this.x, this.y) < 750) {
 			if (this.BB.collide(this.game.player.BB)) {
 				this.calculatedDirection();
 				this.state = "attack";
@@ -175,9 +176,7 @@ class GreenMonster {
 				} else {
 					this.getPath();
 				}
-			}
-			//console.log(PARAMS.GODMODE);
-			
+			}			
 			if (this.atkBB && PARAMS.GODMODE === false) {
 				if (this.attackTimer <= 0) {
 					if (this.atkBB.collide(this.game.player.BB)) {
@@ -187,6 +186,9 @@ class GreenMonster {
 				}
 			}
 		}
+		
+		 
+			
 		if (this.attackTimer > 0) {
 			this.attackTimer-= this.game.clockTick;
 		}
