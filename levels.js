@@ -80,7 +80,7 @@ let levelTwo = {
 		  [0,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,0,0,],
 		  [0,1,1,1,1,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,],
 		  [0,1,1,1,1,1,0,0,0,0,1,0,0,0,0,1,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,0,0,0,0,1,0,0,],
-/*24x*/	  [0,1,1,1,1,1,0,0,0,0,1,0,0,0,0,1,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,0,0,0,0,1,0,0,],
+/*18y*/	  [0,1,1,1,1,1,0,0,0,0,1,0,0,0,0,1,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,0,0,0,0,1,0,0,],
 		  [0,1,1,1,1,1,0,0,0,0,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,],
 		  [0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,],
 		  [0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],
@@ -102,12 +102,12 @@ let levelTwo = {
 
 	player: {x: 4, y: 2},
     flying_monsters: [
-	    X = [8, 12, 5, 12, 27, 20, 20, 29, 33],
-	    Y = [30, 34, 9, 23, 18, 10, 18, 30, 34]
+	    X = [5, 12, 27, 20, 20],
+	    Y = [9, 23, 18, 10, 18]
     ],
 	green_monsters: [
-		X = [4, 19, 24, 22, 22, 19, 23],
-		Y = [17,4,5, 19, 13, 34, 30]
+		X = [4, 19, 24, 22, 22],
+		Y = [17,4,5, 19, 13]
 	],
 
 	gears: [
@@ -128,20 +128,27 @@ let levelTwo = {
 		{x: 6, y: 28, state: "locked", direction: "down", requiredGears: 3},
 		{x: 34, y: 7, state: "locked", direction: "down", requiredGears: 3},
 		{x: 8, y: 11, state: "locked", direction: "left", requiredGears: 3},
-		{x: 25, y: 18, state: "locked", direction: "right", requiredGears: 3},
+		{x: 25, y: 18, state: "locked", direction: "left", requiredGears: 3},
+		{x: 17, y: 5, state: "locked", direction: "right", requiredGears: 0},
+
 
 	],
 	traps: [
-		X = [5,6,17,18,19,20,32,34,34,32,31,31, 20, 9, 16, 32, 8, 11, 16, 22, 13, 26, 27,32,31,30,30, 35],
-		Y = [6,6,8,8,8,8,5,5,4,3,3,3, 31, 33, 29, 30, 30, 31, 33, 34, 29, 30, 30, 34, 34, 34, 33, 32],
-		T = ["spike", "spike", "thorn","thorn","thorn","thorn", "thorn", "thorn", "spike","spike","spike","spike","thorn", "thorn", "thorn", "thorn", "thorn", "spike", "spike", "spike", "thorn","spike", "spike", "thorn", "thorn", "thorn", "thorn", "spike"]
+		X = [5,6,17,18,19,20,32,34,34,32,31,31, 20, 9, 16, 32, 8, 11, 16, 22, 13, 26, 27,32,31,30,30, 35,2,3,2,1,1,4],
+		Y = [6,6,8,8,8,8,5,5,4,3,3,3, 31, 33, 29, 30, 30, 31, 33, 34, 29, 30, 30, 34, 34, 34, 33, 32,15,15, 17,17,18,16],
+		T = ["spike", "spike", "thorn","thorn","thorn","thorn", "thorn", "thorn", "spike","spike","spike","spike","thorn", "thorn", "thorn", "thorn", "thorn", "spike", "spike", "spike", "thorn","spike", "spike", "thorn", "thorn", "thorn", "thorn", 
+		"spike", "thorn", "thorn", "spike", "spike", "spike", "spike"]
 	],
   	powerup: [{x: 3, y: 26, powerup: "healthpack"},
 	  		  {x: 13, y: 11, powerup: "healthpack"},
 			  {x: 14, y: 25, powerup: "ricochet"}],
 	walltraps : [
 		{x: 39, y: 20, direction: "up", rate: 4},
-		{x: 28, y: 5, direction: "right", rate:4},
+		{x: 28, y: 5, direction: "right", rate:3.5},
+		{x: 0, y: 17, direction: "right", rate:2},
+		{x: 6, y: 19, direction: "left", rate:4},
+		{x: 6, y: 15, direction: "left", rate:2},
+
 	],
 	transitionItem: {x: 39.5, y: 34.5, level: 2},
 	story: [ //Level 1 - Level 2                    //
