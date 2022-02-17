@@ -27,6 +27,10 @@ class Gear {
     }
 
     draw(ctx){
+      //fog of war
+		let x = this.game.entities.player.mapX;
+		let y = this.game.entities.player.mapY;
+		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
         ctx.drawImage(
           this.spritesheet,
             1, 1, //source from sheet
@@ -34,6 +38,7 @@ class Gear {
             this.x + 20, this.y + 9,
             83,
             88);
+        }
         if (PARAMS.DEBUG) {
           ctx.strokeStyle = 'Blue';
           ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);

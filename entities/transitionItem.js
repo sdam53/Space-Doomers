@@ -6,7 +6,8 @@ class TransitionItem {
       this.sprites[1] = ASSET_MANAGER.getAsset("./sprites/transition/level 1 hole.png");
       this.sprites[2] = ASSET_MANAGER.getAsset("./sprites/transition/level 2 jetpack.png");
       this.sprites[3] = ASSET_MANAGER.getAsset("./sprites/transition/level 3 pod.png");
-
+      this.mapY = this.y;
+      this.mapX = this.x;
       if (level == 1) {
           this.w = 250;
           this.h = 250;
@@ -52,7 +53,11 @@ class TransitionItem {
     }
 
     draw(ctx){
-        ctx.drawImage(this.sprites[this.level], this.x, this.y, this.w, this.h);
+        let x = this.game.entities.player.mapX;
+		let y = this.game.entities.player.mapY;
+		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
+            ctx.drawImage(this.sprites[this.level], this.x, this.y, this.w, this.h);
+        }
         // if (PARAMS.DEBUG) {
         //   ctx.strokeStyle = 'Blue';
         //   ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);

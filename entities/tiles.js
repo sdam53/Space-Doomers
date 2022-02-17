@@ -44,12 +44,20 @@ class Ground {
 		this.x += this.game.camera.x;
 		this.y += this.game.camera.y;
 	}
-	drawMinimap(ctx, mmX, mmY){
-    ctx.fillStyle = "White";
-    ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 125/PARAMS.BITWIDTH , 125/PARAMS.BITWIDTH );
-  }
+
 	draw(ctx) {
+		let x = this.game.entities.player.mapX;
+		let y = this.game.entities.player.mapY;
+		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
+			this.reveal = true;
+			}
+		else{
+			ctx.globalAlpha = PARAMS.OPACITY;
+		}
+		// ctx.globalAlpha = 0.4;
 		ctx.drawImage(this.tile, this.x, this.y, this.w, this.h);
+		ctx.globalAlpha = 1;
+
 		if (PARAMS.DEBUG && (typeof this.BB != 'undefined')) {
 			ctx.strokeStyle = 'Green';
 			ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
@@ -78,6 +86,9 @@ class Wall {
 		Object.assign(this, {game, x, y, w, h, type});
 		this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tiles/x wall.png");
 		this.updateBB();
+		this.reveal = false;
+		this.mapY = this.y;
+		this.mapX = this.x;
 		
 	}
 	
@@ -97,7 +108,17 @@ class Wall {
 	}
 	
 	draw(ctx) {
+		let x = this.game.entities.player.mapX;
+		let y = this.game.entities.player.mapY;
+		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
+			this.reveal = true;
+			}
+		else{
+			ctx.globalAlpha = PARAMS.OPACITY;
+		}
 		ctx.drawImage(this.spritesheet, this.x, this.y, this.w, this.h);
+		ctx.globalAlpha = 1;
+		
 		if (PARAMS.DEBUG && (typeof this.BB != 'undefined')) {
 			ctx.strokeStyle = 'Brown';
 			ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);

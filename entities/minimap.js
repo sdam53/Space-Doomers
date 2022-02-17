@@ -56,6 +56,7 @@ class Minimap {
     };
 
     checkInCircle(a, b, x, y, r){
+
         var dist_points = (a - x) * (a - x) + (b - y) * (b - y);
         r *= r;
 

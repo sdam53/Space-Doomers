@@ -225,7 +225,7 @@ class RedMonster {
 		let x = this.game.entities.player.mMapX;
 		let y = this.game.entities.player.mMapY;
 	  
-		if (this.game.entities.minimap.checkInCircle(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, x, y, 50)){
+		if (this.game.entities.minimap.checkInCircle(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, x, y, PARAMS.FOW_MM_R)){
 			// this.reveal = true;
 		ctx.fillStyle = "Red";
 		ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 10 , 10);
@@ -240,6 +240,10 @@ class RedMonster {
 	  }
 	
 	draw(ctx) {
+		//fog of war
+		let x = this.game.entities.player.mapX;
+		let y = this.game.entities.player.mapY;
+		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
 		// offsets for x and y since images are different sizes
 		if (this.state === "death") {
 			if (this.facing === "up") {
@@ -280,6 +284,7 @@ class RedMonster {
 				}
 			}
 		}
+	}
 		if (PARAMS.DEBUG && this.BB) {
 			ctx.strokeStyle = 'Red';
 			ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
