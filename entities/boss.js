@@ -11,21 +11,24 @@ class Boss {
 	  
 
 	  this.bulletSpeed = 300;
-	  this.bulletRate = 1.01; //needs to be slightly tweaked. animation is a bit faster
-	  this.bulletTimer = 0;
 	  this.bulletSize = 30;
+	  this.shotgun = {shotgun: true, amount: 1};
+
+	  this.attackCheck = false;
+	  this.attackCooldown = .75;
+	  this.counter = 0;
 
 	  this.animations = [];
 	  this.loadAnimations();
 	  this.updateBB();
 
 	  this.hp = 1000;
+	  this.distancedMoved = 0; //distanced moved to tile 0-125
 
 	  //offset to get the middle of sprite and feet
 	  this.offset = {x: 110, y : 110, feet: 170};
 	  this.mapX = this.x + this.offset.x;
-	  this.mapY = this.y + this.offset.feet;
-	  
+	  this.mapY = this.y + this.offset.feet;	  
     }
 
 	loadAnimations () {
@@ -111,13 +114,13 @@ class Boss {
 
 	singleBulletAtlk() {
 		if (this.facing === "down") {
-		  this.game.addBullet(new Bullet(this.game, this.x + 95, this.y + 110, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet));
+		  this.game.addBullet(new Bullet(this.game, this.x + 95, this.y + 110, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, 0, this.shotgun, "enemy", this.bullet));
 		} else if (this.facing === "up") {
-		  this.game.addBullet(new Bullet(this.game, this.x + 100, this.y + 10, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet));
+		  this.game.addBullet(new Bullet(this.game, this.x + 100, this.y + 10, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, 0, this.shotgun, "enemy", this.bullet));
 		} else if (this.facing === "left") {
-		  this.game.addBullet(new Bullet(this.game, this.x + 30, this.y + 80, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet));
+		  this.game.addBullet(new Bullet(this.game, this.x + 30, this.y + 80, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, 0, this.shotgun, "enemy", this.bullet));
 		} else if (this.facing === "right") {
-		  this.game.addBullet(new Bullet(this.game, this.x + 160, this.y + 80, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet));
+		  this.game.addBullet(new Bullet(this.game, this.x + 160, this.y + 80, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, 0, this.shotgun, "enemy", this.bullet));
 		}
 	}
 
@@ -136,54 +139,60 @@ class Boss {
 	}
 
 	shoot() {
-		this.calculatedDirection();
-		if (this.bulletTimer <= 0) {
-		  let ran = randomInt(3)
-		if (ran === 0) {
-		  this.singleBulletAtlk();
-		} else if (ran === 1) {
-		  this.fourBulletAtk(80);
-		} else {
-		  this.eightBulletAtk(80);
+		if (this.attackCheck) {
+			let ran = randomInt(3)
+			if (ran === 0) {
+				this.singleBulletAtlk();
+			} else if (ran === 1) {
+				this.fourBulletAtk(80);
+			} else {
+				this.eightBulletAtk(80);
+			}
 		}
-		  this.bulletTimer = this.bulletRate;
-		}
-		this.state = "attack"
+		this.attackCheck = false;
 	}
 
 	/**
 	* gets path to player in the form of an array of points
 	*/
-	move() {
+	move() {		  
 		const TICK = this.game.clockTick;
-		if (getDistance(this.mapX, this.mapY, this.path[0].x * 125 + 62, this.path[0].y * 125 + 62) > 10) {
+		if (this.path && (typeof this.path[0] != 'undefined')) {
+			let distance = getDistance(this.mapX, this.mapY, this.path[0].x * 125 + 62, this.path[0].y * 125 + 62);
+			if (this.distancedMoved >= 125) {
+				this.getPath();
+				this.distancedMoved = 0;
+				return;
+			} else if (distance > 0) {
 				this.state = "run";
 				switch (this.directionToGo) {
 					case 'up':
-					this.facing = "up";
-	  				this.y -= this.moveSpeed * TICK;
-		  			this.mapY -= this.moveSpeed * TICK;
-			  		break;
+						this.facing = "up";
+						this.y -= this.moveSpeed * TICK;
+						this.mapY -= this.moveSpeed * TICK;
+						break;
 					case 'down':
-  					this.facing = "down";
-	  				this.y += this.moveSpeed * TICK;
-		  			this.mapY += this.moveSpeed * TICK;
-			  		break;
+						this.facing = "down";
+						this.y += this.moveSpeed * TICK;
+						this.mapY += this.moveSpeed * TICK;
+						break;
 					case 'left':
-  					this.facing = "left";
-	  				this.x -= this.moveSpeed * TICK;
-		  			this.mapX -= this.moveSpeed * TICK;
-			  		break;
+						this.facing = "left";
+						this.x -= this.moveSpeed * TICK;
+						this.mapX -= this.moveSpeed * TICK;
+						break;
 					case 'right':
-  					this.facing = "right";
-	  				this.x += this.moveSpeed * TICK;
-		  			this.mapX += this.moveSpeed * TICK;
-			  		break;   
+						this.facing = "right";
+						this.x += this.moveSpeed * TICK;
+						this.mapX += this.moveSpeed * TICK;
+						break;
+					case 'none':
+						return;	
 				}
-		} else {
-			if (randomInt(7) % 2 === 0) {
-				this.getPath();
+				this.distancedMoved += this.moveSpeed * TICK;
 			}
+		} else {
+			this.getPath();
 		}
 	}
 
@@ -217,46 +226,50 @@ class Boss {
 
     update() {
 		const TICK = this.game.clockTick
-		
+		//attack frame at 8
 		
 		if (this.hp <= 0) {
 			this.state = "death";
 			if (this.animations[this.facing + " " + this.state].frame === 16) {
 				this.removeFromWorld = true;
 			}
-		 } else if (!(this.x > this.game.ctx.canvas.width || this.x < 0 || this.y > this.game.ctx.canvas.height || this.y < 0) || this.offscreen) {
-			if (this.path && (typeof this.path[0] != 'undefined')) {
-				if (this.path.length > 1) {
-					this.move();
+		} else {
+		 	if (this.path) { 
+				if (this.state === "attack") {
+					if (this.animations[this.facing + " attack"].frame === 10) {
+						this.shoot();
+					}
+					if (!this.animations[this.facing + " attack"].flag) {
+						this.state = "idle";
+					}
 				} else {
-					if (randomInt(7) % 2 === 0) {
-						this.getPath();
+					if (this.path.length === 0) {
+						this.state = "idle"
+					} else if (this.path.length < 10 && this.counter <= 0 && this.distancedMoved === 0) {
+						this.calculatedDirection();
+						this.state = "attack";
+						this.counter = this.attackCooldown;
+						this.animations[this.facing + " attack"].flag = true;
+						this.attackCheck = true;
+					} else {
+						this.move();
 					}
 				}
-				if (getDistance(this.x, this.y, this.game.player.x + 150, this.game.player.y + 150) < 1000) {
-					this.shoot();
+				if (this.distancedMoved === 0) {
+					this.getPath()
 				}
 			} else {
-				if (randomInt(7) % 2 === 0) {
-					this.getPath();
-				}
-				this.state = "idle"
+				this.getPath();//should only be called once in beginning
 			}
-			
 		}
-		if (this.bulletTimer <= this.bulletRate) {
-		  this.bulletTimer-=TICK;
-		}
-	
-		this.updateBB();
-
+		this.counter-=TICK;
 		this.x += this.game.camera.x;
 		this.y += this.game.camera.y; 
+		this.updateBB();
 	}
 
     draw(ctx) {
 		let xOffset, yOffset;
-
 		if (this.state == "death") {
 			if (this.facing == "up") xOffset = -15, yOffset = -100;
 			else if (this.facing == "down") xOffset = -15, yOffset = -100;

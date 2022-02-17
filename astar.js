@@ -76,7 +76,7 @@ const aStarPath = (start, end, map, game) => {
             return path;
         }
 
-        if (openList.values.length > 20) {
+        if (openList.values.length > 100) {
             return [];
         }
         
