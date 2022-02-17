@@ -29,10 +29,11 @@ class Door {
 		this.sprites["locked left"] =	ASSET_MANAGER.getAsset("./sprites/door/door locked left.png");
 		this.sprites["locked right"] =	ASSET_MANAGER.getAsset("./sprites/door/door locked right.png");
 
-		this.updateBB();
 		
 		this.mapX = this.x;
 		this.mapY = this.y;
+		this.updateBB();
+
 	}
 	
 	updateBB() {
@@ -107,7 +108,17 @@ class Door {
 	}
 	
 	draw(ctx) {
+		let x = this.game.entities.player.mapX;
+		let y = this.game.entities.player.mapY;
+		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
+			this.reveal = true;
+			}
+		else{
+			ctx.globalAlpha = PARAMS.OPACITY;
+		}
 		ctx.drawImage(this.sprites[this.state + " " + this.direction], this.x, this.y, this.w, this.h);
+		ctx.globalAlpha = 1;
+
 		if (PARAMS.DEBUG && (typeof this.BB != 'undefined') && this.BB) {
 			ctx.strokeStyle = 'Green';
 			ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);

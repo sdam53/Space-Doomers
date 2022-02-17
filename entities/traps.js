@@ -41,12 +41,12 @@ class Trap{
 
     //used for layering of thorn trap
     layer(ctx) {
-        ctx.drawImage(this.trap,
-            1, 1, //source from sheet
-            485, 750,
-            this.x, this.y - 50,
-            125,
-            175);
+        // ctx.drawImage(this.trap,
+        //     1, 1, //source from sheet
+        //     485, 750,
+        //     this.x, this.y - 50,
+        //     125,
+        //     175);
 	}
 
 
@@ -66,6 +66,13 @@ class Trap{
                 this.x, this.y - 50,
                 125,
                 175);  
+            ctx.drawImage(this.trap,
+                1, 1, //source from sheet
+                485, 750,
+                this.x, this.y - 50,
+                125,
+                175);
+                
         } else if (this.trap_type === "spike") {
             //i think it looks better when it fills whole screen
             ctx.drawImage(this.trap,
