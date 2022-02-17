@@ -78,7 +78,7 @@ class Portal {
 				this.animation.drawFrame(this.game.clockTick, ctx, this.x1 + 20, this.y1 + 23, 5);
 			}
 		} else {
-			this.animation.drawFrame(this.game.clockTick, ctx, this.x1 + 20, this.y1 + 23, 1);
+			this.animation.drawFrame(this.game.clockTick, ctx, this.x1 + 20, this.y1 + 23, 5);
 		}
 		if (PARAMS.DEBUG) {
 			ctx.strokeStyle = 'Blue';
