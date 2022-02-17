@@ -55,7 +55,8 @@ class Ground {
 			ctx.globalAlpha = PARAMS.OPACITY;
 		}
 		// ctx.globalAlpha = 0.4;
-		ctx.drawImage(this.tile, this.x, this.y, this.w, this.h);
+		if (this.reveal)
+			ctx.drawImage(this.tile, this.x, this.y, this.w, this.h);
 		ctx.globalAlpha = 1;
 
 		if (PARAMS.DEBUG && (typeof this.BB != 'undefined')) {
@@ -65,10 +66,9 @@ class Ground {
 	}
   
   drawMinimap(ctx, mmX, mmY){
-	let x = this.game.entities.player.mMapX;
-	let y = this.game.entities.player.mMapY;
-
-	if (this.game.entities.minimap.checkInCircle(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, x, y, 50)){
+	let x = this.game.entities.player.mapX;
+		let y = this.game.entities.player.mapY;
+		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
 		this.reveal = true;
 		ctx.fillStyle = "White";
 		}
@@ -89,7 +89,7 @@ class Wall {
 		this.reveal = false;
 		this.mapY = this.y;
 		this.mapX = this.x;
-		
+		this.reveal = false;
 	}
 	
 	updateBB() {
@@ -116,6 +116,7 @@ class Wall {
 		else{
 			ctx.globalAlpha = PARAMS.OPACITY;
 		}
+		if (this.reveal)
 		ctx.drawImage(this.spritesheet, this.x, this.y, this.w, this.h);
 		ctx.globalAlpha = 1;
 		
@@ -129,8 +130,17 @@ class Wall {
 		}
 	}
 	drawMinimap(ctx, mmX, mmY){
-		//ctx.fillStyle = "White";
-		//ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 125/PARAMS.BITWIDTH , 125/PARAMS.BITWIDTH );
+		let x = this.game.entities.player.mapX;
+		let y = this.game.entities.player.mapY;
+		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
+		this.reveal = true;
+		ctx.fillStyle = "Black";
+		}
+    else{
+        ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+	}
+	if (this.reveal)
+    	ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 125/PARAMS.BITWIDTH , 125/PARAMS.BITWIDTH );	
 	  }
 }
 

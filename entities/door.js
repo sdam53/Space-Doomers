@@ -1,7 +1,7 @@
 class Door {
 	constructor(game, x, y, state, direction, requiredGears) {
 		Object.assign(this, {game, x, y, state, direction, requiredGears});
-		
+		this.reveal = false;
 		if (direction == "down") {
 			this.x = x - 60;
 			this.y = y - 43;
@@ -116,6 +116,7 @@ class Door {
 		else{
 			ctx.globalAlpha = PARAMS.OPACITY;
 		}
+		if (this.reveal)
 		ctx.drawImage(this.sprites[this.state + " " + this.direction], this.x, this.y, this.w, this.h);
 		ctx.globalAlpha = 1;
 
@@ -127,5 +128,19 @@ class Door {
 			//ctx.strokeRect(this.topBB.x, this.topBB.y, this.topBB.width, this.topBB.height);
 			//ctx.strokeRect(this.bottomBB.x, this.bottomBB.y, this.bottomBB.width, this.bottomBB.height);
 		}
+	}
+
+	drawMinimap(ctx, mmX, mmY){
+		let x = this.game.entities.player.mapX;
+		let y = this.game.entities.player.mapY;
+		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
+		this.reveal = true;
+		ctx.fillStyle = "Gray";
+		}
+    else{
+        ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+	}
+	if (this.reveal)
+    	ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 125/PARAMS.BITWIDTH , 125/PARAMS.BITWIDTH );	
 	}
 }

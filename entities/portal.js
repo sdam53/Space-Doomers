@@ -64,28 +64,13 @@ class Portal {
 	}
   
   drawMinimap(ctx, mmX, mmY){
-    ctx.fillStyle = "Red";
+    ctx.fillStyle = "Gray";
 	ctx.fillRect(mmX + this.BB.x / PARAMS.BITWIDTH, mmY + this.BB.y / PARAMS.BITWIDTH, 100/PARAMS.BITWIDTH , 100/PARAMS.BITWIDTH);
 
   }
 	
-
-//   drawMinimap(ctx, mmX, mmY){
-// 	let x = this.game.entities.player.mMapX;
-// 	let y = this.game.entities.player.mMapY;
-  
-// 	if (this.game.entities.minimap.checkInCircle(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, x, y, 50)){
-// 	  this.reveal = true;
-// 	  ctx.fillStyle = "Yellow";
-// 	  }
-// 	  else{
-// 		  ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
-// 	}
-// 	if (this.reveal)
-// 		ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 100/PARAMS.BITWIDTH , 100/PARAMS.BITWIDTH);
-
-//   }
-	draw(ctx){//fog of war
+	draw(ctx){
+		//fog of war
 		let x = this.game.entities.player.mapX;
 		let y = this.game.entities.player.mapY;
 		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){

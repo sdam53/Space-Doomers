@@ -298,10 +298,9 @@ class Boss {
 
 
 	drawMinimap(ctx, mmX, mmY){
-		let x = this.game.entities.player.mMapX;
-		let y = this.game.entities.player.mMapY;
-	  
-		if (this.game.entities.minimap.checkInCircle(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, x, y, PARAMS.FOW_MM_R)){
+		let x = this.game.entities.player.mapX;
+		let y = this.game.entities.player.mapY;
+		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
 			// this.reveal = true;
 		ctx.fillStyle = "Purple";
 		ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 10 , 10);

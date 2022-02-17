@@ -38,10 +38,6 @@ class Minimap {
             tile.drawMinimap(ctx, y, x);
           });
           
-
-
-
-
         this.game.entities.player.drawMinimap(ctx, y, x);
         this.game.entities.enemies.forEach((enemy, i) => {
             enemy.drawMinimap(ctx, y, x);
@@ -49,6 +45,10 @@ class Minimap {
         this.game.entities.powerups.forEach((powerup, i) => {
             powerup.drawMinimap(ctx, y, x);
           });  
+        // this.game.entities.portals.forEach((portal, i) => {
+        //     portal.drawMinimap(ctx, y, x);
+        //   });  
+        
         // this.game.entities.traps.forEach((trap, i)=>{
         //     trap.drawMinimap(ctx, y,x);
         // }
@@ -66,51 +66,5 @@ class Minimap {
 
         return false;
     }
-
-}
-
-class FogOfWar {
-    constructor(game,x,y,r){
-        Object.assign(this, {game, x, y, r});
-
-        let darkness = 1;
-        let fogness = .5;
-        let dark_color = "black";
-        let fog_color = "black";
-        let global_vision = [];
-        let width = 700;
-        let height = 700;
-
-        //Entity variables
-        let entity_size = 20;
-        let entities = [];
-        let entity_color = "yellow";
-        let entity_spacing = 100;
-        let entity_vision_radius = 150;
-        for(let i = 0; i < width/(entity_size+entity_spacing); i++){
-            for(let j = 0; k<height/(entity_size+entity_spacing); j++){
-                entities.push({
-                    x:i*(entity_size+entity_spacing),
-                    y:j*(entity_size+entity_spacing)
-                });
-            }
-        }
-
-
-    }
-
-    draw(ctx){
-        //pos is the current coordinate of the player
-        this.pos = {x: this.game.entities.player.mMapX, y : this.game.entities.player.mMapY};
-        let x = pos.x;
-        let y = pos.y;
-
-        // let default_gco = 
-    }
-
-    update(){
-
-    }
-
 
 }

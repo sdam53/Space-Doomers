@@ -4,8 +4,8 @@ const PARAMS = {
   SCALE: 0.3,
   BITWIDTH: 10,
   FOW_M_R: 500,
-  FOW_MM_R: 50,
-  OPACITY: 0
+  FOW_MM_R: 500*0.3,
+  OPACITY: 0.1
 };
 
 /** Easy access to math functions */
