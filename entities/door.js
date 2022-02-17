@@ -1,6 +1,6 @@
 class Door {
-	constructor(game, x, y, state, direction, requiredGears) {
-		Object.assign(this, {game, x, y, state, direction, requiredGears});
+	constructor(game, x, y, state, direction, requiredGears, finalDoor) {
+		Object.assign(this, {game, x, y, state, direction, requiredGears, finalDoor});
 		
 		if (direction == "down") {
 			this.x = x - 60;
@@ -86,12 +86,21 @@ class Door {
 		this.x += this.game.camera.x;
 		this.y += this.game.camera.y;
 		
-		if (this.game.player.gears >= this.requiredGears && this.state == "locked") {
+		if (!this.finalDoor && this.state == "locked" &&  this.game.player.gears >= this.requiredGears) {
 			this.state = "unlocked";
 		}
 
-		// implement another statement for final door boss death check
-		
+		if (this.finalDoor && this.state == "locked" && this.game.player.gears >= this.requiredGears) {
+			let count = 0;
+			for (const enemy of this.game.entities.enemies) {
+				if (enemy instanceof Boss) {
+					count++;
+				}
+			}
+			if (count == 0) {
+				this.state = "unlocked";
+			} 
+		}
 
 		if (this.doorDistance(this.game.entities.player) < 180 && this.state == "unlocked") {
 			this.state = "open";

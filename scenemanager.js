@@ -110,7 +110,7 @@ class SceneManager {
 			if (level.doors) {
 				for (let i = 0; i < level.doors.length; i++) {
 					this.game.addPortal(new Door(this.game, level.doors[i].x * 125, level.doors[i].y * 125, 
-												level.doors[i].state, level.doors[i].direction, level.doors[i].requiredGears));
+												level.doors[i].state, level.doors[i].direction, level.doors[i].requiredGears, level.doors[i].finalDoor));
 				}
 			}
 			if (level.walltraps) {
