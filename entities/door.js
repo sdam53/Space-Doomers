@@ -112,12 +112,13 @@ class Door {
 		let y = this.game.entities.player.mapY;
 		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
 			this.reveal = true;
+		ctx.drawImage(this.sprites[this.state + " " + this.direction], this.x, this.y, this.w, this.h);
 			}
 		else{
 			ctx.globalAlpha = PARAMS.OPACITY;
 		}
-		if (this.reveal)
-		ctx.drawImage(this.sprites[this.state + " " + this.direction], this.x, this.y, this.w, this.h);
+		// if (this.reveal)
+		// ctx.drawImage(this.sprites[this.state + " " + this.direction], this.x, this.y, this.w, this.h);
 		ctx.globalAlpha = 1;
 
 		if (PARAMS.DEBUG && (typeof this.BB != 'undefined') && this.BB) {

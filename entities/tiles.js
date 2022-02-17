@@ -50,13 +50,14 @@ class Ground {
 		let y = this.game.entities.player.mapY;
 		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
 			this.reveal = true;
+			ctx.drawImage(this.tile, this.x, this.y, this.w, this.h);
 			}
 		else{
 			ctx.globalAlpha = PARAMS.OPACITY;
 		}
 		// ctx.globalAlpha = 0.4;
-		if (this.reveal)
-			ctx.drawImage(this.tile, this.x, this.y, this.w, this.h);
+		// if (this.reveal)
+		// 	ctx.drawImage(this.tile, this.x, this.y, this.w, this.h);
 		ctx.globalAlpha = 1;
 
 		if (PARAMS.DEBUG && (typeof this.BB != 'undefined')) {
@@ -112,12 +113,13 @@ class Wall {
 		let y = this.game.entities.player.mapY;
 		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
 			this.reveal = true;
+			ctx.drawImage(this.spritesheet, this.x, this.y, this.w, this.h);
 			}
-		else{
-			ctx.globalAlpha = PARAMS.OPACITY;
-		}
-		if (this.reveal)
-		ctx.drawImage(this.spritesheet, this.x, this.y, this.w, this.h);
+		// else{
+		// 	ctx.globalAlpha = PARAMS.OPACITY;
+		// }
+		// if (this.reveal)
+			// ctx.drawImage(this.spritesheet, this.x, this.y, this.w, this.h);
 		ctx.globalAlpha = 1;
 		
 		if (PARAMS.DEBUG && (typeof this.BB != 'undefined')) {
@@ -135,12 +137,13 @@ class Wall {
 		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
 		this.reveal = true;
 		ctx.fillStyle = "Black";
+    	ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 125/PARAMS.BITWIDTH , 125/PARAMS.BITWIDTH );	
 		}
     else{
         ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
 	}
-	if (this.reveal)
-    	ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 125/PARAMS.BITWIDTH , 125/PARAMS.BITWIDTH );	
+	// if (this.reveal)
+    // 	ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 125/PARAMS.BITWIDTH , 125/PARAMS.BITWIDTH );	
 	  }
 }
 
