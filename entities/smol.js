@@ -280,10 +280,14 @@ class Smol {
 			}
 		}
 		//fog of war
-		let x = this.game.entities.player.mapX;
-		let y = this.game.entities.player.mapY;
-		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
-		this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x + xOffset, this.y + yOffset, 0.1);
+		if (PARAMS.LANTERN) {
+			let x = this.game.entities.player.mapX;
+			let y = this.game.entities.player.mapY;
+			if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
+				this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x + xOffset, this.y + yOffset, 0.1);
+			}
+		} else {
+			this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x + xOffset, this.y + yOffset, 0.1);
 		}
 		if (PARAMS.DEBUG && this.BB) {
 			ctx.strokeStyle = 'Red';

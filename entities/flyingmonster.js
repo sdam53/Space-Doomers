@@ -242,52 +242,71 @@ class FlyingMonster {
 	  }
 	
 	draw(ctx) {
-		//fog of war
-		let x = this.game.entities.player.mapX;
-		let y = this.game.entities.player.mapY;
-		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
-
+		let xOffset = 0;
+		let yOffset = 0;
 		// offsets for x and y since images are different sizes
 		if (this.state === "death") {
 			if (this.facing === "up") {
-				this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x - 18, this.y -50, .3);
+				xOffset = -18
+				yOffset = -50
 			} else if (this.facing === "down") {
-				this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x , this.y - 45, .3);
+				xOffset = 0
+				yOffset = -45
 			} else if (this.facing === "left") {
-				this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 20, this.y - 55, .3);
+				xOffset = 20
+				yOffset = -55
 			} else if (this.facing === "right") {
-				this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 15, this.y -55, .3);
+				xOffset = 15
+				yOffset = -55
 			}
 		} else {
 			if (this.facing === "left") {
 				if (this.state === "idle") {
-					this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 28, this.y + 2, .3);
+					xOffset = 28
+					yOffset = 2
 				} else if (this.state === "run") {
-					this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 26, this.y - 3, .3);
+					xOffset = 26
+					yOffset = -3
 				} else if (this.state === "attack") {
-					this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x +20, this.y - 37, .3);
+					xOffset = 20
+					yOffset = -37
 				}
 			} else if (this.facing === "right") {
 				if (this.state === "idle") {
-					this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 19, this.y, .3);
+					xOffset = 19
+					yOffset = 0
 				} else if (this.state === "run") {
-					this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 20, this.y - 5, .3);
+					xOffset = 20
+					yOffset = -5
 				} else if (this.state === "attack") {
-					this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 12, this.y - 39, .3);
+					xOffset = 12
+					yOffset = -39
 				}
 			} else if (this.facing === "up") {
 				if (this.state === "idle" || this.state === "run") {
-					this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x, this.y - 3, .3);
+					xOffset = 0
+					yOffset = -3
 				} else if (this.state === "attack") {
-					this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x - 8, this.y - 8, .3);
+					xOffset = -8
+					yOffset = -8
 				}
 			} else if (this.facing === "down") {
 				if (this.state === "idle" || this.state === "run" || this.state === "attack") {
-					this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x, this.y, .3);
+					xOffset = 0
+					yOffset = 0
 				}
 			}
+				}
+		//fog of war
+		if (PARAMS.LANTERN) {
+			let x = this.game.entities.player.mapX;
+			let y = this.game.entities.player.mapY;
+			if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
+				this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + xOffset, this.y + yOffset, .3);
+			}	
+		} else {
+			this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + xOffset, this.y + yOffset, .3);
 		}
-	}
 		if (PARAMS.DEBUG && this.BB) {
 			ctx.strokeStyle = 'Red';
 			ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
@@ -296,4 +315,3 @@ class FlyingMonster {
 	}
 	
 }
-

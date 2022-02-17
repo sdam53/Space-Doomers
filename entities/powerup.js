@@ -45,17 +45,27 @@ class Powerup {
 
     draw(ctx){
         //fog of war
-		let x = this.game.entities.player.mapX;
-		let y = this.game.entities.player.mapY;
-		if (this.game.entities.minimap.checkInCircle(this.x , this.y, x, y, PARAMS.FOW_M_R)){
-        if (this.powerup === "healthpack") {
-            ctx.drawImage(this.sprites, this.x+35, this.y+30, 50, 50);
-        } else if (this.powerup === "ricochet") {
-            ctx.drawImage(this.sprites, this.x + 12, this.y + 12, 100, 100);
-        } else if (this.powerup === "shotgun") {
-            ctx.drawImage(this.sprites, this.x + 12, this.y + 12, 100, 100);
+		if (PARAMS.LANTERN) {
+            let x = this.game.entities.player.mapX;
+		    let y = this.game.entities.player.mapY;
+            if (this.game.entities.minimap.checkInCircle(this.x , this.y, x, y, PARAMS.FOW_M_R)){
+                if (this.powerup === "healthpack") {
+                    ctx.drawImage(this.sprites, this.x+35, this.y+30, 50, 50);
+                } else if (this.powerup === "ricochet") {
+                    ctx.drawImage(this.sprites, this.x + 12, this.y + 12, 100, 100);
+                } else if (this.powerup === "shotgun") {
+                    ctx.drawImage(this.sprites, this.x + 12, this.y + 12, 100, 100);
+                }
+            }
+        } else {
+            if (this.powerup === "healthpack") {
+                ctx.drawImage(this.sprites, this.x+35, this.y+30, 50, 50);
+            } else if (this.powerup === "ricochet") {
+                ctx.drawImage(this.sprites, this.x + 12, this.y + 12, 100, 100);
+            } else if (this.powerup === "shotgun") {
+                ctx.drawImage(this.sprites, this.x + 12, this.y + 12, 100, 100);
+            }
         }
-    }
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'Blue';
             ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);

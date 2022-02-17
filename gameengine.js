@@ -166,28 +166,42 @@ class GameEngine {
         // Clear the whole canvas with transparent color (rgba(0, 0, 0, 0))
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
         this.entities.tiles.forEach((tile) => {
-          tile.draw(this.ctx);
+            if (!(tile.x < -125 || tile.x > 2000 || tile.y < -125 || tile.y > 975)) {
+                tile.draw(this.ctx);
+            }
         });
         this.entities.traps.forEach((trap) => {
-           trap.draw(this.ctx);
+            if (!(trap.x < -125 || trap.x > 2000 || trap.y < -125 || trap.y > 975)) {
+                trap.draw(this.ctx);
+            }  
         });
         this.entities.portals.forEach((portals) => {
-          portals.draw(this.ctx);
+            if (!(portals.x < -125 || portals.x > 2000 || portals.y < -125 || portals.y > 975)) {
+                portals.draw(this.ctx);
+            }  
         });
         this.entities.bullets.forEach((bullet) => {
-            bullet.draw(this.ctx);
-          });
+            if (!(bullet.x < -125 || bullet.x > 2000 || bullet.y < -125 || bullet.y > 975)) {
+                bullet.draw(this.ctx);
+            }  
+        });
         this.entities.enemies.forEach((enemy) => {
-          enemy.draw(this.ctx);
+            if (!(enemy.x < -125 || enemy.x > 2000 || enemy.y < -125 || enemy.y > 975)) {
+                enemy.draw(this.ctx);//enemies need to be seperate for death animations but for now
+            }
         });
         this.entities.powerups.forEach((powerups) => {
-            powerups.draw(this.ctx);
+            if (!(powerups.x < -125 || powerups.x > 2000 || powerups.y < -125 || powerups.y > 975)) {
+                powerups.draw(this.ctx);
+            }  
         });        
         this.entities.player.draw(this.ctx, this);
-        this.entities.traps.forEach((trap) => {
-            if (trap.trap_type === "thorn") {
-                trap.layer(this.ctx)
-            }
+        this.entities.traps.forEach((trap) => { 
+            if (!(trap.x < -125 || trap.x > 2000 || trap.y < -125 || trap.y > 975)) {
+                if (trap.trap_type === "thorn") {
+                    trap.layer(this.ctx)
+                }            
+            } 
         });
         this.entities.minimap.draw(this.ctx, this);
         this.camera.draw(this.ctx);
@@ -247,7 +261,7 @@ class GameEngine {
 
     update() {
         this.gamepadUpdate();
-
+        PARAMS.LANTERN = document.getElementById("lantern").checked;
         PARAMS.DEBUG = document.getElementById("debug").checked;
         PARAMS.GODMODE = document.getElementById("godmode").checked;
         // Update Entities

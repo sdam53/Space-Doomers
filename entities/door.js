@@ -120,14 +120,18 @@ class Door {
 	}
 	
 	draw(ctx) {
-		let x = this.game.entities.player.mapX;
-		let y = this.game.entities.player.mapY;
-		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
-			this.reveal = true;
-		ctx.drawImage(this.sprites[this.state + " " + this.direction], this.x, this.y, this.w, this.h);
+		if (PARAMS.LANTERN) {
+			let x = this.game.entities.player.mapX;
+			let y = this.game.entities.player.mapY;
+			if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){	
+				this.reveal = true;
+				ctx.drawImage(this.sprites[this.state + " " + this.direction], this.x, this.y, this.w, this.h);
 			}
-		else{
-			ctx.globalAlpha = PARAMS.OPACITY;
+			else{
+				ctx.globalAlpha = PARAMS.OPACITY;
+			}
+		} else {
+			ctx.drawImage(this.sprites[this.state + " " + this.direction], this.x, this.y, this.w, this.h);
 		}
 		// if (this.reveal)
 		// ctx.drawImage(this.sprites[this.state + " " + this.direction], this.x, this.y, this.w, this.h);

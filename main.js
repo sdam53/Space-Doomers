@@ -3,18 +3,11 @@ const gameEngine = new GameEngine();
 const ASSET_MANAGER = new AssetManager();
 
 ASSET_MANAGER.queueDownload("./sprites/tiles/ground.png");
-ASSET_MANAGER.queueDownload("./sprites/tiles/18.png");
-ASSET_MANAGER.queueDownload("./sprites/tiles/20.png");
 ASSET_MANAGER.queueDownload("./sprites/tiles/portal.png");
 ASSET_MANAGER.queueDownload("./sprites/tiles/gear.png");
-ASSET_MANAGER.queueDownload("./sprites/tiles/broken_stone.png");
-ASSET_MANAGER.queueDownload("./sprites/tiles/metal_tile.png");
-ASSET_MANAGER.queueDownload("./sprites/tiles/cracked_tile.png");
 ASSET_MANAGER.queueDownload("./sprites/traps/spike.png");
 ASSET_MANAGER.queueDownload("./sprites/traps/thorn1.png");
 ASSET_MANAGER.queueDownload("./sprites/traps/thorn_bottom.png");
-ASSET_MANAGER.queueDownload("./sprites/chest/chest_open.png");
-ASSET_MANAGER.queueDownload("./sprites/chest/chest_closed.png");
 ASSET_MANAGER.queueDownload("./sprites/door/door_shut.png");
 ASSET_MANAGER.queueDownload("./sprites/door/door_open.png");
 ASSET_MANAGER.queueDownload("./sprites/tiles/x wall.png");
@@ -134,14 +127,11 @@ ASSET_MANAGER.queueDownload("./music/level 3 song.mp3");
 
 // sound effects
 ASSET_MANAGER.queueDownload("./music/player shot sound.wav");
-ASSET_MANAGER.queueDownload("./music/player shot sound 100.wav");
 ASSET_MANAGER.queueDownload("./music/player shot sound 200.wav");
 ASSET_MANAGER.queueDownload("./music/portal sound.wav");
 ASSET_MANAGER.queueDownload("./music/gear sound.wav");
 ASSET_MANAGER.queueDownload("./music/click sound.wav");
-ASSET_MANAGER.queueDownload("./music/player death sound.mp3");
 ASSET_MANAGER.queueDownload("./music/player death sound 200.mp3");
-ASSET_MANAGER.queueDownload("./music/flying monster death sound.wav");
 ASSET_MANAGER.queueDownload("./music/flying monster death sound 200.wav");
 ASSET_MANAGER.queueDownload("./music/weapon_powerup.mp3");
 

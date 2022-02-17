@@ -63,9 +63,13 @@ class TransitionItem {
     }
 
     draw(ctx){
-        let x = this.game.entities.player.mapX;
-		let y = this.game.entities.player.mapY;
-		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
+        if (PARAMS.LANTERN) {
+            let x = this.game.entities.player.mapX;
+		    let y = this.game.entities.player.mapY;
+		    if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
+                ctx.drawImage(this.sprites[this.level], this.x, this.y, this.w, this.h);
+            }
+        } else {
             ctx.drawImage(this.sprites[this.level], this.x, this.y, this.w, this.h);
         }
         // if (PARAMS.DEBUG) {

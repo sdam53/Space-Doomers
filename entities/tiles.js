@@ -48,12 +48,16 @@ class Ground {
 	draw(ctx) {
 		let x = this.game.entities.player.mapX;
 		let y = this.game.entities.player.mapY;
-		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
-			this.reveal = true;
-			ctx.drawImage(this.tile, this.x, this.y, this.w, this.h);
+		if (PARAMS.LANTERN) {
+			if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)) {
+				this.reveal = true;
+				ctx.drawImage(this.tile, this.x, this.y, this.w, this.h);
 			}
-		else{
-			ctx.globalAlpha = PARAMS.OPACITY;
+			else{
+				ctx.globalAlpha = PARAMS.OPACITY;
+			}
+		} else {
+			ctx.drawImage(this.tile, this.x, this.y, this.w, this.h);
 		}
 		// ctx.globalAlpha = 0.4;
 		// if (this.reveal)
@@ -111,10 +115,14 @@ class Wall {
 	draw(ctx) {
 		let x = this.game.entities.player.mapX;
 		let y = this.game.entities.player.mapY;
-		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
-			this.reveal = true;
-			ctx.drawImage(this.spritesheet, this.x, this.y, this.w, this.h);
+		if (PARAMS.LANTERN) {
+			if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
+				this.reveal = true;
+				ctx.drawImage(this.spritesheet, this.x, this.y, this.w, this.h);
 			}
+		} else {
+			ctx.drawImage(this.spritesheet, this.x, this.y, this.w, this.h);
+		}
 		// else{
 		// 	ctx.globalAlpha = PARAMS.OPACITY;
 		// }
