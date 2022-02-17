@@ -23,6 +23,7 @@ class SceneManager {
 		this.menuCooldown = 0.5;
 
 		this.gamepadSelect = 498;
+		
 	}
 	
 	loadLevel(level, title, transition) {
@@ -164,6 +165,10 @@ class SceneManager {
 			this.gamepadSelect++;
 		}
 
+		if (this.game.keys["Escape"]) {
+			this.loadLevel(levelOne, true, false);
+		};
+
 		// (Debug) easy level select
 		if (this.game.keys["8"]) {
 			this.loadLevel(levelOne, false, false);
@@ -189,7 +194,7 @@ class SceneManager {
 			// Title Screen -> Start Game (with transition)
 			if (!this.credits 
 				&& ((this.game.mouse.x > 300 && this.game.mouse.x < 590 && this.game.mouse.y > 760 && this.game.mouse.y < 810) 
-					|| (this.gamepadSelect % 3 == 0 && this.gamepadButton())) 
+					|| (this.game.gamepad && this.gamepadSelect % 3 == 0 && this.gamepadButton())) 
 				&& this.timerOk()) {
 					
 				ASSET_MANAGER.playAsset("./music/click sound.wav");
@@ -204,6 +209,7 @@ class SceneManager {
 				&& this.timerOk()) {
 				this.time = this.game.clockTick;
 				this.levelSelect = true;
+				ASSET_MANAGER.playAsset("./music/click sound.wav");
 			}
 			// Title Screen -> Credits
 			if (!this.credits 
@@ -228,9 +234,9 @@ class SceneManager {
 
 		if (this.levelSelect && this.game.lclick) {
 			if (((this.game.mouse.x > 100 && this.game.mouse.x < 560 && this.game.mouse.y > 760 && this.game.mouse.y < 810)
-			 		|| (this.gamepadSelect % 3 == 0 && this.gamepadButton())) 
+			 		|| (this.game.gamepad && this.gamepadSelect % 3 == 0 && this.gamepadButton())) 
 				&& this.timerOk()) {
-
+				ASSET_MANAGER.playAsset("./music/click sound.wav");
 				this.levelSelect = false;
 				this.loadLevel(levelOne, false, true);
 				this.game.gameLevel = 1;
@@ -238,7 +244,7 @@ class SceneManager {
 			else if (((this.game.mouse.x > 740 && this.game.mouse.x < 1180 && this.game.mouse.y > 800 && this.game.mouse.y < 840)
 						|| (this.gamepadSelect % 3 == 1 && this.gamepadButton())) 
 					&& this.timerOk()) {
-
+					ASSET_MANAGER.playAsset("./music/click sound.wav");
 					this.levelSelect = false;
 					this.loadLevel(levelTwo, false, true);
 					this.game.gameLevel = 2;
@@ -246,7 +252,7 @@ class SceneManager {
 			else if (((this.game.mouse.x > 1310 && this.game.mouse.x < 1795 && this.game.mouse.y > 760 && this.game.mouse.y < 810)
 						|| (this.gamepadSelect % 3 == 2 && this.gamepadButton()))
 					&& this.timerOk()) {
-
+				ASSET_MANAGER.playAsset("./music/click sound.wav");
 				this.levelSelect = false;
 				this.loadLevel(levelThree, false, true);
 				this.game.gameLevel = 3;
@@ -330,7 +336,7 @@ class SceneManager {
 
 			ctx.fillRect(300, 760, 290, 50); // left 90 up 50
 			if ((this.game.mouse && this.game.mouse.x > 300 && this.game.mouse.x < 590 && this.game.mouse.y > 760 && this.game.mouse.y < 810)
-				|| (this.gamepadSelect % 3 == 0)) {
+				|| (this.game.gamepad && this.gamepadSelect % 3 == 0)) {
 				ctx.fillStyle = "#e6e4df";
 			} else {
 				ctx.fillStyle = "Black";
@@ -367,7 +373,7 @@ class SceneManager {
 
 			ctx.fillRect(100, 760, 460, 50); // left 90 up 50
 			if ((this.game.mouse && this.game.mouse.x > 100 && this.game.mouse.x < 560 && this.game.mouse.y > 760 && this.game.mouse.y < 810)
-			 	|| (this.gamepadSelect % 3 == 0)) {
+			 	|| (this.game.gamepad && this.gamepadSelect % 3 == 0)) {
 				ctx.fillStyle = "#e6e4df"; 
 			} else {
 				ctx.fillStyle = "Black";
