@@ -221,12 +221,28 @@ class RedMonster {
 		this.y += this.game.camera.y;
 	}
   
-  drawMinimap(ctx, mmX, mmY){
-      ctx.fillStyle = "Blue";
-      ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 10 , 10);
-  }
+	drawMinimap(ctx, mmX, mmY){
+		let x = this.game.entities.player.mapX;
+		let y = this.game.entities.player.mapY;
+		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
+			// this.reveal = true;
+		ctx.fillStyle = "Red";
+		ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 10 , 10);
+
+		  }
+		  else{
+			  ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+		}
+		// if (this.reveal)
+		// ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 10 , 10);
+	
+	  }
 	
 	draw(ctx) {
+		//fog of war
+		let x = this.game.entities.player.mapX;
+		let y = this.game.entities.player.mapY;
+		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
 		// offsets for x and y since images are different sizes
 		if (this.state === "death") {
 			if (this.facing === "up") {
@@ -267,6 +283,7 @@ class RedMonster {
 				}
 			}
 		}
+	}
 		if (PARAMS.DEBUG && this.BB) {
 			ctx.strokeStyle = 'Red';
 			ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);

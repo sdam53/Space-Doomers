@@ -118,7 +118,9 @@ class Bullet {
 	}
 
 	draw(ctx) {
-		ctx.drawImage(this.image, this.x, this.y, this.size, this.size)
+
+		ctx.drawImage(this.image, this.x, this.y, this.size, this.size);
+		
 		if (PARAMS.DEBUG) {
 			ctx.strokeStyle = 'Blue';
 			ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);

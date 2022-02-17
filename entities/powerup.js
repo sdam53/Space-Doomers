@@ -44,6 +44,10 @@ class Powerup {
     }
 
     draw(ctx){
+        //fog of war
+		let x = this.game.entities.player.mapX;
+		let y = this.game.entities.player.mapY;
+		if (this.game.entities.minimap.checkInCircle(this.x , this.y, x, y, PARAMS.FOW_M_R)){
         if (this.powerup === "healthpack") {
             ctx.drawImage(this.sprites, this.x+35, this.y+30, 50, 50);
         } else if (this.powerup === "ricochet") {
@@ -51,14 +55,28 @@ class Powerup {
         } else if (this.powerup === "shotgun") {
             ctx.drawImage(this.sprites, this.x + 12, this.y + 12, 100, 100);
         }
+    }
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'Blue';
             ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
         }
     }
     
+
     drawMinimap(ctx, mmX, mmY){
+    let x = this.game.entities.player.mMapX;
+    let y = this.game.entities.player.mMapY;
+    
+    if (this.game.entities.minimap.checkInCircle(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, x, y, 50)){
+        this.reveal = true;
         ctx.fillStyle = "Green";
+        }
+        else{
+            ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+    }
+    if (this.reveal)
         ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 100/PARAMS.BITWIDTH , 100/PARAMS.BITWIDTH);
-      }
+
+
+    }
 }

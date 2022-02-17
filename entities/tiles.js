@@ -12,7 +12,8 @@ class Ground {
 		this.chest_closed = ASSET_MANAGER.getAsset("./sprites/chest/chest_closed.png");
 		this.door_shut = ASSET_MANAGER.getAsset("./sprites/door/door_shut.png");
 		this.door_open = ASSET_MANAGER.getAsset("./sprites/door/door_open.png");
-		
+		//check if the object is reveal on the map
+		this.reveal = false;
 		
 		this.wall = ASSET_MANAGER.getAsset("./sprites/tiles/18.png");
 		this.corner = ASSET_MANAGER.getAsset("./sprites/tiles/20.png");
@@ -43,12 +44,22 @@ class Ground {
 		this.x += this.game.camera.x;
 		this.y += this.game.camera.y;
 	}
-	drawMinimap(ctx, mmX, mmY){
-    ctx.fillStyle = "White";
-    ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 125/PARAMS.BITWIDTH , 125/PARAMS.BITWIDTH );
-  }
+
 	draw(ctx) {
-		ctx.drawImage(this.tile, this.x, this.y, this.w, this.h);
+		let x = this.game.entities.player.mapX;
+		let y = this.game.entities.player.mapY;
+		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
+			this.reveal = true;
+			ctx.drawImage(this.tile, this.x, this.y, this.w, this.h);
+			}
+		else{
+			ctx.globalAlpha = PARAMS.OPACITY;
+		}
+		// ctx.globalAlpha = 0.4;
+		// if (this.reveal)
+		// 	ctx.drawImage(this.tile, this.x, this.y, this.w, this.h);
+		ctx.globalAlpha = 1;
+
 		if (PARAMS.DEBUG && (typeof this.BB != 'undefined')) {
 			ctx.strokeStyle = 'Green';
 			ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
@@ -56,8 +67,18 @@ class Ground {
 	}
   
   drawMinimap(ctx, mmX, mmY){
-    ctx.fillStyle = "White";
-    ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 125/PARAMS.BITWIDTH , 125/PARAMS.BITWIDTH );
+	let x = this.game.entities.player.mapX;
+		let y = this.game.entities.player.mapY;
+		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
+		this.reveal = true;
+		ctx.fillStyle = "White";
+		}
+    else{
+        ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+	}
+	if (this.reveal)
+    	ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 125/PARAMS.BITWIDTH , 125/PARAMS.BITWIDTH );	
+
   }
 }
 
@@ -66,7 +87,10 @@ class Wall {
 		Object.assign(this, {game, x, y, w, h, type});
 		this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tiles/x wall.png");
 		this.updateBB();
-		
+		this.reveal = false;
+		this.mapY = this.y;
+		this.mapX = this.x;
+		this.reveal = false;
 	}
 	
 	updateBB() {
@@ -85,7 +109,19 @@ class Wall {
 	}
 	
 	draw(ctx) {
-		ctx.drawImage(this.spritesheet, this.x, this.y, this.w, this.h);
+		let x = this.game.entities.player.mapX;
+		let y = this.game.entities.player.mapY;
+		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
+			this.reveal = true;
+			ctx.drawImage(this.spritesheet, this.x, this.y, this.w, this.h);
+			}
+		// else{
+		// 	ctx.globalAlpha = PARAMS.OPACITY;
+		// }
+		// if (this.reveal)
+			// ctx.drawImage(this.spritesheet, this.x, this.y, this.w, this.h);
+		ctx.globalAlpha = 1;
+		
 		if (PARAMS.DEBUG && (typeof this.BB != 'undefined')) {
 			ctx.strokeStyle = 'Brown';
 			ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
@@ -96,8 +132,18 @@ class Wall {
 		}
 	}
 	drawMinimap(ctx, mmX, mmY){
-		//ctx.fillStyle = "White";
-		//ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 125/PARAMS.BITWIDTH , 125/PARAMS.BITWIDTH );
+		let x = this.game.entities.player.mapX;
+		let y = this.game.entities.player.mapY;
+		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
+		this.reveal = true;
+		ctx.fillStyle = "Black";
+    	ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 125/PARAMS.BITWIDTH , 125/PARAMS.BITWIDTH );	
+		}
+    else{
+        ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+	}
+	// if (this.reveal)
+    // 	ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 125/PARAMS.BITWIDTH , 125/PARAMS.BITWIDTH );	
 	  }
 }
 

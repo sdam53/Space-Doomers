@@ -279,8 +279,12 @@ class Smol {
 				else if (this.state == "attack") xOffset = -20, yOffset = -30;
 			}
 		}
+		//fog of war
+		let x = this.game.entities.player.mapX;
+		let y = this.game.entities.player.mapY;
+		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
 		this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x + xOffset, this.y + yOffset, 0.1);
-
+		}
 		if (PARAMS.DEBUG && this.BB) {
 			ctx.strokeStyle = 'Red';
 			ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
@@ -288,7 +292,19 @@ class Smol {
     }
 
 	drawMinimap(ctx, mmX, mmY){
-		// ctx.fillStyle = "White";
-		// ctx.fillRect(mmX + this.BB.x / PARAMS.BITWIDTH, mmY + this.BB.y / PARAMS.BITWIDTH, this.BB.width / PARAMS.BITWIDTH, PARAMS.SCALE * 20);
+		let x = this.game.entities.player.mapX;
+		let y = this.game.entities.player.mapY;
+		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
+			// this.reveal = true;
+		ctx.fillStyle = "Red";
+		ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 10 , 10);
+
+		  }
+		  else{
+			  ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+		}
+		// if (this.reveal)
+		// ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 10 , 10);
+	
 	  }
 }

@@ -41,16 +41,24 @@ class Trap{
 
     //used for layering of thorn trap
     layer(ctx) {
-        ctx.drawImage(this.trap,
-            1, 1, //source from sheet
-            485, 750,
-            this.x, this.y - 50,
-            125,
-            175);
+        // ctx.drawImage(this.trap,
+        //     1, 1, //source from sheet
+        //     485, 750,
+        //     this.x, this.y - 50,
+        //     125,
+        //     175);
 	}
 
 
 	draw(ctx) {
+        let x = this.game.entities.player.mapX;
+		let y = this.game.entities.player.mapY;
+		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
+			this.reveal = true;
+			}
+		else{
+			ctx.globalAlpha = PARAMS.OPACITY;
+		}
 		if (this.trap_type === "thorn") {
             ctx.drawImage(this.thorn2,
                 0, 0,
@@ -58,6 +66,13 @@ class Trap{
                 this.x, this.y - 50,
                 125,
                 175);  
+            ctx.drawImage(this.trap,
+                1, 1, //source from sheet
+                485, 750,
+                this.x, this.y - 50,
+                125,
+                175);
+                
         } else if (this.trap_type === "spike") {
             //i think it looks better when it fills whole screen
             ctx.drawImage(this.trap,
@@ -72,7 +87,10 @@ class Trap{
               //  this.x+22, this.y+22,
              //   80,
               //  80);
+
         }
+			ctx.globalAlpha = 1;
+
 		if (PARAMS.DEBUG && (typeof this.BB != 'undefined')) {
 			ctx.strokeStyle = 'Green';
 			ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);

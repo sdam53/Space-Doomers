@@ -1,6 +1,9 @@
 class Door {
+
 	constructor(game, x, y, state, direction, requiredGears, finalDoor) {
 		Object.assign(this, {game, x, y, state, direction, requiredGears, finalDoor});
+		this.reveal = false;
+
 		
 		if (direction == "down") {
 			this.x = x - 60;
@@ -29,10 +32,11 @@ class Door {
 		this.sprites["locked left"] =	ASSET_MANAGER.getAsset("./sprites/door/door locked left.png");
 		this.sprites["locked right"] =	ASSET_MANAGER.getAsset("./sprites/door/door locked right.png");
 
-		this.updateBB();
 		
 		this.mapX = this.x;
 		this.mapY = this.y;
+		this.updateBB();
+
 	}
 	
 	updateBB() {
@@ -116,7 +120,19 @@ class Door {
 	}
 	
 	draw(ctx) {
+		let x = this.game.entities.player.mapX;
+		let y = this.game.entities.player.mapY;
+		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
+			this.reveal = true;
 		ctx.drawImage(this.sprites[this.state + " " + this.direction], this.x, this.y, this.w, this.h);
+			}
+		else{
+			ctx.globalAlpha = PARAMS.OPACITY;
+		}
+		// if (this.reveal)
+		// ctx.drawImage(this.sprites[this.state + " " + this.direction], this.x, this.y, this.w, this.h);
+		ctx.globalAlpha = 1;
+
 		if (PARAMS.DEBUG && (typeof this.BB != 'undefined') && this.BB) {
 			ctx.strokeStyle = 'Green';
 			ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
@@ -125,5 +141,19 @@ class Door {
 			//ctx.strokeRect(this.topBB.x, this.topBB.y, this.topBB.width, this.topBB.height);
 			//ctx.strokeRect(this.bottomBB.x, this.bottomBB.y, this.bottomBB.width, this.bottomBB.height);
 		}
+	}
+
+	drawMinimap(ctx, mmX, mmY){
+		let x = this.game.entities.player.mapX;
+		let y = this.game.entities.player.mapY;
+		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
+		this.reveal = true;
+		ctx.fillStyle = "Gray";
+		}
+    else{
+        ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+	}
+	if (this.reveal)
+    	ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 125/PARAMS.BITWIDTH , 125/PARAMS.BITWIDTH );	
 	}
 }
