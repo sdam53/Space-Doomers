@@ -20,6 +20,22 @@ const isWalkable = (point, myMap, game) => {
 };
 
 /**
+ * similar to isWalable, but used to check if target is in a walkable place
+ * @param {*} point 
+ * @param {*} myMap 
+ * @returns 
+ */
+const validEnd2 = (point, myMap) => {
+    if (point.y < 0 || point.y > myMap.length - 1) {
+        return false;
+    }
+    if (point.x < 0 || point.x > myMap[0].length - 1) {
+        return false;
+    }
+    return myMap[point.y][point.x] === 1;
+}
+
+/**
  * returns array for neighboring cells
  * @param {*} point starting point
  * @param {*} map 2d array as map
@@ -47,10 +63,10 @@ const findNeighbors = (point, map, game) => {
  */
 const contains = (array, point) => {
     let result = false;
-    const isFound = array.some(element => {
+    array.some(element => {
         if (element.equals(point)) {
             result = true;
-            return true;
+            return;
         }
     });
     return result;
@@ -63,7 +79,12 @@ const contains = (array, point) => {
  * @param {*} map 2d array that acts as map
  * @returns array to target
  */
+
 const BFS = (start, end, map, game) => {
+//if player is in invaid area, wall glitching. fixs itself since player gets pushed back
+    if (!validEnd2(end, map)) {
+        return [];
+    }   
     let finished = false;
     let used = [];
     used.push(start);
