@@ -16,7 +16,7 @@ class GameEngine {
         this.click = null;
         this.mouse = null;
         this.wheel = null;
-        this.keys = {"w": false, "a": false, "s": false, "d":false, "ArrowLeft": false, "ArrowRight": false, "ArrowUp": false, "ArrowDown": false, ".": false};
+        this.keys = {"Escape": false, "w": false, "a": false, "s": false, "d":false, "ArrowLeft": false, "ArrowRight": false, "ArrowUp": false, "ArrowDown": false, ".": false};
         this.lclick = false;
         this.mouse = {x: 0, y: 0};
 
@@ -36,7 +36,7 @@ class GameEngine {
         this.keyboardActive = false;
         this.mouseActive = false;
 
-        this.pathfindingChoice = "bfs";//bfs or astar
+        this.pathfindingChoice = "astar";//bfs or astar
     };
 
     clearEntities() {

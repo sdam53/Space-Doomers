@@ -46,21 +46,22 @@ const aStarPath = (start, end, map, game) => {
 
         return [];
     }
-
     startNode = new Node(null, start);
     endNode = new Node(null, end); 
     //list of nodes to check
-    openList = [];
+    openList = new PriorityQueue();
     //list of already checked lists
     closedList = [];
     //adding the starting node to the openList to be checked
-    openList.push(startNode);
+    openList.enqueue(startNode);
     let lowestF; //int of the node in openList that has the lowest f score
-    while (openList.length > 0) {
+    while (openList.values.length > 0) {
         //get node with lowest f score and removing it
-        lowestF = findLowestF(openList); 
-        let current = openList[lowestF];
-        openList.splice(lowestF, 1); 
+        // lowestF = findLowestF(openList); 
+        // let current = openList[lowestF];
+        // openList.splice(lowestF, 1); 
+        let current = openList.dequeue();
+        //console.log(openList.values.length);
 
         //if that node is endNode then path found
         if (current.equals(endNode)) { 
@@ -75,23 +76,25 @@ const aStarPath = (start, end, map, game) => {
             return path;
         }
 
+        if (openList.values.length > 20) {
+            return [];
+        }
+        
+
         //getting neighboring nodes
         let neighbor = findNeighbors1(game, current.position, map, current);
         for (let i = 0; i < neighbor.length; i++) {
 
             //updating neighbor scores
             let successor = neighbor[i]; 
-            neighbor[i].g = current.g + getDistance(successor.position.x, successor.position.y, current.position.x, current.position.y);
+            neighbor[i].g = current.g + 1;
             neighbor[i].h = abs(successor.position.x - endNode.position.x) + abs(successor.position.y - endNode.position.y);
             neighbor[i].f = neighbor[i].g + neighbor[i].h;
             //if neighbor is already in the open list and has a lower f score, skip this neighbor
-            let contain = contains1(openList, neighbor[i]);
+            //let contain = contains1(openList, neighbor[i]);
 
-            if (contain[0] && contain[1] < neighbor[i].f) {
-                //console.log("coint");
-                //console.timeEnd("start")
-
-                continue;
+            if (openList.contains(neighbor[i])) {
+               continue;
             }
             //console.timeEnd("start")
 
@@ -100,7 +103,7 @@ const aStarPath = (start, end, map, game) => {
             if (contain[0] && contain[1] < neighbor[i].f) {
                 continue;
             } else {
-                openList.push(neighbor[i]);
+                openList.enqueue(neighbor[i]);
             }
 
         }

@@ -39,8 +39,8 @@ let levelOne = {
 		OFFSCREEN = [true]
 	],
 	smols: [
-		{x: 13, y: 4},
-		{x: 13, y: 5}
+		//{x: 13, y: 4},
+		//{x: 13, y: 5}
 	],
 	boss: [{x: 11, y: 4}],
 	gears: [
@@ -153,8 +153,9 @@ let levelTwo = {
 		{x: 34, y: 7, state: "locked", direction: "down", requiredGears: 3},
 		{x: 8, y: 11, state: "locked", direction: "left", requiredGears: 3},
 		{x: 25, y: 18, state: "locked", direction: "left", requiredGears: 3},
-		{x: 17, y: 5, state: "locked", direction: "right", requiredGears: 0},
+		{x: 17, y: 5, state: "unlocked", direction: "right", requiredGears: 0},
 		{x: 32, y: 7, state: "locked", direction: "down", requiredGears: 1},
+		{x: 38, y: 35, state: "locked", direction: "right", requiredGears: 4, finalDoor: true}
 	],
 	traps: [
 		X = [5,6,17,18,19,20,32,34,34,32,31,31, 20, 9, 16, 32, 8, 11, 16, 22, 13, 26, 27,32,31,30,30, 35,2,3,2,1,1,4],
