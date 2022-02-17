@@ -57,8 +57,21 @@ class Powerup {
         }
     }
     
+
     drawMinimap(ctx, mmX, mmY){
+    let x = this.game.entities.player.mMapX;
+    let y = this.game.entities.player.mMapY;
+    
+    if (this.game.entities.minimap.checkInCircle(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, x, y, 50)){
+        this.reveal = true;
         ctx.fillStyle = "Green";
+        }
+        else{
+            ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+    }
+    if (this.reveal)
         ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 100/PARAMS.BITWIDTH , 100/PARAMS.BITWIDTH);
-      }
+
+
+    }
 }

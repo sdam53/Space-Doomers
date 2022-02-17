@@ -64,10 +64,27 @@ class Portal {
 	}
   
   drawMinimap(ctx, mmX, mmY){
-      ctx.fillStyle = "Yellow";
-      ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 100/PARAMS.BITWIDTH , 100/PARAMS.BITWIDTH);
+    ctx.fillStyle = "Red";
+	ctx.fillRect(mmX + this.BB.x / PARAMS.BITWIDTH, mmY + this.BB.y / PARAMS.BITWIDTH, 100/PARAMS.BITWIDTH , 100/PARAMS.BITWIDTH);
+
   }
 	
+
+//   drawMinimap(ctx, mmX, mmY){
+// 	let x = this.game.entities.player.mMapX;
+// 	let y = this.game.entities.player.mMapY;
+  
+// 	if (this.game.entities.minimap.checkInCircle(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, x, y, 50)){
+// 	  this.reveal = true;
+// 	  ctx.fillStyle = "Yellow";
+// 	  }
+// 	  else{
+// 		  ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+// 	}
+// 	if (this.reveal)
+// 		ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 100/PARAMS.BITWIDTH , 100/PARAMS.BITWIDTH);
+
+//   }
 	draw(ctx){
 		this.animation.drawFrame(this.game.clockTick, ctx, this.x1 + 20, this.y1 + 23, 5);
 		if (PARAMS.DEBUG) {

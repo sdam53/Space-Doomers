@@ -43,6 +43,11 @@ class Player {
 		//used for pathfinding
 		this.mapX = this.feetBB.x + 25;
 		this.mapY = this.feetBB.y + 10;
+
+		//current location of player on the minimap
+		this.mMapX = this.mapX;
+		this.mMapY = this.mapY;
+
 	}
 	
 	loadAnimations() {
@@ -275,26 +280,28 @@ class Player {
 		}
   
     drawMinimap(ctx, mmX, mmY){
-      ctx.fillStyle = "Red";
-      ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 93/PARAMS.BITWIDTH , 86/PARAMS.BITWIDTH);
+      ctx.fillStyle = "Green";
+	  this.mMapX = mmX + this.mapX / PARAMS.BITWIDTH;
+	  this.mMapY = mmY + this.mapY / PARAMS.BITWIDTH;
+      ctx.fillRect(this.mMapX, this.mMapY, 93/PARAMS.BITWIDTH , 86/PARAMS.BITWIDTH);
     }
 		
-		draw(ctx) {
-			// this.healthbar.draw(ctx);
-			// this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y);
-			if (this.hp <= 0) {
-				this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y, 0.3);
-			} else {
-				this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y, 0.3);
-			}
-			
-			if (PARAMS.DEBUG) {
-				ctx.strokeStyle = 'Blue';
-				ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
-				ctx.strokeStyle = "Blue";
-				ctx.strokeRect(this.feetBB.x, this.feetBB.y, this.feetBB.width, this.feetBB.height)
-			}
+	draw(ctx) {
+		// this.healthbar.draw(ctx);
+		// this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y);
+		if (this.hp <= 0) {
+			this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y, 0.3);
+		} else {
+			this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y, 0.3);
 		}
+		
+		if (PARAMS.DEBUG) {
+			ctx.strokeStyle = 'Blue';
+			ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+			ctx.strokeStyle = "Blue";
+			ctx.strokeRect(this.feetBB.x, this.feetBB.y, this.feetBB.width, this.feetBB.height)
+		}
+	}
 
 
     checkSlowTrap(){

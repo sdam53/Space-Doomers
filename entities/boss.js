@@ -289,8 +289,22 @@ class Boss {
 		}
     }
 
+
 	drawMinimap(ctx, mmX, mmY){
-		// ctx.fillStyle = "White";
-		// ctx.fillRect(mmX + this.BB.x / PARAMS.BITWIDTH, mmY + this.BB.y / PARAMS.BITWIDTH, this.BB.width / PARAMS.BITWIDTH, PARAMS.SCALE * 20);
+		let x = this.game.entities.player.mMapX;
+		let y = this.game.entities.player.mMapY;
+	  
+		if (this.game.entities.minimap.checkInCircle(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, x, y, 50)){
+			// this.reveal = true;
+		ctx.fillStyle = "Purple";
+		ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 10 , 10);
+
+		  }
+		  else{
+			  ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+		}
+		// if (this.reveal)
+		// ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 10 , 10);
+	
 	  }
 }

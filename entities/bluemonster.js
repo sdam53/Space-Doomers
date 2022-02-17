@@ -198,9 +198,22 @@ class BlueMonster {
 	}
   
 	drawMinimap(ctx, mmX, mmY){
-		ctx.fillStyle = "Green";
+		let x = this.game.entities.player.mMapX;
+		let y = this.game.entities.player.mMapY;
+	  
+		if (this.game.entities.minimap.checkInCircle(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, x, y, 50)){
+			// this.reveal = true;
+		ctx.fillStyle = "Red";
 		ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 10 , 10);
-	}
+
+		  }
+		  else{
+			  ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+		}
+		// if (this.reveal)
+		// ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 10 , 10);
+	
+	  }
 	draw(ctx) {
 		let xOffset = 0; // 0 offset is idle
 		let yOffset = 0;

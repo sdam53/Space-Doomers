@@ -12,7 +12,8 @@ class Ground {
 		this.chest_closed = ASSET_MANAGER.getAsset("./sprites/chest/chest_closed.png");
 		this.door_shut = ASSET_MANAGER.getAsset("./sprites/door/door_shut.png");
 		this.door_open = ASSET_MANAGER.getAsset("./sprites/door/door_open.png");
-		
+		//check if the object is reveal on the map
+		this.reveal = false;
 		
 		this.wall = ASSET_MANAGER.getAsset("./sprites/tiles/18.png");
 		this.corner = ASSET_MANAGER.getAsset("./sprites/tiles/20.png");
@@ -56,8 +57,19 @@ class Ground {
 	}
   
   drawMinimap(ctx, mmX, mmY){
-    ctx.fillStyle = "White";
-    ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 125/PARAMS.BITWIDTH , 125/PARAMS.BITWIDTH );
+	let x = this.game.entities.player.mMapX;
+	let y = this.game.entities.player.mMapY;
+
+	if (this.game.entities.minimap.checkInCircle(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, x, y, 50)){
+		this.reveal = true;
+		ctx.fillStyle = "White";
+		}
+    else{
+        ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+	}
+	if (this.reveal)
+    	ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 125/PARAMS.BITWIDTH , 125/PARAMS.BITWIDTH );	
+
   }
 }
 
