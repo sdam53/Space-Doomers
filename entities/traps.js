@@ -41,12 +41,30 @@ class Trap{
 
     //used for layering of thorn trap
     layer(ctx) {
-        ctx.drawImage(this.trap,
-            1, 1, //source from sheet
-            485, 750,
-            this.x, this.y - 50,
-            125,
-            175);
+        if (PARAMS.LANTERN) {
+            let x = this.game.entities.player.mapX;
+            let y = this.game.entities.player.mapY;
+            if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
+                this.reveal = true;
+            }
+            else {
+                ctx.globalAlpha = PARAMS.OPACITY;
+            }
+            ctx.drawImage(this.trap,
+                1, 1, //source from sheet
+                485, 750,
+                this.x, this.y - 50,
+                125,
+                175);
+            ctx.globalAlpha = 1;
+        } else {
+            ctx.drawImage(this.trap,
+                1, 1, //source from sheet
+                485, 750,
+                this.x, this.y - 50,
+                125,
+                175);      
+        }
 	}
 
 
