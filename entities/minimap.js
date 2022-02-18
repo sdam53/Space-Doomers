@@ -68,3 +68,27 @@ class Minimap {
     }
 
 }
+
+class FogOfWar{
+    constructor(game){
+        Object.assign(this, {game});
+    };
+
+    draw(ctx){
+        let x = this.game.entities.player.x+25;
+		let y = this.game.entities.player.y+25;
+        let radius = PARAMS.FOW_M_R - 200;
+
+        ctx.save();
+        ctx.globalCompositeOperation = 'destination-in';
+        let fog_gd = ctx.createRadialGradient(x,y, radius,x,y,radius/1.2);
+        fog_gd.addColorStop(0, 'rgba(0,0,0,0)');
+        fog_gd.addColorStop(1, 'rgba(0,0,0,1)');
+        ctx.fillStyle = fog_gd;
+        ctx.beginPath();
+        ctx.arc(x,y,radius,0,2*Math.PI);
+        ctx.closePath();
+        ctx.fill()
+        ctx.restore();
+    }
+}

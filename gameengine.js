@@ -48,7 +48,8 @@ class GameEngine {
             portals: [],
             powerups: [],
             minimap: [],
-            traps: []
+            traps: [],
+            fog: []
         };
     }
 
@@ -189,8 +190,12 @@ class GameEngine {
                 trap.layer(this.ctx)
             }
         });
+        this.entities.fog.draw(this.ctx, this);
         this.entities.minimap.draw(this.ctx, this);
         this.camera.draw(this.ctx);
+
+
+
     };
 
     gamepadUpdate() {

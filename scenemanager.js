@@ -41,6 +41,8 @@ class SceneManager {
     	// this.minimap = new Minimap(this.game, 0, PARAMS.CANVAS_WIDTH - PARAMS.CANVAS_WIDTH/PARAMS.BITWIDTH, 500);
     	this.minimap = new Minimap(this.game, 0, PARAMS.CANVAS_WIDTH - 250, 250);
     	this.game.entities.minimap = this.minimap;
+		this.fog = new FogOfWar(this.game);
+		this.game.entities.fog = this.fog;
 
 		// loading Ground, walls and traps
 		let x = 0;
@@ -444,5 +446,6 @@ class SceneManager {
 				ctx.drawImage(ASSET_MANAGER.getAsset("./sprites/player/player_down_death.png"), 6273, 0, 369, 454, 750, 400, 369, 454);
 			} 
 		}
+
 	};
 }
