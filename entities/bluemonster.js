@@ -175,9 +175,7 @@ class BlueMonster {
 				} else {
 					this.getPath();
 				}
-			}
-			//console.log(PARAMS.GODMODE);
-			
+			}			
 			if (this.atkBB && PARAMS.GODMODE === false) {
 				if (this.attackTimer <= 0) {
 					if (this.atkBB.collide(this.game.player.BB)) {
