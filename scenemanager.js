@@ -171,6 +171,10 @@ class SceneManager {
 			this.loadLevel(levelOne, true, false);
 		};
 
+		if (this.game.keys["l"] && this.timerOk()) {
+			PARAMS.LANTERN = !PARAMS.LANTERN;
+		}
+
 		// (Debug) easy level select
 		if (this.game.keys["8"]) {
 			this.loadLevel(levelOne, false, false);
@@ -262,10 +266,21 @@ class SceneManager {
 		}
 		
 		if (this.transition && this.game.lclick) {
-			if (((this.game.mouse.x > 1400 && this.game.mouse.x < 1640 && this.game.mouse.y > 760 && this.game.mouse.y < 810)
+			if (((this.game.mouse.x > 525 && this.game.mouse.x < 735 && this.game.mouse.y > 770 && this.game.mouse.y < 820)
 					|| this.gamepadButton())
 				&& this.timerOk()) {
 				ASSET_MANAGER.playAsset("./music/click sound.wav");
+				PARAMS.LANTERN = false;
+				this.transition = false;
+				this.title = false;
+				this.player = new Player(this.game, 100, 100);
+				this.loadLevel(this.level, false, false);
+			} 
+			if (((this.game.mouse.x > 1200 && this.game.mouse.x < 1340 && this.game.mouse.y > 770 && this.game.mouse.y < 820)
+					|| this.gamepadButton())
+				&& this.timerOk()) {
+				ASSET_MANAGER.playAsset("./music/click sound.wav");
+				PARAMS.LANTERN = true;
 				this.transition = false;
 				this.title = false;
 				this.player = new Player(this.game, 100, 100);
@@ -428,10 +443,16 @@ class SceneManager {
 				ctx.fillText(this.level.story[i], 600, 250 + i * 40);
 			}
 			ctx.fillStyle = "#4a8437";
-			ctx.fillRect(1400, 760, 240, 50);
-			ctx.fillStyle = this.game.mouse && this.game.mouse.x > 1400 && this.game.mouse.x < 1640 && this.game.mouse.y > 760 && this.game.mouse.y < 810 ? "#e6e4df" : "Black";
+			ctx.fillRect(525, 770, 210, 50);
+			ctx.fillStyle = this.game.mouse && this.game.mouse.x > 525 && this.game.mouse.x < 735 && this.game.mouse.y > 770 && this.game.mouse.y < 820 ? "#e6e4df" : "Black";
 			ctx.font = '40px "NASA"';
-			ctx.fillText("CONTINUE", 1410, 800);
+			ctx.fillText("NORMAL", 530, 810);
+
+			ctx.fillStyle = "#4a8437";
+			ctx.fillRect(1200, 770, 140, 50);
+			ctx.fillStyle = this.game.mouse && this.game.mouse.x > 1200 && this.game.mouse.x < 1340 && this.game.mouse.y > 770 && this.game.mouse.y < 820 ? "#e6e4df" : "Black";
+			ctx.font = '40px "NASA"';
+			ctx.fillText("HARD", 1210, 810);
 		}
 		
 		if (this.gameOver) {

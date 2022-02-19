@@ -268,7 +268,7 @@ class GameEngine {
 
     update() {
         this.gamepadUpdate();
-        PARAMS.LANTERN = document.getElementById("lantern").checked;
+        // PARAMS.LANTERN = document.getElementById("lantern").checked;
         PARAMS.DEBUG = document.getElementById("debug").checked;
         PARAMS.GODMODE = document.getElementById("godmode").checked;
         // Update Entities
