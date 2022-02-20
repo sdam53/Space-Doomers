@@ -16,7 +16,6 @@ class BlueMonster {
 		
 		this.attackRate = 1; //could use some slight changes
 		this.attackTimer = this.attackRate;
-		this.counter = 0;
 		
 		this.animations = [];
 		this.loadAnimations();
@@ -158,43 +157,32 @@ class BlueMonster {
 	}
 	
 	update() {
-		let TICK = this.game.clockTick;
 		if (this.hp <= 0) {
 			this.state = "death";
-			if (this.animations[this.facing + " " + this.state].frame === 16) {
+			if (this.animations[this.facing + " " + this.state].frame === 2) {
 				this.removeFromWorld = true;
 			}
 		} else {
-		 	if (this.path) { 
-				if (this.state === "attack") {
-					if (this.animations[this.facing + " attack"].frame === 10) {
-						this.shoot();
-					}
-					if (!this.animations[this.facing + " attack"].flag) {
-						this.state = "idle";
-					}
-				} else {
-					if (this.path.length === 0) {
-						this.state = "idle"
-					} else if (this.path.length < 10 && this.counter <= 0 && this.distancedMoved === 0) {
-						this.calculatedDirection();
-						this.state = "attack";
-						this.counter = this.attackCooldown;
-						this.animations[this.facing + " attack"].flag = true;
-						this.attackCheck = true;
-					} else {
-						this.move();
-					}
-				}
-				if (this.distancedMoved === 0) {
-					this.getPath()
-				}
+			if (this.BB.collide(this.game.player.BB)) {
+				this.calculatedDirection();
+				this.state = "attack";
 			} else {
-				this.getPath();//should only be called once in beginning
+				if (this.path && (typeof this.path[0] != 'undefined')) {
+					this.move()
+				} else {
+					this.getPath();
+				}
+			}			
+			if (this.atkBB && PARAMS.GODMODE === false) {
+				if (this.attackTimer <= 0) {
+					if (this.atkBB.collide(this.game.player.BB)) {
+						this.game.player.hp -= 20; //might revamp damage system later
+						this.attackTimer = this.attackRate;
+					}
+				}
 			}
 		}
 
-		this.counter-=TICK;
 		if (this.attackTimer > 0) {
 			this.attackTimer-= this.game.clockTick;
 		}
