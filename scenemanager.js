@@ -92,7 +92,7 @@ class SceneManager {
 			}
 			if (level.smols) {
 				for (let i = 0; i < level.smols.length; i++) {
-					this.game.addEnemy(new Smol(this.game, level.smols[i].x * 125 - 55, level.smols[i].y * 125 - 85));
+					this.game.addEnemy(new Smol(this.game, level.smols[i].x * 125 + 22, level.smols[i].y * 125 + 30));
 				}
 			}
 			if (level.gears) {
