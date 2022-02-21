@@ -130,21 +130,11 @@ class Player {
 			this.state = "run";
 		}
 
-    if (this.checkSlowTrap()){
-      	if (this.getTrap == false){
-        	this.hp=this.hp - this.trap.damage;
-			
-        	if (this.hp == 0) {
-				this.hp=0;
-			}
-      	}
-      	if (this.trap.trap_type == "thorn")
-        	this.moveMultiplyer = 0.2;
-      		this.getTrap = true;
+    if (this.checkSlowTrap()) {
+    	this.moveMultiplyer = 0.2;
     }
-    else {
-		this.moveMultiplyer = 1;
-		this.getTrap = false;
+    else{
+        this.moveMultiplyer = 1;
     }
 
     if (this.hp <= 0) {
@@ -310,12 +300,11 @@ class Player {
     checkSlowTrap(){
       let collide = false;
       this.game.entities.traps.forEach(trap => {
-        if (trap instanceof Trap && this.feetBB.collide(trap.BB)){
+        if (trap.trap_type === "thorn" && this.feetBB.collide(trap.BB)){
           collide = true;
-          this.trap = trap;
           return;
         }
       })
       return collide;
     }
-	}
+}

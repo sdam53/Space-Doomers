@@ -10,7 +10,6 @@ class Trap{
         this.mapY = this.y;
         this.mapX = this.x;
         this.trap = this.thorn1;
-        this.damage = 1;
         if (this.trap_type == "thorn"){
             this.trap = this.thorn1;
             this.trapX = 485;
@@ -22,7 +21,10 @@ class Trap{
             this.trapX = 181;
             this.trapY = 174;
             this.damage = 10;
+            this.timer = 0;
+            this.cooldown = 2;
         }
+        this.updateBB();
 	}
 	
 	updateBB() {
@@ -30,6 +32,16 @@ class Trap{
 	}
 	
 	update() {
+        if (!PARAMS.GODMODE) {
+            if (this.trap_type === "spike") {
+                if (this.timer <= 0 && this.BB.collide(this.game.player.feetBB)) {
+                    this.game.player.hp -= this.damage;
+                    ASSET_MANAGER.playAsset("./music/spikes.mp3");
+                    this.timer = this.cooldown;
+                }
+                this.timer -= this.game.clockTick;
+            }
+        }
 		this.updateBB();
 		this.x += this.game.camera.x;
 		this.y += this.game.camera.y;
