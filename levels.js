@@ -215,7 +215,7 @@ let levelThree = {
 	], 
 	blue_monsters: [
 		X = [2],
-		Y = [14],
+		Y = [12],
 		OFFSCREEN = [true]
 	],
 	boss: [{x: 11, y: 4}],

@@ -8,21 +8,23 @@ class Smol {
 	  this.hp = 40;
 
 	  this.moveSpeed = 200;
+	  this.distancedMoved = 0;
+
 	  
 
-	  this.bulletSpeed = 100;
-	  this.bulletRate = 1.01; //needs to be slightly tweaked. animation is a bit faster
+	  this.bulletSpeed = 150;
+	  this.bulletRate = 1; //needs to be slightly tweaked. animation is a bit faster
 	  this.bulletTimer = 0;
-	  this.bulletSize = 30;
+	  this.bulletSize = 15;
 
 	  this.animations = [];
 	  this.loadAnimations();
 	  this.updateBB();
 
 	  //offset to get the middle of sprite and feet
-	  this.offset = {x: 110, y : 110, feet: 170};
+	  this.offset = {x: 40, y : 32, feet: 47};
 	  this.mapX = this.x + this.offset.x;
-	  this.mapY = this.y + this.offset.feet;
+	  this.mapY = this.y + this.offset.y;
 	  
     }
 
@@ -73,7 +75,7 @@ class Smol {
 	updateBB() {
 		this.lastBB = this.BB;
 		if (this.facing === "down") {
-			this.BB = new BoundingBox(this.x + 55, this.y + 35, 115, 115);
+			this.BB = new BoundingBox(this.x + 15, this.y + 10, 40, 50);
 		} else if (this.facing === "up") {
 			this.BB = new BoundingBox(this.x + 55, this.y + 35, 115, 115);
 		} else if (this.facing === "left") {
@@ -84,8 +86,8 @@ class Smol {
 	}
 
 	fourBulletAtk(radius) { 
-		let xStart = this.x + 97;//offsets needed to get to center of sprite
-		let yStart = this.y + 80;
+		let xStart = this.x + 31;//offsets needed to get to center of sprite
+		let yStart = this.y + 27;
 		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI /2), yStart + radius * sin(PI /2), xStart + 2 * radius * cos(PI /2), yStart + 2 * radius * sin(PI /2), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //down
 		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI), yStart + radius * sin(PI), xStart + 2 * radius * cos(PI) , yStart + 2 * radius * sin(PI), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //left
 		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(0), yStart + radius * sin(0), xStart + 2 * radius * cos(0) , yStart + 2 * radius * sin(0), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //right
@@ -94,8 +96,8 @@ class Smol {
 	}
 	
 	eightBulletAtk(radius) {
-		let xStart = this.x + 97;//offsets needed to get to center of sprite
-		let yStart = this.y + 80;
+		let xStart = this.x + 31;//offsets needed to get to center of sprite
+		let yStart = this.y + 27;
 		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI /2), yStart + radius * sin(PI /2), xStart + 2 * radius * cos(PI /2), yStart + 2 * radius * sin(PI /2), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //down
 		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI), yStart + radius * sin(PI), xStart + 2 * radius * cos(PI) , yStart + 2 * radius * sin(PI), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //left
 		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(0), yStart + radius * sin(0), xStart + 2 * radius * cos(0) , yStart + 2 * radius * sin(0), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //right
@@ -109,13 +111,13 @@ class Smol {
 
 	singleBulletAtlk() {
 		if (this.facing === "down") {
-		  this.game.addBullet(new Bullet(this.game, this.x + 95, this.y + 110, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet));
+		  this.game.addBullet(new Bullet(this.game, this.x + 32, this.y + 50, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet));
 		} else if (this.facing === "up") {
-		  this.game.addBullet(new Bullet(this.game, this.x + 100, this.y + 10, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet));
+		  this.game.addBullet(new Bullet(this.game, this.x + 32, this.y, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet));
 		} else if (this.facing === "left") {
-		  this.game.addBullet(new Bullet(this.game, this.x + 30, this.y + 80, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet));
+		  this.game.addBullet(new Bullet(this.game, this.x, this.y + 25, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet));
 		} else if (this.facing === "right") {
-		  this.game.addBullet(new Bullet(this.game, this.x + 160, this.y + 80, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet));
+		  this.game.addBullet(new Bullet(this.game, this.x + 62, this.y + 25, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet));
 		}
 	}
 
@@ -140,11 +142,11 @@ class Smol {
 		if (ran === 0) {
 		  this.singleBulletAtlk();
 		} else if (ran === 1) {
-		  this.fourBulletAtk(80);
+		  this.fourBulletAtk(20);
 		} else {
-		  this.eightBulletAtk(80);
+		  this.eightBulletAtk(20);
 		}
-		  this.bulletTimer = this.bulletRate;
+		this.bulletTimer = this.bulletRate;
 		}
 		this.state = "attack"
 	}
@@ -154,34 +156,42 @@ class Smol {
 	*/
 	move() {
 		const TICK = this.game.clockTick;
-		if (getDistance(this.mapX, this.mapY, this.path[0].x * 125 + 62, this.path[0].y * 125 + 62) > 10) {
+		if (this.path && (typeof this.path[0] != 'undefined')) {
+			let distance = getDistance(this.mapX, this.mapY, this.path[0].x * 125 + 62, this.path[0].y * 125 + 62);
+			if (this.distancedMoved >= 125) {
+				this.getPath();
+				this.distancedMoved = 0;
+				return;
+			} else if (distance > 0) {
 				this.state = "run";
 				switch (this.directionToGo) {
 					case 'up':
-					this.facing = "up";
-	  				this.y -= this.moveSpeed * TICK;
-		  			this.mapY -= this.moveSpeed * TICK;
-			  		break;
+						this.facing = "up";
+						this.y -= this.moveSpeed * TICK;
+						this.mapY -= this.moveSpeed * TICK;
+						break;
 					case 'down':
-  					this.facing = "down";
-	  				this.y += this.moveSpeed * TICK;
-		  			this.mapY += this.moveSpeed * TICK;
-			  		break;
+						this.facing = "down";
+						this.y += this.moveSpeed * TICK;
+						this.mapY += this.moveSpeed * TICK;
+						break;
 					case 'left':
-  					this.facing = "left";
-	  				this.x -= this.moveSpeed * TICK;
-		  			this.mapX -= this.moveSpeed * TICK;
-			  		break;
+						this.facing = "left";
+						this.x -= this.moveSpeed * TICK;
+						this.mapX -= this.moveSpeed * TICK;
+						break;
 					case 'right':
-  					this.facing = "right";
-	  				this.x += this.moveSpeed * TICK;
-		  			this.mapX += this.moveSpeed * TICK;
-			  		break;   
+						this.facing = "right";
+						this.x += this.moveSpeed * TICK;
+						this.mapX += this.moveSpeed * TICK;
+						break;
+					case 'none':
+						return;	
 				}
-		} else {
-			if (randomInt(7) % 2 === 0) {
-				this.getPath();
+				this.distancedMoved += this.moveSpeed * TICK;
 			}
+		} else {
+			this.getPath();
 		}
 	}
 
@@ -215,39 +225,28 @@ class Smol {
 
     update() {
 		const TICK = this.game.clockTick
-		
-		
 		if (this.hp <= 0) {
 			this.state = "death";
-			if (this.animations[this.facing + " " + this.state].frame === 16) {
+			if (this.animations[this.facing + " " + this.state].frame === 2) {
 				this.removeFromWorld = true;
 			}
-		 } else if (!(this.x > this.game.ctx.canvas.width || this.x < 0 || this.y > this.game.ctx.canvas.height || this.y < 0) || this.offscreen) {
+		} else {
 			if (this.path && (typeof this.path[0] != 'undefined')) {
-				if (this.path.length > 1) {
-					this.move();
-				} else {
-					if (randomInt(7) % 2 === 0) {
-						this.getPath();
-					}
-				}
-				if (getDistance(this.x, this.y, this.game.player.x + 150, this.game.player.y + 150) < 1000) {
+				if (this.path.length <= 5 && this.distancedMoved === 0) {
 					this.shoot();
+					this.getPath();
+				} else {
+					this.move();
 				}
 			} else {
-				if (randomInt(7) % 2 === 0) {
-					this.getPath();
-				}
-				this.state = "idle"
+				this.getPath();
 			}
-			
 		}
+		
 		if (this.bulletTimer <= this.bulletRate) {
 		  this.bulletTimer-=TICK;
 		}
-	
 		this.updateBB();
-
 		this.x += this.game.camera.x;
 		this.y += this.game.camera.y; 
 	}
@@ -262,21 +261,21 @@ class Smol {
 			else if (this.facing == "right") xOffset = 50, yOffset = -90;
 		} else if (this.state != "death") {
 			if (this.facing == "left") {
-				if (this.state == "idle") xOffset = 50, yOffset = 0;
-				else if (this.state == "run") xOffset = 50, yOffset = -10;
-				else if (this.state == "attack") xOffset = -10, yOffset = -30;
+				if (this.state == "idle") xOffset = 18, yOffset = 0;
+				else if (this.state == "run") xOffset = 18, yOffset = -2;
+				else if (this.state == "attack") xOffset = -1, yOffset = -11;
 			} else if (this.facing == "right") {
-				if (this.state == "idle")  xOffset = 50, yOffset = 0 ;
-				else if (this.state == "run") xOffset = 50, yOffset = -10;
-				else if (this.state == "attack") xOffset = 40, yOffset = -30;
+				if (this.state == "idle")  xOffset = 18, yOffset = 0 ;
+				else if (this.state == "run") xOffset = 18, yOffset = -2;
+				else if (this.state == "attack") xOffset = 11, yOffset = -10;
 			} else if (this.facing == "up") {
 				if (this.state == "idle") xOffset = 0, yOffset = 0;
-				else if (this.state == "run") xOffset = -10, yOffset = -10;
-				else if (this.state == "attack") xOffset = -10, yOffset = -30;
+				else if (this.state == "run") xOffset = -5, yOffset = -3;
+				else if (this.state == "attack") xOffset = -3, yOffset = -10;
 			} else if (this.facing == "down") {
 				if (this.state == "idle") xOffset = 0, yOffset = 0;
-				else if (this.state == "run") xOffset = -10, yOffset = -10;
-				else if (this.state == "attack") xOffset = -20, yOffset = -30;
+				else if (this.state == "run") xOffset = -5, yOffset = -3;
+				else if (this.state == "attack") xOffset = -7, yOffset = -10;
 			}
 		}
 		//fog of war
@@ -300,15 +299,13 @@ class Smol {
 		let y = this.game.entities.player.mapY;
 		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
 			// this.reveal = true;
-		ctx.fillStyle = "Red";
-		ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 10 , 10);
-
-		  }
-		  else{
-			  ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+			ctx.fillStyle = "Red";
+			ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 10 , 10);
+		}
+		else {
+			ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
 		}
 		// if (this.reveal)
 		// ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 10 , 10);
-	
 	  }
 }

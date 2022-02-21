@@ -7,9 +7,6 @@ class BlueMonster {
 		this.leftSprite = ASSET_MANAGER.getAsset("./sprites/enemies/blue_monster/blue_monster_left.png");
 		this.rightSprite = ASSET_MANAGER.getAsset("./sprites/enemies/blue_monster/blue_monster_right.png"); 
 
-		//offset to get be in center of tile
-		this.x += 25;
-		this.y += 25;
 		
 		this.facing = "down"; // can be left, right, up, down
 		this.state = "idle"; // can be idle, run, attack, death
@@ -25,7 +22,7 @@ class BlueMonster {
 		this.updateBB();
 		
 		//offset to get the middle of sprite based on x, y
-		this.midPointOffset = {x: 35, y : 35};
+		this.midPointOffset = {x: 62, y : 62};
 		
 		//info for pathfinding
 		this.mapX = this.x + this.midPointOffset.x;
@@ -57,20 +54,20 @@ class BlueMonster {
 	updateBB() {
 		this.lastBB = this.BB; //body BB
 		if (this.state != "death") { 
-			this.BB = new BoundingBox(this.x, this.y + 4, 73, 61);
+			this.BB = new BoundingBox(this.x + 5, this.y + 4, 110, 100);
 		}
 		if (this.hp <= 0) {
 			this.BB = null;
 		}
 		this.lastAtkBB = this.atkBB; //attack BB
 		if (this.state === "attack" && this.facing === "left" && (this.animations[this.facing + " " + this.state].frame >= 13 && this.animations[this.facing + " " + this.state].frame <= 20)) {
-			this.atkBB = new BoundingBox((this.x - 14), this.y + 20, 14, 45);
+			this.atkBB = new BoundingBox(this.x - 15, this.y + 60, 14, 45);
 		} else if (this.state === "attack" && this.facing === "right" && (this.animations[this.facing + " " + this.state].frame >= 6 && this.animations[this.facing + " " + this.state].frame <= 13)) {
-			this.atkBB = new BoundingBox(this.x + 73, this.y + 20, 14, 45);
+			this.atkBB = new BoundingBox(this.x + 115, this.y + 60, 14, 45);
 		} else if (this.state === "attack" && this.facing === "up" && (this.animations[this.facing + " " + this.state].frame >= 13 && this.animations[this.facing + " " + this.state].frame <= 20)) {
-			this.atkBB = new BoundingBox(this.x + 14, this.y + 5, 45, 30);
+			this.atkBB = new BoundingBox(this.x + 27, this.y, 55, 25);
 		} else if (this.state === "attack" && this.facing === "down" && (this.animations[this.facing + " " + this.state].frame >= 13 && this.animations[this.facing + " " + this.state].frame <= 20)) {
-			this.atkBB = new BoundingBox(this.x + 14, this.y + 35, 45, 30);
+			this.atkBB = new BoundingBox(this.x + 27, this.y + 95, 55, 25);
 		} else {
 			this.atkBB = null;
 		}
@@ -80,7 +77,7 @@ class BlueMonster {
 	* calculates direction monster needs to face to attack player
 	*/
 	calculatedDirection() {
-		let player = {x: this.game.player.x - this.x + this.midPointOffset.x, y : this.game.player.y - this.y + this.midPointOffset.y};
+		let player = {x: this.game.player.feetBB.x - (this.x + this.midPointOffset.x), y : this.game.player.feetBB.y - (this.y + this.midPointOffset.y)};
 		let monster = {x: 0, y : 0};
 		if ((player.x < monster.x) && (player.y < (-1) * player.x) && (player.y > player.x)) { //left
 			this.facing = "left"
@@ -175,9 +172,7 @@ class BlueMonster {
 				} else {
 					this.getPath();
 				}
-			}
-			//console.log(PARAMS.GODMODE);
-			
+			}			
 			if (this.atkBB && PARAMS.GODMODE === false) {
 				if (this.attackTimer <= 0) {
 					if (this.atkBB.collide(this.game.player.BB)) {
@@ -187,6 +182,7 @@ class BlueMonster {
 				}
 			}
 		}
+
 		if (this.attackTimer > 0) {
 			this.attackTimer-= this.game.clockTick;
 		}
@@ -227,7 +223,7 @@ class BlueMonster {
 				xOffset = -17;
 				yOffset = -7;
 			} else {
-				xOffset = -2;
+				xOffset = -15;
 				yOffset = -7;
 			}
 		} else if (this.state === "run" ) {

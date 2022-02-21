@@ -77,7 +77,7 @@ class SceneManager {
 			} 
 			if (level.red_monsters) {
 				for (let i = 0; i < level.red_monsters[0].length; i ++) {
-					this.game.addEnemy(new RedMonster(this.game, level.red_monsters[0][i] * 125, level.red_monsters[1][i] * 125, level.red_monsters[2][i]));
+					this.game.addEnemy(new RedMonster(this.game, level.red_monsters[0][i] * 125 - 39, level.red_monsters[1][i] * 125 - 1, level.red_monsters[2][i]));
 				}
 			} 
 			if (level.green_monsters) {
@@ -87,17 +87,12 @@ class SceneManager {
 			}
 			if (level.blue_monsters) {
 				for (let i = 0; i < level.blue_monsters[0].length; i ++) {
-					this.game.addEnemy(new BlueMonster(this.game, level.blue_monsters[0][i] * 125, level.blue_monsters[1][i] * 125, level.blue_monsters[2][i]));
-				}
-			}
-			if (level.blue_monsters) {
-				for (let i = 0; i < level.blue_monsters[0].length; i ++) {
-					this.game.addEnemy(new BlueMonster(this.game, level.blue_monsters[0][i] * 125, level.blue_monsters[1][i] * 125, level.blue_monsters[2][i]));
+					this.game.addEnemy(new BlueMonster(this.game, level.blue_monsters[0][i] * 125 + 2, level.blue_monsters[1][i] * 125 + 5, level.blue_monsters[2][i]));
 				}
 			}
 			if (level.smols) {
 				for (let i = 0; i < level.smols.length; i++) {
-					this.game.addEnemy(new Smol(this.game, level.smols[i].x * 125 - 55, level.smols[i].y * 125 - 85));
+					this.game.addEnemy(new Smol(this.game, level.smols[i].x * 125 + 22, level.smols[i].y * 125 + 30));
 				}
 			}
 			if (level.gears) {
