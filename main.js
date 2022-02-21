@@ -134,6 +134,10 @@ ASSET_MANAGER.queueDownload("./music/click sound.wav");
 ASSET_MANAGER.queueDownload("./music/player death sound 200.mp3");
 ASSET_MANAGER.queueDownload("./music/flying monster death sound 200.wav");
 ASSET_MANAGER.queueDownload("./music/weapon_powerup.mp3");
+ASSET_MANAGER.queueDownload("./music/health.mp3");
+ASSET_MANAGER.queueDownload("./music/spikes.mp3");
+ASSET_MANAGER.queueDownload("./music/slime.wav");
+ASSET_MANAGER.queueDownload("./music/boss.wav");
 
 // background images
 ASSET_MANAGER.queueDownload("./images/title.png");

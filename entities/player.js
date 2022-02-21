@@ -131,18 +131,20 @@ class Player {
 		}
 
     if (this.checkSlowTrap()){
-      if (this.getTrap == false){
-        this.hp=this.hp-this.trap.damage;
-        if (this.hp == 0)
-          this.hp=0;
-      }
-      if (this.trap.trap_type == "thorn")
-        this.moveMultiplyer = 0.2;
-      this.getTrap = true;
+      	if (this.getTrap == false){
+        	this.hp=this.hp - this.trap.damage;
+			
+        	if (this.hp == 0) {
+				this.hp=0;
+			}
+      	}
+      	if (this.trap.trap_type == "thorn")
+        	this.moveMultiplyer = 0.2;
+      		this.getTrap = true;
     }
-    else{
-      this.moveMultiplyer = 1;
-      this.getTrap = false;
+    else {
+		this.moveMultiplyer = 1;
+		this.getTrap = false;
     }
 
     if (this.hp <= 0) {
@@ -269,9 +271,10 @@ class Player {
 
 		this.game.entities.powerups.forEach(function (entity) {
 			if (entity.BB && that.feetBB.collide(entity.BB)) {
-				if (entity instanceof Powerup) {
+				if (entity instanceof Powerup && entity.powerup === "healthpack") {
 					entity.removeFromWorld = true;
 					that.hp = 100;
+					ASSET_MANAGER.playAsset("./music/health.mp3");
 				}
 			}
 		});
