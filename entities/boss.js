@@ -54,25 +54,25 @@ class Boss {
 		this.downAttackSprite 	= ASSET_MANAGER.getAsset("./sprites/enemies/boss/boss down/boss down attack.png");
 		this.downDeathSprite 	= ASSET_MANAGER.getAsset("./sprites/enemies/boss/boss down/boss down death.png");
 
-		this.animations["left idle"] 	= new Animator(this.leftIdleSprite, 0, 0, 403, 603, 36, 0.04, 0, false, true);
-		this.animations["left run"] 	= new Animator(this.leftRunSprite, 0, 0, 405, 659, 20, 0.03, 0, false, true);
-		this.animations["left attack"] 	= new Animator(this.leftAttackSprite, 0, 0, 657, 711, 25, 0.04, 0, false, true);
-		this.animations["left death"] 	= new Animator(this.leftDeathSprite, 0, 0, 489, 925, 17, 0.05, 0, false, false); // change loop to false
+		this.animations["left idle"] 	= new Animator(this.leftIdleSprite, 0.0, 0.0, 120.9, 180.9, 36, 0.04, 0.0, false, true);
+		this.animations["left run"] 	= new Animator(this.leftRunSprite, 0.0, 0.0, 121.5, 197.7, 20, 0.03, 0.0, false, true);
+		this.animations["left attack"] 	= new Animator(this.leftAttackSprite, 0.0, 0.0, 197.1, 213.3, 25, 0.04, 0.0, false, true);
+		this.animations["left death"] 	= new Animator(this.leftDeathSprite, 0.0, 0.0, 146.7, 277.5, 17, 0.05, 0.0, false, false);
 
-		this.animations["right idle"] 	= new Animator(this.rightIdleSprite, 0, 0, 403, 603, 36, 0.04, 0, false, true);
-		this.animations["right run"] 	= new Animator(this.rightRunSprite, 0, 0, 405, 659, 20, 0.03, 0, false, true);
-		this.animations["right attack"] = new Animator(this.rightAttackSprite, 0, 0, 657, 711, 25, 0.04, 0, true, true);
-		this.animations["right death"] 	= new Animator(this.rightDeathSprite, 0, 0, 489, 925, 17, 0.05, 0, true, false); // change loop to false
+		this.animations["right idle"] 	= new Animator(this.rightIdleSprite, 0.0, 0.0, 120.9, 180.9, 36, 0.04, 0.0, false, true);
+		this.animations["right run"] 	= new Animator(this.rightRunSprite, 0.0, 0.0, 121.5, 197.7, 20, 0.03, 0.0, false, true);
+		this.animations["right attack"] = new Animator(this.rightAttackSprite, 0.0, 0.0, 197.1, 213.3, 25, 0.04, 0.0, true, true);
+		this.animations["right death"] 	= new Animator(this.rightDeathSprite, 0.0, 0.0, 146.7, 277.5, 17, 0.05, 0.0, true, false);
 
-		this.animations["up idle"] 		= new Animator(this.upIdleSprite, 0, 0, 753, 640, 36, 0.04, 0, false, true);
-		this.animations["up run"] 		= new Animator(this.upRunSprite, 0, 0, 847, 671, 20, 0.03, 0, false, true);
-		this.animations["up attack"] 	= new Animator(this.upAttackSprite, 0, 0, 821, 746, 25, 0.04, 0, false, true);
-		this.animations["up death"] 	= new Animator(this.upDeathSprite, 0, 0, 835, 980, 17, 0.05, 0, false, false); // change loop to false
+		this.animations["up idle"] 		= new Animator(this.upIdleSprite, 0.0, 0.0, 225.9, 192.0, 36, 0.04, 0.0, false, true);
+		this.animations["up run"] 		= new Animator(this.upRunSprite, 0.0, 0.0, 254.1, 201.3, 20, 0.03, 0.0, false, true);
+		this.animations["up attack"] 	= new Animator(this.upAttackSprite, 0.0, 0.0, 246.3, 223.8, 25, 0.04, 0.0, false, true);
+		this.animations["up death"] 	= new Animator(this.upDeathSprite, 0.0, 0.0, 250.5, 294.0, 17, 0.05, 0.0, false, false);
 
-		this.animations["down idle"] 	= new Animator(this.downIdleSprite, 0, 0, 754, 628, 36, 0.04, 0, false, true);
-		this.animations["down run"] 	= new Animator(this.downRunSprite, 0, 0, 845, 657, 20, 0.03, 0, false, true);
-		this.animations["down attack"] 	= new Animator(this.downAttackSprite, 0, 0, 894, 728, 25, 0.04, 0, false, true);
-		this.animations["down death"] 	= new Animator(this.downDeathSprite, 0, 0, 873, 970, 17, 0.05, 0, false, false); // change loop to false
+		this.animations["down idle"] 	= new Animator(this.downIdleSprite, 0.0, 0.0, 226.2, 188.4, 36, 0.04, 0.0, false, true);
+		this.animations["down run"] 	= new Animator(this.downRunSprite, 0.0, 0.0, 253.5, 197.1, 20, 0.03, 0.0, false, true);
+		this.animations["down attack"] 	= new Animator(this.downAttackSprite, 0.0, 0.0, 268.2, 218.4, 25, 0.04, 0.0, false, true);
+		this.animations["down death"] 	= new Animator(this.downDeathSprite, 0.0, 0.0, 261.9, 291.0, 17, 0.05, 0.0, false, false);
 	}
 
 	updateBB() {
@@ -300,10 +300,10 @@ class Boss {
 			let x = this.game.entities.player.mapX;
 			let y = this.game.entities.player.mapY;
 			if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, 500)){
-				this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x + xOffset, this.y + yOffset, 0.3);
+				this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x + xOffset, this.y + yOffset, 1);
 			}
 		} else {
-			this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x + xOffset, this.y + yOffset, 0.3);
+			this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x + xOffset, this.y + yOffset, 1);
 		}
 		if (PARAMS.DEBUG && this.BB) {
 			ctx.strokeStyle = 'Red';
