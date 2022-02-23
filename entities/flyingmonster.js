@@ -38,12 +38,12 @@ class FlyingMonster {
 		this.animations["left idle"] = new Animator(this.leftSprite, 0, 0, 73.2, 107.4, 29, 0.05, 0, false, true);
 		this.animations["left run"] = new Animator(this.leftSprite, 0, 107.4, 74.4, 84.3, 13, 0.03, 0, false, true);
 		this.animations["left attack"] = new Animator(this.leftSprite, 0, 191.7, 87.6, 117, 25, 0.03, 0, false, true);
-		this.animations["left death"] = new Animator(this.leftSprite, 0, 444, 91.5, 151.1, 20, 0.05, 5, false, false);
+		this.animations["left death"] = new Animator(this.leftSprite, 0, 444, 90.5, 151.1, 20, 0.05, 2.5, false, false);
 		this.animations["right idle"] = new Animator(this.rightSprite, 0, 0, 73.2, 107.4, 29, 0.05, 0, false, true);
 		this.animations["right run"] = new Animator(this.rightSprite, 0, 107.4, 74.4, 84.3, 13, 0.03, 0, false, true);
 		this.animations["right attack"] = new Animator(this.rightSprite, 0, 191.7, 87.6, 117, 25, 0.03, 0, false, true);
-		
-		this.animations["right death"] = new Animator(this.rightDeathSprite, 0, 0, 91.5, 151.1, 20, 0.05, 5, false, false);
+
+		this.animations["right death"] = new Animator(this.rightDeathSprite, 0, 0, 90.5, 151.1, 20, 0.05, 2.5, false, false);
 		
 		this.animations["up idle"] = new Animator(this.upSprite, 0, 0, 120.3, 112.2, 29, 0.05, 0, false, true);
 		this.animations["up run"] = new Animator(this.upSprite, 0, 112.2, 120.3, 109.8, 13, 0.03, 0, false, true);
@@ -51,8 +51,8 @@ class FlyingMonster {
 		this.animations["up death"] = new Animator(this.upSprite, 0, 442.5, 154.8, 150, 20, 0.05, 0, false, false);
 		this.animations["down idle"] = new Animator(this.downSprite, 0, 0, 121.5, 108.6, 29, 0.05, 0, false, true);
 		this.animations["down run"] = new Animator(this.downSprite, 0, 108.6, 120.6, 111.6, 13, 0.03, 0, false, true);
-		this.animations["down attack"] = new Animator(this.downSprite, 0, 220.2, 132, 109.8, 25, 0.03, 8, false, true);
-		this.animations["down death"] = new Animator(this.downSprite, 0, 442.5, 141, 153.3, 20, 0.05, 42, false, false);
+		this.animations["down attack"] = new Animator(this.downSprite, 0, 220.2, 128, 109.8, 25, 0.03, 6.4, false, true);
+		this.animations["down death"] = new Animator(this.downSprite, 0, 442.5, 137, 153.3, 20, 0.05, 16.6, false, false);
 	}
 	
 	updateBB() {
