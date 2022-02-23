@@ -124,10 +124,10 @@ const aStarPath = (start, end, map, game) => {
 const isWalkable1 = (point, myMap, game) => {
     let valid = false;
     if (point.y < 0 || point.y > myMap.length - 1) {
-        //return false;
+        return false;
     }
     if (point.x < 0 || point.y > myMap[0].length - 1) {
-        //return false;
+        return false;
     }
     let doors = game.camera.level.doors;
     for (let i = 0; i < doors.length; i++) {
