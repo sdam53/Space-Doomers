@@ -33,24 +33,22 @@ class RedMonster {
 	}
 	
 	loadAnimations() {
-		this.animations["left idle"] = new Animator(this.leftSprite, 0, 0, 244, 358, 29, 0.05, 0, false, true);
-		this.animations["left run"] = new Animator(this.leftSprite, 0, 358, 248, 281, 13, 0.03, 0, false, true);
-		this.animations["left attack"] = new Animator(this.leftSprite, 0, 639, 292, 390, 25, 0.03, 0, false, true);
-		this.animations["left death"] = new Animator(this.leftSprite, 0, 1480, 305, 517, 20, 0.05, 5, false, false);
-		this.animations["right idle"] = new Animator(this.rightSprite, 0, 0, 244, 358, 29, 0.05, 0, false, true);
-		this.animations["right run"] = new Animator(this.rightSprite, 0, 358, 248, 281, 13, 0.03, 0, false, true);
-		this.animations["right attack"] = new Animator(this.rightSprite, 0, 639, 292, 390, 25, 0.03, 0, false, true);
-		
-		this.animations["right death"] = new Animator(this.rightDeathSprite, 0, 0, 305, 517, 20, 0.05, 5, false, false);
-		
-		this.animations["up idle"] = new Animator(this.upSprite, 0, 0, 401, 374, 29, 0.05, 0, false, true);
-		this.animations["up run"] = new Animator(this.upSprite, 0, 374, 401, 366, 13, 0.03, 0, false, true);
-		this.animations["up attack"] = new Animator(this.upSprite, 0, 740, 449, 387, 25, 0.03, 0, false, true);
-		this.animations["up death"] = new Animator(this.upSprite, 0, 1475, 516, 500, 20, 0.05, 0, false, false);
-		this.animations["down idle"] = new Animator(this.downSprite, 0, 0, 405, 362, 29, 0.05, 0, false, true);
-		this.animations["down run"] = new Animator(this.downSprite, 0, 362, 402, 372, 13, 0.03, 0, false, true);
-		this.animations["down attack"] = new Animator(this.downSprite, 0, 734, 440, 366, 25, 0.03, 8, false, true);
-		this.animations["down death"] = new Animator(this.downSprite, 0, 1475, 470, 511, 20, 0.05, 42, false, false);
+		this.animations["left idle"] = new Animator(this.leftSprite, 0.0, 0.0, 122.0, 179.0, 29, 0.05, 0.0, false, true);
+		this.animations["left run"] = new Animator(this.leftSprite, 0.0, 179.0, 124.0, 140.5, 13, 0.03, 0.0, false, true);
+		this.animations["left attack"] = new Animator(this.leftSprite, 0.0, 319.5, 146.0, 195.0, 25, 0.03, 0.0, false, true);
+		this.animations["left death"] = new Animator(this.leftSprite, 0.0, 740.0, 152.5, 258.5, 20, 0.05, 2.5, false, false);
+		this.animations["right idle"] = new Animator(this.rightSprite, 0.0, 0.0, 122.0, 179.0, 29, 0.05, 0.0, false, true);
+		this.animations["right run"] = new Animator(this.rightSprite, 0.0, 179.0, 124.0, 140.5, 13, 0.03, 0.0, false, true);
+		this.animations["right attack"] = new Animator(this.rightSprite, 0.0, 319.5, 146.0, 195.0, 25, 0.03, 0.0, false, true);
+		this.animations["right death"] = new Animator(this.rightDeathSprite, 0.0, 0.0, 152.5, 258.5, 20, 0.05, 2.5, false, false);
+		this.animations["up idle"] = new Animator(this.upSprite, 0.0, 0.0, 200.5, 187.0, 29, 0.05, 0.0, false, true);
+		this.animations["up run"] = new Animator(this.upSprite, 0.0, 187.0, 200.5, 183.0, 13, 0.03, 0.0, false, true);
+		this.animations["up attack"] = new Animator(this.upSprite, 0.0, 370.0, 224.5, 193.5, 25, 0.03, 0.0, false, true);
+		this.animations["up death"] = new Animator(this.upSprite, 0.0, 737.5, 258.0, 250.0, 20, 0.05, 0.0, false, false);
+		this.animations["down idle"] = new Animator(this.downSprite, 0.0, 0.0, 202.5, 181.0, 29, 0.05, 0.0, false, true);
+		this.animations["down run"] = new Animator(this.downSprite, 0.0, 181.0, 201.0, 186.0, 13, 0.03, 0.0, false, true);
+		this.animations["down attack"] = new Animator(this.downSprite, 0.0, 367.0, 210.0, 183.0, 25, 0.03, 14.0, false, true);
+		this.animations["down death"] = new Animator(this.downSprite, 0.0, 737.5, 235.0, 255.5, 20, 0.05, 21.0, false, false);
 	}
 	
 	updateBB() {
@@ -92,7 +90,7 @@ class RedMonster {
 	//then compares x or y values then to the functions f(x) and f(-x)
 	//should maybe use player offsets for mindpoint
 	calculatedDirection() {
-		let player = {x: this.game.player.x - this.x + 101, y : this.game.player.y - this.y + 63};
+		let player = {x: this.game.player.x - this.x + 101 - 39, y : this.game.player.y - this.y + 63};
 		let monster = {x: 0, y : 0};
 		if ((player.x < monster.x) && (player.y < (-1) * player.x) && (player.y > player.x)) { //left
 			this.facing = "left"
@@ -103,6 +101,7 @@ class RedMonster {
 		} else if ((player.y < monster.y) && (player.y < (-1) * player.x) && (player.y < player.x)) {
 			this.facing = "up";
 		}
+		
 	}
 	
 	/**
@@ -191,7 +190,7 @@ class RedMonster {
 			}
 		} else if (this.path && (typeof this.path[0] != 'undefined')) {
 			if (this.path.length > 1) {
-						this.move();
+						//this.move();
 			} else {
 				if (randomInt(7) % 2 === 0) {
 					this.getPath();
@@ -290,10 +289,10 @@ class RedMonster {
 			let x = this.game.entities.player.mapX;
 			let y = this.game.entities.player.mapY;
 			if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
-				this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + xOffset, this.y + yOffset, .5);
+				this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + xOffset, this.y + yOffset, 1);
 			}	
 		} else {
-			this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + xOffset, this.y + yOffset, .5);
+			this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + xOffset, this.y + yOffset, 1);
 		}
 		if (PARAMS.DEBUG && this.BB) {
 			ctx.strokeStyle = 'Red';
