@@ -190,7 +190,7 @@ class RedMonster {
 			}
 		} else if (this.path && (typeof this.path[0] != 'undefined')) {
 			if (this.path.length > 1) {
-						//this.move();
+						this.move();
 			} else {
 				if (randomInt(7) % 2 === 0) {
 					this.getPath();
