@@ -90,7 +90,7 @@ class RedMonster {
 	//then compares x or y values then to the functions f(x) and f(-x)
 	//should maybe use player offsets for mindpoint
 	calculatedDirection() {
-		let player = {x: this.game.player.x - this.x + 101 - 39, y : this.game.player.y - this.y + 63};
+		let player = {x: this.game.player.x - this.x + 101 - 69, y : this.game.player.y - this.y + 63};
 		let monster = {x: 0, y : 0};
 		if ((player.x < monster.x) && (player.y < (-1) * player.x) && (player.y > player.x)) { //left
 			this.facing = "left"
