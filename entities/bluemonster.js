@@ -33,22 +33,22 @@ class BlueMonster {
 	}
 	
 	loadAnimations() {
-		this.animations["left idle"] = new Animator(this.leftSprite, 0, 0, 244, 247, 107, 0.05, 0, false, true);
-		this.animations["left run"] = new Animator(this.leftSprite, 0, 247, 276, 273, 31, 0.03, 0, false, true);
-		this.animations["left attack"] = new Animator(this.leftSprite, 0, 520, 309, 271, 28, 0.03, 0, false, true);
-		this.animations["left death"] = new Animator(this.leftSprite, 0, 791, 333, 324, 3, 0.1, 0, false, false);
-		this.animations["right idle"] = new Animator(this.rightSprite, 0, 0, 244, 247, 107, 0.05, 0, false, true);
-		this.animations["right run"] = new Animator(this.rightSprite, 0, 247, 276, 273, 31, 0.03, 0, false, true);
-		this.animations["right attack"] = new Animator(this.rightSprite, 0, 520, 309, 271, 28, 0.03, 0, false, true);
-		this.animations["right death"] = new Animator(this.rightSprite, 0, 791, 333, 324, 3, 0.1, 0, false, false);
-		this.animations["up idle"] = new Animator(this.upSprite, 0, 0, 243, 247, 36, 0.05, 0, false, true);
-		this.animations["up run"] = new Animator(this.upSprite, 0, 247, 276, 268, 31, 0.03, 0, false, true);
-		this.animations["up attack"] = new Animator(this.upSprite, 0, 515, 254, 258, 28, 0.03, 0, false, true);
-		this.animations["up death"] = new Animator(this.upSprite, 0, 787, 318, 310, 3, 0.1, 0, false, false);
-		this.animations["down idle"] = new Animator(this.downSprite, 0, 0, 242, 247, 107, 0.05, 0, false, true);
-		this.animations["down run"] = new Animator(this.downSprite, 0, 247, 276, 267, 30, 0.03, 0, false, true);
-		this.animations["down attack"] = new Animator(this.downSprite, 0, 514, 265, 267, 28, 0.03, 0, false, true);
-		this.animations["down death"] = new Animator(this.downSprite, 0, 781, 318, 309, 3, 0.1, 0, false, false);
+		this.animations["left idle"] = new Animator(this.leftSprite, 0.0, 0.0, 122.0, 123.5, 107, 0.05, 0.0, false, true);
+		this.animations["left run"] = new Animator(this.leftSprite, 0.0, 123.5, 138.0, 136.5, 31, 0.03, 0.0, false, true);
+		this.animations["left attack"] = new Animator(this.leftSprite, 0.0, 260.0, 154.5, 135.5, 28, 0.03, 0.0, false, true);
+		this.animations["left death"] = new Animator(this.leftSprite, 0.0, 395.5, 166.5, 162.0, 3, 0.1, 0.0, false, false);
+		this.animations["right idle"] = new Animator(this.rightSprite, 0.0, 0.0, 122.0, 123.5, 107, 0.05, 0.0, false, true);
+		this.animations["right run"] = new Animator(this.rightSprite, 0.0, 123.5, 138.0, 136.5, 31, 0.03, 0.0, false, true);
+		this.animations["right attack"] = new Animator(this.rightSprite, 0.0, 260.0, 154.5, 135.5, 28, 0.03, 0.0, false, true);
+		this.animations["right death"] = new Animator(this.rightSprite, 0.0, 395.5, 166.5, 162.0, 3, 0.1, 0.0, false, false);
+		this.animations["up idle"] = new Animator(this.upSprite, 0.0, 0.0, 121.5, 123.5, 36, 0.05, 0.0, false, true);
+		this.animations["up run"] = new Animator(this.upSprite, 0.0, 123.5, 138.0, 134.0, 31, 0.03, 0.0, false, true);
+		this.animations["up attack"] = new Animator(this.upSprite, 0.0, 257.5, 127.0, 129.0, 28, 0.03, 0.0, false, true);
+		this.animations["up death"] = new Animator(this.upSprite, 0.0, 393.5, 159.0, 155.0, 3, 0.1, 0.0, false, false);
+		this.animations["down idle"] = new Animator(this.downSprite, 0.0, 0.0, 121.0, 123.5, 107, 0.05, 0.0, false, true);
+		this.animations["down run"] = new Animator(this.downSprite, 0.0, 123.5, 138.0, 133.5, 30, 0.03, 0.0, false, true);
+		this.animations["down attack"] = new Animator(this.downSprite, 0.0, 257.0, 132.5, 133.5, 28, 0.03, 0.0, false, true);
+		this.animations["down death"] = new Animator(this.downSprite, 0.0, 390.5, 159.0, 154.5, 3, 0.1, 0.0, false, false);
 	}
 	
 	updateBB() {
@@ -254,10 +254,10 @@ class BlueMonster {
 			let x = this.game.entities.player.mapX;
 			let y = this.game.entities.player.mapY;
 			if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
-				this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x + xOffset, this.y + yOffset, 0.5);
+				this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x + xOffset, this.y + yOffset, 1);
 			}
 		} else {
-			this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x + xOffset, this.y + yOffset, 0.5);
+			this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x + xOffset, this.y + yOffset, 1);
 
 		}
 		if (PARAMS.DEBUG && this.BB) {
