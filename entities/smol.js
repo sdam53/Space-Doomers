@@ -51,37 +51,41 @@ class Smol {
 		this.downAttackSprite 	= ASSET_MANAGER.getAsset("./sprites/enemies/smol/smol down/smol down attack.png");
 		this.downDeathSprite 	= ASSET_MANAGER.getAsset("./sprites/enemies/smol/smol down/smol down death.png");
 
-		this.animations["left idle"] 	= new Animator(this.leftIdleSprite, 0, 0, 403, 603, 36, 0.04, 0, false, true);
-		this.animations["left run"] 	= new Animator(this.leftRunSprite, 0, 0, 405, 659, 20, 0.03, 0, false, true);
-		this.animations["left attack"] 	= new Animator(this.leftAttackSprite, 0, 0, 657, 711, 25, 0.04, 0, false, true);
-		this.animations["left death"] 	= new Animator(this.leftDeathSprite, 0, 0, 489, 925, 17, 0.05, 0, false, false); // change loop to false
+		this.animations["left idle"] 	= new Animator(this.leftIdleSprite, 0.0, 0.0, 40.3, 60.3, 36, 0.04, 0.0, false, true);
+		this.animations["left run"] 	= new Animator(this.leftRunSprite, 0.0, 0.0, 40.5, 65.9, 20, 0.03, 0.0, false, true);
+		this.animations["left attack"] 	= new Animator(this.leftAttackSprite, 0.0, 0.0, 65.7, 71.1, 25, 0.04, 0.0, false, true);
 
-		this.animations["right idle"] 	= new Animator(this.rightIdleSprite, 0, 0, 403, 603, 36, 0.04, 0, false, true);
-		this.animations["right run"] 	= new Animator(this.rightRunSprite, 0, 0, 405, 659, 20, 0.03, 0, false, true);
-		this.animations["right attack"] = new Animator(this.rightAttackSprite, 0, 0, 657, 711, 25, 0.04, 0, true, true);
-		this.animations["right death"] 	= new Animator(this.rightDeathSprite, 0, 0, 489, 925, 17, 0.05, 0, true, false); // change loop to false
+		this.animations["left death"] 	= new Animator(this.leftDeathSprite, 0.0, 0.0, 48.9, 92.5, 17, 0.05, 0.0, false, false);/////////
 
-		this.animations["up idle"] 		= new Animator(this.upIdleSprite, 0, 0, 753, 640, 36, 0.04, 0, false, true);
-		this.animations["up run"] 		= new Animator(this.upRunSprite, 0, 0, 847, 671, 20, 0.03, 0, false, true);
-		this.animations["up attack"] 	= new Animator(this.upAttackSprite, 0, 0, 821, 746, 25, 0.04, 0, false, true);
-		this.animations["up death"] 	= new Animator(this.upDeathSprite, 0, 0, 835, 980, 17, 0.05, 0, false, false); // change loop to false
+		this.animations["right idle"] 	= new Animator(this.rightIdleSprite, 0.0, 0.0, 40.3, 60.3, 36, 0.04, 0.0, false, true);
+		this.animations["right run"] 	= new Animator(this.rightRunSprite, 0.0, 0.0, 40.5, 65.9, 20, 0.03, 0.0, false, true);
+		this.animations["right attack"] = new Animator(this.rightAttackSprite, 0.0, 0.0, 65.7, 71.1, 25, 0.04, 0.0, true, true);
 
-		this.animations["down idle"] 	= new Animator(this.downIdleSprite, 0, 0, 754, 628, 36, 0.04, 0, false, true);
-		this.animations["down run"] 	= new Animator(this.downRunSprite, 0, 0, 845, 657, 20, 0.03, 0, false, true);
-		this.animations["down attack"] 	= new Animator(this.downAttackSprite, 0, 0, 894, 728, 25, 0.04, 0, false, true);
-		this.animations["down death"] 	= new Animator(this.downDeathSprite, 0, 0, 873, 970, 17, 0.05, 0, false, false); // change loop to false
+		this.animations["right death"] 	= new Animator(this.rightDeathSprite, 0.0, 0.0, 48.9, 92.5, 17, 0.05, 0.0, true, false);//////////
+
+		this.animations["up idle"] 		= new Animator(this.upIdleSprite, 0.0, 0.0, 75.3, 64.0, 36, 0.04, 0.0, false, true);
+		this.animations["up run"] 		= new Animator(this.upRunSprite, 0.0, 0.0, 84.7, 67.1, 20, 0.03, 0.0, false, true);
+		this.animations["up attack"] 	= new Animator(this.upAttackSprite, 0.0, 0.0, 82.1, 74.6, 25, 0.04, 0.0, false, true);
+
+		this.animations["up death"] 	= new Animator(this.upDeathSprite, 0.0, 0.0, 83.5, 98.0, 17, 0.05, 0.0, false, false);////////
+
+		this.animations["down idle"] 	= new Animator(this.downIdleSprite, 0.0, 0.0, 75.4, 62.8, 36, 0.04, 0.0, false, true);
+		this.animations["down run"] 	= new Animator(this.downRunSprite, 0.0, 0.0, 84.5, 65.7, 20, 0.03, 0.0, false, true);
+		this.animations["down attack"] 	= new Animator(this.downAttackSprite, 0.0, 0.0, 89.4, 72.8, 25, 0.04, 0.0, false, true);
+
+		this.animations["down death"] 	= new Animator(this.downDeathSprite, 0.0, 0.0, 87.3, 97.0, 17, 0.05, 0.0, false, false);/////////
 	}
 
 	updateBB() {
 		this.lastBB = this.BB;
 		if (this.facing === "down") {
-			this.BB = new BoundingBox(this.x + 15, this.y + 10, 40, 50);
+			this.BB = new BoundingBox(this.x + 16, this.y + 10, 44, 44);
 		} else if (this.facing === "up") {
-			this.BB = new BoundingBox(this.x + 55, this.y + 35, 115, 115);
+			this.BB = new BoundingBox(this.x + 16, this.y + 10, 44, 44);
 		} else if (this.facing === "left") {
-			this.BB = new BoundingBox(this.x + 60, this.y + 35, 100, 115);
+			this.BB = new BoundingBox(this.x + 20, this.y + 10, 35, 45);
 		} else if (this.facing === "right") {
-			this.BB = new BoundingBox(this.x + 60, this.y + 35, 100, 115);
+			this.BB = new BoundingBox(this.x + 20, this.y + 10, 35, 45);
 		}
 	}
 
@@ -227,7 +231,7 @@ class Smol {
 		const TICK = this.game.clockTick
 		if (this.hp <= 0) {
 			this.state = "death";
-			if (this.animations[this.facing + " " + this.state].frame === 2) {
+			if (this.animations[this.facing + " " + this.state].frame === 16) {
 				this.removeFromWorld = true;
 			}
 		} else {
@@ -255,10 +259,10 @@ class Smol {
 		let xOffset, yOffset;
 
 		if (this.state == "death") {
-			if (this.facing == "up") xOffset = -15, yOffset = -100;
-			else if (this.facing == "down") xOffset = -15, yOffset = -100;
-			else if (this.facing == "left") xOffset = 35, yOffset = -90;
-			else if (this.facing == "right") xOffset = 50, yOffset = -90;
+			if (this.facing == "up") xOffset = -4, yOffset = -30;
+			else if (this.facing == "down") xOffset = -4, yOffset = -30
+			else if (this.facing == "left") xOffset = 12, yOffset = -30;
+			else if (this.facing == "right") xOffset = 14, yOffset = -30;
 		} else if (this.state != "death") {
 			if (this.facing == "left") {
 				if (this.state == "idle") xOffset = 18, yOffset = 0;
@@ -283,10 +287,10 @@ class Smol {
 			let x = this.game.entities.player.mapX;
 			let y = this.game.entities.player.mapY;
 			if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
-				this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x + xOffset, this.y + yOffset, 0.1);
+				this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x + xOffset, this.y + yOffset, 1);
 			}
 		} else {
-			this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x + xOffset, this.y + yOffset, 0.1);
+			this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x + xOffset, this.y + yOffset, 1);
 		}
 		if (PARAMS.DEBUG && this.BB) {
 			ctx.strokeStyle = 'Red';
