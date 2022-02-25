@@ -9,15 +9,14 @@ class WallTrap {
      * @param {*} y y location
      * @param {*} direction direction of bullets
      */
-	constructor(game, x, y, direction) {
-		Object.assign(this, {game, x, y, direction});
+	constructor(game, x, y, direction, bulletRate) {
+		Object.assign(this, {game, x, y, direction, bulletRate});
 		//this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tiles/x wall.png");
 		//will work on sprites later
         this.bullet = ASSET_MANAGER.getAsset("./sprites/enemies/flying_monster/flying_monster_bullet.png");
         //this.updateBB();
         this.radius = 85;
         this.bulletSpeed = 300;
-		this.bulletRate = 1.2;
 		this.bulletTimer = 0;
 		this.bulletSize = 30;
 		
@@ -32,16 +31,16 @@ class WallTrap {
         if (this.bulletTimer <= 0) {
             switch (this.direction) {
                 case "left":
-                    this.game.addBullet(new Bullet(this.game, this.x + 47.5 + this.radius * cos(PI), this.y + 47.5 + this.radius * sin(PI), this.x + 47.5 + 2 * this.radius * cos(PI) , this.y + 47.5 + 2 * this.radius * sin(PI), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //left
+                    this.game.addBullet(new Bullet(this.game, this.x + 47.5 + this.radius * cos(PI), this.y + 47.5 + this.radius * sin(PI), this.x + 47.5 + 2 * this.radius * cos(PI) , this.y + 47.5 + 2 * this.radius * sin(PI), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //left
                     break;
                 case "right":
-                    this.game.addBullet(new Bullet(this.game, this.x + 47.5 + this.radius * cos(0), this.y + 47.5 + this.radius * sin(0), this.x + 47.5 + 2 * this.radius * cos(0) , this.y + 47.5 + 2 * this.radius * sin(0), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //right
+                    this.game.addBullet(new Bullet(this.game, this.x + 47.5 + this.radius * cos(0), this.y + 47.5 + this.radius * sin(0), this.x + 47.5 + 2 * this.radius * cos(0) , this.y + 47.5 + 2 * this.radius * sin(0), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //right
                     break;
                 case "up":
-                    this.game.addBullet(new Bullet(this.game, this.x + 47.5 + this.radius * cos(3 * PI / 2), this.y + 47.5 + this.radius * sin(3 * PI / 2), this.x + 47.5 + 2 * this.radius * cos(3 * PI / 2) , this.y + 47.5 + 2 * this.radius * sin(3 * PI / 2), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //up
+                    this.game.addBullet(new Bullet(this.game, this.x + 47.5 + this.radius * cos(3 * PI / 2), this.y + 47.5 + this.radius * sin(3 * PI / 2), this.x + 47.5 + 2 * this.radius * cos(3 * PI / 2) , this.y + 47.5 + 2 * this.radius * sin(3 * PI / 2), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //up
                     break;
                 case "down":
-                    this.game.addBullet(new Bullet(this.game, this.x + 47.5 + this.radius * cos(PI /2) , this.y + 47.5 + this.radius * sin(PI /2), this.x + 47.5 + 2 * this.radius * cos(PI /2) , this.y + 47.5 + 2 * this.radius * sin(PI /2), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //down
+                    this.game.addBullet(new Bullet(this.game, this.x + 47.5 + this.radius * cos(PI /2) , this.y + 47.5 + this.radius * sin(PI /2), this.x + 47.5 + 2 * this.radius * cos(PI /2) , this.y + 47.5 + 2 * this.radius * sin(PI /2), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //down
                     break;
             }
             this.bulletTimer = this.bulletRate;

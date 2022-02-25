@@ -3,7 +3,9 @@ class Player {
 		Object.assign(this, {game, x, y});
 		this.game.player = this;
 		this.game = game;
-		
+    this.trap_damage =0;
+    //getTrap to check if the character is in a trap or not
+		this.getTrap = false;
 		this.spritesheet1 = ASSET_MANAGER.getAsset("./sprites/player/player_up_idle.png");
 		this.spritesheet2 = ASSET_MANAGER.getAsset("./sprites/player/player_up_run.png");
 		this.spritesheet3 = ASSET_MANAGER.getAsset("./sprites/player/player_down_idle.png");
@@ -29,7 +31,8 @@ class Player {
 		this.bulletTimer = 0;
 		this.bulletSize = 30;
 		this.bulletRicochet = 0;
-		
+		this.moveMultiplyer = 1;
+		this.shotgun = {shotgun: false, amount: 1};//ammount means how many pairs, ie 1 will give 3 bullets, 2 will give 5...
 		
 		this.animations = [];
 		this.loadAnimations();
@@ -40,6 +43,11 @@ class Player {
 		//used for pathfinding
 		this.mapX = this.feetBB.x + 25;
 		this.mapY = this.feetBB.y + 10;
+
+		//current location of player on the minimap
+		this.mMapX = this.mapX;
+		this.mMapY = this.mapY;
+
 	}
 	
 	loadAnimations() {
@@ -94,17 +102,11 @@ class Player {
 		this.dead = true;
 	}
 	
-	update() {
-		
+	update() {		
 		const TICK = this.game.clockTick;
 		const RUN = 350;
 		
-		if (this.hp <= 0) {
-			this.state = "death";
-			return;
-		} else if (this.hp <= 10) {
-			ASSET_MANAGER.playAsset("./music/player death sound 200.mp3");
-		}
+
 		// Movement and User Input
 		
 		this.velocity.x = 0;
@@ -127,6 +129,20 @@ class Player {
 			this.velocity.x = -RUN;
 			this.state = "run";
 		}
+
+    if (this.checkSlowTrap()) {
+    	this.moveMultiplyer = 0.2;
+    }
+    else{
+        this.moveMultiplyer = 1;
+    }
+
+    if (this.hp <= 0) {
+			this.state = "death";
+			return;
+		} else if (this.hp <= 10) {
+			ASSET_MANAGER.playAsset("./music/player death sound 200.mp3");
+		}
 		//shooting
 		if ((this.game.lclick) && !this.game.camera.title && !this.game.camera.transition) {
 			if (this.bulletTimer <= 0) {
@@ -134,13 +150,13 @@ class Player {
 				ASSET_MANAGER.playAsset("./music/player shot sound 200.wav");
 				this.calculateDirection()
 				if (this.facing === "left") {
-					this.game.addBullet(new Bullet(this.game, this.x - 25, this.y + 55, this.game.mouse.x, this.game.mouse.y, this.bulletSize, this.bulletSpeed, this.bulletRicochet, "player", this.spritesheet9));
+					this.game.addBullet(new Bullet(this.game, this.x - 25, this.y + 55, this.game.mouse.x, this.game.mouse.y, this.bulletSize, this.bulletSpeed, this.bulletRicochet, this.shotgun, "player", this.spritesheet9));
 				} else if (this.facing === "right") {
-					this.game.addBullet(new Bullet(this.game, this.x + 75, this.y + 55, this.game.mouse.x, this.game.mouse.y, this.bulletSize, this.bulletSpeed, this.bulletRicochet, "player", this.spritesheet9));
+					this.game.addBullet(new Bullet(this.game, this.x + 75, this.y + 55, this.game.mouse.x, this.game.mouse.y, this.bulletSize, this.bulletSpeed, this.bulletRicochet, this.shotgun, "player", this.spritesheet9));
 				} else if (this.facing === "up") {
-					this.game.addBullet(new Bullet(this.game, this.x + 24, this.y, this.game.mouse.x, this.game.mouse.y, this.bulletSize, this.bulletSpeed, this.bulletRicochet, "player", this.spritesheet9));
+					this.game.addBullet(new Bullet(this.game, this.x + 24, this.y, this.game.mouse.x, this.game.mouse.y, this.bulletSize, this.bulletSpeed, this.bulletRicochet, this.shotgun, "player", this.spritesheet9));
 				} else {
-					this.game.addBullet(new Bullet(this.game, this.x + 24, this.y + 87, this.game.mouse.x, this.game.mouse.y, this.bulletSize, this.bulletSpeed, this.bulletRicochet, "player", this.spritesheet9));
+					this.game.addBullet(new Bullet(this.game, this.x + 24, this.y + 87, this.game.mouse.x, this.game.mouse.y, this.bulletSize, this.bulletSpeed, this.bulletRicochet, this.shotgun, "player", this.spritesheet9));
 				}
 				this.bulletTimer = this.bulletRate;
 			}
@@ -157,11 +173,11 @@ class Player {
 		if (this.velocity.y > 0) this.facing = "down";
 		
 		// update position. side scrolling
-		this.x += this.velocity.x * TICK + this.game.camera.x;
-		this.y += this.velocity.y * TICK + this.game.camera.y;
+		this.x += (this.velocity.x * TICK)*this.moveMultiplyer + this.game.camera.x;
+		this.y += (this.velocity.y * TICK)*this.moveMultiplyer + this.game.camera.y;
 		
-		this.mapX += this.velocity.x * TICK;
-		this.mapY += this.velocity.y * TICK;
+		this.mapX += this.velocity.x * TICK *this.moveMultiplyer;
+		this.mapY += this.velocity.y * TICK *this.moveMultiplyer;
 		//console.log(Math.floor(this.mapX/125), Math.floor(this.mapY/125));
 		
 		//if (this.x < -30) this.x = -30; // don't let player fall off left edge
@@ -172,32 +188,33 @@ class Player {
 		
 		//wall collision
 		var that = this;
-		this.game.entities.tiles.forEach(function (entity) {
-			if (entity.BB && that.feetBB.collide(entity.BB)) {
-				if (entity instanceof Wall) {
-					if (entity.leftBB && that.feetBB.collide(entity.leftBB)) // collides with left side of wall
-					{
-						that.x = that.x - RUN * TICK;
-						that.mapX -= RUN * TICK;
+		if (!PARAMS.GODMODE) {
+			this.game.entities.tiles.forEach(function (entity) {
+				if (entity.BB && that.feetBB.collide(entity.BB)) {
+					if (entity instanceof Wall) {
+						if (entity.leftBB && that.feetBB.collide(entity.leftBB)) // collides with left side of wall
+						{
+							that.x = that.x - RUN * TICK;
+							that.mapX -= RUN * TICK;
+						}
+						if (entity.rightBB && that.feetBB.collide(entity.rightBB)) // collides with right side of wall
+						{
+							that.x = that.x + RUN * TICK;
+							that.mapX += RUN * TICK;
+						}
+						if (entity.topBB && that.feetBB.collide(entity.topBB)) // collides with top side of wall
+						{
+							that.y = that.y - RUN * TICK;
+							that.mapY -= RUN * TICK;
+						}
+						if (entity.bottomBB && that.feetBB.collide(entity.bottomBB)) // collides with bottom side of wall
+						{
+							that.y = that.y + RUN * TICK;
+							that.mapY += RUN * TICK;
+						}
 					}
-					if (entity.rightBB && that.feetBB.collide(entity.rightBB)) // collides with right side of wall
-					{
-						that.x = that.x + RUN * TICK;
-						that.mapX += RUN * TICK;
-					}
-					if (entity.topBB && that.feetBB.collide(entity.topBB)) // collides with top side of wall
-					{
-						that.y = that.y - RUN * TICK;
-						that.mapY -= RUN * TICK;
-					}
-					if (entity.bottomBB && that.feetBB.collide(entity.bottomBB)) // collides with bottom side of wall
-					{
-						that.y = that.y + RUN * TICK;
-						that.mapY += RUN * TICK;
-					}
-				}
-			}});
-
+				}});
+		}
 			this.game.entities.portals.forEach(function (entity) {
 				if (entity.BB && that.feetBB.collide(entity.BB)) {
 					//this.game.camera.loadLevel(levelTwo,true,true);
@@ -244,9 +261,10 @@ class Player {
 
 		this.game.entities.powerups.forEach(function (entity) {
 			if (entity.BB && that.feetBB.collide(entity.BB)) {
-				if (entity instanceof Powerup) {
+				if (entity instanceof Powerup && entity.powerup === "healthpack") {
 					entity.removeFromWorld = true;
 					that.hp = 100;
+					ASSET_MANAGER.playAsset("./music/health.mp3");
 				}
 			}
 		});
@@ -255,24 +273,38 @@ class Player {
 		}
   
     drawMinimap(ctx, mmX, mmY){
-      ctx.fillStyle = "Red";
-      ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 93/PARAMS.BITWIDTH , 86/PARAMS.BITWIDTH);
+      ctx.fillStyle = "Green";
+	  this.mMapX = mmX + this.mapX / PARAMS.BITWIDTH;
+	  this.mMapY = mmY + this.mapY / PARAMS.BITWIDTH;
+      ctx.fillRect(this.mMapX, this.mMapY, 93/PARAMS.BITWIDTH , 86/PARAMS.BITWIDTH);
     }
 		
-		draw(ctx) {
-			// this.healthbar.draw(ctx);
-			// this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y);
-			if (this.hp <= 0) {
-				this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y, 0.3);
-			} else {
-				this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y, 0.3);
-			}
-			
-			if (PARAMS.DEBUG) {
-				ctx.strokeStyle = 'Blue';
-				ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
-				ctx.strokeStyle = "Blue";
-				ctx.strokeRect(this.feetBB.x, this.feetBB.y, this.feetBB.width, this.feetBB.height)
-			}
+	draw(ctx) {
+		// this.healthbar.draw(ctx);
+		// this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y);
+		if (this.hp <= 0) {
+			this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y, 0.3);
+		} else {
+			this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y, 0.3);
+		}
+		
+		if (PARAMS.DEBUG) {
+			ctx.strokeStyle = 'Blue';
+			ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+			ctx.strokeStyle = "Blue";
+			ctx.strokeRect(this.feetBB.x, this.feetBB.y, this.feetBB.width, this.feetBB.height)
 		}
 	}
+
+
+    checkSlowTrap(){
+      let collide = false;
+      this.game.entities.traps.forEach(trap => {
+        if (trap.trap_type === "thorn" && this.feetBB.collide(trap.BB)){
+          collide = true;
+          return;
+        }
+      })
+      return collide;
+    }
+}

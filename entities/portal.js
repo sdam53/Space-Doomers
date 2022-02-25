@@ -49,6 +49,9 @@ class Portal {
 				this.game.player.mapY = this.link.mapY + 83;
 				this.counter = this.cooldown;
 				this.link.counter = this.cooldown;
+				this.game.entities.enemies.forEach(function (entity) {
+					entity.getPath();
+				});
 			}
 		}
 		this.counter -= this.game.clockTick;
@@ -61,12 +64,22 @@ class Portal {
 	}
   
   drawMinimap(ctx, mmX, mmY){
-      ctx.fillStyle = "Yellow";
-      ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 100/PARAMS.BITWIDTH , 100/PARAMS.BITWIDTH);
+    ctx.fillStyle = "Gray";
+	ctx.fillRect(mmX + this.BB.x / PARAMS.BITWIDTH, mmY + this.BB.y / PARAMS.BITWIDTH, 100/PARAMS.BITWIDTH , 100/PARAMS.BITWIDTH);
+
   }
 	
 	draw(ctx){
-		this.animation.drawFrame(this.game.clockTick, ctx, this.x1 + 20, this.y1 + 23, 5);
+		//fog of war
+		if (PARAMS.LANTERN) {
+			let x = this.game.entities.player.mapX;
+			let y = this.game.entities.player.mapY;
+			if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
+				this.animation.drawFrame(this.game.clockTick, ctx, this.x1 + 20, this.y1 + 23, 5);
+			}
+		} else {
+			this.animation.drawFrame(this.game.clockTick, ctx, this.x1 + 20, this.y1 + 23, 5);
+		}
 		if (PARAMS.DEBUG) {
 			ctx.strokeStyle = 'Blue';
 			ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);

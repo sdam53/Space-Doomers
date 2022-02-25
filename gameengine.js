@@ -16,7 +16,7 @@ class GameEngine {
         this.click = null;
         this.mouse = null;
         this.wheel = null;
-        this.keys = {"w": false, "a": false, "s": false, "d":false, "ArrowLeft": false, "ArrowRight": false, "ArrowUp": false, "ArrowDown": false, ".": false};
+        this.keys = {"Escape": false, "w": false, "a": false, "s": false, "d":false, "ArrowLeft": false, "ArrowRight": false, "ArrowUp": false, "ArrowDown": false, ".": false};
         this.lclick = false;
         this.mouse = {x: 0, y: 0};
 
@@ -32,8 +32,11 @@ class GameEngine {
             debugging: false,
         };
 
+        this.gamepad = false;
         this.keyboardActive = false;
         this.mouseActive = false;
+
+        this.pathfindingChoice = "astar";//bfs or astar
     };
 
     clearEntities() {
@@ -45,7 +48,8 @@ class GameEngine {
             portals: [],
             powerups: [],
             minimap: [],
-            traps: []
+            traps: [],
+            fog: []
         };
     }
 
@@ -90,17 +94,17 @@ class GameEngine {
         // Added by Raz
         this.ctx.canvas.addEventListener("mousedown", function (e) {
             that.mouseActive = true;
-            this.lclick = getXandY(e);
             if (e.button == 0) {
+                this.lclick = getXandY(e);
                 that.lclick = true;
-            }
+           }
         }, false);
 
         // Added by Raz
         this.ctx.canvas.addEventListener("mouseup", function (e) {
             that.mouseActive = false;
-            that.lclick = getXandY(e);
             if (e.button == 0) {
+                that.lclick = getXandY(e);
                 that.lclick = false;
             }
         }, false);
@@ -163,26 +167,51 @@ class GameEngine {
         // Clear the whole canvas with transparent color (rgba(0, 0, 0, 0))
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
         this.entities.tiles.forEach((tile) => {
-          tile.draw(this.ctx);
-        });
-        this.entities.portals.forEach((portals) => {
-          portals.draw(this.ctx);
-        });
-        this.entities.enemies.forEach((enemy) => {
-          enemy.draw(this.ctx);
-        });
-        this.entities.bullets.forEach((bullet) => {
-          bullet.draw(this.ctx);
-        });
-        this.entities.powerups.forEach((powerups) => {
-            powerups.draw(this.ctx);
+            if (!(tile.x < -125 || tile.x > 2000 || tile.y < -125 || tile.y > 975)) {
+                tile.draw(this.ctx);
+            }
         });
         this.entities.traps.forEach((trap) => {
-            trap.draw(this.ctx);
+            if (!(trap.x < -125 || trap.x > 2000 || trap.y < -125 || trap.y > 975)) {
+                trap.draw(this.ctx);
+            }  
         });
+        this.entities.portals.forEach((portals) => {
+            if (!(portals.x < -125 || portals.x > 2000 || portals.y < -125 || portals.y > 975)) {
+                portals.draw(this.ctx);
+            }  
+        });
+        this.entities.bullets.forEach((bullet) => {
+            if (!(bullet.x < -125 || bullet.x > 2000 || bullet.y < -125 || bullet.y > 975)) {
+                bullet.draw(this.ctx);
+            }  
+        });
+        this.entities.enemies.forEach((enemy) => {
+            if (!(enemy.x < -125 || enemy.x > 2000 || enemy.y < -125 || enemy.y > 975)) {
+                enemy.draw(this.ctx);//enemies need to be seperate for death animations but for now
+            }
+        });
+        this.entities.powerups.forEach((powerups) => {
+            if (!(powerups.x < -125 || powerups.x > 2000 || powerups.y < -125 || powerups.y > 975)) {
+                powerups.draw(this.ctx);
+            }  
+        });        
         this.entities.player.draw(this.ctx, this);
+        this.entities.traps.forEach((trap) => { 
+            if (!(trap.x < -125 || trap.x > 2000 || trap.y < -125 || trap.y > 975)) {
+                if (trap.trap_type === "thorn") {
+                    trap.layer(this.ctx)
+                }            
+            } 
+        });
+        if (PARAMS.LANTERN) {
+            this.entities.fog.draw(this.ctx, this);
+        } 
         this.entities.minimap.draw(this.ctx, this);
         this.camera.draw(this.ctx);
+
+
+
     };
 
     gamepadUpdate() {
@@ -198,13 +227,24 @@ class GameEngine {
             }
 
             // shooting
-            if (!this.mouseActive && (gamepad.buttons[0].pressed || gamepad.buttons[7].pressed) && (Math.abs(gamepad.axes[2]) > 0.1 || Math.abs(gamepad.axes[3] > 0.1))) {
-                //console.log(gamepad.axes[2], gamepad.axes[3])
-                console.log("first")
+            if (!this.mouseActive 
+                && (gamepad.buttons[0].pressed || gamepad.buttons[7].pressed) 
+                && (Math.abs(gamepad.axes[2]) > 0.05 || Math.abs(gamepad.axes[3] > 0.05))) {
                 this.lclick = true;
-                this.mouse.x = this.player.x + 43 + gamepad.axes[2] * 10;
-                this.mouse.y = this.player.y + 46 + gamepad.axes[3] * 10
-               // console.log(Math.atan2(gamepad.axes[3], gamepad.axes[2]) * 180 / Math.PI)
+               
+                if (this.player.facing == "left") {
+                    this.mouse.x = this.player.x - 25 + gamepad.axes[2] * 100;
+                    this.mouse.y = this.player.y + 55 + gamepad.axes[3] * 100;
+				} else if (this.player.facing == "right") {
+                    this.mouse.x = this.player.x + 75 + gamepad.axes[2] * 100;
+                    this.mouse.y = this.player.y + 55 + gamepad.axes[3] * 100;
+                } else if (this.player.facing == "up") {
+                    this.mouse.x = this.player.x + 24 + gamepad.axes[2] * 100;
+                    this.mouse.y = this.player.y + 0 + gamepad.axes[3] * 100;
+				} else if (this.player.facing == "down") {
+                    this.mouse.x = this.player.x + 24 + gamepad.axes[2] * 100;
+                    this.mouse.y = this.player.y + 87 + gamepad.axes[3] * 100;
+                }
             } else if (!this.mouseActive && (gamepad.buttons[0].pressed || gamepad.buttons[7].pressed)) { 
                 this.lclick = true;
                 if (this.player.facing == "left") {
@@ -228,7 +268,7 @@ class GameEngine {
 
     update() {
         this.gamepadUpdate();
-
+        // PARAMS.LANTERN = document.getElementById("lantern").checked;
         PARAMS.DEBUG = document.getElementById("debug").checked;
         PARAMS.GODMODE = document.getElementById("godmode").checked;
         // Update Entities

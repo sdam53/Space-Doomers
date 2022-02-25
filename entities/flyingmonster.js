@@ -1,6 +1,6 @@
 class FlyingMonster {
-	constructor(game, x, y) {
-		Object.assign(this, {game, x, y})
+	constructor(game, x, y, offscreen) {
+		Object.assign(this, {game, x, y, offscreen})
 		
 		this.bullet = ASSET_MANAGER.getAsset("./sprites/enemies/flying_monster/flying_monster_bullet.png");
 		this.upSprite = ASSET_MANAGER.getAsset("./sprites/enemies/flying_monster/flying_monster_up.png");
@@ -16,8 +16,8 @@ class FlyingMonster {
 		this.hp = 100;
 		this.moveSpeed = 150;
 		
-		this.bulletSpeed = 200;
-		this.bulletRate = 100;
+		this.bulletSpeed = 325;
+		this.bulletRate = 1;
 		this.bulletTimer = this.bulletRate;
 		this.bulletSize = 30;
 		
@@ -29,33 +29,30 @@ class FlyingMonster {
 		this.midPointOffset = {x: 60, y : 38};
 		
 		//info for pathfinding
-		this.mapX = this.x + this.midPointOffset.x;
-		this.mapY = this.y + this.midPointOffset.y;
-		this.origLocation = new Point(this.game, floor(this.mapX / 125), floor(this.mapY / 125), null);
+		this.mapX = this.x + 62//this.midPointOffset.x;
+		this.mapY = this.y + + 62//this.midPointOffset.y;
 		this.path;
 	}
 	
 	loadAnimations() {
-		this.animations["left idle"] = new Animator(this.leftSprite, 0, 0, 244, 358, 29, 0.05, 0, false, true);
-		this.animations["left run"] = new Animator(this.leftSprite, 0, 358, 248, 281, 13, 0.03, 0, false, true);
-		this.animations["left attack"] = new Animator(this.leftSprite, 0, 639, 292, 390, 25, 0.03, 0, false, true);
-		this.animations["left death"] = new Animator(this.leftSprite, 0, 1480, 305, 517, 20, 0.05, 5, false, false);
-		this.animations["right idle"] = new Animator(this.rightSprite, 0, 0, 244, 358, 29, 0.05, 0, false, true);
-		this.animations["right run"] = new Animator(this.rightSprite, 0, 358, 248, 281, 13, 0.03, 0, false, true);
-		this.animations["right attack"] = new Animator(this.rightSprite, 0, 639, 292, 390, 25, 0.03, 0, false, true);
+		this.animations["left idle"] = new Animator(this.leftSprite, 0, 0, 73.2, 107.4, 29, 0.05, 0, false, true);
+		this.animations["left run"] = new Animator(this.leftSprite, 0, 107.4, 74.4, 84.3, 13, 0.03, 0, false, true);
+		this.animations["left attack"] = new Animator(this.leftSprite, 0, 191.7, 87.6, 117, 25, 0.03, 0, false, true);
+		this.animations["left death"] = new Animator(this.leftSprite, 0, 444, 90.5, 151.1, 20, 0.05, 2.5, false, false);
+		this.animations["right idle"] = new Animator(this.rightSprite, 0, 0, 73.2, 107.4, 29, 0.05, 0, false, true);
+		this.animations["right run"] = new Animator(this.rightSprite, 0, 107.4, 74.4, 84.3, 13, 0.03, 0, false, true);
+		this.animations["right attack"] = new Animator(this.rightSprite, 0, 191.7, 87.6, 117, 25, 0.03, 0, false, true);
+
+		this.animations["right death"] = new Animator(this.rightDeathSprite, 0, 0, 90.5, 151.1, 20, 0.05, 2.5, false, false);
 		
-		this.animations["right death"] = new Animator(this.rightDeathSprite, 0, 0, 305, 517, 20, 0.05, 5, false, false);
-		
-		
-		
-		this.animations["up idle"] = new Animator(this.upSprite, 0, 0, 401, 374, 29, 0.05, 0, false, true);
-		this.animations["up run"] = new Animator(this.upSprite, 0, 374, 401, 366, 13, 0.03, 0, false, true);
-		this.animations["up attack"] = new Animator(this.upSprite, 0, 740, 449, 387, 25, 0.03, 0, false, true);
-		this.animations["up death"] = new Animator(this.upSprite, 0, 1475, 516, 500, 20, 0.05, 0, false, false);
-		this.animations["down idle"] = new Animator(this.downSprite, 0, 0, 405, 362, 29, 0.05, 0, false, true);
-		this.animations["down run"] = new Animator(this.downSprite, 0, 362, 402, 372, 13, 0.03, 0, false, true);
-		this.animations["down attack"] = new Animator(this.downSprite, 0, 734, 440, 366, 25, 0.03, 8, false, true);
-		this.animations["down death"] = new Animator(this.downSprite, 0, 1475, 470, 511, 20, 0.05, 42, false, false);
+		this.animations["up idle"] = new Animator(this.upSprite, 0, 0, 120.3, 112.2, 29, 0.05, 0, false, true);
+		this.animations["up run"] = new Animator(this.upSprite, 0, 112.2, 120.3, 109.8, 13, 0.03, 0, false, true);
+		this.animations["up attack"] = new Animator(this.upSprite, 0, 222, 134.7, 116.1, 25, 0.03, 0, false, true);
+		this.animations["up death"] = new Animator(this.upSprite, 0, 442.5, 154.8, 150, 20, 0.05, 0, false, false);
+		this.animations["down idle"] = new Animator(this.downSprite, 0, 0, 121.5, 108.6, 29, 0.05, 0, false, true);
+		this.animations["down run"] = new Animator(this.downSprite, 0, 108.6, 120.6, 111.6, 13, 0.03, 0, false, true);
+		this.animations["down attack"] = new Animator(this.downSprite, 0, 220.2, 128, 109.8, 25, 0.03, 6.4, false, true);
+		this.animations["down death"] = new Animator(this.downSprite, 0, 442.5, 137, 153.3, 20, 0.05, 16.6, false, false);
 	}
 	
 	updateBB() {
@@ -68,39 +65,15 @@ class FlyingMonster {
 		}
 	}
 	
-	fourBulletAtk(radius) { 
-		let xStart = this.x + 45;//offsets needed to get to center of sprite
-		let yStart = this.y + 20;
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI /2), yStart + radius * sin(PI /2), xStart + 2 * radius * cos(PI /2) , yStart + 2 * radius * sin(PI /2), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //down
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI), yStart + radius * sin(PI), xStart + 2 * radius * cos(PI) , yStart + 2 * radius * sin(PI), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //left
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(0), yStart + radius * sin(0), xStart + 2 * radius * cos(0) , yStart + 2 * radius * sin(0), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //right
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(3 * PI / 2), yStart + radius * sin(3 * PI / 2), xStart + 2 * radius * cos(3 * PI / 2) , yStart + 2 * radius * sin(3 * PI / 2), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //down
-		
-	}
-	
-	eightBulletAtk(radius) {
-		let xStart = this.x + 45;//offsets needed to get to center of sprite
-		let yStart = this.y + 20;
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI /2), yStart + radius * sin(PI /2), xStart + 2 * radius * cos(PI /2) , yStart + 2 * radius * sin(PI /2), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //down
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI), yStart + radius * sin(PI), xStart + 2 * radius * cos(PI) , yStart + 2 * radius * sin(PI), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //left
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(0), yStart + radius * sin(0), xStart + 2 * radius * cos(0) , yStart + 2 * radius * sin(0), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //right
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(3 * PI / 2), yStart + radius * sin(3 * PI / 2), xStart + 2 * radius * cos(3 * PI / 2) , yStart + 2 * radius * sin(3 * PI / 2), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //down
-		
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI /4), yStart + radius * sin(PI /4), xStart + 2 * radius * cos(PI /4) , yStart + 2 * radius * sin(PI /4), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //down right
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(3 * PI / 4), yStart + radius * sin(3 * PI / 4), xStart + 2 * radius * cos(3 * PI / 4) , yStart + 2 * radius * sin(3 * PI / 4), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //down left
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(5 * PI / 4), yStart + radius * sin(5 * PI / 4), xStart + 2 * radius * cos(5 * PI / 4) , yStart + 2 * radius * sin(5 * PI / 4), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //up left
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(7 * PI / 4), yStart + radius * sin(7 * PI / 4), xStart + 2 * radius * cos(7 * PI / 4) , yStart + 2 * radius * sin(7 * PI / 4), this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet)); //up right
-	}
-	
 	singleBulletAtlk() {
 		if (this.facing === "down") {
-			this.game.addBullet(new Bullet(this.game, this.x + 35, this.y + 70, this.game.player.x + 30, this.game.player.y + 40, this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet));
+			this.game.addBullet(new Bullet(this.game, this.x + 35, this.y + 70, this.game.player.x + 30, this.game.player.y + 40, this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet));
 		} else if (this.facing === "up") {
-			this.game.addBullet(new Bullet(this.game, this.x + 35, this.y - 43, this.game.player.x + 30, this.game.player.y + 40, this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet));
+			this.game.addBullet(new Bullet(this.game, this.x + 35, this.y - 43, this.game.player.x + 30, this.game.player.y + 40, this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet));
 		} else if (this.facing === "left") {
-			this.game.addBullet(new Bullet(this.game, this.x - 20, this.y + 12, this.game.player.x + 30, this.game.player.y + 40, this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet));
+			this.game.addBullet(new Bullet(this.game, this.x - 20, this.y + 12, this.game.player.x + 30, this.game.player.y + 40, this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet));
 		} else if (this.facing === "right") {
-			this.game.addBullet(new Bullet(this.game, this.x + 90, this.y + 12, this.game.player.x + 30, this.game.player.y + 40, this.bulletSize, this.bulletSpeed, 0, "enemy", this.bullet));
+			this.game.addBullet(new Bullet(this.game, this.x + 90, this.y + 12, this.game.player.x + 30, this.game.player.y + 40, this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet));
 		}
 	}
 	
@@ -138,16 +111,8 @@ class FlyingMonster {
 	shoot() {
 		this.calculatedDirection();
 		if (this.bulletTimer <= 0) {
-			let ran = randomInt(3)
-			if (ran === 0) {
-				this.singleBulletAtlk();
-			} else if (ran === 1) {
-				this.fourBulletAtk(50);
-			} else {
-				this.eightBulletAtk(50);
-			}
+			this.singleBulletAtlk();
 			this.bulletTimer = this.bulletRate;
-			this.animations[this.facing + " " + this.state].flag = true;
 			this.state = "attack";
 		}
 	}
@@ -157,36 +122,34 @@ class FlyingMonster {
 	*/
 	move() {
 		const TICK = this.game.clockTick;
-		if (getDistance(this.mapX, this.mapY, this.path[0].x * 125 + 62, this.path[0].y * 125 + 62) > 5) {
-			if (getDistance(this.mapX, this.mapY, this.game.player.mapX, this.game.player.mapY) > 5) {
+		if (getDistance(this.mapX, this.mapY, this.path[0].x * 125 + 62, this.path[0].y * 125 + 62) > 25) {
 				this.state = "run";
 				switch (this.directionToGo) {
 					case 'up':
-					this.facing = "up";
-					this.y -= this.moveSpeed * TICK;
-					this.mapY -= this.moveSpeed * TICK;
-					break;
+					  this.facing = "up";
+	  				this.y -= this.moveSpeed * TICK;
+		  			this.mapY -= this.moveSpeed * TICK;
+			  		break;
 					case 'down':
-					this.facing = "down";
-					this.y += this.moveSpeed * TICK;
-					this.mapY += this.moveSpeed * TICK;
-					break;
+  					this.facing = "down";
+	  				this.y += this.moveSpeed * TICK;
+		  			this.mapY += this.moveSpeed * TICK;
+			  		break;
 					case 'left':
-					this.facing = "left";
-					this.x -= this.moveSpeed * TICK;
-					this.mapX -= this.moveSpeed * TICK;
-					break;
+  					this.facing = "left";
+	  				this.x -= this.moveSpeed * TICK;
+		  			this.mapX -= this.moveSpeed * TICK;
+			  		break;
 					case 'right':
-					this.facing = "right";
-					this.x += this.moveSpeed * TICK;
-					this.mapX += this.moveSpeed * TICK;
-					break;  
+  					this.facing = "right";
+	  				this.x += this.moveSpeed * TICK;
+		  			this.mapX += this.moveSpeed * TICK;
+			  		break;   
 				}
-			} else {
+		} else {
+			if (randomInt(7) % 2 === 0) {
 				this.getPath();
 			}
-		} else {
-			this.getPath();
 		}
 	}
 	
@@ -198,7 +161,11 @@ class FlyingMonster {
 		let myY = floor(this.mapY / 125);
 		let pX = floor(this.game.player.mapX / 125);
 		let pY = floor(this.game.player.mapY / 125);
-		this.path = findPath(new Point(this.game, myX, myY, null), new Point(this.game, pX, pY, null), this.game.camera.level.map);
+		if (this.game.pathfindingChoice === "bfs") {
+			this.path = BFS(new Point(this.game, myX, myY, null), new Point(this.game, pX, pY, null), this.game.camera.level.map, this.game);
+		} else {
+			this.path = aStarPath(new Point(this.game, myX, myY, null), new Point(this.game, pX, pY, null), this.game.camera.level.map, this.game).reverse();
+		}
 		if (this.path[0] && (typeof this.path[0] != 'undefined')) { 
 			if (this.path[0].x > myX) {//right
 				this.directionToGo = "right";
@@ -220,27 +187,31 @@ class FlyingMonster {
 			if (this.animations[this.facing + " " + this.state].frame === 19) {
 				this.removeFromWorld = true;
 			}
-		} else {
-			if (getDistance(this.mapX, this.mapY, this.game.player.x + 150, this.game.player.y + 150) < 300) {
-				this.calculatedDirection();
-				if (this.bulletTimer <= 0) {
-					this.shoot();
-				}
-			} else {
+		 } else if (!(this.x > this.game.ctx.canvas.width || this.x < 0 || this.y > this.game.ctx.canvas.height || this.y < 0) || this.offscreen) {
 				if (this.path && (typeof this.path[0] != 'undefined')) {
-					this.move()
+					if (this.path.length > 1) {
+						this.move();
+					} else {
+						if (randomInt(7) % 2 === 0) {
+							this.getPath();
+						}
+					}
+					if (getDistance(this.x, this.y, this.game.player.x + 150, this.game.player.y + 150) < 1000) {
+						this.shoot();
+					}
 				} else {
-					this.getPath();
+					if (randomInt(7) % 2 === 0) {
+						this.getPath();
+					}
 				}
-			}
-			if (this.bulletTimer <= 0) {
-				this.shoot();
-			}
-		}
+		 }
+		 
+		 
+		
 		
 		//shooting cooldown counter
 		if (this.bulletTimer <= this.bulletRate) {
-			this.bulletTimer--;
+			this.bulletTimer -= this.game.clockTick;
 		}
 		
 		this.updateBB();
@@ -250,51 +221,91 @@ class FlyingMonster {
 		this.y += this.game.camera.y;
 	}
   
-  drawMinimap(ctx, mmX, mmY){
-      ctx.fillStyle = "Blue";
-      ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 10 , 10);
-  }
+
+	drawMinimap(ctx, mmX, mmY){
+		// let x = this.game.entities.player.mMapX;
+		// let y = this.game.entities.player.mMapY;
+		let x = this.game.entities.player.mapX;
+		let y = this.game.entities.player.mapY;
+		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
+			// this.reveal = true;
+		ctx.fillStyle = "Red";
+		ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 10 , 10);
+
+		  }
+		  else{
+			  ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+		}
+		// if (this.reveal)
+		// ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 10 , 10);
+	
+	  }
 	
 	draw(ctx) {
+		let xOffset = 0;
+		let yOffset = 0;
 		// offsets for x and y since images are different sizes
 		if (this.state === "death") {
 			if (this.facing === "up") {
-				this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x - 18, this.y -50, .3);
+				xOffset = -18
+				yOffset = -50
 			} else if (this.facing === "down") {
-				this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x , this.y - 45, .3);
+				xOffset = 0
+				yOffset = -45
 			} else if (this.facing === "left") {
-				this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 20, this.y - 55, .3);
+				xOffset = 20
+				yOffset = -55
 			} else if (this.facing === "right") {
-				this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 15, this.y -55, .3);
+				xOffset = 15
+				yOffset = -55
 			}
 		} else {
 			if (this.facing === "left") {
 				if (this.state === "idle") {
-					this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 28, this.y + 2, .3);
+					xOffset = 28
+					yOffset = 2
 				} else if (this.state === "run") {
-					this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 26, this.y - 3, .3);
+					xOffset = 26
+					yOffset = -3
 				} else if (this.state === "attack") {
-					this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x +20, this.y - 37, .3);
+					xOffset = 20
+					yOffset = -37
 				}
 			} else if (this.facing === "right") {
 				if (this.state === "idle") {
-					this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 19, this.y, .3);
+					xOffset = 19
+					yOffset = 0
 				} else if (this.state === "run") {
-					this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 20, this.y - 5, .3);
+					xOffset = 20
+					yOffset = -5
 				} else if (this.state === "attack") {
-					this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + 12, this.y - 39, .3);
+					xOffset = 12
+					yOffset = -39
 				}
 			} else if (this.facing === "up") {
 				if (this.state === "idle" || this.state === "run") {
-					this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x, this.y - 3, .3);
+					xOffset = 0
+					yOffset = -3
 				} else if (this.state === "attack") {
-					this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x - 8, this.y - 8, .3);
+					xOffset = -8
+					yOffset = -8
 				}
 			} else if (this.facing === "down") {
 				if (this.state === "idle" || this.state === "run" || this.state === "attack") {
-					this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x, this.y, .3);
+					xOffset = 0
+					yOffset = 0
 				}
 			}
+				}
+		//fog of war
+		if (PARAMS.LANTERN) {
+			let x = this.game.entities.player.mapX;
+			let y = this.game.entities.player.mapY;
+			if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
+				this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + xOffset, this.y + yOffset, 1);
+			}	
+		} else {
+			this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx,this.x + xOffset, this.y + yOffset, 1);
 		}
 		if (PARAMS.DEBUG && this.BB) {
 			ctx.strokeStyle = 'Red';
@@ -304,4 +315,3 @@ class FlyingMonster {
 	}
 	
 }
-
