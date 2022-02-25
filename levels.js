@@ -287,32 +287,34 @@ let levelThree = {
 
 player: {x: 3, y: 1},
 flying_monsters: [
-	X = [12,15, ],
-	Y = [4,3,],
-	OFFSCREEN = [false,false]
+	{x: 12, y: 4, offscreen: false},
+	{x: 15, y: 3, offscreen: false},
 ],
 green_monsters: [
-	X = [5,26],
-	Y = [6,10],
-	OFFSCREEN = [false, false]
+	{x: 5, y: 6, offscreen: false},
+	{x: 26, y: 10, offscreen: false},
 ],
 red_monsters: [
-	X = [38, 22],
-	Y = [7, 12],
-	OFFSCREEN = [false,]
+	{x: 38, y: 7, offscreen: false},
+	{x: 22, y: 12, offscreen: false},
 ],
 gears: [
-	X = [3, 34, 41, 11, 3],
-	Y = [20, 15, 25, 35, 28]
+	{x: 3, y: 20},
+	{x: 34, y: 15},
+	{x: 41, y: 25},
+	{x: 11, y: 35},
+	{x: 3, y: 28},
 ],
 portals: [
-	X = [7, 47, 45, 47, 34, 2],
-	Y = [15, 1, 10, 20, 33, 44]
+	{x: 7, y: 15},
+	{x: 47, y: 1},
+	{x: 45, y: 10},
+	{x: 47, y: 20},
+	{x: 34, y: 33},
+	{x: 2, y: 44},
 ],
 	blue_monsters: [
-		X = [3,],
-		Y = [17,],
-		OFFSCREEN = [false, false,]
+		{x: 3, y: 17, offscreen: false},
 	],
 	// boss: [{x: 11, y: 4}],
 	doors : [
@@ -348,20 +350,21 @@ portals: [
 		{x: 14, y: 43, state: "locked", direction: "down", requiredGears: 3},
 		{x: 18, y: 44, state: "locked", direction: "right", requiredGears: 3},
 
-
-
-
-
-
 	// 	{x: 8, y: 9, state: "locked", direction: "down", requiredGears: 1},
 	// 	{x: 9, y: 1, state: "locked", direction: "right", requiredGears: 1},
 	// 	{x: 15, y: 13, state: "locked", direction: "right", requiredGears: 2}
 	],
 
 	traps: [
-		X = [2,3,1,4,4, 28, 30, 32, 34],
-		Y = [16,16,17,15,17, 2, 2, 2, 2],
-		T = ["spike","thorn","thorn","spike","thorn","thorn", "spike", "thorn", "thorn"]
+		{x: 2, 	y: 16, 	type: "spike"},
+		{x: 3, 	y: 16, 	type: "thorn"},
+		{x: 1, 	y: 17, 	type: "thorn"},
+		{x: 4, 	y: 15, 	type: "spike"},
+		{x: 4, 	y: 17, 	type: "thorn"},
+		{x: 28, y: 2, 	type: "thorn"},
+		{x: 30, y: 2, 	type: "spike"},
+		{x: 32, y: 2, 	type: "thorn"},
+		{x: 34, y: 2, 	type: "thorn"},
 	],
 	walltraps : [
 		{x: 0, y: 18, direction: "right", rate: 1},
@@ -380,17 +383,17 @@ portals: [
 			  {x: 44, y: 41, powerup: "ricochet"},
 			  {x: 15, y: 32, powerup: "healthpack"},
 			  {x: 21, y: 35, powerup: "ricochet"},
-
-
-
 			],
+
 	transitionItem : {x: 40, y: 12, level: 3},
+
 	story: [                                        //
 		"Rob quickly puts the jetpack on but is ",
 		"   startled by a loud explosion. There   ",
 		"   was no fuel left, and he finds himself",
 		"   stuck again. Poor Rob, indeed."
 	],
+
 	songPath: "./music/level 3 song.mp3"
 };
 
