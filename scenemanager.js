@@ -71,23 +71,23 @@ class SceneManager {
 		//adding level entities
 		if (!title && !transition && !this.gameOver) {
 			if (level.flying_monsters) {
-				for (let i = 0; i < level.flying_monsters[0].length; i ++) {
-					this.game.addEnemy(new FlyingMonster(this.game, level.flying_monsters[0][i] * 125, level.flying_monsters[1][i] * 125, level.flying_monsters[2][i]));
+				for (let i = 0; i < level.flying_monsters.length; i ++) {
+					this.game.addEnemy(new FlyingMonster(this.game, level.flying_monsters[i].x * 125, level.flying_monsters[i].y * 125, level.flying_monsters[i].offscreen));
 				}
 			} 
 			if (level.red_monsters) {
-				for (let i = 0; i < level.red_monsters[0].length; i ++) {
-					this.game.addEnemy(new RedMonster(this.game, level.red_monsters[0][i] * 125 - 39, level.red_monsters[1][i] * 125 - 1, level.red_monsters[2][i]));
+				for (let i = 0; i < level.red_monsters.length; i ++) {
+					this.game.addEnemy(new RedMonster(this.game, level.red_monsters[i].x * 125 - 39, level.red_monsters[i].y * 125 - 1, level.red_monsters[i].offscreen));
 				}
 			} 
 			if (level.green_monsters) {
-				for (let i = 0; i < level.green_monsters[0].length; i ++) {
-					this.game.addEnemy(new GreenMonster(this.game, level.green_monsters[0][i] * 125, level.green_monsters[1][i] * 125, level.green_monsters[2][i]));
+				for (let i = 0; i < level.green_monsters.length; i ++) {
+					this.game.addEnemy(new GreenMonster(this.game, level.green_monsters[i].x * 125, level.green_monsters[i].y * 125, level.green_monsters[i].offscreen));
 				}
 			}
 			if (level.blue_monsters) {
-				for (let i = 0; i < level.blue_monsters[0].length; i ++) {
-					this.game.addEnemy(new BlueMonster(this.game, level.blue_monsters[0][i] * 125 + 2, level.blue_monsters[1][i] * 125 + 5, level.blue_monsters[2][i]));
+				for (let i = 0; i < level.blue_monsters.length; i ++) {
+					this.game.addEnemy(new BlueMonster(this.game, level.blue_monsters[i].x * 125 + 2, level.blue_monsters[i].y * 125 + 5, level.blue_monsters[i].offscreen));
 				}
 			}
 			if (level.smols) {
@@ -96,13 +96,13 @@ class SceneManager {
 				}
 			}
 			if (level.gears) {
-				for (let i = 0; i < level.gears[0].length; i ++) {
-					this.game.addPowerUp(new Gear(this.game, level.gears[0][i] * 125, level.gears[1][i] * 125));
+				for (let i = 0; i < level.gears.length; i ++) {
+					this.game.addPowerUp(new Gear(this.game, level.gears[i].x * 125, level.gears[i].y * 125));
 				}
 			} 
 			if (level.portals) {
-				for (let i = 0; i < level.portals[0].length; i+=2) {
-					this.game.addPortal(new Portal(this.game, level.portals[0][i] * 125, level.portals[1][i] * 125, level.portals[0][i + 1] * 125, level.portals[1][i + 1] * 125, null));
+				for (let i = 0; i < level.portals.length; i+=2) {
+					this.game.addPortal(new Portal(this.game, level.portals[i].x * 125, level.portals[i].y * 125, level.portals[i + 1].x * 125, level.portals[i + 1].y * 125, null));
 				}
 			}
 			if (level.doors) {
@@ -117,8 +117,8 @@ class SceneManager {
 				}
 			}
 			if (level.traps) {
-				for (let i = 0; i < level.traps[0].length; i++) {
-					this.game.addTrap(new Trap(this.game, level.traps[0][i] * 125, level.traps[1][i] * 125, level.traps[2][i]));
+				for (let i = 0; i < level.traps.length; i++) {
+					this.game.addTrap(new Trap(this.game, level.traps[i].x * 125, level.traps[i].y * 125, level.traps[i].type));
 				}
 			}
 			if (level.powerup) {

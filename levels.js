@@ -18,38 +18,33 @@ let levelOne = {
 			[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,]],
 	player: {x: 5, y: 3},
 	flying_monsters: [
-		X = [12,2],
-		Y = [5,5],
-		OFFSCREEN = [true,true]
+		{x: 12, y: 5, offscreen: true},
+		{x: 2, y: 5, offscreen: true},
 	],
 	red_monsters: [
-		X = [2],
-		Y = [1],
-		OFFSCREEN = [true, true]
+		{x: 2, y: 1, offscreen: true},
 	],
 	green_monsters: [
-		X = [2],
-		Y = [12],
-		OFFSCREEN = [true]
-
+		{x: 2, y: 12, offscreen: true},
 	],
 	blue_monsters: [
-		X = [4],
-		Y = [12],
-		OFFSCREEN = [true]
+		{x: 4, y: 12, offscreen: true},
 	],
 	smols: [
 		//{x: 13, y: 4},
 		//{x: 13, y: 5}
 	],
-	boss: [{x: 11, y: 4}],
+	boss: [
+		{x: 11, y: 4}
+	],
 	gears: [
-		X = [5, 2, 16],
-		Y = [6, 11, 2]
+		{x: 5, y: 6},
+		{x: 2, y: 11},
+		{x: 16, y: 2},
 	],
 	portals: [
-		X = [2, 13],
-		Y = [4, 12]
+		{x: 2, y: 4},
+		{x: 13, y: 12},
 	],
 	doors : [
 		{x: 5, y: 1, state: "unlocked", direction: "left"},
@@ -58,22 +53,27 @@ let levelOne = {
 		{x: 15, y: 13, state: "locked", direction: "right", requiredGears: 2}
 	],
 	traps: [
-		X = [6,8,7],
-		Y = [6,6,6],
-		T = ["spike","thorn", "thorn"]
+		{x: 6, y: 6, type: "spike"},
+		{x: 8, y: 6, type: "thorn"},
+		{x: 7, y: 6, type: "thorn"},
 	],
 	walltraps : [
 		{x: 8, y: 0, direction: "down", rate: 3},
 		{x: 3, y: 13, direction: "right", rate: 4},
 	],
-  	powerup: [{x: 2, y: 5, powerup: "healthpack"}],
+  	powerup: [
+		  {x: 2, y: 5, powerup: "healthpack"}
+	],
+
 	transitionItem : {x: 11, y: 2, level: 1},
+
 	story: [ // title - level 1
 		"After landing on an abandoned space station ",
 		"   by mistake, Rob has to do everything   ",
 		"   he can to make his way to the emergency",
 		"   escape pod and save himself."
 	],
+
 	songPath: "./music/title.mp3"
 };
 
@@ -119,28 +119,42 @@ let levelTwo = {
 
 	player: {x: 4, y: 2},
     flying_monsters: [
-	    X = [8, 12, 5, 12, 27, 20, 20, 29, 33],
-	    Y = [30, 34, 8, 23, 18, 10, 18, 30, 34],
-		OFFSCREEN = [false,false,false,false,false,false,false,false,false]
+		{x: 8, y: 30, offscreen: false},
+		{x: 12, y: 34, offscreen: false},
+		{x: 5, y: 8, offscreen: false},
+		{x: 12, y: 23, offscreen: false},
+		{x: 27, y: 18, offscreen: false},
+		{x: 20, y: 10, offscreen: false},
+		{x: 20, y: 18, offscreen: false},
+		{x: 29, y: 30, offscreen: false},
+		{x: 33, y: 34, offscreen: false},
     ],
 	green_monsters: [
-		X = [4, 19, 24, 22, 22, 19, 23],
-		Y = [17, 4, 5, 19, 13, 34, 30],
-		OFFSCREEN = [false,false,false,false,false,false,false]
+		{x: 4, y: 17, offscreen: false},
+		{x: 19, y: 4, offscreen: false},
+		{x: 24, y: 5, offscreen: false},
+		{x: 22, y: 19, offscreen: false},
+		{x: 22, y: 13, offscreen: false},
+		{x: 19, y: 34, offscreen: false},
+		{x: 23, y: 30, offscreen: false},
 	],
 	blue_monsters: [
-		X = [4],
-		Y = [19],
-		OFFSCREEN = [false]
+		{x: 4, y: 19, offscreen: false},
 	],
-	boss: [{x: 33, y: 34}],
+	boss: [
+		{x: 33, y: 34}
+	],
 	gears: [
-	X = [13,2,2,15],
-	Y = [6,14,12,23]
+		{x: 13, y: 6},
+		{x: 2, y: 14},
+		{x: 2, y: 12},
+		{x: 15, y: 23},
 	],
 	portals: [
-		X = [31,1,34,7],
-		Y = [1,19,8,11]
+		{x: 31, y: 1},
+		{x: 1, y: 19},
+		{x: 34, y: 8},
+		{x: 7, y: 11},
 	],
 	doors : [
 		{x: 40, y: 6, state: "locked", direction: "down", requiredGears: 3},
@@ -158,30 +172,64 @@ let levelTwo = {
 		{x: 38, y: 35, state: "locked", direction: "right", requiredGears: 4, finalDoor: true}
 	],
 	traps: [
-		X = [5,6,17,18,19,20,32,34,34,32,31,31, 20, 9, 16, 32, 8, 11, 16, 22, 13, 26, 27,32,31,30,30, 35,2,3,2,1,1,4],
-		Y = [6,6,8,8,8,8,5,5,4,3,3,3, 31, 33, 29, 30, 30, 31, 33, 34, 29, 30, 30, 34, 34, 34, 33, 32,15,15, 17,17,18,16],
-		T = ["spike", "spike", "thorn","thorn","thorn","thorn", "thorn", "thorn", "spike","spike","spike","spike","thorn", "thorn", "thorn", "thorn", "thorn", "spike", "spike", "spike", "thorn","spike", "spike", "thorn", "thorn", "thorn", "thorn", 
-		"spike", "thorn", "thorn", "spike", "spike", "spike", "spike"]
+		{x: 5, 	y: 6, 	type: "spike"},
+		{x: 6, 	y: 6, 	type: "spike"},
+		{x: 17, y: 8, 	type: "thorn"},
+		{x: 18, y: 8, 	type: "thorn"},
+		{x: 19, y: 8, 	type: "thorn"},
+		{x: 20, y: 8, 	type: "thorn"},
+		{x: 32, y: 5, 	type: "thorn"},
+		{x: 34, y: 5,	type: "thorn"},
+		{x: 34, y: 4,	type: "spike"},
+		{x: 32, y: 3, 	type: "spike"},
+		{x: 31, y: 3, 	type: "spike"},
+		{x: 31, y: 3, 	type: "spike"},
+		{x: 20, y: 31, 	type: "thorn"},
+		{x: 9, 	y: 33, 	type: "thorn"},
+		{x: 16, y: 29, 	type: "thorn"},
+		{x: 32, y: 30, 	type: "thorn"},
+		{x: 8, 	y: 30, 	type: "thorn"},
+		{x: 11, y: 31, 	type: "spike"},
+		{x: 16, y: 33, 	type: "spike"},
+		{x: 22, y: 34, 	type: "spike"},
+		{x: 13, y: 29, 	type: "thorn"},
+		{x: 26, y: 30, 	type: "spike"},
+		{x: 27, y: 30, 	type: "spike"},
+		{x: 32, y: 34, 	type: "thorn"},
+		{x: 31, y: 34, 	type: "thorn"},
+		{x: 30, y: 34, 	type: "thorn"},
+		{x: 30, y: 33, 	type: "thorn"},
+		{x: 35, y: 32, 	type: "spike"},
+		{x: 2, 	y: 15, 	type: "thorn"},
+		{x: 3, 	y: 15, 	type: "thorn"},
+		{x: 2, 	y: 17, 	type: "spike"},
+		{x: 1, 	y: 17, 	type: "spike"},
+		{x: 1, 	y: 18, 	type: "spike"},
+		{x: 4, 	y: 16, 	type: "spike"},
 	],
-  	powerup: [{x: 3, y: 26, powerup: "healthpack"},
-	  		  {x: 13, y: 11, powerup: "healthpack"},
-			  {x: 14, y: 25, powerup: "ricochet"},
-			  {x: 31, y: 8, powerup: "shotgun"}],
+  	powerup: [
+		{x: 3, y: 26, powerup: "healthpack"},
+	  	{x: 13, y: 11, powerup: "healthpack"},
+		{x: 14, y: 25, powerup: "ricochet"},
+		{x: 31, y: 8, powerup: "shotgun"}
+	],
 	walltraps : [
 		{x: 39, y: 20, direction: "up", rate: 4},
 		{x: 28, y: 5, direction: "right", rate:3.5},
 		{x: 0, y: 17, direction: "right", rate:2},
 		{x: 6, y: 19, direction: "left", rate:4},
 		{x: 6, y: 15, direction: "left", rate:2},
-
 	],
+
 	transitionItem: {x: 39.5, y: 34.5, level: 2},
+
 	story: [ //Level 1 - Level 2                    //
 		"Falling through the mysterious hole led Rob ",
 		"   into a lengthy fall through the unknown   ",
 		"   spaceship. After picking himself back up, ",
 		"   he hopes he will be more careful next time."
 	],
+
 	songPath: "./music/level 2 song.mp3"
 };
 
