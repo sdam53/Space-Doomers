@@ -191,8 +191,8 @@ let levelThree = {
 		 
 	[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],
 	[0,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,0,],
-	[0,0,0,0,0,0,1,1,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,0,],
-	[0,0,0,1,1,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,0,],
+	[0,0,0,0,0,0,1,1,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,0,],
+	[0,0,0,1,1,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,],
 	[0,0,0,0,1,0,0,0,0,0,1,1,1,1,1,1,0,0,0,1,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,1,0,],
 	[0,0,0,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,],
 	[0,0,0,1,1,1,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,1,0,],
@@ -249,21 +249,21 @@ green_monsters: [
 	OFFSCREEN = [false, false]
 ],
 red_monsters: [
-	X = [38, 26],
-	Y = [7, 10],
+	X = [38, 22],
+	Y = [7, 12],
 	OFFSCREEN = [false,]
 ],
 gears: [
-	X = [3, 34, 16],
-	Y = [20, 15, 2]
+	X = [3, 34, 41, 11, 3],
+	Y = [20, 15, 25, 35, 28]
 ],
 portals: [
-	X = [7, 47, 45, 47],
-	Y = [15, 1, 10, 20]
+	X = [7, 47, 45, 47, 34, 2],
+	Y = [15, 1, 10, 20, 33, 44]
 ],
 	blue_monsters: [
-		X = [3,5,],
-		Y = [17,18,],
+		X = [3,],
+		Y = [17,],
 		OFFSCREEN = [false, false,]
 	],
 	// boss: [{x: 11, y: 4}],
@@ -276,7 +276,7 @@ portals: [
 		{x: 2, y: 14, state: "unlocked", direction: "down"},
 		{x: 6, y: 15, state: "locked", direction: "right", requiredGears: 1},
 		{x: 5, y: 9, state: "unlocked", direction: "down"},
-		{x: 45, y: 8, state: "locked", direction: "left", requiredGears:2},
+		{x: 45, y: 8, state: "locked", direction: "right", requiredGears:2},
 		{x: 47, y: 6, state: "locked", direction: "down", requiredGears: 2},
 		{x: 42, y: 5, state: "locked", direction: "left", requiredGears: 1},
 		{x: 26, y: 3, state: "locked", direction: "down", requiredGears: 1},
@@ -284,7 +284,24 @@ portals: [
 		{x: 25, y: 8, state: "locked", direction: "down", requiredGears: 1},
 		{x: 33, y: 15, state: "locked", direction: "right", requiredGears: 1},
 		{x: 33, y: 10, state: "locked", direction: "right", requiredGears: 2},
-		{x: 42, y: 36, state: "locked", direction: "down", requiredGears: 2},
+		{x: 40, y: 28, state: "locked", direction: "right", requiredGears: 2},
+		{x: 34, y: 32, state: "locked", direction: "down", requiredGears: 3},
+		{x: 42, y: 41, state: "locked", direction: "right", requiredGears: 2},
+		{x: 27, y: 36, state: "locked", direction: "down", requiredGears: 2},
+		{x: 5, y: 35, state: "locked", direction: "left", requiredGears: 4},
+		{x: 8, y: 34, state: "locked", direction: "down", requiredGears: 5},
+		{x: 14, y: 32, state: "locked", direction: "right", requiredGears: 5},
+		{x: 13, y: 28, state: "locked", direction: "down", requiredGears: 5},
+		{x: 11, y: 36, state: "locked", direction: "down", requiredGears: 3},
+		{x: 13, y: 37, state: "locked", direction: "left", requiredGears: 3},
+		{x: 22, y: 37, state: "locked", direction: "down", requiredGears: 3},
+		{x: 36, y: 3, state: "locked", direction: "down", requiredGears: 1},
+		{x: 12, y: 41, state: "locked", direction: "right", requiredGears: 3},
+		{x: 14, y: 43, state: "locked", direction: "down", requiredGears: 3},
+		{x: 18, y: 44, state: "locked", direction: "right", requiredGears: 3},
+
+
+
 
 
 
@@ -292,6 +309,7 @@ portals: [
 	// 	{x: 9, y: 1, state: "locked", direction: "right", requiredGears: 1},
 	// 	{x: 15, y: 13, state: "locked", direction: "right", requiredGears: 2}
 	],
+
 	traps: [
 		X = [2,3,1,4,4, 28, 30, 32, 34],
 		Y = [16,16,17,15,17, 2, 2, 2, 2],
@@ -299,11 +317,24 @@ portals: [
 	],
 	walltraps : [
 		{x: 0, y: 18, direction: "right", rate: 1},
-		{x: 25, y: 1, direction: "right", rate: 2},
-
+		{x: 25, y: 1, direction: "right", rate: 2.5},
+		{x: 28, y: 29, direction: "right", rate: 1},
+		{x: 40, y: 31, direction: "left", rate: 2},
+		{x: 34, y: 26, direction: "down", rate: 1},
+		{x: 30, y: 26, direction: "down", rate: 1},
+		{x: 32, y: 26, direction: "down", rate: 1},
+		{x: 36, y: 26, direction: "down", rate: 1},
+		{x: 38, y: 26, direction: "down", rate: 1},
 	],
   	powerup: [{x: 3, y: 3, powerup: "shotgun"},
-	  		  {x: 19, y: 4, powerup: "healthpack"}
+	  		  {x: 19, y: 4, powerup: "healthpack"},
+			  {x: 34, y: 40, powerup: "healthpack"},
+			  {x: 44, y: 41, powerup: "ricochet"},
+			  {x: 15, y: 32, powerup: "healthpack"},
+			  {x: 21, y: 35, powerup: "ricochet"},
+
+
+
 			],
 	transitionItem : {x: 40, y: 12, level: 3},
 	story: [                                        //

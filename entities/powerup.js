@@ -48,7 +48,7 @@ class Powerup {
 		if (PARAMS.LANTERN) {
             let x = this.game.entities.player.mapX;
 		    let y = this.game.entities.player.mapY;
-            if (this.game.entities.minimap.checkInCircle(this.x , this.y, x, y, PARAMS.FOW_M_R)){
+            // if (this.game.entities.minimap.checkInCircle(this.x , this.y, x, y, PARAMS.FOW_M_R)){
                 if (this.powerup === "healthpack") {
                     ctx.drawImage(this.sprites, this.x+35, this.y+30, 50, 50);
                 } else if (this.powerup === "ricochet") {
@@ -56,7 +56,7 @@ class Powerup {
                 } else if (this.powerup === "shotgun") {
                     ctx.drawImage(this.sprites, this.x + 12, this.y + 12, 100, 100);
                 }
-            }
+            // }
         } else {
             if (this.powerup === "healthpack") {
                 ctx.drawImage(this.sprites, this.x+35, this.y+30, 50, 50);
