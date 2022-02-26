@@ -161,11 +161,7 @@ class FlyingMonster {
 		let myY = floor(this.mapY / 125);
 		let pX = floor(this.game.player.mapX / 125);
 		let pY = floor(this.game.player.mapY / 125);
-		if (this.game.pathfindingChoice === "bfs") {
-			this.path = BFS(new Point(this.game, myX, myY, null), new Point(this.game, pX, pY, null), this.game.camera.level.map, this.game);
-		} else {
-			this.path = aStarPath(new Point(this.game, myX, myY, null), new Point(this.game, pX, pY, null), this.game.camera.level.map, this.game).reverse();
-		}
+		this.path = aStarPath(new Point(this.game, myX, myY, null), new Point(this.game, pX, pY, null), this.game.camera.level.map, this.game).reverse();
 		if (this.path[0] && (typeof this.path[0] != 'undefined')) { 
 			if (this.path[0].x > myX) {//right
 				this.directionToGo = "right";
