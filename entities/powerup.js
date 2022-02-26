@@ -44,7 +44,6 @@ class Powerup {
     }
 
     draw(ctx){
-        //fog of war
         if (this.powerup === "healthpack") {
             ctx.drawImage(this.sprites, this.x+35, this.y+30, 50, 50);
         } else if (this.powerup === "ricochet") {

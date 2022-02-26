@@ -70,16 +70,7 @@ class Portal {
   }
 	
 	draw(ctx){
-		//fog of war
-		if (PARAMS.LANTERN) {
-			let x = this.game.entities.player.mapX;
-			let y = this.game.entities.player.mapY;
-			if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
-				this.animation.drawFrame(this.game.clockTick, ctx, this.x1 + 20, this.y1 + 23, 5);
-			}
-		} else {
-			this.animation.drawFrame(this.game.clockTick, ctx, this.x1 + 20, this.y1 + 23, 5);
-		}
+		this.animation.drawFrame(this.game.clockTick, ctx, this.x1 + 20, this.y1 + 23, 5);
 		if (PARAMS.DEBUG) {
 			ctx.strokeStyle = 'Blue';
 			ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);

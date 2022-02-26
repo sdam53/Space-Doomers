@@ -291,16 +291,7 @@ class Boss {
 			}
 		}
 
-		
-		if (PARAMS.LANTERN) {
-			let x = this.game.entities.player.mapX;
-			let y = this.game.entities.player.mapY;
-			if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, 500)){
-				this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x + xOffset, this.y + yOffset, 1);
-			}
-		} else {
-			this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x + xOffset, this.y + yOffset, 1);
-		}
+		this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x + xOffset, this.y + yOffset, 1);
 		if (PARAMS.DEBUG && this.BB) {
 			ctx.strokeStyle = 'Red';
 			ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
