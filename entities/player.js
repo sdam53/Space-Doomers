@@ -51,20 +51,15 @@ class Player {
 	}
 	
 	loadAnimations() {
-		
-		this.animations["left idle"] = new Animator(this.spritesheet5, 0, 0, 271, 339, 25, 0.05, 0, false, true);
-		this.animations["left run"] = new Animator(this.spritesheet6, 0, 0, 280, 346, 16, 0.03, 0, false, true);
-		
-		this.animations["right idle"] = new Animator(this.spritesheet7, 0, 0, 271, 339, 25, 0.05, 0, false, true);
-		this.animations["right run"] = new Animator(this.spritesheet8, 0, 0, 280, 346, 16, 0.03, 0, false, true);
-		
-		this.animations["up idle"] = new Animator(this.spritesheet1, 0, 0, 293, 338, 25, 0.05, 0, false, true);
-		this.animations["up run"] = new Animator(this.spritesheet2, 0, 0, 299, 342, 16, 0.03, 0, false, true);
-		
-		this.animations["down idle"] = new Animator(this.spritesheet3, 0, 0, 280, 339, 25, 0.05, 0, false, true);
-		this.animations["down run"] = new Animator(this.spritesheet4, 0, 0, 299, 343, 16, 0.03, 0, false, true);
-		
-		this.animations["death"] = new Animator(this.spritesheet10, 0, 0, 369, 454, 18, 0.05, 0, false, false);
+		this.animations["left idle"] = new Animator(this.spritesheet5, 0.0, 0.0, 81.3, 101.7, 25, 0.05, 0.0, false, true);
+		this.animations["left run"] = new Animator(this.spritesheet6, 0.0, 0.0, 84.0, 103.8, 16, 0.03, 0.0, false, true);
+		this.animations["right idle"] = new Animator(this.spritesheet7, 0.0, 0.0, 81.3, 101.7, 25, 0.05, 0.0, false, true);
+		this.animations["right run"] = new Animator(this.spritesheet8, 0.0, 0.0, 84.0, 103.8, 16, 0.03, 0.0, false, true);
+		this.animations["up idle"] = new Animator(this.spritesheet1, 0.0, 0.0, 87.9, 101.4, 25, 0.05, 0.0, false, true);
+		this.animations["up run"] = new Animator(this.spritesheet2, 0.0, 0.0, 89.7, 102.6, 16, 0.03, 0.0, false, true);
+		this.animations["down idle"] = new Animator(this.spritesheet3, 0.0, 0.0, 84.0, 101.7, 25, 0.05, 0.0, false, true);
+		this.animations["down run"] = new Animator(this.spritesheet4, 0.0, 0.0, 89.7, 102.9, 16, 0.03, 0.0, false, true);
+		this.animations["death"] = new Animator(this.spritesheet10, 0.0, 0.0, 110.7, 136.2, 18, 0.05, 0.0, false, false);
 	}
 	
 	updateBB() {
@@ -177,14 +172,7 @@ class Player {
 		this.y += (this.velocity.y * TICK)*this.moveMultiplyer + this.game.camera.y;
 		
 		this.mapX += this.velocity.x * TICK *this.moveMultiplyer;
-		this.mapY += this.velocity.y * TICK *this.moveMultiplyer;
-		//console.log(Math.floor(this.mapX/125), Math.floor(this.mapY/125));
-		
-		//if (this.x < -30) this.x = -30; // don't let player fall off left edge
-		//if (this.y < -50) this.y = -50; // don't let player fall off upper edge
-		//if (this.y > 810) this.y = this.y - 5; // don't let playerr fall off lower edge
-		// implement fall off right edge
-		
+		this.mapY += this.velocity.y * TICK *this.moveMultiplyer;	
 		
 		//wall collision
 		var that = this;
@@ -215,39 +203,38 @@ class Player {
 					}
 				}});
 		}
-			this.game.entities.portals.forEach(function (entity) {
-				if (entity.BB && that.feetBB.collide(entity.BB)) {
-					//this.game.camera.loadLevel(levelTwo,true,true);
-
-					if (entity instanceof Door) {
-						if (entity.leftBB && that.feetBB.collide(entity.leftBB)) // collides with left side of wall
-						{
-							that.x = that.x - RUN * TICK;
-							that.mapX -= RUN * TICK;
-						}
-						if (entity.rightBB && that.feetBB.collide(entity.rightBB)) // collides with right side of wall
-						{
-							entity.removeFromWorld = true;
-
-							that.x = that.x + RUN * TICK;
-							that.mapX += RUN * TICK;
-						}
-						if (entity.topBB && that.feetBB.collide(entity.topBB)) // collides with top side of wall
-						{
-							entity.removeFromWorld = true;
-
-							that.y = that.y - RUN * TICK;
-							that.mapY -= RUN * TICK;
-						}
-						if (entity.bottomBB && that.feetBB.collide(entity.bottomBB)) // collides with bottom side of wall
-						{
-							entity.removeFromWorld = true;
-
-							that.y = that.y + RUN * TICK;
-							that.mapY += RUN * TICK;
-						}
+		this.game.entities.portals.forEach(function (entity) {
+			if (entity.BB && that.feetBB.collide(entity.BB)) {
+				if (entity instanceof Door) {
+					if (entity.leftBB && that.feetBB.collide(entity.leftBB)) // collides with left side of wall
+					{
+						that.x = that.x - RUN * TICK;
+						that.mapX -= RUN * TICK;
 					}
-				}});
+					if (entity.rightBB && that.feetBB.collide(entity.rightBB)) // collides with right side of wall
+					{
+						entity.removeFromWorld = true;
+
+						that.x = that.x + RUN * TICK;
+						that.mapX += RUN * TICK;
+					}
+					if (entity.topBB && that.feetBB.collide(entity.topBB)) // collides with top side of wall
+					{
+						entity.removeFromWorld = true;
+
+						that.y = that.y - RUN * TICK;
+						that.mapY -= RUN * TICK;
+					}
+					if (entity.bottomBB && that.feetBB.collide(entity.bottomBB)) // collides with bottom side of wall
+					{
+						entity.removeFromWorld = true;
+
+						that.y = that.y + RUN * TICK;
+						that.mapY += RUN * TICK;
+					}
+				}
+			}
+		});
 
 		this.game.entities.powerups.forEach(function (entity) {
 			if (entity.BB && that.BB.collide(entity.BB)) {
@@ -270,7 +257,7 @@ class Player {
 		});
 
 		this.updateBB();
-		}
+	}
   
     drawMinimap(ctx, mmX, mmY){
       ctx.fillStyle = "Green";
@@ -280,12 +267,10 @@ class Player {
     }
 		
 	draw(ctx) {
-		// this.healthbar.draw(ctx);
-		// this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y);
 		if (this.hp <= 0) {
-			this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y, 0.3);
+			this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y, 1);
 		} else {
-			this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y, 0.3);
+			this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y, 1);
 		}
 		
 		if (PARAMS.DEBUG) {

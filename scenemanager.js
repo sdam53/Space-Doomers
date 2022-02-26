@@ -17,7 +17,7 @@ class SceneManager {
 		this.credits = false;
 		this.gameOver = false;
 		this.loadLevel(levelOne, this.title, false);
-		this.death = new Animator(ASSET_MANAGER.getAsset("./sprites/player/player_down_death.png"), 0, 0, 369, 454, 18, 0.05, 0, false, false);
+		this.death = new Animator(ASSET_MANAGER.getAsset("./sprites/player/player_game_over.png"), 0, 0, 369, 454, 18, 0.05, 0, false, false);
 
 		this.time = 0;
 		this.menuCooldown = 0.5;
@@ -459,7 +459,7 @@ class SceneManager {
 			ctx.drawImage(ASSET_MANAGER.getAsset("./images/over.png"),200, 200);
 			this.death.drawFrame(this.game.clockTick, ctx, 750, 400, 1);
 			if (this.death.frame > 16) {
-				ctx.drawImage(ASSET_MANAGER.getAsset("./sprites/player/player_down_death.png"), 6273, 0, 369, 454, 750, 400, 369, 454);
+				ctx.drawImage(ASSET_MANAGER.getAsset("./sprites/player/player_game_over.png"), 6273, 0, 369, 454, 750, 400, 369, 454);
 			} 
 		}
 
