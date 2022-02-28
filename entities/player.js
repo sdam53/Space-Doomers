@@ -145,13 +145,13 @@ class Player {
 				ASSET_MANAGER.playAsset("./music/player shot sound 200.wav");
 				this.calculateDirection()
 				if (this.facing === "left") {
-					this.game.addBullet(new Bullet(this.game, this.x - 25, this.y + 55, this.game.mouse.x, this.game.mouse.y, this.bulletSize, this.bulletSpeed, this.bulletRicochet, this.shotgun, "player", this.spritesheet9));
+					this.game.addBullet(new Bullet(this.game, this.x - 25, this.y + 55, this.game.mouse.x - (this.bulletSize / 2), this.game.mouse.y - (this.bulletSize / 2), this.bulletSize, this.bulletSpeed, this.bulletRicochet, this.shotgun, "player", this.spritesheet9));
 				} else if (this.facing === "right") {
-					this.game.addBullet(new Bullet(this.game, this.x + 75, this.y + 55, this.game.mouse.x, this.game.mouse.y, this.bulletSize, this.bulletSpeed, this.bulletRicochet, this.shotgun, "player", this.spritesheet9));
+					this.game.addBullet(new Bullet(this.game, this.x + 75, this.y + 55, this.game.mouse.x - (this.bulletSize / 2), this.game.mouse.y - (this.bulletSize / 2), this.bulletSize, this.bulletSpeed, this.bulletRicochet, this.shotgun, "player", this.spritesheet9));
 				} else if (this.facing === "up") {
-					this.game.addBullet(new Bullet(this.game, this.x + 24, this.y, this.game.mouse.x, this.game.mouse.y, this.bulletSize, this.bulletSpeed, this.bulletRicochet, this.shotgun, "player", this.spritesheet9));
+					this.game.addBullet(new Bullet(this.game, this.x + 24, this.y, this.game.mouse.x - (this.bulletSize / 2), this.game.mouse.y - (this.bulletSize / 2), this.bulletSize, this.bulletSpeed, this.bulletRicochet, this.shotgun, "player", this.spritesheet9));
 				} else {
-					this.game.addBullet(new Bullet(this.game, this.x + 24, this.y + 87, this.game.mouse.x, this.game.mouse.y, this.bulletSize, this.bulletSpeed, this.bulletRicochet, this.shotgun, "player", this.spritesheet9));
+					this.game.addBullet(new Bullet(this.game, this.x + 24, this.y + 87, this.game.mouse.x - (this.bulletSize / 2), this.game.mouse.y - (this.bulletSize / 2), this.bulletSize, this.bulletSpeed, this.bulletRicochet, this.shotgun, "player", this.spritesheet9));
 				}
 				this.bulletTimer = this.bulletRate;
 			}

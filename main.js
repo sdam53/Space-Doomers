@@ -11,6 +11,7 @@ ASSET_MANAGER.queueDownload("./sprites/traps/thorn_bottom.png");
 ASSET_MANAGER.queueDownload("./sprites/door/door_shut.png");
 ASSET_MANAGER.queueDownload("./sprites/door/door_open.png");
 ASSET_MANAGER.queueDownload("./sprites/tiles/x wall.png");
+ASSET_MANAGER.queueDownload("./images/cursor.png");
 
 // door sprites
 ASSET_MANAGER.queueDownload("./sprites/door/door open down.png");
@@ -153,6 +154,8 @@ ASSET_MANAGER.downloadAll(() => {
 	ASSET_MANAGER.autoRepeat("./music/level 3 song.mp3");
 
 	const canvas = document.getElementById("gameWorld");
+	//removes mouse pointer
+	canvas.style.cursor = 'none';
 	const ctx = canvas.getContext("2d");
 	ctx.imageSmoothingEnabled = false;
 

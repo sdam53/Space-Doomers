@@ -12,6 +12,8 @@ class SceneManager {
 		this.logo = ASSET_MANAGER.getAsset("./images/logo.png");
 		this.creditsBackground = ASSET_MANAGER.getAsset("./images/credits.jpg");
 
+		this.cursor = ASSET_MANAGER.getAsset("./images/cursor.png");
+
 		this.title = true;
 		this.transition = false;
 		this.credits = false;
@@ -462,6 +464,8 @@ class SceneManager {
 				ctx.drawImage(ASSET_MANAGER.getAsset("./sprites/player/player_game_over.png"), 6273, 0, 369, 454, 750, 400, 369, 454);
 			} 
 		}
+		//draws aiming cursor
+		ctx.drawImage(this.cursor, this.game.mouse.x - 62.5, this.game.mouse.y - 62.5);
 
 	};
 }
