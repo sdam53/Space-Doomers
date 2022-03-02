@@ -2,10 +2,7 @@ class Player {
 	constructor(game, x, y) {
 		Object.assign(this, {game, x, y});
 		this.game.player = this;
-		this.game = game;
-    this.trap_damage =0;
-    //getTrap to check if the character is in a trap or not
-		this.getTrap = false;
+
 		this.spritesheet1 = ASSET_MANAGER.getAsset("./sprites/player/player_up_idle.png");
 		this.spritesheet2 = ASSET_MANAGER.getAsset("./sprites/player/player_up_run.png");
 		this.spritesheet3 = ASSET_MANAGER.getAsset("./sprites/player/player_down_idle.png");
@@ -78,36 +75,14 @@ class Player {
 		this.feetBB = new BoundingBox(this.x + 20, this.y + 73, 50, 20);
 	}
 	
-	calculateDirection() {
-		
-		let mouse = {x: this.game.mouse.x - this.x, y : this.game.mouse.y - this.y};
-		let player = {x: 0, y : 0};
-		if ((mouse.x < player.x) && (mouse.y < (-1) * mouse.x) && (mouse.y > mouse.x)) { //left
-			this.facing = "left"
-		} else if ((mouse.x > player.x) && (mouse.y > (-1) * mouse.x) && (mouse.y < mouse.x)) {
-			this.facing = "right";
-		} else if ((mouse.y > player.y) && (mouse.y > (-1) * mouse.x) && (mouse.y > mouse.x)) {
-			this.facing = "down";
-		} else if ((mouse.y < player.y) && (mouse.y < (-1) * mouse.x) && (mouse.y < mouse.x)) {
-			this.facing = "up";
-		}
-	}
-	
-	die () {
-		this.dead = true;
-	}
-	
 	update() {		
 		const TICK = this.game.clockTick;
 		const RUN = 350;
 		
-
 		// Movement and User Input
-		
 		this.velocity.x = 0;
 		this.velocity.y = 0;
 		this.state = "idle";
-		
 		if ((this.game.keys["w"] || this.game.keys["ArrowUp"]) && (!this.game.keys["s"] && !this.game.keys["ArrowDown"])) {
 			this.velocity.y = -RUN;
 			this.state = "run";
@@ -124,15 +99,7 @@ class Player {
 			this.velocity.x = -RUN;
 			this.state = "run";
 		}
-
-    if (this.checkSlowTrap()) {
-    	this.moveMultiplyer = 0.2;
-    }
-    else{
-        this.moveMultiplyer = 1;
-    }
-
-    if (this.hp <= 0) {
+    	if (this.hp <= 0) {
 			this.state = "death";
 			return;
 		} else if (this.hp <= 10) {
@@ -143,7 +110,6 @@ class Player {
 			if (this.bulletTimer <= 0) {
 				this.state = "idle";
 				ASSET_MANAGER.playAsset("./music/player shot sound 200.wav");
-				this.calculateDirection()
 				if (this.facing === "left") {
 					this.game.addBullet(new Bullet(this.game, this.x - 25, this.y + 55, this.game.mouse.x - (this.bulletSize / 2), this.game.mouse.y - (this.bulletSize / 2), this.bulletSize, this.bulletSpeed, this.bulletRicochet, this.shotgun, "player", this.spritesheet9));
 				} else if (this.facing === "right") {
@@ -160,19 +126,18 @@ class Player {
 		if (this.bulletTimer >= 0) {
 			this.bulletTimer-=TICK;
 		}
-		
+
 		// update direction
-		if (this.velocity.x > 0) this.facing = "right";
-		if (this.velocity.x < 0) this.facing = "left";
-		if (this.velocity.y < 0) this.facing = "up";
-		if (this.velocity.y > 0) this.facing = "down";
-		
+		this.calculateDirection();
+		// check if on slow trap
+		this.checkSlowTrap();
+
 		// update position. side scrolling
-		this.x += (this.velocity.x * TICK)*this.moveMultiplyer + this.game.camera.x;
-		this.y += (this.velocity.y * TICK)*this.moveMultiplyer + this.game.camera.y;
+		this.x += (this.velocity.x * TICK) * this.moveMultiplyer + this.game.camera.x;
+		this.y += (this.velocity.y * TICK) * this.moveMultiplyer + this.game.camera.y;
 		
-		this.mapX += this.velocity.x * TICK *this.moveMultiplyer;
-		this.mapY += this.velocity.y * TICK *this.moveMultiplyer;	
+		this.mapX += this.velocity.x * TICK * this.moveMultiplyer;
+		this.mapY += this.velocity.y * TICK * this.moveMultiplyer;	
 		
 		//wall collision
 		var that = this;
@@ -259,13 +224,6 @@ class Player {
 		this.updateBB();
 	}
   
-    drawMinimap(ctx, mmX, mmY){
-      ctx.fillStyle = "Green";
-	  this.mMapX = mmX + this.mapX / PARAMS.BITWIDTH;
-	  this.mMapY = mmY + this.mapY / PARAMS.BITWIDTH;
-      ctx.fillRect(this.mMapX, this.mMapY, 93/PARAMS.BITWIDTH , 86/PARAMS.BITWIDTH);
-    }
-		
 	draw(ctx) {
 		if (this.hp <= 0) {
 			this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y, 1);
@@ -281,15 +239,47 @@ class Player {
 		}
 	}
 
+	/**
+	 * draws player onto minimap
+	 * @param {} ctx 
+	 * @param {*} mmX 
+	 * @param {*} mmY 
+	 */
+	drawMinimap(ctx, mmX, mmY){
+		ctx.fillStyle = "Green";
+		this.mMapX = mmX + this.mapX / PARAMS.BITWIDTH;
+		this.mMapY = mmY + this.mapY / PARAMS.BITWIDTH;
+		ctx.fillRect(this.mMapX, this.mMapY, 93/PARAMS.BITWIDTH , 86/PARAMS.BITWIDTH);
+	}
 
-    checkSlowTrap(){
-      let collide = false;
-      this.game.entities.traps.forEach(trap => {
-        if (trap.trap_type === "thorn" && this.feetBB.collide(trap.BB)){
-          collide = true;
-          return;
-        }
-      })
-      return collide;
+	/**
+	 * changed player direction based on mouse
+	 */
+	calculateDirection() {
+		let mouse = {x: this.game.mouse.x - this.x - 42.5, y : this.game.mouse.y - this.y - 50}; //42.5 and 50 are offsets to get to middle of sprite
+		let player = {x: 0, y : 0};
+		if ((mouse.x < player.x) && (mouse.y < (-1) * mouse.x) && (mouse.y > mouse.x)) { //left
+			this.facing = "left"
+		} else if ((mouse.x > player.x) && (mouse.y > (-1) * mouse.x) && (mouse.y < mouse.x)) {
+			this.facing = "right";
+		} else if ((mouse.y > player.y) && (mouse.y > (-1) * mouse.x) && (mouse.y > mouse.x)) {
+			this.facing = "down";
+		} else if ((mouse.y < player.y) && (mouse.y < (-1) * mouse.x) && (mouse.y < mouse.x)) {
+			this.facing = "up";
+		}
+	}
+
+	/**
+	 * checks whether player is currently on a slow trap and changes the speed multiplier
+	 */
+    checkSlowTrap() {
+		let traps = this.game.entities.traps;
+		for (let i = 0; i < traps.length; i++) {
+			if (traps[i].trap_type === "thorn" && this.feetBB.collide(traps[i].BB)){
+				this.moveMultiplyer = 0.2;
+				return;
+        	}	
+		}
+	    this.moveMultiplyer = 1;
     }
 }
