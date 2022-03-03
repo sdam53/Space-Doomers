@@ -67,9 +67,7 @@ class SceneManager {
 		}
 
 		// letting scene manager know how mant gears are in the level
-		if (this.levelCount == 1) this.totalGears = 3;
-		if (this.levelCount == 2) this.totalGears = 4;
-		if (this.levelCount == 3) this.totalGears = 5;
+		this.totalGears = level.gears.length;
 		
 		//adding player
 		this.player = new Player(this.game, level.player.x * 125, level.player.y * 125);
