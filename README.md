@@ -6,6 +6,7 @@ Group Members:
   * [Raz Consta](https://github.com/RazConsta)
 
 How to play:
- * Use w, a, s, d to move and mouse + click to shoot 
+ * Use w, a, s, d to move and mouse + click to shoot.
+ * Press f to toggle the shield on and off.
 
 Weapon Powerup Sound effect obtained from https://www.zapsplat.com
