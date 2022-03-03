@@ -33,6 +33,13 @@ class Player {
 		
 		this.animations = [];
 		this.loadAnimations();
+
+		// shield specifics
+		this.shieldSprite = ASSET_MANAGER.getAsset("./sprites/player/active shield.png");
+		this.shieldTime = 30;
+		this.activeShield = false;
+		this.time = 0;
+		this.buttonCooldown = 0.5;
 		
 		this.updateBB();
 		
@@ -45,6 +52,13 @@ class Player {
 		this.mMapX = this.mapX;
 		this.mMapY = this.mapY;
 
+	}
+	timerOk() {
+		if (this.time > this.buttonCooldown) {
+			this.time = 0;
+			return true;
+		} 
+		return false;
 	}
 	
 	loadAnimations() {
@@ -77,8 +91,14 @@ class Player {
 	
 	update() {		
 		const TICK = this.game.clockTick;
+		this.time += TICK;
 		const RUN = 350;
-		
+
+		if (this.activeShield) this.shieldTime -= TICK; 
+		if (this.activeShield && this.shieldTime <= 0) this.activeShield = false; // Deactivate shield after its used
+		if (this.game.keys["f"] && !this.activeShield && this.shieldTime > 0 && this.timerOk()) this.activeShield = true; // Activate shield on f
+		if (this.game.keys["f"] && this.activeShield && this.timerOk()) this.activeShield = false; // deactivate shield on f
+	
 		// Movement and User Input
 		this.velocity.x = 0;
 		this.velocity.y = 0;
@@ -177,6 +197,7 @@ class Player {
 			this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y, 1);
 		} else {
 			this.animations[this.facing + " " + this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y, 1);
+			if (this.activeShield) ctx.drawImage(this.shieldSprite, this.x - 20, this.y - 15, 120, 120);
 		}
 		
 		if (PARAMS.DEBUG) {

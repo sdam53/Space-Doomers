@@ -10,10 +10,18 @@ ASSET_MANAGER.queueDownload("./sprites/traps/thorn1.png");
 ASSET_MANAGER.queueDownload("./sprites/traps/thorn_bottom.png");
 ASSET_MANAGER.queueDownload("./sprites/traps/wall bullet.png");
 
+// hp and armor overlay 
+ASSET_MANAGER.queueDownload("./sprites/overlay/health overlay.png");
+ASSET_MANAGER.queueDownload("./sprites/overlay/armor overlay.png");
+
+// wall trap cannons
 ASSET_MANAGER.queueDownload("./sprites/traps/wall trap left.png");
 ASSET_MANAGER.queueDownload("./sprites/traps/wall trap right.png");
 ASSET_MANAGER.queueDownload("./sprites/traps/wall trap up.png");
 ASSET_MANAGER.queueDownload("./sprites/traps/wall trap down.png");
+
+// shield powerup
+ASSET_MANAGER.queueDownload("./sprites/player/active shield.png");
 
 ASSET_MANAGER.queueDownload("./sprites/door/door_shut.png");
 ASSET_MANAGER.queueDownload("./sprites/door/door_open.png");

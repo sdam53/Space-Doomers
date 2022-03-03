@@ -34,7 +34,7 @@ class SceneManager {
 		this.gamepadSelect = 498;
 
 		this.level = level;
-		this.levelCount = level.levelCount;
+		this.levelCount = level.count;
 		this.title = title;
 		this.transition = transition;
 		this.credits = false;
@@ -65,6 +65,11 @@ class SceneManager {
 				y += 125;
 			}
 		}
+
+		// letting scene manager know how mant gears are in the level
+		if (this.levelCount == 1) this.totalGears = 3;
+		if (this.levelCount == 2) this.totalGears = 4;
+		if (this.levelCount == 3) this.totalGears = 5;
 		
 		//adding player
 		this.player = new Player(this.game, level.player.x * 125, level.player.y * 125);
@@ -327,16 +332,22 @@ class SceneManager {
 	};
 
 	draw(ctx) {
+		ctx.drawImage(ASSET_MANAGER.getAsset("./sprites/overlay/health overlay.png"), 30, 30, 50, 50);
+		ctx.fillStyle = "Red";
+		ctx.strokeStyle = "Red";
+		ctx.strokeRect(90, 45, 200, 20);
+		ctx.fillRect(90, 45, (this.player.hp / 100) * 200, 20); 
+
+		ctx.drawImage(ASSET_MANAGER.getAsset("./sprites/overlay/armor overlay.png"), 30, 90, 50, 50);
+		ctx.fillStyle = "#73f9e3";
+		ctx.strokeStyle = "#73f9e3";
+		ctx.strokeRect(90, 105, 200, 20);
+		ctx.fillRect(90, 105, (this.player.shieldTime / 30) * 200, 20); 
+
+		ctx.drawImage(this.gear, 30, 150, 50, 50);
+		ctx.fillStyle = "#ffdd00";
+		ctx.fillText(this.player.gears + "/" + this.totalGears, 90, 185);
 		
-		ctx.fillStyle = "White"
-		ctx.fillRect(50,80,200,20);
-		ctx.drawImage(this.hp_bar, 3, 3, 1, 2, 50, 80, this.player.hp*2, 20);
-		
-		ctx.fillStyle = "#39FF14";
-		ctx.fillText("HP", 50, 50);
-		ctx.fillText("gears", 300, 50);
-		ctx.drawImage(this.gear, 1, 1, 83, 88, 300, 70, 31, 30);
-		ctx.fillText("x " + this.player.gears, 350, 100);
 		ctx.font = '40px "NASA"';
 		ctx.fillStyle = "Red";
 		ctx.strokeStyle = "Red";
