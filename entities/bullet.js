@@ -106,7 +106,7 @@ class Bullet {
 					ASSET_MANAGER.playAsset("./music/slime.wav");
 				}
 				if (enemy instanceof Boss) {
-					ASSET_MANAGER.playAsset("./music/boss.wav");
+					// ASSET_MANAGER.playAsset("./music/boss.wav");
 				}
 				if (enemy instanceof Smol) {
 					ASSET_MANAGER.playAsset("./music/player death sound 200.mp3");
