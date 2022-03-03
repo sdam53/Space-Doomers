@@ -113,6 +113,26 @@ class Bullet {
 				}
 			}
 		});
+
+		// damage to boss
+		this.game.entities.bosses.forEach((enemy, i) => {
+			if ((enemy.BB != null) && enemy.BB.collide(this.BB) && (this.type === "player")) {
+				this.removeFromWorld = true;
+				enemy.hp -= 35;
+				if (enemy instanceof FlyingMonster || enemy instanceof RedMonster) {
+					ASSET_MANAGER.playAsset("./music/flying monster death sound 200.wav");
+				}
+				if (enemy instanceof GreenMonster || enemy instanceof BlueMonster) {
+					ASSET_MANAGER.playAsset("./music/slime.wav");
+				}
+				if (enemy instanceof Boss) {
+					ASSET_MANAGER.playAsset("./music/boss.wav");
+				}
+				if (enemy instanceof Smol) {
+					ASSET_MANAGER.playAsset("./music/player death sound 200.mp3");
+				}
+			}
+		});
 		//damage to player
 		if (!PARAMS.GODMODE) {
 			if (this.game.player.BB.collide(this.BB) && (this.type == "enemy")) {

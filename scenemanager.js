@@ -138,7 +138,7 @@ class SceneManager {
 		}
 
 		if (this.levelCount == 1) this.requiredKills = this.game.entities.enemies.length;
-		else this.requiredKills = level.boss.length;
+		else this.requiredKills = this.game.entities.bosses.length; // level.boss.length;
 		
 		// Background music
 		if (!this.title && this.transition) {

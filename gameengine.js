@@ -305,6 +305,7 @@ class GameEngine {
         // Remove dead things
         this.entities.bullets = this.entities.bullets.filter(entity => !entity.removeFromWorld);
         this.entities.enemies = this.entities.enemies.filter(entity => !entity.removeFromWorld);
+        this.entities.bosses = this.entities.bosses.filter(entity => !entity.removeFromWorld);
         this.entities.powerups = this.entities.powerups.filter(entity => !entity.removeFromWorld);
         //this.entities.portals = this.entities.portals.filter(entity => !entity.removeFromWorld);
         this.entities.player.update();

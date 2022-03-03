@@ -44,10 +44,8 @@ class TransitionItem {
 
       let player = this.game.player;
 
-      if (this.level == 1 && player.gears == 3 && this.game.entities.enemies.length == 0) {
-          this.visible = 1;
-      }
-
+      if (this.level == 1 && player.gears == 3 && this.game.entities.enemies.length == 0) this.visible = true;
+    
       if (this.BB && player.feetBB.collide(this.BB)) {
             if (this.level == 1 && this.visible) {
                 this.game.camera.loadLevel(levelTwo, false, true);
@@ -63,7 +61,7 @@ class TransitionItem {
     }
 
     draw(ctx){
-        ctx.drawImage(this.sprites[this.level], this.x, this.y, this.w, this.h);
+        if (this.visible) ctx.drawImage(this.sprites[this.level], this.x, this.y, this.w, this.h);
         // if (PARAMS.DEBUG) {
         //   ctx.strokeStyle = 'Blue';
         //   ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);

@@ -94,19 +94,9 @@ class Door {
 			this.state = "unlocked";
 		}
 
-		// not working atm since bosses are not in enemies anymore
-		if (this.finalDoor && this.state == "locked" && this.game.player.gears >= this.requiredGears) {
-			let count = 0;
-			for (const enemy of this.game.entities.enemies) {
-				if (enemy instanceof Boss) {
-					count++;
-				}
-			}
-			if (count == 0) {
-				this.state = "unlocked";
-			} 
-		} 
-
+		// unlock condition for levels 2 and 3
+		if (this.finalDoor && this.state == "locked" && this.game.player.gears >= this.requiredGears && this.game.entities.bosses == 0) this.state = "unlocked";
+				
 		let enemies = this.game.entities.enemies;
 		for (let i = 0; i < enemies.length; i++) {
 			if ((this.doorDistance(enemies[i]) < 180 || this.doorDistance(this.game.entities.player) < 180) && this.state == "unlocked") {
