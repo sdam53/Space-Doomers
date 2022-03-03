@@ -223,6 +223,7 @@ class Player {
 			}
 		});
 		this.updateBB();
+		console.log(this.hp);
 	}
   
 	draw(ctx) {
@@ -284,4 +285,16 @@ class Player {
 		}
 	    this.moveMultiplyer = 1;
     }
+
+	/**
+	 * calculates damage to player and applies it
+	 * enemie/bullets will call this
+	 * @param {*} damage base damage value
+	 */
+	calculateDamage(damage) {
+		if (this.activeShield) {
+			damage /= 2;
+		}
+		this.hp -= damage;
+	}
 }

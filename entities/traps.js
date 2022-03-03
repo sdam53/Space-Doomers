@@ -35,7 +35,7 @@ class Trap{
         if (!PARAMS.GODMODE) {
             if (this.trap_type === "spike") {
                 if (this.timer <= 0 && this.BB.collide(this.game.player.feetBB)) {
-                    this.game.player.hp -= this.damage;
+                    this.game.player.calculateDamage(this.damage);
                     ASSET_MANAGER.playAsset("./music/spikes.mp3");
                     this.timer = this.cooldown;
                 }

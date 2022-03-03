@@ -117,7 +117,7 @@ class Bullet {
 		if (!PARAMS.GODMODE) {
 			if (this.game.player.BB.collide(this.BB) && (this.type == "enemy")) {
 				this.removeFromWorld = true;
-				this.game.player.hp -= 10;
+				this.game.player.calculateDamage(10);
 			}
 		}
 		this.x += this.bulletSpeed * this.xBulletDir * TICK;

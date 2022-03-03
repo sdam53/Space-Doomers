@@ -180,7 +180,7 @@ class GreenMonster {
 			if (this.atkBB && PARAMS.GODMODE === false) {
 				if (this.attackTimer <= 0) {
 					if (this.atkBB.collide(this.game.player.BB)) {
-						this.game.player.hp -= 20; //might revamp damage system later
+						this.game.player.calculateDamage(20);
 						this.attackTimer = this.attackRate;
 					}
 				}
