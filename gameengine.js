@@ -41,6 +41,7 @@ class GameEngine {
         this.entities = {
             player: null,
             enemies: [],
+            bosses: [],
             bullets: [],
             tiles: [],
             portals: [],
@@ -141,6 +142,10 @@ class GameEngine {
         this.entities.enemies.push(entity);
     };
 
+    addBoss(entity) {
+        this.entities.bosses.push(entity);
+    };
+
     addBullet(entity) {
       this.entities.bullets.push(entity);
     };
@@ -187,6 +192,11 @@ class GameEngine {
         this.entities.enemies.forEach((enemy) => {
             if (!(enemy.x < -125 || enemy.x > 2000 || enemy.y < -125 || enemy.y > 975)) {
                 enemy.draw(this.ctx);//enemies need to be seperate for death animations but for now
+            }
+        });
+        this.entities.bosses.forEach((boss) => {
+            if (!(boss.x < -125 || boss.x > 2000 || boss.y < -125 || boss.y > 975)) {
+                boss.draw(this.ctx);//enemies need to be seperate for death animations but for now
             }
         });
         this.entities.powerups.forEach((powerups) => {
@@ -280,6 +290,9 @@ class GameEngine {
         this.entities.enemies.forEach((enemy) => {
           enemy.update();
         });
+        this.entities.bosses.forEach((boss) => {
+            boss.update();
+          });
         this.entities.bullets.forEach((bullet) => {
           bullet.update();
         });

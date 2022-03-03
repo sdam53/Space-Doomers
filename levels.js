@@ -298,6 +298,10 @@ red_monsters: [
 	{x: 38, y: 7, offscreen: false},
 	{x: 22, y: 12, offscreen: false},
 ],
+boss: [
+	{x: 10, y: 12, offscreen: false},
+	{x: 22, y: 12, offscreen: false},
+],
 gears: [
 	{x: 3, y: 20},
 	{x: 34, y: 15},

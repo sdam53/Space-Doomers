@@ -38,6 +38,7 @@ class SceneManager {
 		this.title = title;
 		this.transition = transition;
 		this.credits = false;
+		this.totalGears = level.gears.length;
 
 		//adding minimap
     	// this.minimap = new Minimap(this.game, 0, PARAMS.CANVAS_WIDTH - PARAMS.CANVAS_WIDTH/PARAMS.BITWIDTH, 500);
@@ -65,9 +66,6 @@ class SceneManager {
 				y += 125;
 			}
 		}
-
-		// letting scene manager know how mant gears are in the level
-		this.totalGears = level.gears.length;
 		
 		//adding player
 		this.player = new Player(this.game, level.player.x * 125, level.player.y * 125);
@@ -133,11 +131,14 @@ class SceneManager {
 			}
 			if (level.boss) {
 				for (let i = 0; i < level.boss.length; i++) {
-					this.game.addEnemy(new Boss(this.game, level.boss[i].x * 125 - 55, level.boss[i].y * 125 - 85));
+					this.game.addBoss(new Boss(this.game, level.boss[i].x * 125 - 55, level.boss[i].y * 125 - 85));
 				}
 			}
 			this.game.addPortal(new TransitionItem(this.game, level.transitionItem.x * 125, level.transitionItem.y * 125, level.transitionItem.level));
 		}
+
+		if (this.levelCount == 1) this.requiredKills = this.game.entities.enemies.length;
+		else this.requiredKills = level.boss.length;
 		
 		// Background music
 		if (!this.title && this.transition) {
@@ -345,6 +346,17 @@ class SceneManager {
 		ctx.drawImage(this.gear, 30, 150, 50, 50);
 		ctx.fillStyle = "#ffdd00";
 		ctx.fillText(this.player.gears + "/" + this.totalGears, 90, 185);
+
+		ctx.drawImage(ASSET_MANAGER.getAsset("./sprites/overlay/required kills.png"), 30, 215, 50, 50);
+		ctx.fillStyle = "#ffdd00";
+		if (this.levelCount == 1) {
+			let enemiesKilled = this.requiredKills - this.game.entities.enemies.length;
+			ctx.fillText(enemiesKilled + "/" + this.requiredKills, 90, 255);
+		}
+		else {
+			let bossesKilled = this.requiredKills - this.game.entities.bosses.length;
+			ctx.fillText(bossesKilled + "/" + this.requiredKills, 90, 255);
+		}
 		
 		ctx.font = '40px "NASA"';
 		ctx.fillStyle = "Red";

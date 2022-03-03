@@ -94,6 +94,7 @@ class Door {
 			this.state = "unlocked";
 		}
 
+		// not working atm since bosses are not in enemies anymore
 		if (this.finalDoor && this.state == "locked" && this.game.player.gears >= this.requiredGears) {
 			let count = 0;
 			for (const enemy of this.game.entities.enemies) {
@@ -104,7 +105,7 @@ class Door {
 			if (count == 0) {
 				this.state = "unlocked";
 			} 
-		}
+		} 
 
 		let enemies = this.game.entities.enemies;
 		for (let i = 0; i < enemies.length; i++) {

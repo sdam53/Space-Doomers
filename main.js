@@ -26,7 +26,9 @@ ASSET_MANAGER.queueDownload("./sprites/player/active shield.png");
 ASSET_MANAGER.queueDownload("./sprites/door/door_shut.png");
 ASSET_MANAGER.queueDownload("./sprites/door/door_open.png");
 ASSET_MANAGER.queueDownload("./sprites/tiles/x wall.png");
+
 ASSET_MANAGER.queueDownload("./images/cursor.png");
+ASSET_MANAGER.queueDownload("./sprites/overlay/required kills.png");
 
 // door sprites
 ASSET_MANAGER.queueDownload("./sprites/door/door open down.png");
