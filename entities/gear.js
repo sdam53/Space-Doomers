@@ -21,6 +21,14 @@ class Gear {
     }
 
     update() {
+      if (this.BB.collide(this.game.player.feetBB)) {
+        ASSET_MANAGER.playAsset("./music/gear sound.wav");
+					this.removeFromWorld = true;
+					this.game.player.gears++;
+      }
+
+
+
       this.updateBB();
       this.x += this.game.camera.x;
       this.y += this.game.camera.y;
