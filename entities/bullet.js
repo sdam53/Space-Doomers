@@ -19,7 +19,7 @@ class Bullet {
 		this.yBulletDir = (this.yTarget - this.y) / this.distance;
 		this.updateBB();
 		if (this.shotgun.shotgun) {
-			this.bulletSpeed *= 1.5
+			this.bulletSpeed *= 1.5;
 			this.shotgunAtk();
 		}
 	}
@@ -47,28 +47,41 @@ class Bullet {
 
 	//checks if bullet has hit wall.
 	checkWallCollision() {
-		let collide = [false, false];
+		var that = this;
 		this.game.entities.tiles.forEach((tiles) => {
-			if ((tiles instanceof Wall) && (tiles.BB.collide(this.BB))) {
-				collide[0] = true;
-				if (tiles.leftBB.collide(this.BB) || tiles.rightBB.collide(this.BB)) {
-					collide[1] = "vertical";
+			if ((tiles instanceof Wall) && (tiles.BB.collide(that.BB))) {
+				if (that.ricochet > 0) {
+					if (tiles.leftBB.collide(that.BB) || tiles.rightBB.collide(that.BB)) {
+						that.xBulletDir *= -1;
+					} else {
+						that.yBulletDir *= -1;
+					}
+					that.ricochet--;
+					return;
 				} else {
-					collide[1] = "horizontal";
+					that.removeFromWorld = true;
+					return;
 				}
-				return;
 			}
 		});
-		return collide;
 	}
 
-	checkDoorCollision() {//add bouncing
-		
+	checkDoorCollision() {
 		let doors = this.game.entities.portals;
 		for (let i = 0; i < doors.length; i++) {
-			if (doors[i] instanceof Door && doors[i].BB2 && this.BB.collide(doors[i].BB2)) {
-				this.removeFromWorld = true;
-				return false;
+			if (doors[i] instanceof Door && doors[i].state != "open" && this.BB.collide(doors[i].BB2)) {
+				if (this.ricochet > 0) {
+					if (doors[i].direction === "left" || doors[i].direction === "right") {
+						this.xBulletDir *= -1;
+					} else {
+						this.yBulletDir *= -1;
+					}
+					this.ricochet--; 
+					break;
+				} else {
+					this.removeFromWorld = true;
+					return;
+				}	
 			}
 		}
 		return true;
@@ -76,21 +89,10 @@ class Bullet {
 	
 	update() {
 		const TICK = this.game.clockTick;
-		let collide = this.checkWallCollision()
-		//destroys bullet if hits a wall
-		if (collide[0]) {
-			if (this.ricochet <= 0) {
-				this.removeFromWorld = true;
-				return;
-			} else {
-				if (collide[1] === "vertical") {
-					this.xBulletDir *= -1
-				} else {
-					this.yBulletDir *= -1
-				}
-				this.ricochet--;
-			}
-		} 
+		//checks if hits wall and if ricochet
+		this.checkWallCollision()
+		//checks if hits closed door and if ricochet
+		this.checkDoorCollision();
 		
 		//damage to enemy
 		this.game.entities.enemies.forEach((enemy, i) => {
@@ -118,7 +120,6 @@ class Bullet {
 				this.game.player.hp -= 10;
 			}
 		}
-		this.checkDoorCollision();
 		this.x += this.bulletSpeed * this.xBulletDir * TICK;
 		this.y += this.bulletSpeed * this.yBulletDir * TICK;
 		this.x += this.game.camera.x;
