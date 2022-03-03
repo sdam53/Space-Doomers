@@ -35,6 +35,12 @@ class Powerup {
                 this.game.player.shotgun.shotgun = true;
                 this.removeFromWorld = true;
             }
+        } else if (this.powerup === "healthpack") {
+            if (this.BB.collide(this.game.player.feetBB)) {
+                ASSET_MANAGER.playAsset("./music/health.mp3");
+				this.game.player.hp = 100;
+                this.removeFromWorld = true;
+            }
         }
 
         this.updateBB();

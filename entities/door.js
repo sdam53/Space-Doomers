@@ -106,10 +106,14 @@ class Door {
 			} 
 		}
 
-		if (this.doorDistance(this.game.entities.player) < 180 && this.state == "unlocked") {
-			this.state = "open";
-		} else if (this.doorDistance(this.game.entities.player) > 180 && this.state == "open") {
-			this.state = "unlocked";
+		let enemies = this.game.entities.enemies;
+		for (let i = 0; i < enemies.length; i++) {
+			if ((this.doorDistance(enemies[i]) < 180 || this.doorDistance(this.game.entities.player) < 180) && this.state == "unlocked") {
+				this.state = "open";
+				return;
+			} else if ((this.doorDistance(enemies[i]) > 180 || this.doorDistance(this.game.entities.player) > 180)  && this.state == "open") {
+				this.state = "unlocked";
+			}
 		}
 
 		this.updateBB();
