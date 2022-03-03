@@ -8,6 +8,13 @@ ASSET_MANAGER.queueDownload("./sprites/tiles/gear.png");
 ASSET_MANAGER.queueDownload("./sprites/traps/spike.png");
 ASSET_MANAGER.queueDownload("./sprites/traps/thorn1.png");
 ASSET_MANAGER.queueDownload("./sprites/traps/thorn_bottom.png");
+ASSET_MANAGER.queueDownload("./sprites/traps/wall bullet.png");
+
+ASSET_MANAGER.queueDownload("./sprites/traps/wall trap left.png");
+ASSET_MANAGER.queueDownload("./sprites/traps/wall trap right.png");
+ASSET_MANAGER.queueDownload("./sprites/traps/wall trap up.png");
+ASSET_MANAGER.queueDownload("./sprites/traps/wall trap down.png");
+
 ASSET_MANAGER.queueDownload("./sprites/door/door_shut.png");
 ASSET_MANAGER.queueDownload("./sprites/door/door_open.png");
 ASSET_MANAGER.queueDownload("./sprites/tiles/x wall.png");

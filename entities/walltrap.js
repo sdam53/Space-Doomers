@@ -11,9 +11,13 @@ class WallTrap {
      */
 	constructor(game, x, y, direction, bulletRate) {
 		Object.assign(this, {game, x, y, direction, bulletRate});
-		//this.spritesheet = ASSET_MANAGER.getAsset("./sprites/tiles/x wall.png");
-		//will work on sprites later
-        this.bullet = ASSET_MANAGER.getAsset("./sprites/enemies/flying_monster/flying_monster_bullet.png");
+
+		this.down_sprite = ASSET_MANAGER.getAsset("./sprites/traps/wall trap down.png");
+        this.left_sprite = ASSET_MANAGER.getAsset("./sprites/traps/wall trap left.png");
+        this.right_sprite = ASSET_MANAGER.getAsset("./sprites/traps/wall trap right.png");
+        this.up_sprite = ASSET_MANAGER.getAsset("./sprites/traps/wall trap up.png");
+
+        this.bullet = ASSET_MANAGER.getAsset("./sprites/traps/wall bullet.png");
         //this.updateBB();
         this.radius = 85;
         this.bulletSpeed = 300;
@@ -53,6 +57,15 @@ class WallTrap {
 	
 	draw(ctx) {
 		//ctx.drawImage(this.spritesheet, this.x, this.y, this.w, this.h);
+        if (this.direction == "left") {
+            ctx.drawImage(this.left_sprite, this.x - 22, this.y + 30, 80, 60);
+        } else if (this.direction == "right") {
+            ctx.drawImage(this.right_sprite, this.x + 66, this.y + 30, 80, 60);
+        } else if (this.direction == "up") {
+            ctx.drawImage(this.up_sprite, this.x + 32, this.y - 22, 60, 80);
+        } else if (this.direction == "down") {
+            ctx.drawImage(this.down_sprite, this.x + 32, this.y + 65, 60, 80);
+        } 
 		if (PARAMS.DEBUG && (typeof this.BB != 'undefined')) {
 			ctx.strokeStyle = 'Brown';
 			ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
