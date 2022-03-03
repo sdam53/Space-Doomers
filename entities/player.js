@@ -169,6 +169,39 @@ class Player {
 				}
 			});
 		}
+		//collision with doors
+		this.game.entities.portals.forEach(function (entity) {
+			if (entity.BB && that.feetBB.collide(entity.BB)) {
+				if (entity instanceof Door) {
+					if (entity.leftBB && that.feetBB.collide(entity.leftBB)) // collides with left side of wall
+					{
+						that.x = that.x - RUN * TICK;
+						that.mapX -= RUN * TICK;
+					}
+					if (entity.rightBB && that.feetBB.collide(entity.rightBB)) // collides with right side of wall
+					{
+						entity.removeFromWorld = true;
+
+						that.x = that.x + RUN * TICK;
+						that.mapX += RUN * TICK;
+					}
+					if (entity.topBB && that.feetBB.collide(entity.topBB)) // collides with top side of wall
+					{
+						entity.removeFromWorld = true;
+
+						that.y = that.y - RUN * TICK;
+						that.mapY -= RUN * TICK;
+					}
+					if (entity.bottomBB && that.feetBB.collide(entity.bottomBB)) // collides with bottom side of wall
+					{
+						entity.removeFromWorld = true;
+
+						that.y = that.y + RUN * TICK;
+						that.mapY += RUN * TICK;
+					}
+				}
+			}
+		});
 		this.updateBB();
 	}
   
