@@ -331,17 +331,32 @@ class SceneManager {
 	};
 
 	draw(ctx) {
+		ctx.font = '20px "NASA"';
+		ctx.lineWidth = 3;
 		ctx.drawImage(ASSET_MANAGER.getAsset("./sprites/overlay/health overlay.png"), 30, 30, 50, 50);
 		ctx.fillStyle = "Red";
 		ctx.strokeStyle = "Red";
 		ctx.strokeRect(90, 45, 200, 20);
 		ctx.fillRect(90, 45, (this.player.hp / 100) * 200, 20); 
+		ctx.fillStyle = "Black";
+		if (this.player.hp <= 30) ctx.fillStyle = "Red";
+		ctx.fillText(this.player.hp + "/100", 150, 62);
 
 		ctx.drawImage(ASSET_MANAGER.getAsset("./sprites/overlay/armor overlay.png"), 30, 90, 50, 50);
+		ctx.fillStyle = "Black";
+		ctx.fillText("F", 50, 120);
 		ctx.fillStyle = "#73f9e3";
 		ctx.strokeStyle = "#73f9e3";
 		ctx.strokeRect(90, 105, 200, 20);
 		ctx.fillRect(90, 105, (this.player.shieldTime / 30) * 200, 20); 
+		ctx.fillStyle = "Black";
+		if (this.player.shieldTime <= 12) ctx.fillStyle = "#73f9e3";
+		let timeLeft;
+		if (parseInt(this.player.shieldTime) >= 0) timeLeft = parseInt(this.player.shieldTime);
+		else timeLeft = 0;
+		ctx.fillText(timeLeft + "s", 165, 122);
+
+		ctx.font = '40px "NASA"';
 
 		ctx.drawImage(this.gear, 30, 150, 50, 50);
 		ctx.fillStyle = "#ffdd00";
