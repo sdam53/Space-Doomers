@@ -5,11 +5,8 @@ class Boss {
       this.facing = "down";
 	  this.state = "idle";
 
-	  this.hp = 100;
-
 	  this.moveSpeed = 100;
 	  
-
 	  this.bulletSpeed = 300;
 	  this.bulletSize = 30;
 	  this.shotgun = {shotgun: true, amount: 1};
@@ -265,6 +262,12 @@ class Boss {
 	}
 
     draw(ctx) {
+		if (this.hp < 1000) {
+			ctx.fillStyle = "#ffdd00";
+			ctx.strokeStyle = "#ffdd00";
+			ctx.strokeRect(this.x + 65, this.y + 175, 100, 20);
+			ctx.fillRect(this.x + 65, this.y + 175, (this.hp / 1000) * 100, 20); 
+		}
 		let xOffset, yOffset;
 		if (this.state == "death") {
 			if (this.facing == "up") xOffset = -15, yOffset = -100;

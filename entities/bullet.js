@@ -105,6 +105,7 @@ class Bullet {
 				if (enemy instanceof GreenMonster || enemy instanceof BlueMonster) {
 					ASSET_MANAGER.playAsset("./music/slime.wav");
 				}
+				// can delete this if
 				if (enemy instanceof Boss) {
 					// ASSET_MANAGER.playAsset("./music/boss.wav");
 				}
@@ -119,15 +120,18 @@ class Bullet {
 			if ((enemy.BB != null) && enemy.BB.collide(this.BB) && (this.type === "player")) {
 				this.removeFromWorld = true;
 				enemy.hp -= 35;
+				// can delete this if
 				if (enemy instanceof FlyingMonster || enemy instanceof RedMonster) {
 					ASSET_MANAGER.playAsset("./music/flying monster death sound 200.wav");
 				}
+				// can delete this if
 				if (enemy instanceof GreenMonster || enemy instanceof BlueMonster) {
 					ASSET_MANAGER.playAsset("./music/slime.wav");
 				}
 				if (enemy instanceof Boss) {
-					ASSET_MANAGER.playAsset("./music/boss.wav");
+					// ASSET_MANAGER.playAsset("./music/boss.wav");
 				}
+				// can delete this if
 				if (enemy instanceof Smol) {
 					ASSET_MANAGER.playAsset("./music/player death sound 200.mp3");
 				}
