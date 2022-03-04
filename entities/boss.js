@@ -226,6 +226,7 @@ class Boss {
 			if (this.animations[this.facing + " " + this.state].frame === 16) {
 				this.removeFromWorld = true;
 			}
+			ASSET_MANAGER.playAsset("./music/boss.wav");
 		} else {
 		 	if (this.path) { 
 				if (this.state === "attack") {
