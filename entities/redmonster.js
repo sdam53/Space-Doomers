@@ -200,7 +200,7 @@ class RedMonster {
 				this.getPath();
 			}
 		} else {
-			if (this.path && this.path.length != 0 && this.path.length < 10 && getDistance(this.x + this.midPointOffset.x, this.y + this.midPointOffset.y, this.game.player.x, this.game.player.y) <= 500) { //checks/changes to agro
+			if (this.path && this.path.length != 0 && this.path.length < 10 && getDistance(this.x + 45, this.y + 45, this.game.player.x, this.game.player.y) <= 500) { //checks/changes to agro
 				this.agro = true;
 			} else {
 				this.getPath();
