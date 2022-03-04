@@ -2,7 +2,7 @@
  * class representing a point
  * not being used rn, keeping just in case
  */
-class Point2 {
+ class Point2 {
     constructor(x, y) {
 		Object.assign(this, {x, y});
     }
@@ -39,7 +39,7 @@ class Node {
     }
 }
 
-const aStarPath = (start, end, map, game) => {
+const aStarPath = (start, end, map, game, entity) => {
 
     //if player is in invaid area, wall glitching. fixs itself since player gets pushed back
     if (!validEnd(end, map)) {
@@ -82,7 +82,7 @@ const aStarPath = (start, end, map, game) => {
         
 
         //getting neighboring nodes
-        let neighbor = findNeighbors1(game, current.position, map, current);
+        let neighbor = findNeighbors1(game, current.position, map, current, entity);
         for (let i = 0; i < neighbor.length; i++) {
 
             //updating neighbor scores
@@ -121,8 +121,7 @@ const aStarPath = (start, end, map, game) => {
  * @param {*} game game engine
  * @returns boolean whether point is walkable
  */
-const isWalkable1 = (point, myMap, game) => {
-    let valid = false;
+ const isWalkable1 = (point, myMap, game, entity) => {
     if (point.y < 0 || point.y > myMap.length - 1) {
         return false;
     }
@@ -132,13 +131,13 @@ const isWalkable1 = (point, myMap, game) => {
     let doors = game.camera.level.doors;
     for (let i = 0; i < doors.length; i++) {
         if (point.x === doors[i].x && point.y === doors[i].y ) {
-            return false;
+            if (doors[i].state === "locked" || !entity.agro) {
+                return false;
+            }
+            break;
         }
     }
-    if (myMap[point.y][point.x] === 1) {
-        valid = true;
-    }
-    return valid;
+    return myMap[point.y][point.x] === 1;
 };
 /**
  * returns of list of neighboring nodes
@@ -148,16 +147,16 @@ const isWalkable1 = (point, myMap, game) => {
  * @param {*} currentNode node containing the parent point 
  * @returns list of neighboring nodes
  */
-const findNeighbors1 = (game, point, map, currentNode) => {
+const findNeighbors1 = (game, point, map, currentNode, entity) => {
     neighbors = []
     let up = point.offset(0,  1);
     let down = point.offset(0,  -1);
     let left = point.offset(-1, 0);
     let right = point.offset(1, 0);
-    if (isWalkable1(up, map, game)) neighbors.push(new Node(currentNode, up));
-    if (isWalkable1(down, map, game)) neighbors.push(new Node(currentNode, down));
-    if (isWalkable1(left, map, game)) neighbors.push(new Node(currentNode, left));
-    if (isWalkable1(right, map, game)) neighbors.push(new Node(currentNode, right));
+    if (isWalkable1(up, map, game, entity)) neighbors.push(new Node(currentNode, up));
+    if (isWalkable1(down, map, game, entity)) neighbors.push(new Node(currentNode, down));
+    if (isWalkable1(left, map, game, entity)) neighbors.push(new Node(currentNode, left));
+    if (isWalkable1(right, map, game, entity)) neighbors.push(new Node(currentNode, right));
     return neighbors;
 };
 
@@ -186,16 +185,12 @@ const findLowestF = (list) => {
  * @param {*} Node node to be checks
  * @returns list of size 2 with boolean whether list contains the node and its f score
  */
-const contains1 = (array, Node) => {
-    let result = [false, Number.MAX_SAFE_INTEGER];
-    array.some(element => {
-        if (element.equals(Node)) {
-            result[0] = true;
-            result[1] = element.f;
-            return;
-        }
-    });
-    return result;
+const contains1 = (array, theNode) => {
+    const temp = array.find(node => node.equals(theNode));
+    if (typeof temp != 'undefined') {
+        return [true, temp.f]
+    }
+    return [false, Number.MAX_SAFE_INTEGER];
 }
 
 const validEnd = (point, myMap) => {

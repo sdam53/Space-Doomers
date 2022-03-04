@@ -223,7 +223,6 @@ class Player {
 			}
 		});
 		this.updateBB();
-		console.log(this.hp);
 	}
   
 	draw(ctx) {

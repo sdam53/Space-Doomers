@@ -25,6 +25,8 @@ class Smol {
 	  this.offset = {x: 40, y : 32, feet: 47};
 	  this.mapX = this.x + this.offset.x;
 	  this.mapY = this.y + this.offset.y;
+
+	  this.agro = false;
 	  
     }
 
@@ -207,7 +209,7 @@ class Smol {
 		let myY = floor(this.mapY / 125);
 		let pX = floor(this.game.player.mapX / 125);
 		let pY = floor(this.game.player.mapY / 125);
-		this.path = aStarPath(new Point(this.game, myX, myY, null), new Point(this.game, pX, pY, null), this.game.camera.level.map, this.game).reverse();
+		this.path = aStarPath(new Point(this.game, myX, myY, null), new Point(this.game, pX, pY, null), this.game.camera.level.map, this.game, this).reverse();
 		if (this.path[0] && (typeof this.path[0] != 'undefined')) { 
 			if (this.path[0].x > myX) {//right
 				this.directionToGo = "right";
@@ -230,7 +232,7 @@ class Smol {
 			if (this.animations[this.facing + " " + this.state].frame === 16) {
 				this.removeFromWorld = true;
 			}
-		} else {
+		} else if (this.agro){
 			if (this.path && (typeof this.path[0] != 'undefined')) {
 				if (this.path.length <= 5 && this.distancedMoved === 0) {
 					this.shoot();
@@ -241,7 +243,13 @@ class Smol {
 			} else {
 				this.getPath();
 			}
-		}
+		} else {
+			if (this.path && this.path.length != 0 && this.path.length < 10 && getDistance(this.x + this.midPointOffset.x, this.y + this.midPointOffset.y, this.game.player.x, this.game.player.y) <= 500) { //checks/changes to agro
+				this.agro = true;
+			} else {
+				this.getPath();
+			}
+		 }
 		
 		if (this.bulletTimer <= this.bulletRate) {
 		  this.bulletTimer-=TICK;

@@ -119,27 +119,27 @@ let levelTwo = {
 
 	player: {x: 4, y: 2},
     flying_monsters: [
-		{x: 8, y: 30, offscreen: false},
-		{x: 12, y: 34, offscreen: false},
-		{x: 5, y: 8, offscreen: false},
-		{x: 12, y: 23, offscreen: false},
-		{x: 27, y: 18, offscreen: false},
-		{x: 20, y: 10, offscreen: false},
-		{x: 20, y: 18, offscreen: false},
-		{x: 29, y: 30, offscreen: false},
-		{x: 33, y: 34, offscreen: false},
+		{x: 8, y: 30},
+		{x: 12, y: 34},
+		{x: 5, y: 8},
+		{x: 12, y: 23},
+		{x: 27, y: 18},
+		{x: 20, y: 10},
+		{x: 20, y: 18},
+		{x: 29, y: 30},
+		{x: 33, y: 34},
     ],
 	green_monsters: [
-		{x: 4, y: 17, offscreen: false},
-		{x: 19, y: 4, offscreen: false},
-		{x: 24, y: 5, offscreen: false},
-		{x: 22, y: 19, offscreen: false},
-		{x: 22, y: 13, offscreen: false},
-		{x: 19, y: 34, offscreen: false},
-		{x: 23, y: 30, offscreen: false},
+		{x: 4, y: 17},
+		{x: 19, y: 4},
+		{x: 24, y: 5},
+		{x: 22, y: 19},
+		{x: 22, y: 13},
+		{x: 19, y: 34},
+		{x: 23, y: 30},
 	],
 	blue_monsters: [
-		{x: 4, y: 19, offscreen: false},
+		{x: 4, y: 19},
 	],
 	boss: [
 		{x: 33, y: 34}
@@ -287,20 +287,20 @@ let levelThree = {
 
 player: {x: 3, y: 1},
 flying_monsters: [
-	{x: 12, y: 4, offscreen: false},
-	{x: 15, y: 3, offscreen: false},
+	{x: 12, y: 4},
+	{x: 15, y: 3},
 ],
 green_monsters: [
-	{x: 5, y: 6, offscreen: false},
-	{x: 26, y: 10, offscreen: false},
+	{x: 5, y: 6},
+	{x: 26, y: 10},
 ],
 red_monsters: [
-	{x: 38, y: 7, offscreen: false},
-	{x: 22, y: 12, offscreen: false},
+	{x: 38, y: 7},
+	{x: 22, y: 12},
 ],
 boss: [
-	{x: 10, y: 12, offscreen: false},
-	{x: 22, y: 12, offscreen: false},
+	{x: 10, y: 12},
+	{x: 22, y: 12},
 ],
 gears: [
 	{x: 3, y: 20},
@@ -318,7 +318,7 @@ portals: [
 	{x: 2, y: 44},
 ],
 	blue_monsters: [
-		{x: 3, y: 17, offscreen: false},
+		{x: 3, y: 17},
 	],
 	// boss: [{x: 11, y: 4}],
 	doors : [
@@ -391,7 +391,7 @@ portals: [
 
 	transitionItem : {x: 40, y: 12, level: 3},
 
-	story: [                                        //
+	story: [                                        
 		"Rob quickly puts the jetpack on but is ",
 		"   startled by a loud explosion. There   ",
 		"   was no fuel left, and he finds himself",

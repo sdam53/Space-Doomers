@@ -1,6 +1,6 @@
 class RedMonster {
-	constructor(game, x, y, offscreen) {
-		Object.assign(this, {game, x, y, offscreen})
+	constructor(game, x, y) {
+		Object.assign(this, {game, x, y})
 		
 		this.bullet = ASSET_MANAGER.getAsset("./sprites/enemies/red_monster/red_monster_bullet.png");
 		this.upSprite = ASSET_MANAGER.getAsset("./sprites/enemies/red_monster/red_monster_up.png");
@@ -30,6 +30,8 @@ class RedMonster {
 		this.mapX = this.x + 101//this.midPointOffset.x;
 		this.mapY = this.y + 63//this.midPointOffset.y;
 		this.path;
+
+		this.agro = false;
 	}
 	
 	loadAnimations() {
@@ -162,7 +164,7 @@ class RedMonster {
 		let myY = floor(this.mapY / 125);
 		let pX = floor(this.game.player.mapX / 125);
 		let pY = floor(this.game.player.mapY / 125);
-		this.path = aStarPath(new Point(this.game, myX, myY, null), new Point(this.game, pX, pY, null), this.game.camera.level.map, this.game).reverse();
+		this.path = aStarPath(new Point(this.game, myX, myY, null), new Point(this.game, pX, pY, null), this.game.camera.level.map, this.game, this).reverse();
 		if (this.path[0] && (typeof this.path[0] != 'undefined')) { 
 			if (this.path[0].x > myX) {//right
 				this.directionToGo = "right";
@@ -184,19 +186,25 @@ class RedMonster {
 			if (this.animations[this.facing + " " + this.state].frame === 19) {
 				this.removeFromWorld = true;
 			}
-		} else if (this.path && (typeof this.path[0] != 'undefined')) {
-			if (this.path.length > 1) {
-						this.move();
-			} else {
-				if (randomInt(7) % 2 === 0) {
+		} else if (this.agro) {
+			if (this.path && (typeof this.path[0] != 'undefined')) {
+				if (this.path.length > 1) {
+							this.move();
+				} else {
 					this.getPath();
 				}
-			}
-			if (getDistance(this.x, this.y, this.game.player.x + 150, this.game.player.y + 150) < 800) {
-				this.shoot();
+				if (getDistance(this.x, this.y, this.game.player.x + 150, this.game.player.y + 150) < 800) {
+					this.shoot();
+				}
+			} else {
+				this.getPath();
 			}
 		} else {
-			this.getPath();
+			if (this.path && this.path.length != 0 && this.path.length < 10 && getDistance(this.x + this.midPointOffset.x, this.y + this.midPointOffset.y, this.game.player.x, this.game.player.y) <= 500) { //checks/changes to agro
+				this.agro = true;
+			} else {
+				this.getPath();
+			}
 		}
 		//shooting cooldown counter
 		if (this.bulletTimer <= this.bulletRate) {

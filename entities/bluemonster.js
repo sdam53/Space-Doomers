@@ -30,6 +30,8 @@ class BlueMonster {
 		this.origLocation = new Point(this.game, floor(this.mapX / 125), floor(this.mapY / 125), null);
 		this.path;
 		this.directionToGo;
+
+		this.agro = false;
 	}
 	
 	loadAnimations() {
@@ -136,7 +138,7 @@ class BlueMonster {
 		let myY = floor(this.mapY / 125);
 		let pX = floor(this.game.player.mapX / 125);
 		let pY = floor(this.game.player.mapY / 125);
-		this.path = aStarPath(new Point(this.game, myX, myY, null), new Point(this.game, pX, pY, null), this.game.camera.level.map, this.game).reverse();
+		this.path = aStarPath(new Point(this.game, myX, myY, null), new Point(this.game, pX, pY, null), this.game.camera.level.map, this.game, this).reverse();
 		if (this.path[0] && (typeof this.path[0] != 'undefined')) { 
 			if (this.path[0].x > myX) {//right
 				this.directionToGo = "right";
@@ -158,7 +160,7 @@ class BlueMonster {
 			if (this.animations[this.facing + " " + this.state].frame === 2) {
 				this.removeFromWorld = true;
 			}
-		} else {
+		} else if (this.agro){
 			if (this.BB.collide(this.game.player.BB)) {
 				this.calculatedDirection();
 				this.state = "attack";
@@ -177,7 +179,13 @@ class BlueMonster {
 					}
 				}
 			}
-		}
+		} else {
+			if (this.path && this.path.length != 0 && this.path.length < 10 && getDistance(this.x + this.midPointOffset.x, this.y + this.midPointOffset.y, this.game.player.x, this.game.player.y) <= 500) { //checks/changes to agro
+				this.agro = true;
+			} else {
+				this.getPath();
+			}
+		 }
 
 		if (this.attackTimer > 0) {
 			this.attackTimer-= this.game.clockTick;

@@ -1,6 +1,6 @@
 class GreenMonster {
-	constructor(game, x, y, offscreen) {
-		Object.assign(this, {game, x, y, offscreen})
+	constructor(game, x, y) {
+		Object.assign(this, {game, x, y})
 		
 		this.upSprite = ASSET_MANAGER.getAsset("./sprites/enemies/green_monster/green_monster_up.png");
 		this.downSprite = ASSET_MANAGER.getAsset("./sprites/enemies/green_monster/green_monster_down.png");
@@ -33,6 +33,9 @@ class GreenMonster {
 		this.origLocation = new Point(this.game, floor(this.mapX / 125), floor(this.mapY / 125), null);
 		this.path;
 		this.directionToGo;
+
+		// whether monster is agro to player
+		this.agro = false;
 	}
 	
 	loadAnimations() {
@@ -98,39 +101,35 @@ class GreenMonster {
 	*/
 	move() {
 		const TICK = this.game.clockTick;
+		var that = this;
 		if (getDistance(this.mapX, this.mapY, this.path[0].x * 125 + 62, this.path[0].y * 125 + 62) > 25) {
-			if (getDistance(this.mapX, this.mapY, this.game.player.mapX, this.game.player.mapY) > 5) {
-				this.state = "run";
-				switch (this.directionToGo) {
-					case 'up':
-					this.facing = "up";
-					this.y -= this.moveSpeed * TICK;
-					this.mapY -= this.moveSpeed * TICK;
-					break;
-					case 'down':
-					this.facing = "down";
-					this.y += this.moveSpeed * TICK;
-					this.mapY += this.moveSpeed * TICK;
-					break;
-					case 'left':
-					this.facing = "left";
-					this.x -= this.moveSpeed * TICK;
-					this.mapX -= this.moveSpeed * TICK;
-					break;
-					case 'right':
-					this.facing = "right";
-					this.x += this.moveSpeed * TICK;
-					this.mapX += this.moveSpeed * TICK;
-					break;  
-				}
-			} else {
-				this.getPath();
+			this.state = "run";
+			switch (this.directionToGo) {
+				case 'up':
+				this.facing = "up";
+				this.y -= this.moveSpeed * TICK;
+				this.mapY -= this.moveSpeed * TICK;
+				break;
+				case 'down':
+				this.facing = "down";
+				this.y += this.moveSpeed * TICK;
+				this.mapY += this.moveSpeed * TICK;
+				break;
+				case 'left':
+				this.facing = "left";
+				this.x -= this.moveSpeed * TICK;
+				this.mapX -= this.moveSpeed * TICK;
+				break;
+				case 'right':
+				this.facing = "right";
+				this.x += this.moveSpeed * TICK;
+				this.mapX += this.moveSpeed * TICK;
+				break;  
 			}
 		} else {
-			if (randomInt(7) % 2 === 0) {
-				this.getPath();
-			}
+			this.getPath();
 		}
+		
 	}
 	
 	/**
@@ -141,7 +140,7 @@ class GreenMonster {
 		let myY = floor(this.mapY / 125);
 		let pX = floor(this.game.player.mapX / 125);
 		let pY = floor(this.game.player.mapY / 125);
-		this.path = aStarPath(new Point(this.game, myX, myY, null), new Point(this.game, pX, pY, null), this.game.camera.level.map, this.game).reverse();
+		this.path = aStarPath(new Point(this.game, myX, myY, null), new Point(this.game, pX, pY, null), this.game.camera.level.map, this.game, this).reverse();
 		if (this.path[0] && (typeof this.path[0] != 'undefined')) { 
 			if (this.path[0].x > myX) {//right
 				this.directionToGo = "right";
@@ -158,13 +157,12 @@ class GreenMonster {
 	}
 	
 	update() {
-		//console.log(this.offscreen);
 		if (this.hp <= 0) {
 			this.state = "death";
 			if (this.animations[this.facing + " " + this.state].frame === 2) {
 				this.removeFromWorld = true;
 			}
-		} else if (!(this.x > this.game.ctx.canvas.width || this.x < 0 || this.y > this.game.ctx.canvas.height || this.y < 0) || this.offscreen) {
+		} else if (this.agro) {
 			if (this.BB.collide(this.game.player.BB)) {
 				this.calculatedDirection();
 				this.state = "attack";
@@ -172,23 +170,25 @@ class GreenMonster {
 				if (this.path && (typeof this.path[0] != 'undefined')) {
 					this.move()
 				} else {
-					if (randomInt(7) % 2 === 0) {
-						this.getPath();
-					}
+					this.getPath();
 				}
-			}			
-			if (this.atkBB && PARAMS.GODMODE === false) {
-				if (this.attackTimer <= 0) {
-					if (this.atkBB.collide(this.game.player.BB)) {
-						this.game.player.calculateDamage(20);
-						this.attackTimer = this.attackRate;
-					}
+			}		
+		} else {
+			if (this.path && this.path.length != 0 && this.path.length < 10 && getDistance(this.x + this.midPointOffset.x, this.y + this.midPointOffset.y, this.game.player.x, this.game.player.y) <= 500) { //checks/changes to agro
+				this.agro = true;
+			} else {
+				this.getPath();
+			}
+		}		
+		
+		if (this.atkBB && PARAMS.GODMODE === false) {
+			if (this.attackTimer <= 0) {
+				if (this.atkBB.collide(this.game.player.BB)) {
+					this.game.player.calculateDamage(20);
+					this.attackTimer = this.attackRate;
 				}
 			}
-		}
-		
-		 
-			
+		}	
 		if (this.attackTimer > 0) {
 			this.attackTimer-= this.game.clockTick;
 		}
