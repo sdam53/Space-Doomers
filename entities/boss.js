@@ -5,7 +5,7 @@ class Boss {
       this.facing = "down";
 	  this.state = "idle";
 
-	  this.moveSpeed = 100;
+	  this.moveSpeed = getRandomInteger(75, 125);
 	  
 	  this.bulletSpeed = 300;
 	  this.bulletSize = 30;
@@ -20,12 +20,15 @@ class Boss {
 	  this.updateBB();
 
 	  this.hp = 1000;
-	  this.distancedMoved = 0; //distanced moved to tile 0-125
 
 	  //offset to get the middle of sprite and feet
-	  this.offset = {x: 110, y : 110, feet: 170};
-	  this.mapX = this.x + this.offset.x;
-	  this.mapY = this.y + this.offset.feet;	  
+	  this.midPointOffset = {x: 110, y : 110, feet: 170};
+	  this.mapX = this.x + this.midPointOffset.x;
+	  this.mapY = this.y + this.midPointOffset.feet;	  
+	  this.path;
+	  this.target = {x: null, y: null};
+
+	  this.aggro = false;
     }
 
 	loadAnimations () {
@@ -122,7 +125,7 @@ class Boss {
 	}
 
 	calculatedDirection() {
-		let player = {x: this.game.player.x - (this.x + this.offset.x), y : this.game.player.y - (this.y + this.offset.y)};
+		let player = {x: this.game.player.x - (this.x + this.midPointOffset.x), y : this.game.player.y - (this.y + this.midPointOffset.y)};
 		let monster = {x: 0, y : 0};
 		if ((player.x < monster.x) && (player.y < (-1) * player.x) && (player.y > player.x)) { //left
 		  this.facing = "left"
@@ -150,46 +153,34 @@ class Boss {
 	}
 
 	/**
-	* gets path to player in the form of an array of points
+	* moves entity to target in path list
 	*/
 	move() {		  
 		const TICK = this.game.clockTick;
-		if (this.path && (typeof this.path[0] != 'undefined')) {
-			let distance = getDistance(this.mapX, this.mapY, this.path[0].x * 125 + 62, this.path[0].y * 125 + 62);
-			if (this.distancedMoved >= 125) {
-				this.getPath();
-				this.distancedMoved = 0;
-				return;
-			} else if (distance > 0) {
-				this.state = "run";
-				switch (this.directionToGo) {
-					case 'up':
-						this.facing = "up";
-						this.y -= this.moveSpeed * TICK;
-						this.mapY -= this.moveSpeed * TICK;
-						break;
-					case 'down':
-						this.facing = "down";
-						this.y += this.moveSpeed * TICK;
-						this.mapY += this.moveSpeed * TICK;
-						break;
-					case 'left':
-						this.facing = "left";
-						this.x -= this.moveSpeed * TICK;
-						this.mapX -= this.moveSpeed * TICK;
-						break;
-					case 'right':
-						this.facing = "right";
-						this.x += this.moveSpeed * TICK;
-						this.mapX += this.moveSpeed * TICK;
-						break;
-					case 'none':
-						return;	
-				}
-				this.distancedMoved += this.moveSpeed * TICK;
-			}
-		} else {
+		let distance = Math.floor(getDistance(this.target.x, this.target.y, this.mapX, this.mapY));
+		if (distance === 0) {
 			this.getPath();
+		} else {
+			//caluclating unit vectors
+			let xDir = (this.target.x - this.mapX) / distance;
+			let yDir = (this.target.y - this.mapY) / distance;
+			//calculating which way to face
+			let myX = floor(this.mapX / 125);
+			let myY = floor(this.mapY / 125);
+			if (this.path[0].x > myX) {//right
+				this.facing = "right";
+			} else if (this.path[0].x < myX) {//left
+				this.facing = "left"
+			} else if (this.path[0].y > myY) {//down
+				this.facing = "down"
+			} else if (this.path[0].y < myY) { //up
+				this.facing = "up"
+			}
+			this.x += this.moveSpeed * xDir * TICK;
+			this.y += this.moveSpeed * yDir * TICK;
+			this.mapX += this.moveSpeed * xDir * TICK;
+			this.mapY += this.moveSpeed * yDir * TICK;
+			this.state = "run";
 		}
 	}
 
@@ -203,17 +194,8 @@ class Boss {
 		let pY = floor(this.game.player.mapY / 125);
 		this.path = aStarPath(new Point(this.game, myX, myY, null), new Point(this.game, pX, pY, null), this.game.camera.level.map, this.game, this).reverse();
 		if (this.path[0] && (typeof this.path[0] != 'undefined')) { 
-			if (this.path[0].x > myX) {//right
-				this.directionToGo = "right";
-			} else if (this.path[0].x < myX) {//left
-				this.directionToGo = "left"
-			} else if (this.path[0].y > myY) {//down
-				this.directionToGo = "down"
-			} else if (this.path[0].y < myY) { //up
-				this.directionToGo = "up"
-			} else {
-				this.directionToGo = "none"
-			}
+			this.target.x = this.path[0].x * 125 + 62.5;
+			this.target.y = this.path[0].y * 125 + 62.5;
 		}
 	}
 
@@ -227,19 +209,17 @@ class Boss {
 				this.removeFromWorld = true;
 			}
 			ASSET_MANAGER.playAsset("./music/boss.wav");
-		} else {
-		 	if (this.path) { 
+		} else if (this.aggro) {
+		 	if (this.path) {
 				if (this.state === "attack") {
 					if (this.animations[this.facing + " attack"].frame === 10) {
 						this.shoot();
 					}
-					if (!this.animations[this.facing + " attack"].flag) {
+					if (this.animations[this.facing + " attack"].frame === 24) {
 						this.state = "idle";
 					}
 				} else {
-					if (this.path.length === 0) {
-						this.state = "idle"
-					} else if (this.path.length < 10 && this.counter <= 0 && this.distancedMoved === 0) {
+					if (this.path.length < 10 && this.counter <= 0) {
 						this.calculatedDirection();
 						this.state = "attack";
 						this.counter = this.attackCooldown;
@@ -254,6 +234,12 @@ class Boss {
 				}
 			} else {
 				this.getPath();//should only be called once in beginning
+			}
+		} else {
+			if (this.path && this.path.length != 0 && this.path.length < 20 && getDistance(this.x + this.midPointOffset.x, this.y + this.midPointOffset.y, this.game.player.x, this.game.player.y) <= 1000) { //checks/changes to aggro
+				this.aggro = true;
+			} else {
+				this.getPath();
 			}
 		}
 		this.counter-=TICK;

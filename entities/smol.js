@@ -7,26 +7,20 @@ class Smol {
 
 	  this.hp = 40;
 
-	  this.moveSpeed = 200;
-	  this.distancedMoved = 0;
-
-	  
-
-	  this.bulletSpeed = 150;
-	  this.bulletRate = 1; //needs to be slightly tweaked. animation is a bit faster
-	  this.bulletTimer = 0;
-	  this.bulletSize = 15;
+	  this.moveSpeed = getRandomInteger(175, 350);
 
 	  this.animations = [];
 	  this.loadAnimations();
 	  this.updateBB();
 
 	  //offset to get the middle of sprite and feet
-	  this.offset = {x: 40, y : 32, feet: 47};
-	  this.mapX = this.x + this.offset.x;
-	  this.mapY = this.y + this.offset.y;
+	  this.midPointOffset = {x: 40, y : 32, feet: 47};
+	  this.mapX = this.x + this.midPointOffset.x;
+	  this.mapY = this.y + this.midPointOffset.feet;
+	  this.path;
+	  this.target = {x: null, y: null};
 
-	  this.agro = false;
+	  this.aggro = false;
 	  
     }
 
@@ -91,44 +85,11 @@ class Smol {
 		}
 	}
 
-	fourBulletAtk(radius) { 
-		let xStart = this.x + 31;//offsets needed to get to center of sprite
-		let yStart = this.y + 27;
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI /2), yStart + radius * sin(PI /2), xStart + 2 * radius * cos(PI /2), yStart + 2 * radius * sin(PI /2), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //down
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI), yStart + radius * sin(PI), xStart + 2 * radius * cos(PI) , yStart + 2 * radius * sin(PI), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //left
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(0), yStart + radius * sin(0), xStart + 2 * radius * cos(0) , yStart + 2 * radius * sin(0), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //right
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(3 * PI / 2), yStart + radius * sin(3 * PI / 2), xStart + 2 * radius * cos(3 * PI / 2) , yStart + 2 * radius * sin(3 * PI / 2), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //down
-		
-	}
-	
-	eightBulletAtk(radius) {
-		let xStart = this.x + 31;//offsets needed to get to center of sprite
-		let yStart = this.y + 27;
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI /2), yStart + radius * sin(PI /2), xStart + 2 * radius * cos(PI /2), yStart + 2 * radius * sin(PI /2), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //down
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI), yStart + radius * sin(PI), xStart + 2 * radius * cos(PI) , yStart + 2 * radius * sin(PI), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //left
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(0), yStart + radius * sin(0), xStart + 2 * radius * cos(0) , yStart + 2 * radius * sin(0), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //right
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(3 * PI / 2), yStart + radius * sin(3 * PI / 2), xStart + 2 * radius * cos(3 * PI / 2) , yStart + 2 * radius * sin(3 * PI / 2), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //down
-		
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI /4), yStart + radius * sin(PI /4), xStart + 2 * radius * cos(PI /4) , yStart + 2 * radius * sin(PI /4), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //down right
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(3 * PI / 4), yStart + radius * sin(3 * PI / 4), xStart + 2 * radius * cos(3 * PI / 4) , yStart + 2 * radius * sin(3 * PI / 4), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //down left
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(5 * PI / 4), yStart + radius * sin(5 * PI / 4), xStart + 2 * radius * cos(5 * PI / 4) , yStart + 2 * radius * sin(5 * PI / 4), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //up left
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(7 * PI / 4), yStart + radius * sin(7 * PI / 4), xStart + 2 * radius * cos(7 * PI / 4) , yStart + 2 * radius * sin(7 * PI / 4), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //up right
-	}
-
-	singleBulletAtlk() {
-		if (this.facing === "down") {
-		  this.game.addBullet(new Bullet(this.game, this.x + 32, this.y + 50, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet));
-		} else if (this.facing === "up") {
-		  this.game.addBullet(new Bullet(this.game, this.x + 32, this.y, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet));
-		} else if (this.facing === "left") {
-		  this.game.addBullet(new Bullet(this.game, this.x, this.y + 25, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet));
-		} else if (this.facing === "right") {
-		  this.game.addBullet(new Bullet(this.game, this.x + 62, this.y + 25, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet));
-		}
-	}
-
+	/**
+	 * calcualates the directions to face the player
+	 */
 	calculatedDirection() {
-		let player = {x: this.game.player.x - (this.x + this.offset.x), y : this.game.player.y - (this.y + this.offset.y)};
+		let player = {x: this.game.player.x - (this.x + this.midPointOffset.x), y : this.game.player.y - (this.y + this.midPointOffset.y)};
 		let monster = {x: 0, y : 0};
 		if ((player.x < monster.x) && (player.y < (-1) * player.x) && (player.y > player.x)) { //left
 		  this.facing = "left"
@@ -141,63 +102,67 @@ class Smol {
 		}
 	}
 
-	shoot() {
-		this.calculatedDirection();
-		if (this.bulletTimer <= 0) {
-		  let ran = randomInt(3)
-		if (ran === 0) {
-		  this.singleBulletAtlk();
-		} else if (ran === 1) {
-		  this.fourBulletAtk(20);
-		} else {
-		  this.eightBulletAtk(20);
-		}
-		this.bulletTimer = this.bulletRate;
-		}
-		this.state = "attack"
-	}
-
 	/**
-	* gets path to player in the form of an array of points
+	* moves entity to target in path list
 	*/
 	move() {
 		const TICK = this.game.clockTick;
-		if (this.path && (typeof this.path[0] != 'undefined')) {
-			let distance = getDistance(this.mapX, this.mapY, this.path[0].x * 125 + 62, this.path[0].y * 125 + 62);
-			if (this.distancedMoved >= 125) {
-				this.getPath();
-				this.distancedMoved = 0;
-				return;
-			} else if (distance > 0) {
-				this.state = "run";
-				switch (this.directionToGo) {
-					case 'up':
-						this.facing = "up";
-						this.y -= this.moveSpeed * TICK;
-						this.mapY -= this.moveSpeed * TICK;
-						break;
-					case 'down':
-						this.facing = "down";
-						this.y += this.moveSpeed * TICK;
-						this.mapY += this.moveSpeed * TICK;
-						break;
-					case 'left':
-						this.facing = "left";
-						this.x -= this.moveSpeed * TICK;
-						this.mapX -= this.moveSpeed * TICK;
-						break;
-					case 'right':
-						this.facing = "right";
-						this.x += this.moveSpeed * TICK;
-						this.mapX += this.moveSpeed * TICK;
-						break;
-					case 'none':
-						return;	
-				}
-				this.distancedMoved += this.moveSpeed * TICK;
-			}
-		} else {
+		let distance = Math.floor(getDistance(this.target.x, this.target.y, this.mapX, this.mapY));
+		if (distance === 0) {
 			this.getPath();
+		} else {
+			//caluclating unit vectors
+			let xDir = (this.target.x - this.mapX) / distance;
+			let yDir = (this.target.y - this.mapY) / distance;
+			//calculating which way to face
+			let myX = floor(this.mapX / 125);
+			let myY = floor(this.mapY / 125);
+			if (this.path[0].x > myX) {//right
+				this.facing = "right";
+			} else if (this.path[0].x < myX) {//left
+				this.facing = "left"
+			} else if (this.path[0].y > myY) {//down
+				this.facing = "down"
+			} else if (this.path[0].y < myY) { //up
+				this.facing = "up"
+			}
+			this.x += this.moveSpeed * xDir * TICK;
+			this.y += this.moveSpeed * yDir * TICK;
+			this.mapX += this.moveSpeed * xDir * TICK;
+			this.mapY += this.moveSpeed * yDir * TICK;
+			this.state = "run";
+		}
+	}
+
+	/**
+	* moves entity to player
+	*/
+	moveToPlayer() {
+		const TICK = this.game.clockTick;
+		let distance = Math.floor(getDistance(this.game.player.mapX, this.game.player.mapY, this.mapX, this.mapY));
+		if (distance === 0) {
+			this.getPath();
+		} else {
+			//caluclating unit vectors
+			let xDir = (this.game.player.mapX - this.mapX) / distance;
+			let yDir = (this.game.player.mapY  - this.mapY) / distance;
+			//calculating which way to face
+			let myX = floor(this.mapX / 125);
+			let myY = floor(this.mapY / 125);
+			if (this.path[0].x > myX) {//right
+				this.facing = "right";
+			} else if (this.path[0].x < myX) {//left
+				this.facing = "left"
+			} else if (this.path[0].y > myY) {//down
+				this.facing = "down"
+			} else if (this.path[0].y < myY) { //up
+				this.facing = "up"
+			}
+			this.x += this.moveSpeed * xDir * TICK;
+			this.y += this.moveSpeed * yDir * TICK;
+			this.mapX += this.moveSpeed * xDir * TICK;
+			this.mapY += this.moveSpeed * yDir * TICK;
+			this.state = "run";
 		}
 	}
 
@@ -211,17 +176,8 @@ class Smol {
 		let pY = floor(this.game.player.mapY / 125);
 		this.path = aStarPath(new Point(this.game, myX, myY, null), new Point(this.game, pX, pY, null), this.game.camera.level.map, this.game, this).reverse();
 		if (this.path[0] && (typeof this.path[0] != 'undefined')) { 
-			if (this.path[0].x > myX) {//right
-				this.directionToGo = "right";
-			} else if (this.path[0].x < myX) {//left
-				this.directionToGo = "left"
-			} else if (this.path[0].y > myY) {//down
-				this.directionToGo = "down"
-			} else if (this.path[0].y < myY) { //up
-				this.directionToGo = "up"
-			} else {
-				this.directionToGo = "none"
-			}
+			this.target.x = this.path[0].x * 125 + 62.5;
+			this.target.y = this.path[0].y * 125 + 62.5;
 		}
 	}
 
@@ -232,27 +188,23 @@ class Smol {
 			if (this.animations[this.facing + " " + this.state].frame === 16) {
 				this.removeFromWorld = true;
 			}
-		} else if (this.agro){
+		} else if (this.aggro){
 			if (this.path && (typeof this.path[0] != 'undefined')) {
-				if (this.path.length <= 5 && this.distancedMoved === 0) {
-					this.shoot();
-					this.getPath();
+				if (this.BB.collide(this.game.player.BB)) {
+					this.state = "attack";
 				} else {
+					//this.moveToPlayer()
 					this.move();
 				}
 			} else {
 				this.getPath();
 			}
 		} else {
-			if (this.path && this.path.length != 0 && this.path.length < 10 && getDistance(this.x + this.midPointOffset.x, this.y + this.midPointOffset.y, this.game.player.x, this.game.player.y) <= 500) { //checks/changes to agro
-				this.agro = true;
+			if (this.path && this.path.length != 0 && this.path.length < 10 && getDistance(this.x + this.midPointOffset.x, this.y + this.midPointOffset.feet, this.game.player.x, this.game.player.y) <= 500) { //checks/changes to aggro
+				this.aggro = true;
 			} else {
 				this.getPath();
 			}
-		 }
-		
-		if (this.bulletTimer <= this.bulletRate) {
-		  this.bulletTimer-=TICK;
 		}
 		this.updateBB();
 		this.x += this.game.camera.x;

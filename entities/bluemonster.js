@@ -12,7 +12,7 @@ class BlueMonster {
 		this.state = "idle"; // can be idle, run, attack, death
 		
 		this.hp = 175;
-		this.moveSpeed = 100;
+		this.moveSpeed = getRandomInteger(75, 100);
 		
 		this.attackRate = 1; //could use some slight changes
 		this.attackTimer = this.attackRate;
@@ -29,9 +29,9 @@ class BlueMonster {
 		this.mapY = this.y + this.midPointOffset.y;
 		this.origLocation = new Point(this.game, floor(this.mapX / 125), floor(this.mapY / 125), null);
 		this.path;
-		this.directionToGo;
+		this.target = {x: null, y: null};
 
-		this.agro = false;
+		this.aggro = false;
 	}
 	
 	loadAnimations() {
@@ -93,40 +93,34 @@ class BlueMonster {
 	}
 	
 	/**
-	* gets path to player in the form of an array of points
+	* moves entity to target in path list
 	*/
 	move() {
 		const TICK = this.game.clockTick;
-		if (getDistance(this.mapX, this.mapY, this.path[0].x * 125 + 62, this.path[0].y * 125 + 62) > 25) {
-			if (getDistance(this.mapX, this.mapY, this.game.player.mapX, this.game.player.mapY) > 5) {
-				this.state = "run";
-				switch (this.directionToGo) {
-					case 'up':
-					this.facing = "up";
-					this.y -= this.moveSpeed * TICK;
-					this.mapY -= this.moveSpeed * TICK;
-					break;
-					case 'down':
-					this.facing = "down";
-					this.y += this.moveSpeed * TICK;
-					this.mapY += this.moveSpeed * TICK;
-					break;
-					case 'left':
-					this.facing = "left";
-					this.x -= this.moveSpeed * TICK;
-					this.mapX -= this.moveSpeed * TICK;
-					break;
-					case 'right':
-					this.facing = "right";
-					this.x += this.moveSpeed * TICK;
-					this.mapX += this.moveSpeed * TICK;
-					break;  
-				}
-			} else {
-				this.getPath();
-			}
-		} else {
+		let distance = Math.floor(getDistance(this.target.x, this.target.y, this.mapX, this.mapY));
+		if (distance === 0) {
 			this.getPath();
+		} else {
+			//caluclating unit vectors
+			let xDir = (this.target.x - this.mapX) / distance;
+			let yDir = (this.target.y - this.mapY) / distance;
+			//calculating which way to face
+			let myX = floor(this.mapX / 125);
+			let myY = floor(this.mapY / 125);
+			if (this.path[0].x > myX) {//right
+				this.facing = "right";
+			} else if (this.path[0].x < myX) {//left
+				this.facing = "left"
+			} else if (this.path[0].y > myY) {//down
+				this.facing = "down"
+			} else if (this.path[0].y < myY) { //up
+				this.facing = "up"
+			}
+			this.x += this.moveSpeed * xDir * TICK;
+			this.y += this.moveSpeed * yDir * TICK;
+			this.mapX += this.moveSpeed * xDir * TICK;
+			this.mapY += this.moveSpeed * yDir * TICK;
+			this.state = "run";
 		}
 	}
 	
@@ -140,17 +134,8 @@ class BlueMonster {
 		let pY = floor(this.game.player.mapY / 125);
 		this.path = aStarPath(new Point(this.game, myX, myY, null), new Point(this.game, pX, pY, null), this.game.camera.level.map, this.game, this).reverse();
 		if (this.path[0] && (typeof this.path[0] != 'undefined')) { 
-			if (this.path[0].x > myX) {//right
-				this.directionToGo = "right";
-			} else if (this.path[0].x < myX) {//left
-				this.directionToGo = "left"
-			} else if (this.path[0].y > myY) {//down
-				this.directionToGo = "down"
-			} else if (this.path[0].y < myY) { //up
-				this.directionToGo = "up"
-			} else {
-				this.directionToGo = "none"
-			}
+			this.target.x = this.path[0].x * 125 + 62.5;
+			this.target.y = this.path[0].y * 125 + 62.5;
 		}
 	}
 	
@@ -160,7 +145,7 @@ class BlueMonster {
 			if (this.animations[this.facing + " " + this.state].frame === 2) {
 				this.removeFromWorld = true;
 			}
-		} else if (this.agro){
+		} else if (this.aggro){
 			if (this.BB.collide(this.game.player.BB)) {
 				this.calculatedDirection();
 				this.state = "attack";
@@ -180,8 +165,8 @@ class BlueMonster {
 				}
 			}
 		} else {
-			if (this.path && this.path.length != 0 && this.path.length < 10 && getDistance(this.x + this.midPointOffset.x, this.y + this.midPointOffset.y, this.game.player.x, this.game.player.y) <= 500) { //checks/changes to agro
-				this.agro = true;
+			if (this.path && this.path.length != 0 && this.path.length < 10 && getDistance(this.x + this.midPointOffset.x, this.y + this.midPointOffset.y, this.game.player.x, this.game.player.y) <= 500) { //checks/changes to aggro
+				this.aggro = true;
 			} else {
 				this.getPath();
 			}

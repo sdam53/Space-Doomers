@@ -131,7 +131,7 @@ const aStarPath = (start, end, map, game, entity) => {
     let doors = game.camera.level.doors;
     for (let i = 0; i < doors.length; i++) {
         if (point.x === doors[i].x && point.y === doors[i].y ) {
-            if (doors[i].state === "locked" || !entity.agro) {
+            if (doors[i].state === "locked" || !entity.aggro) {
                 return false;
             }
             break;
