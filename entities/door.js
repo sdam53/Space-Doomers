@@ -43,7 +43,6 @@ class Door {
 		if (this.state == "locked") {
 			if (this.direction == "down") {
 				this.BB = 		new BoundingBox(this.x, this.y + this.game.camera.y + 40, this.w, this.h - 40);
-				this.BB2 = 		new BoundingBox(this.x, this.y + 40, this.w, this.h - 40);
 				this.leftBB = 	new BoundingBox(this.x, this.y + 10 + 40, 3, this.h - 20 - 40);
 				this.rightBB = 	new BoundingBox(this.x + this.w - 3, this.y + 10 + 40, 3, this.h - 20 - 40); 
 				this.topBB = 	new BoundingBox(this.x + 10, this.y + 40, this.w - 20, 3);
@@ -51,7 +50,6 @@ class Door {
 			}
 			else if (this.direction == "left") {
 				this.BB = 		new BoundingBox(this.x + 40, this.y + this.game.camera.y, this.w - 40, this.h);
-				this.BB2 = 		new BoundingBox(this.x + 40, this.y, this.w - 40, this.h);
 				this.leftBB = 	new BoundingBox(this.x + 40, this.y + 10, 3, this.h - 20);
 				this.rightBB = 	new BoundingBox(this.x + this.w - 3, this.y + 10, 3, this.h - 20); 
 				this.topBB = 	new BoundingBox(this.x + 10 + 40, this.y, this.w - 20 - 40, 3);
@@ -59,31 +57,25 @@ class Door {
 			}
 			else if (this.direction == "right") {
 				this.BB = 		new BoundingBox(this.x, this.y + this.game.camera.y, this.w - 40, this.h);
-				this.BB2 = 		new BoundingBox(this.x, this.y, this.w - 40, this.h);
 				this.leftBB = 	new BoundingBox(this.x, this.y + 10, 3, this.h - 20);
 				this.rightBB = 	new BoundingBox(this.x + this.w - 3 - 40, this.y + 10, 3, this.h - 20); 
 				this.topBB = 	new BoundingBox(this.x + 10, this.y, this.w - 20 - 40, 3);
 				this.bottomBB = new BoundingBox(this.x + 10, this.y + this.h - 3, this.w - 20 - 40, 3);
 			}
-		} 
-		else if (this.state === "unlocked") {
-			if (this.direction == "down") {
-				this.BB2 = 		new BoundingBox(this.x, this.y + 40, this.w, this.h - 40);
-			}
-			else if (this.direction == "left") {
-				this.BB2 = 		new BoundingBox(this.x + 40, this.y, this.w - 40, this.h);
-			}
-			else if (this.direction == "right") {
-				this.BB2 = 		new BoundingBox(this.x, this.y, this.w - 40, this.h);
-			}
-		} 
-		else {
-			this.BB2 = null;
+		} else {
 			this.BB = null;
 		}
 
-
-		
+		//used for bullet collision
+		if (this.direction == "down") {
+			this.BB2 = 		new BoundingBox(this.x, this.y + 40, this.w, this.h - 40);
+		}
+		else if (this.direction == "left") {
+			this.BB2 = 		new BoundingBox(this.x + 40, this.y, this.w - 40, this.h);
+		}
+		else if (this.direction == "right") {
+			this.BB2 = 		new BoundingBox(this.x, this.y, this.w - 40, this.h);
+		}
 	}
 	
 	update() {
