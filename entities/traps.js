@@ -5,6 +5,9 @@ class Trap{
 	    this.thorn1 = ASSET_MANAGER.getAsset("./sprites/traps/thorn1.png");
         this.thorn2 = ASSET_MANAGER.getAsset("./sprites/traps/thorn_bottom.png");
 		this.spike = ASSET_MANAGER.getAsset("./sprites/traps/spike.png");
+		this.needle = ASSET_MANAGER.getAsset("./sprites/traps/Needle.png");
+		this.spike_animation = new Animator(this.needle, 15, 0, 130, 174, 16, 0.3, 51, false, true);
+
 		this.size = this.h/20;
 		this.tile = this.door_shut
         this.mapY = this.y;
@@ -88,12 +91,14 @@ class Trap{
             125,
             175);       
         } else if (this.trap_type === "spike") {
-            ctx.drawImage(this.trap,
-            1, 1, //source from sheet
-            this.trapX, this.trapY,
-            this.x - 15, this.y - 55,
-            175,
-            175);
+            // ctx.drawImage(this.trap,
+            // 1, 1, //source from sheet
+            // this.trapX, this.trapY,
+            // this.x - 15, this.y - 55,
+            // 175,
+            // 175);
+		    this.spike_animation.drawFrame(this.game.clockTick, ctx, this.x + 5, this.y+ 5 -56*0.8, 0.8);
+
         }
 		if (PARAMS.DEBUG && (typeof this.BB != 'undefined')) {
 			ctx.strokeStyle = 'Green';

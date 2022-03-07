@@ -6,6 +6,7 @@ ASSET_MANAGER.queueDownload("./sprites/tiles/ground.png");
 ASSET_MANAGER.queueDownload("./sprites/tiles/portal.png");
 ASSET_MANAGER.queueDownload("./sprites/tiles/gear.png");
 ASSET_MANAGER.queueDownload("./sprites/traps/spike.png");
+ASSET_MANAGER.queueDownload("./sprites/traps/Needle.png");
 ASSET_MANAGER.queueDownload("./sprites/traps/thorn1.png");
 ASSET_MANAGER.queueDownload("./sprites/traps/thorn_bottom.png");
 ASSET_MANAGER.queueDownload("./sprites/traps/wall bullet.png");
