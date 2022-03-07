@@ -6,7 +6,7 @@ class Trap{
         this.thorn2 = ASSET_MANAGER.getAsset("./sprites/traps/thorn_bottom.png");
 		this.spike = ASSET_MANAGER.getAsset("./sprites/traps/spike.png");
 		this.needle = ASSET_MANAGER.getAsset("./sprites/traps/Needle.png");
-		this.spike_animation = new Animator(this.needle, 15, 0, 130, 174, 16, 0.3, 51, false, true);
+		this.spike_animation = new Animator(this.needle, 15, 0, 130, 174, 16, 0.2, 51, false, true);
 
 		this.size = this.h/20;
 		this.tile = this.door_shut
@@ -24,8 +24,8 @@ class Trap{
             this.trapX = 181;
             this.trapY = 174;
             this.damage = 10;
-            this.timer = 0;
-            this.cooldown = 2;
+            this.timer = 3.2;
+            this.cooldown = true;
         }
         this.updateBB();
 	}
@@ -37,12 +37,17 @@ class Trap{
 	update() {
         if (!PARAMS.GODMODE) {
             if (this.trap_type === "spike") {
-                if (this.timer <= 0 && this.BB.collide(this.game.player.feetBB)) {
+                if (this.timer <= 0.8 && this.BB.collide(this.game.player.feetBB) && this.cooldown == false) {
                     this.game.player.calculateDamage(this.damage);
+                    this.cooldown = true;
                     ASSET_MANAGER.playAsset("./music/spikes.mp3");
-                    this.timer = this.cooldown;
+
                 }
                 this.timer -= this.game.clockTick;
+                if (this.timer < 0){
+                    this.timer = 3.2;
+                    this.cooldown = false;
+                }
             }
         }
 		this.updateBB();
