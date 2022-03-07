@@ -4,7 +4,7 @@ const PARAMS = {
   SCALE: 0.3,
   BITWIDTH: 10,
   FOW_M_R: 600,
-  FOW_MM_R: 500*0.3,
+  FOW_MM_R: 600*0.3,
   OPACITY: 0.1,
   LANTERN: false
 };

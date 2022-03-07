@@ -293,9 +293,8 @@ class Boss {
 		let x = this.game.entities.player.mapX;
 		let y = this.game.entities.player.mapY;
 		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
-			// this.reveal = true;
 		ctx.fillStyle = "Purple";
-		ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 10 , 10);
+		ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 9,9);
 
 		  }
 		  else{

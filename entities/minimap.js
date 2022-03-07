@@ -32,7 +32,6 @@ class Minimap {
         ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
         ctx.fillRect(this.y, this.x, this.miniMap_size, this.miniMap_size);
 
-        // ctx.strokeRect(this.y, this.x, level.map[0].length * 125 / PARAMS.BITWIDTH, level.map.length * 125 / PARAMS.BITWIDTH);
         ctx.strokeRect(this.y, this.x, this.miniMap_size, this.miniMap_size);
         this.game.entities.tiles.forEach((tile, i) => {
             tile.drawMinimap(ctx, y, x);
@@ -42,6 +41,9 @@ class Minimap {
         this.game.entities.enemies.forEach((enemy, i) => {
             enemy.drawMinimap(ctx, y, x);
           });
+        this.game.entities.bosses.forEach((enemy, i) => {
+        enemy.drawMinimap(ctx, y, x);
+        });
         this.game.entities.powerups.forEach((powerup, i) => {
             powerup.drawMinimap(ctx, y, x);
           });  
@@ -59,11 +61,9 @@ class Minimap {
 
         var dist_points = (a - x) * (a - x) + (b - y) * (b - y);
         r *= r;
-
         if (dist_points < r) {
             return true;
         }
-
         return false;
     }
 
@@ -77,7 +77,7 @@ class FogOfWar{
     draw(ctx){
         let x = this.game.entities.player.x+25;
 		let y = this.game.entities.player.y+25;
-        let radius = PARAMS.FOW_M_R - 200;
+        let radius = PARAMS.FOW_M_R - 50;
 
         ctx.save();
         ctx.globalCompositeOperation = 'destination-in';
