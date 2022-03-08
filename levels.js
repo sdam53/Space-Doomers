@@ -99,9 +99,9 @@ let levelTwo = {
 		  [0,1,1,1,1,1,0,0,0,0,1,0,0,0,0,1,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,0,0,0,0,1,0,0,],
 /*18y*/	  [0,1,1,1,1,1,0,0,0,0,1,0,0,0,0,1,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,0,0,0,0,1,0,0,],
 		  [0,1,1,1,1,1,0,0,0,0,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,],
-		  [0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,],
-		  [0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],
-		  [0,0,0,0,0,0,0,0,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],
+		  [0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,],
+		  [0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,],
+		  [0,0,0,0,0,0,0,0,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,],
 		  [0,0,0,0,0,0,0,0,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],
 		  [0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],
 		  [0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],
@@ -128,6 +128,11 @@ let levelTwo = {
 		{x: 20, y: 18},
 		{x: 29, y: 30},
 		{x: 33, y: 34},
+		{x: 25, y: 12},
+		{x: 31, y: 14},
+		{x: 19, y: 18},
+
+
     ],
 	green_monsters: [
 		{x: 4, y: 17},
@@ -137,10 +142,22 @@ let levelTwo = {
 		{x: 22, y: 13},
 		{x: 19, y: 34},
 		{x: 23, y: 30},
+		{x: 29, y: 14},
+
 	],
 	blue_monsters: [
 		{x: 4, y: 19},
 	],
+
+	red_monsters: [
+		{x: 32, y: 19, offscreen: true},
+
+	],
+
+	// smols: [
+	// 	{x: 21, y: 5},
+	// ],
+
 	boss: [
 		{x: 33, y: 34}
 	],
@@ -206,6 +223,10 @@ let levelTwo = {
 		{x: 1, 	y: 17, 	type: "spike"},
 		{x: 1, 	y: 18, 	type: "spike"},
 		{x: 4, 	y: 16, 	type: "spike"},
+		{x: 21, 	y: 4, 	type: "spike"},
+		{x: 21, 	y: 3, 	type: "spike"},
+		{x: 21, 	y: 5, 	type: "spike"},
+
 	],
   	powerup: [
 		{x: 3, y: 26, powerup: "healthpack"},
@@ -289,17 +310,37 @@ player: {x: 3, y: 1},
 flying_monsters: [
 	{x: 12, y: 4},
 	{x: 15, y: 3},
+	{x: 36, y: 5},
+	{x: 36, y: 38},
+	{x: 39, y: 39},
+	{x: 7, y: 42},
+	{x: 21, y: 37},
+	{x: 23, y: 37},
+	{x: 10, y: 38},
+
+
+
+
+
 ],
 green_monsters: [
 	{x: 5, y: 6},
 	{x: 26, y: 10},
+	{x: 39, y: 42},
+	{x: 10, y: 44},
+	{x: 21, y: 42},
+	{x: 23, y: 42},
+
+
 ],
 red_monsters: [
 	{x: 38, y: 7},
-	{x: 22, y: 12},
+	{x: 31, y: 12},
+	{x: 31, y: 38},
+
 ],
 boss: [
-	{x: 10, y: 12},
+	{x: 10, y: 24},
 	{x: 22, y: 12},
 ],
 gears: [
@@ -319,6 +360,10 @@ portals: [
 ],
 	blue_monsters: [
 		{x: 3, y: 17},
+		{x: 4, y: 8},
+		{x: 32, y: 42},
+		{x: 16, y: 42},
+
 	],
 	// boss: [{x: 11, y: 4}],
 	doors : [
@@ -350,9 +395,9 @@ portals: [
 		{x: 13, y: 37, state: "locked", direction: "left", requiredGears: 3},
 		{x: 22, y: 37, state: "locked", direction: "down", requiredGears: 3},
 		{x: 36, y: 3, state: "locked", direction: "down", requiredGears: 1},
-		{x: 12, y: 41, state: "locked", direction: "right", requiredGears: 3},
+		{x: 11, y: 41, state: "locked", direction: "right", requiredGears: 3},
 		{x: 14, y: 43, state: "locked", direction: "down", requiredGears: 3},
-		{x: 18, y: 44, state: "locked", direction: "right", requiredGears: 3},
+		{x: 19, y: 44, state: "locked", direction: "right", requiredGears: 3},
 
 	// 	{x: 8, y: 9, state: "locked", direction: "down", requiredGears: 1},
 	// 	{x: 9, y: 1, state: "locked", direction: "right", requiredGears: 1},
@@ -369,6 +414,21 @@ portals: [
 		{x: 30, y: 2, 	type: "spike"},
 		{x: 32, y: 2, 	type: "thorn"},
 		{x: 34, y: 2, 	type: "thorn"},
+		{x: 6, y: 8, 	type: "thorn"},
+		{x: 6, y: 7, 	type: "thorn"},
+		{x: 7, y: 7, 	type: "thorn"},
+		{x: 33, y: 39, 	type: "thorn"},
+		{x: 35, y: 39, 	type: "thorn"},
+		{x: 35, y: 41, 	type: "thorn"},
+		{x: 33, y: 41, 	type: "thorn"},
+		{x: 14, y: 41, 	type: "spike"},
+		{x: 15, y: 41, 	type: "spike"},
+		{x: 16, y: 40, 	type: "spike"},
+		{x: 11, y: 37, 	type: "spike"},
+		{x: 12, y: 38, 	type: "spike"},
+		{x: 9, y: 38, 	type: "spike"},
+
+
 	],
 	walltraps : [
 		{x: 0, y: 18, direction: "right", rate: 1},
@@ -380,6 +440,11 @@ portals: [
 		{x: 32, y: 26, direction: "down", rate: 1},
 		{x: 36, y: 26, direction: "down", rate: 1},
 		{x: 38, y: 26, direction: "down", rate: 1},
+		{x: 25, y: 40, direction: "right", rate: 1},
+		{x: 34, y: 36, direction: "down", rate: 1},
+		{x: 13, y: 39, direction: "left", rate: 3},
+
+
 	],
   	powerup: [{x: 3, y: 3, powerup: "shotgun"},
 	  		  {x: 19, y: 4, powerup: "healthpack"},

@@ -79,28 +79,33 @@ class Door {
 	}
 	
 	update() {
-		this.x += this.game.camera.x;
-		this.y += this.game.camera.y;
-		
-		if (!this.finalDoor && this.state == "locked" &&  this.game.player.gears >= this.requiredGears) {
-			this.state = "unlocked";
-		}
+        this.x += this.game.camera.x;
+        this.y += this.game.camera.y;
 
-		// unlock condition for levels 2 and 3
-		if (this.finalDoor && this.state == "locked" && this.game.player.gears >= this.requiredGears && this.game.entities.bosses == 0) this.state = "unlocked";
-				
-		let enemies = this.game.entities.enemies;
-		for (let i = 0; i < enemies.length; i++) {
-			if ((this.doorDistance(enemies[i]) < 180 || this.doorDistance(this.game.entities.player) < 180) && this.state == "unlocked") {
-				this.state = "open";
-				return;
-			} else if ((this.doorDistance(enemies[i]) > 180 || this.doorDistance(this.game.entities.player) > 180)  && this.state == "open") {
-				this.state = "unlocked";
-			}
-		}
+        if (!this.finalDoor && this.state == "locked" &&  this.game.player.gears >= this.requiredGears) {
+            this.state = "unlocked";
+        }
 
-		this.updateBB();
-	}
+        // unlock condition for levels 2 and 3
+        if (this.finalDoor && this.state == "locked" && this.game.player.gears >= this.requiredGears && this.game.entities.bosses == 0) this.state = "unlocked";
+
+        let enemies = this.game.entities.enemies;
+        for (let i = 0; i < enemies.length; i++) {
+            if ((this.doorDistance(enemies[i]) < 180 || this.doorDistance(this.game.entities.player) < 180) && this.state == "unlocked") {
+                this.state = "open";
+                this.updateBB();
+                return;
+            }
+        }
+
+        if (this.doorDistance(this.game.entities.player) < 180 && this.state == "unlocked") {
+            this.state = "open";
+        } else if (this.doorDistance(this.game.entities.player) > 180 && this.state == "open") {
+            this.state = "unlocked";
+        }
+
+        this.updateBB();
+    }
 	
 	doorDistance(player) {
 		return Math.sqrt(Math.pow(player.x - this.x - this.w / 2, 2) + Math.pow(player.y - this.y - this.h / 2, 2));
