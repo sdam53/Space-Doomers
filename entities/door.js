@@ -113,7 +113,7 @@ class Door {
 				this.state = "unlocked";
 			}
 			for (let index = 0; index < enemies.length; index++) {
-				if (this.BB3.collide(enemies[index].BB)) {
+				if (enemies[index].BB && this.BB3.collide(enemies[index].BB)) {
 					this.state = "open";
 					return;
 				} else {
