@@ -1,3 +1,6 @@
+/**
+ * class representing the boss
+ */
 class Boss {
     constructor(game, x, y) {
       Object.assign(this, {game, x, y})
@@ -12,7 +15,7 @@ class Boss {
 	  this.shotgun = {shotgun: true, amount: 1};
 
 	  this.attackCheck = false;
-	  this.attackCooldown = .75;
+	  this.attackCooldown = .2;
 	  this.counter = 0;
 
 	  this.animations = [];
@@ -25,8 +28,8 @@ class Boss {
 	  this.midPointOffset = {x: 110, y : 110, feet: 170};
 	  this.mapX = this.x + this.midPointOffset.x;
 	  this.mapY = this.y + this.midPointOffset.feet;	  
-	  this.path;
-	  this.target = {x: null, y: null};
+	  this.path; //path to player
+	  this.target = {x: null, y: null}; //target to move to
 
 	  this.aggro = false;
     }
@@ -88,42 +91,71 @@ class Boss {
 		}
 	}
 
+	/**
+	 * shoots 4 bullets in all directions
+	 * @param {} radius radius for bullets to start at
+	 */
 	fourBulletAtk(radius) { 
 		let xStart = this.x + 97;//offsets needed to get to center of sprite
 		let yStart = this.y + 80;
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI /2), yStart + radius * sin(PI /2), xStart + 2 * radius * cos(PI /2), yStart + 2 * radius * sin(PI /2), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //down
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI), yStart + radius * sin(PI), xStart + 2 * radius * cos(PI) , yStart + 2 * radius * sin(PI), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //left
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(0), yStart + radius * sin(0), xStart + 2 * radius * cos(0) , yStart + 2 * radius * sin(0), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //right
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(3 * PI / 2), yStart + radius * sin(3 * PI / 2), xStart + 2 * radius * cos(3 * PI / 2) , yStart + 2 * radius * sin(3 * PI / 2), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //down
+		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI /2), yStart + radius * sin(PI /2), xStart + 2 * radius * cos(PI /2), yStart + 2 * radius * sin(PI /2), this.bulletSize, this.bulletSpeed, this.ricochet, false, "enemy", this.bullet)); //down
+		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI), yStart + radius * sin(PI), xStart + 2 * radius * cos(PI) , yStart + 2 * radius * sin(PI), this.bulletSize, this.bulletSpeed, this.ricochet, false, "enemy", this.bullet)); //left
+		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(0), yStart + radius * sin(0), xStart + 2 * radius * cos(0) , yStart + 2 * radius * sin(0), this.bulletSize, this.bulletSpeed, this.ricochet, false, "enemy", this.bullet)); //right
+		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(3 * PI / 2), yStart + radius * sin(3 * PI / 2), xStart + 2 * radius * cos(3 * PI / 2) , yStart + 2 * radius * sin(3 * PI / 2), this.bulletSize, this.bulletSpeed, this.ricochet, false, "enemy", this.bullet)); //down
 		
 	}
-	
+
+	/**
+	 * shoots 8 bullets in all directions
+	 * @param {} radius radius for bullets to start at
+	 */
 	eightBulletAtk(radius) {
 		let xStart = this.x + 97;//offsets needed to get to center of sprite
 		let yStart = this.y + 80;
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI /2), yStart + radius * sin(PI /2), xStart + 2 * radius * cos(PI /2), yStart + 2 * radius * sin(PI /2), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //down
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI), yStart + radius * sin(PI), xStart + 2 * radius * cos(PI) , yStart + 2 * radius * sin(PI), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //left
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(0), yStart + radius * sin(0), xStart + 2 * radius * cos(0) , yStart + 2 * radius * sin(0), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //right
+		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI /2), yStart + radius * sin(PI /2), xStart + 2 * radius * cos(PI /2), yStart + 2 * radius * sin(PI /2), this.bulletSize, this.bulletSpeed, this.ricochet, false, "enemy", this.bullet)); //down
+		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI), yStart + radius * sin(PI), xStart + 2 * radius * cos(PI) , yStart + 2 * radius * sin(PI), this.bulletSize, this.bulletSpeed, this.ricochet, false, "enemy", this.bullet)); //left
+		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(0), yStart + radius * sin(0), xStart + 2 * radius * cos(0) , yStart + 2 * radius * sin(0), this.bulletSize, this.bulletSpeed, this.ricochet, false, "enemy", this.bullet)); //right
 		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(3 * PI / 2), yStart + radius * sin(3 * PI / 2), xStart + 2 * radius * cos(3 * PI / 2) , yStart + 2 * radius * sin(3 * PI / 2), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //down
 		
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI /4), yStart + radius * sin(PI /4), xStart + 2 * radius * cos(PI /4) , yStart + 2 * radius * sin(PI /4), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //down right
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(3 * PI / 4), yStart + radius * sin(3 * PI / 4), xStart + 2 * radius * cos(3 * PI / 4) , yStart + 2 * radius * sin(3 * PI / 4), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //down left
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(5 * PI / 4), yStart + radius * sin(5 * PI / 4), xStart + 2 * radius * cos(5 * PI / 4) , yStart + 2 * radius * sin(5 * PI / 4), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //up left
-		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(7 * PI / 4), yStart + radius * sin(7 * PI / 4), xStart + 2 * radius * cos(7 * PI / 4) , yStart + 2 * radius * sin(7 * PI / 4), this.bulletSize, this.bulletSpeed, 0, false, "enemy", this.bullet)); //up right
+		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(PI /4), yStart + radius * sin(PI /4), xStart + 2 * radius * cos(PI /4) , yStart + 2 * radius * sin(PI /4), this.bulletSize, this.bulletSpeed, this.ricochet, false, "enemy", this.bullet)); //down right
+		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(3 * PI / 4), yStart + radius * sin(3 * PI / 4), xStart + 2 * radius * cos(3 * PI / 4) , yStart + 2 * radius * sin(3 * PI / 4), this.bulletSize, this.bulletSpeed, this.ricochet, false, "enemy", this.bullet)); //down left
+		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(5 * PI / 4), yStart + radius * sin(5 * PI / 4), xStart + 2 * radius * cos(5 * PI / 4) , yStart + 2 * radius * sin(5 * PI / 4), this.bulletSize, this.bulletSpeed, this.ricochet, false, "enemy", this.bullet)); //up left
+		this.game.addBullet(new Bullet(this.game, xStart + radius * cos(7 * PI / 4), yStart + radius * sin(7 * PI / 4), xStart + 2 * radius * cos(7 * PI / 4) , yStart + 2 * radius * sin(7 * PI / 4), this.bulletSize, this.bulletSpeed, this.ricochet, false, "enemy", this.bullet)); //up right
 	}
 
-	singleBulletAtlk() {
+	/**
+	 * regular shot gun attack
+	 */
+	shotgunBulletAtlk() {
 		if (this.facing === "down") {
-		  this.game.addBullet(new Bullet(this.game, this.x + 95, this.y + 110, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, 0, this.shotgun, "enemy", this.bullet));
+		  this.game.addBullet(new Bullet(this.game, this.x + 95, this.y + 110, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, this.ricochet, this.shotgun, "enemy", this.bullet));
 		} else if (this.facing === "up") {
-		  this.game.addBullet(new Bullet(this.game, this.x + 100, this.y + 10, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, 0, this.shotgun, "enemy", this.bullet));
+		  this.game.addBullet(new Bullet(this.game, this.x + 100, this.y + 10, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, this.ricochet, this.shotgun, "enemy", this.bullet));
 		} else if (this.facing === "left") {
-		  this.game.addBullet(new Bullet(this.game, this.x + 30, this.y + 80, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, 0, this.shotgun, "enemy", this.bullet));
+		  this.game.addBullet(new Bullet(this.game, this.x + 30, this.y + 80, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, this.ricochet, this.shotgun, "enemy", this.bullet));
 		} else if (this.facing === "right") {
-		  this.game.addBullet(new Bullet(this.game, this.x + 160, this.y + 80, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, 0, this.shotgun, "enemy", this.bullet));
+		  this.game.addBullet(new Bullet(this.game, this.x + 160, this.y + 80, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, this.ricochet, this.shotgun, "enemy", this.bullet));
 		}
 	}
 
+	/**
+	 * shotgun attack that will also target the player after a set time
+	 */
+	targetBulletAtlk() {
+		if (this.facing === "down") {
+		  this.game.addBullet(new TargetBullets(this.game, this.x + 95, this.y + 110, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, this.ricochet, this.shotgun, "enemy", this.bullet));
+		} else if (this.facing === "up") {
+		  this.game.addBullet(new TargetBullets(this.game, this.x + 100, this.y + 10, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, this.ricochet, this.shotgun, "enemy", this.bullet));
+		} else if (this.facing === "left") {
+		  this.game.addBullet(new TargetBullets(this.game, this.x + 30, this.y + 80, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, this.ricochet, this.shotgun, "enemy", this.bullet));
+		} else if (this.facing === "right") {
+		  this.game.addBullet(new TargetBullets(this.game, this.x + 160, this.y + 80, this.game.player.x + 25, this.game.player.y + 25, this.bulletSize, this.bulletSpeed, this.ricochet, this.shotgun, "enemy", this.bullet));
+		}
+	}
+
+	/**
+	 * calculates the direction to face player
+	 */
 	calculatedDirection() {
 		let player = {x: this.game.player.x - (this.x + this.midPointOffset.x), y : this.game.player.y - (this.y + this.midPointOffset.y)};
 		let monster = {x: 0, y : 0};
@@ -138,15 +170,26 @@ class Boss {
 		}
 	}
 
+	/**
+	 * chooses between 4 different attacks
+	 * chance for them to be ricochet bullets
+	 */
 	shoot() {
 		if (this.attackCheck) {
-			let ran = randomInt(3)
+			if (randomInt(4) === 1) {
+				this.ricochet = 1;
+			} else {
+				this.ricochet = 0;
+			}
+			let ran = randomInt(4)
 			if (ran === 0) {
-				this.singleBulletAtlk();
+				this.shotgunBulletAtlk();
 			} else if (ran === 1) {
 				this.fourBulletAtk(80);
-			} else {
+			} else if (ran === 2 ){
 				this.eightBulletAtk(80);
+			} else {
+				this.targetBulletAtlk();
 			}
 		}
 		this.attackCheck = false;
@@ -244,7 +287,7 @@ class Boss {
 					this.getPath()
 				}
 			} else {
-				this.getPath();//should only be called once in beginning
+				this.getPath();
 			}
 		} else {
 			if (getDistance(this.x + this.midPointOffset.x, this.y + this.midPointOffset.y, this.game.player.x, this.game.player.y) <= 1500 && this.path && this.path.length != 0 && this.path.length < 10) { //checks/changes to aggro
@@ -304,15 +347,83 @@ class Boss {
 		let x = this.game.entities.player.mapX;
 		let y = this.game.entities.player.mapY;
 		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
-		ctx.fillStyle = "Purple";
-		ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 9,9);
-
-		  }
-		  else{
-			  ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+			ctx.fillStyle = "Purple";
+			ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 9,9);
+		} else{
+			ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
 		}
 		// if (this.reveal)
 		// ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 10 , 10);
 	
-	  }
+	}
+}
+
+/**
+ * bullet class that will bullets but after a set time, will target the player
+ */
+class TargetBullets extends Bullet {
+	constructor(game, x, y, xTarget, yTarget, size, bulletSpeed, ricochet, shotgun, type, image) {
+		super(game, x, y, xTarget, yTarget, size, bulletSpeed, ricochet, shotgun, type, image);
+		//Object.assign(this, {game, x, y, xTarget, yTarget, size, bulletSpeed, ricochet, shotgun, type, image});
+		this.timer = 1; //targets after 1 second
+		this.canTargetYet = true; //flag in order to allow it to happen once
+	}
+
+	update() {
+		const TICK = this.game.clockTick;
+		//checks if hits wall and if ricochet
+		this.checkWallCollision()
+		//checks if hits closed door and if ricochet
+		this.checkDoorCollision();
+		if (this.timer <= 0 && this.canTargetYet) {
+			this.target();
+		} else {
+			this.timer -= TICK;
+		}
+		//damage to player
+		if (!PARAMS.GODMODE) {
+			if (this.game.player.BB.collide(this.BB) && (this.type == "enemy")) {
+				this.removeFromWorld = true;
+				this.game.player.calculateDamage(6.5);
+			}
+		}
+		this.x += this.bulletSpeed * this.xBulletDir * TICK;
+		this.y += this.bulletSpeed * this.yBulletDir * TICK;
+		this.x += this.game.camera.x;
+		this.y += this.game.camera.y;
+		this.updateBB();
+	}
+
+	/**
+	 * creates new bullets for shotgun spread
+	 * basically the same as Bullet class shotgun with with creation of TargetBullets
+	 */
+	shotgunAtk() {
+		let end = {x: this.xTarget - this.x, y: this.yTarget - this.y};
+		let angle = atan2(end.y, end.x);
+		let angleOffset = 0;
+		for (let i = 0; i < this.shotgun.amount; i++) {
+			angleOffset += (PI/32);
+			this.game.addBullet(new TargetBullets(this.game, 
+				this.x + cos(angle), this.y + sin(angle), 
+				this.x + 2 * cos(angle - angleOffset), this.y + 2 * sin(angle - angleOffset),
+				this.size, this.bulletSpeed, this.ricochet, false, this.type, this.image));
+			this.game.addBullet(new TargetBullets(this.game, 
+				this.x + cos(angle), this.y + sin(angle), 
+		   		this.x + 2 * cos(angle + angleOffset), this.y + 2 * sin(angle + angleOffset),
+		   		this.size, this.bulletSpeed, this.ricochet, false, this.type, this.image));
+		}
+	}
+	/**
+	 * after a set time, it will change directions to the player's current location 
+	 */
+	target() {
+		this.bulletSpeed *= 1.5;
+		this.xTarget =  this.game.player.x + 25;
+		this.yTarget =  this.game.player.y + 25;
+		this.distance = Math.floor(getDistance(this.xTarget, this.yTarget, this.x, this.y));
+		this.xBulletDir = (this.xTarget - this.x) / this.distance;
+		this.yBulletDir = (this.yTarget - this.y) / this.distance;
+		this.canTargetYet = false;
+	}
 }
