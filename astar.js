@@ -1,32 +1,12 @@
 /**
- * class representing a point
- * not being used rn, keeping just in case
- */
- class Point2 {
-    constructor(x, y) {
-		Object.assign(this, {x, y});
-    }
-
-    /**
-     * returns point in repect to offset
-     * @param {*} ox x offset
-     * @param {*} oy y offset
-     * @returns point in repect to offset
-     */
-    offset(ox, oy) {
-        return new Point(this.x + ox, this.y + oy);
-    }
-
-    equals(other) {
-        return this.x === other.x && this.y === other.y;
-    }
-}
-
-/**
  * class representing node
- * extension of point that contains parent node and scores
  */
 class Node {
+    /**
+     * 
+     * @param {*} parent parent node
+     * @param {*} position location of node in form of tupple {x,y}
+     */
     constructor(parent, position) {
 		Object.assign(this, {parent, position});
         this.g = 0;
@@ -34,16 +14,28 @@ class Node {
         this.f = 0;
     }
 
+    /**
+     * checks whether node equals same node in terms of location
+     * @param {*} other 
+     * @returns 
+     */
     equals(other) {
-        return this.position.equals(other.position);
+        return this.position.x === other.position.x && this.position.y === other.position.y;
     }
 }
 
+/**
+ * A* algorithm to find path to target
+ * @param {*} start starting location
+ * @param {*} end ending location
+ * @param {*} map game map 2d array
+ * @param {*} game game engine
+ * @param {*} entity the entity finding the path
+ * @returns 
+ */
 const aStarPath = (start, end, map, game, entity) => {
-
-    //if player is in invaid area, wall glitching. fixs itself since player gets pushed back
+    //if target is in invalid area, wall glitching. fixs itself since player gets pushed back
     if (!validEnd(end, map)) {
-
         return [];
     }
     startNode = new Node(null, start);
@@ -54,14 +46,9 @@ const aStarPath = (start, end, map, game, entity) => {
     closedList = [];
     //adding the starting node to the openList to be checked
     openList.enqueue(startNode);
-    let lowestF; //int of the node in openList that has the lowest f score
     while (openList.values.length > 0) {
         //get node with lowest f score and removing it
-        // lowestF = findLowestF(openList); 
-        // let current = openList[lowestF];
-        // openList.splice(lowestF, 1); 
         let current = openList.dequeue();
-        //console.log(openList.values.length);
 
         //if that node is endNode then path found
         if (current.equals(endNode)) { 
@@ -72,7 +59,6 @@ const aStarPath = (start, end, map, game, entity) => {
                 currentNode = currentNode.parent;
             }
             path.pop();
-            //console.log(path.reverse());
             return path;
         }
 
@@ -149,10 +135,14 @@ const aStarPath = (start, end, map, game, entity) => {
  */
 const findNeighbors1 = (game, point, map, currentNode, entity) => {
     neighbors = []
-    let up = point.offset(0,  1);
-    let down = point.offset(0,  -1);
-    let left = point.offset(-1, 0);
-    let right = point.offset(1, 0);
+    // let up = point.offset(0,  1);
+    // let down = point.offset(0,  -1);
+    // let left = point.offset(-1, 0);
+    // let right = point.offset(1, 0);
+    let up = {x: point.x, y: point.y + 1};
+    let down = {x: point.x, y: point.y - 1};
+    let left = {x: point.x + 1, y: point.y};
+    let right = {x: point.x - 1, y: point.y};
     if (isWalkable1(up, map, game, entity)) neighbors.push(new Node(currentNode, up));
     if (isWalkable1(down, map, game, entity)) neighbors.push(new Node(currentNode, down));
     if (isWalkable1(left, map, game, entity)) neighbors.push(new Node(currentNode, left));
@@ -193,6 +183,12 @@ const contains1 = (array, theNode) => {
     return [false, Number.MAX_SAFE_INTEGER];
 }
 
+/**
+ * checks whether target is in a valid location
+ * @param {} point 
+ * @param {*} myMap 
+ * @returns 
+ */
 const validEnd = (point, myMap) => {
     if (point.y < 0 || point.y > myMap.length - 1) {
         return false;
