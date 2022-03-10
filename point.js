@@ -1,4 +1,5 @@
 //class representing point of screen/map
+//not used anymore
 class Point {
     constructor(game, x, y, previous) {
         Object.assign(this, {game, x, y, previous});
