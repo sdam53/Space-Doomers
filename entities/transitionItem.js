@@ -53,6 +53,10 @@ class TransitionItem {
                 this.game.camera.loadLevel(levelThree, false, true);
             } else if (this.level == 3) {
                 // this.game.camera.loadLevel(levelOne, true, false);
+                if (!this.game.camera.endgame) {
+                    ASSET_MANAGER.pauseBackgroundMusic();
+                    ASSET_MANAGER.playAsset("./music/endgame.mp3");
+                }
                 this.game.camera.endgame = true;
             }
         }

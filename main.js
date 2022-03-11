@@ -144,6 +144,7 @@ ASSET_MANAGER.queueDownload("./sprites/enemies/smol/smol down/smol down death.pn
 ASSET_MANAGER.queueDownload("./music/title.mp3");
 ASSET_MANAGER.queueDownload("./music/level 2 song.mp3");
 ASSET_MANAGER.queueDownload("./music/level 3 song.mp3");
+ASSET_MANAGER.queueDownload("./music/endgame.mp3");
 
 // sound effects
 ASSET_MANAGER.queueDownload("./music/player shot sound.wav");
