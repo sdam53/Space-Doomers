@@ -478,9 +478,9 @@ portals: [
 
 let finalStory = [
 		"Rob got into the escape pod and finally",
-		"	made it back home. However, he is",
-		"	not excited about retirement and",
-		"	wants to see what other",
-		"	adventures he can find."
+		"	   made it back home. However, he is",
+		"	   not excited about retirement and",
+		"	   wants to see what other adventures",
+		"	   he can find."
 ]
 

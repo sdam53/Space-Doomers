@@ -52,7 +52,8 @@ class TransitionItem {
             } else if (this.level == 2) {
                 this.game.camera.loadLevel(levelThree, false, true);
             } else if (this.level == 3) {
-                this.game.camera.loadLevel(levelOne, true, false);
+                // this.game.camera.loadLevel(levelOne, true, false);
+                this.game.camera.endgame = true;
             }
         }
         
