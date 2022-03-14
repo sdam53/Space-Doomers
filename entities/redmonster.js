@@ -25,10 +25,12 @@ class RedMonster {
 		this.loadAnimations();
 		this.updateBB();
 		
-		
+		this.midPointOffset = {x: 101, y: 63}
 		//info for pathfinding
-		this.mapX = this.x + 101//this.midPointOffset.x;
-		this.mapY = this.y + 63//this.midPointOffset.y;
+		
+		this.mapX = this.x + this.midPointOffset.x;
+		this.mapY = this.y + this.midPointOffset.y;
+		
 		this.path;
 		this.target = {x: null, y: null};
 
@@ -164,7 +166,18 @@ class RedMonster {
 		let myY = floor(this.mapY / 125);
 		let pX = floor(this.game.player.mapX / 125);
 		let pY = floor(this.game.player.mapY / 125);
-		this.path = aStarPath(new Point(this.game, myX, myY, null), new Point(this.game, pX, pY, null), this.game.camera.level.map, this.game, this).reverse();
+		if (this.path) {
+			if (getDistance(this.x + this.midPointOffset.x, this.y + this.midPointOffset.y, this.game.player.x, this.game.player.y) > 500) {
+				this.path.shift();
+				if (this.path.length === 0 || this.path.length > 15) {
+					this.path = aStarPath({x: myX, y: myY}, {x: pX, y: pY}, this.game.camera.level.map, this.game, this).reverse();
+				}
+			} else {
+				this.path = aStarPath({x: myX, y: myY}, {x: pX, y: pY}, this.game.camera.level.map, this.game, this).reverse();
+			}
+		} else {
+			this.path = aStarPath({x: myX, y: myY}, {x: pX, y: pY}, this.game.camera.level.map, this.game, this).reverse();
+		}
 		if (this.path[0] && (typeof this.path[0] != 'undefined')) { 
 			this.target.x = this.path[0].x * 125 + 62.5;
 			this.target.y = this.path[0].y * 125 + 62.5;
@@ -191,7 +204,7 @@ class RedMonster {
 				this.getPath();
 			}
 		} else {
-			if (this.path && this.path.length != 0 && this.path.length < 10 && getDistance(this.x + 45, this.y + 45, this.game.player.x, this.game.player.y) <= 500) { //checks/changes to aggro
+			if (getDistance(this.x + 101, this.y + 63, this.game.player.x, this.game.player.y) <= 1000 && this.path && this.path.length != 0 && this.path.length < 10) { //checks/changes to aggro
 				this.aggro = true;
 			} else {
 				this.getPath();

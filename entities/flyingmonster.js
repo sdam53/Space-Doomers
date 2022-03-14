@@ -163,7 +163,18 @@ class FlyingMonster {
 		let myY = floor(this.mapY / 125);
 		let pX = floor(this.game.player.mapX / 125);
 		let pY = floor(this.game.player.mapY / 125);
-		this.path = aStarPath(new Point(this.game, myX, myY, null), new Point(this.game, pX, pY, null), this.game.camera.level.map, this.game, this).reverse();
+		if (this.path) {
+			if (getDistance(this.x + this.midPointOffset.x, this.y + this.midPointOffset.y, this.game.player.x, this.game.player.y) > 500) {
+				this.path.shift();
+				if (this.path.length === 0 || this.path.length > 15) {
+					this.path = aStarPath({x: myX, y: myY}, {x: pX, y: pY}, this.game.camera.level.map, this.game, this).reverse();
+				}
+			} else {
+				this.path = aStarPath({x: myX, y: myY}, {x: pX, y: pY}, this.game.camera.level.map, this.game, this).reverse();
+			}
+		} else {
+			this.path = aStarPath({x: myX, y: myY}, {x: pX, y: pY}, this.game.camera.level.map, this.game, this).reverse();
+		}
 		if (this.path[0] && (typeof this.path[0] != 'undefined')) { 
 			this.target.x = this.path[0].x * 125 + 62.5;
 			this.target.y = this.path[0].y * 125 + 62.5;
@@ -190,7 +201,7 @@ class FlyingMonster {
 				this.getPath();
 			}
 		 } else {
-			if (this.path && this.path.length != 0 && this.path.length < 10 && getDistance(this.x + this.midPointOffset.x, this.y + this.midPointOffset.y, this.game.player.x, this.game.player.y) <= 500) { //checks/changes to aggro
+			if (getDistance(this.x + this.midPointOffset.x, this.y + this.midPointOffset.y, this.game.player.x, this.game.player.y) <= 1000 && this.path && this.path.length != 0 && this.path.length < 10) { //checks/changes to aggro
 				this.aggro = true;
 			} else {
 				this.getPath();

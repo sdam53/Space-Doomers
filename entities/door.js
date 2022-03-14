@@ -1,10 +1,18 @@
 class Door {
-
+	/**
+	 * class representing a door
+	 * @param {*} game gamee engine 
+	 * @param {*} x x location
+	 * @param {*} y y location
+	 * @param {*} state starting state
+	 * @param {*} direction direction to face
+	 * @param {*} requiredGears required gears to unlock
+	 * @param {*} finalDoor boolean whether it is final door
+	 */
 	constructor(game, x, y, state, direction, requiredGears, finalDoor) {
 		Object.assign(this, {game, x, y, state, direction, requiredGears, finalDoor});
 		this.reveal = false;
 
-		
 		if (direction == "down") {
 			this.x = x - 60;
 			this.y = y - 43;
@@ -31,15 +39,16 @@ class Door {
 		this.sprites["locked down"] =	ASSET_MANAGER.getAsset("./sprites/door/door locked down.png");
 		this.sprites["locked left"] =	ASSET_MANAGER.getAsset("./sprites/door/door locked left.png");
 		this.sprites["locked right"] =	ASSET_MANAGER.getAsset("./sprites/door/door locked right.png");
-
 		
 		this.mapX = this.x;
 		this.mapY = this.y;
 		this.updateBB();
-
 	}
 	
 	updateBB() {
+		//BB used for closed door collision
+		//BB2 used for bullet to door collision
+		//BB3 used for opening or closing door
 		if (this.state == "locked") {
 			if (this.direction == "down") {
 				this.BB = 		new BoundingBox(this.x, this.y + this.game.camera.y + 40, this.w, this.h - 40);
@@ -65,50 +74,53 @@ class Door {
 		} else {
 			this.BB = null;
 		}
-
-		//used for bullet collision
 		if (this.direction == "down") {
 			this.BB2 = 		new BoundingBox(this.x, this.y + 40, this.w, this.h - 40);
+			this.BB3 =		new BoundingBox(this.x + 60, this.y + 43 - 62, 125, 249);
 		}
 		else if (this.direction == "left") {
 			this.BB2 = 		new BoundingBox(this.x + 40, this.y, this.w - 40, this.h);
+			this.BB3 =		new BoundingBox(this.x + 42 - 62, this.y + 60, 249, 125);
+
 		}
 		else if (this.direction == "right") {
 			this.BB2 = 		new BoundingBox(this.x, this.y, this.w - 40, this.h);
+			this.BB3 =		new BoundingBox(this.x - 62, this.y + 60, 249, 125);
 		}
 	}
 	
 	update() {
-        this.x += this.game.camera.x;
-        this.y += this.game.camera.y;
+		this.updateBB();
+		this.x += this.game.camera.x;
+		this.y += this.game.camera.y;
+		
+		if (!this.finalDoor && this.state == "locked" &&  this.game.player.gears >= this.requiredGears) {
+			this.state = "unlocked";
+		}
 
-        if (!this.finalDoor && this.state == "locked" &&  this.game.player.gears >= this.requiredGears) {
-            this.state = "unlocked";
-        }
-
-        // unlock condition for levels 2 and 3
-        if (this.finalDoor && this.state == "locked" && this.game.player.gears >= this.requiredGears && this.game.entities.bosses == 0) this.state = "unlocked";
-
-        let enemies = this.game.entities.enemies;
-        for (let i = 0; i < enemies.length; i++) {
-            if ((this.doorDistance(enemies[i]) < 180 || this.doorDistance(this.game.entities.player) < 180) && this.state == "unlocked") {
-                this.state = "open";
-                this.updateBB();
-                return;
-            }
-        }
-
-        if (this.doorDistance(this.game.entities.player) < 180 && this.state == "unlocked") {
-            this.state = "open";
-        } else if (this.doorDistance(this.game.entities.player) > 180 && this.state == "open") {
-            this.state = "unlocked";
-        }
-
-        this.updateBB();
-    }
-	
-	doorDistance(player) {
-		return Math.sqrt(Math.pow(player.x - this.x - this.w / 2, 2) + Math.pow(player.y - this.y - this.h / 2, 2));
+		// unlock condition for levels 2 and 3
+		if (this.finalDoor && this.state == "locked" && this.game.player.gears >= this.requiredGears && this.game.entities.bosses == 0) this.state = "unlocked";
+				
+		// checks for open or closed case
+		if (this.BB3 && (this.state === "unlocked" || this.state === "open")) {
+			let enemies = this.game.entities.enemies;
+			let player = this.game.entities.player;
+			
+			if (this.BB3.collide(player.feetBB)) {
+				this.state = "open";
+				return;
+			} else {
+				this.state = "unlocked";
+			}
+			for (let index = 0; index < enemies.length; index++) {
+				if (enemies[index].BB && this.BB3.collide(enemies[index].BB)) {
+					this.state = "open";
+					return;
+				} else {
+					this.state = "unlocked";
+				}
+			}
+		}
 	}
 	
 	draw(ctx) {
@@ -120,6 +132,7 @@ class Door {
 		if (PARAMS.DEBUG && (typeof this.BB != 'undefined') && this.BB) {
 			ctx.strokeStyle = 'Green';
 			ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+
 			//ctx.strokeRect(this.leftBB.x, this.leftBB.y, this.leftBB.width, this.leftBB.height);
 			//ctx.strokeRect(this.rightBB.x, this.rightBB.y, this.rightBB.width, this.rightBB.height);
 			//ctx.strokeRect(this.topBB.x, this.topBB.y, this.topBB.width, this.topBB.height);
@@ -130,14 +143,14 @@ class Door {
 	drawMinimap(ctx, mmX, mmY){
 		let x = this.game.entities.player.mapX;
 		let y = this.game.entities.player.mapY;
-		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)){
-		this.reveal = true;
-		ctx.fillStyle = "Gray";
+		if (this.game.entities.minimap.checkInCircle(this.mapX , this.mapY, x, y, PARAMS.FOW_M_R)) {
+			this.reveal = true;
+			ctx.fillStyle = "Gray";
 		}
-    else{
-        ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
-	}
-	if (this.reveal)
-    	ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 125/PARAMS.BITWIDTH , 125/PARAMS.BITWIDTH );	
+    	else {
+        	ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+		}
+		if (this.reveal)
+    		ctx.fillRect(mmX + this.mapX / PARAMS.BITWIDTH, mmY + this.mapY / PARAMS.BITWIDTH, 125/PARAMS.BITWIDTH , 125/PARAMS.BITWIDTH );	
 	}
 }

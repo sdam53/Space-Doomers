@@ -1,5 +1,6 @@
 //class of functions for pathfinding
 //done using BFS
+//Not used anymore
 
 /**
  * checks if cell is a valid movement location
