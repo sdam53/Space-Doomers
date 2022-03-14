@@ -6,6 +6,7 @@ class Smol {
 	  this.state = "idle";
 
 	  this.hp = 40;
+	  this.attackCooldown = 1;
 
 	  this.moveSpeed = getRandomInteger(175, 350);
 
@@ -82,6 +83,20 @@ class Smol {
 			this.BB = new BoundingBox(this.x + 20, this.y + 10, 35, 45);
 		} else if (this.facing === "right") {
 			this.BB = new BoundingBox(this.x + 20, this.y + 10, 35, 45);
+		}
+
+		if (this.state === "attack" && (this.animations[this.facing + " " + this.state].frame >= 7 && this.animations[this.facing + " " + this.state].frame <= 19)) {
+			if (this.facing === "down") {
+				this.AtkBB = new BoundingBox(this.x + 16, this.y + 44, 44, 20);
+			} else if (this.facing === "up") {
+				this.AtkBB = new BoundingBox(this.x + 16, this.y, 44, 20);
+			} else if (this.facing === "left") {
+				this.AtkBB = new BoundingBox(this.x + 10, this.y + 10, 20, 45);
+			} else if (this.facing === "right") {
+				this.AtkBB = new BoundingBox(this.x + 45, this.y + 10, 20, 45);
+			}
+		} else {
+			this.AtkBB = null;
 		}
 	}
 
@@ -190,6 +205,8 @@ class Smol {
 			this.target.x = this.path[0].x * 125 + 62.5;
 			this.target.y = this.path[0].y * 125 + 62.5;
 		}
+
+
 	}
 
     update() {
@@ -204,7 +221,6 @@ class Smol {
 				if (this.BB.collide(this.game.player.BB)) {
 					this.state = "attack";
 				} else {
-					//this.moveToPlayer()
 					this.move();
 				}
 			} else {
@@ -217,6 +233,16 @@ class Smol {
 				this.getPath();
 			}
 		}
+		//if monster attack hit player, then calculate damage
+		if (!PARAMS.GODMODE) {
+			if (this.attackCooldown <= 0 && this.AtkBB && this.AtkBB.collide(this.game.player.BB)) {
+				this.game.player.calculateDamage(5);
+				this.attackCooldown = 1;
+			} else {
+				this.attackCooldown -= TICK;
+			}
+		}
+		
 		this.updateBB();
 		this.x += this.game.camera.x;
 		this.y += this.game.camera.y; 
@@ -253,6 +279,10 @@ class Smol {
 		if (PARAMS.DEBUG && this.BB) {
 			ctx.strokeStyle = 'Red';
 			ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+		}
+		if (PARAMS.DEBUG && this.AtkBB) {
+			ctx.strokeStyle = 'Purple';
+			ctx.strokeRect(this.AtkBB.x, this.AtkBB.y, this.AtkBB.width, this.AtkBB.height);
 		}
     }
 
