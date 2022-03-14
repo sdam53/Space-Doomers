@@ -377,8 +377,19 @@ class SceneManager {
 		ctx.fillStyle = "Red";
 		ctx.strokeStyle = "Red";
 		
+		if (this.endgame) {
+			ctx.drawImage(this.titleBackground, 0, 0);
+			ctx.drawImage(this.logo, 690, 30);
+		
+			ctx.fillStyle = "#e6e4df";
+			ctx.font = '30px "Nasa"';
+			for (let i = 0; i < finalStory.length; i++) {
+				ctx.fillText(finalStory[i], 600, 260 + i * 40);
+			}
+		}
+
 		// Title Screen
-		if (this.title && !this.credits && !this.transition && !this.levelSelect) {
+		else if (this.title && !this.credits && !this.transition && !this.levelSelect) {
 			
 			ctx.drawImage(this.titleBackground, 0, 0);
 			ctx.drawImage(this.logo, 690, 160);
@@ -467,7 +478,7 @@ class SceneManager {
 			ctx.fillText("• Developers: Alex, Raz", 710, 320);
 			ctx.fillText("  Sasha, Shilnara", 710, 360);
 		}
-		
+		// transition
 		if (this.transition && !this.title && !this.credits) {
 			ctx.drawImage(this.titleBackground, 0, 0);
 			ctx.fillStyle = "#e6e4df";
