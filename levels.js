@@ -77,7 +77,7 @@ let levelOne = {
 		  {x: 1, y: 6, powerup: "healthpack"}
 	],
 
-	transitionItem : {x: 11, y: 2, level: 1},
+	transitionItem : {x: 12, y: 7, level: 1},
 
 	story: [ // title - level 1
 		"After landing on an abandoned space station ",
