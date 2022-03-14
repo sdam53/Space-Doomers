@@ -29,7 +29,7 @@ class Player {
 		this.bulletSize = 30;
 		this.bulletRicochet = 0
 		this.moveMultiplyer = 1;
-		this.shotgun = {shotgun: false, amount: 1};//ammount means how many pairs, ie 1 will give 3 bullets, 2 will give 5...
+		this.shotgun = {shotgun: false, amount: 0};//ammount means how many pairs, ie 1 will give 3 bullets, 2 will give 5...
 		
 		this.animations = [];
 		this.loadAnimations();

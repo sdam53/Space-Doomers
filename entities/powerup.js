@@ -32,7 +32,8 @@ class Powerup {
         } else if (this.powerup === "shotgun") {
             if (this.BB.collide(this.game.player.feetBB)) {
                 ASSET_MANAGER.playAsset("./music/weapon_powerup.mp3");
-                this.game.player.shotgun.shotgun = true;
+                this.game.player.shotgun.shotgun = true
+                this.game.player.shotgun.amount++;
                 this.removeFromWorld = true;
             }
         } else if (this.powerup === "healthpack") {
