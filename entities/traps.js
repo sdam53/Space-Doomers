@@ -31,17 +31,24 @@ class Trap{
 	}
 	
 	updateBB() {
-		this.BB = new BoundingBox(this.x, this.y, 125, 125);
+		if (this.trap_type === "spike") {
+            if (this.spike_animation.frame >= 12 && this.spike_animation.frame <= 15) {
+                this.BB = new BoundingBox(this.x, this.y, 125, 125);
+            } else {
+                this.BB = null;
+            }
+        } else {
+            this.BB = new BoundingBox(this.x, this.y, 125, 125);
+        }
 	}
 	
 	update() {
         if (!PARAMS.GODMODE) {
             if (this.trap_type === "spike") {
-                if (this.timer <= 0.8 && this.BB.collide(this.game.player.feetBB) && this.cooldown == false) {
+                if (this.timer <= 0.8 && this.BB && this.BB.collide(this.game.player.feetBB) && this.cooldown == false) {
                     this.game.player.calculateDamage(this.damage);
                     this.cooldown = true;
                     ASSET_MANAGER.playAsset("./music/spikes.mp3");
-
                 }
                 this.timer -= this.game.clockTick;
                 if (this.timer < 0){
@@ -105,8 +112,8 @@ class Trap{
 		    this.spike_animation.drawFrame(this.game.clockTick, ctx, this.x + 5, this.y+ 5 -56*0.8, 0.8);
 
         }
-		if (PARAMS.DEBUG && (typeof this.BB != 'undefined')) {
-			ctx.strokeStyle = 'Green';
+		if (PARAMS.DEBUG && this.BB && (typeof this.BB != 'undefined')) {
+			ctx.strokeStyle = 'Red';
 			ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
 		}
 	}
