@@ -3,6 +3,9 @@
 **Title:** 
   * Space Doomers <br />
 
+**Video Demo:**
+  * [Shilnara Dam](https://youtu.be/uGmXdGfn7_Q) <br />
+
 **Description:**  
   * Play as Rob in this top-down space shooter and make your way out of an abandoned ship that is full of hungry monsters! 3 levels of increasing size and complexity await you. <br />
 
@@ -12,7 +15,7 @@
   * F - Shield (50% damage protection) <br />
 
 **Note:** 
-  * Requirements to finish the level are displayed under the shield bar. For level 1, aim to kill all enemies and get all the gears. For levels 2 and 3 aim to kill all bosses and get all the gears. Level 3 in progress.
+  * Requirements to finish the level are displayed under the shield bar. For level 1, aim to kill all enemies and get all the gears. For levels 2 and 3 aim to kill all bosses and get all the gears.
 
 **Group Members:**
   * [Shilnara Dam](https://github.com/sdam53)
