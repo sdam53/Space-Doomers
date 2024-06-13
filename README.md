@@ -23,5 +23,16 @@
   * [Alex Trinh](https://github.com/HTrinh43)
   * [Raz Consta](https://github.com/RazConsta)
 
-Main sprites from [Moon Tribe](https://moon-tribe.itch.io/dungeon-crawler-2d)  
-Weapon Powerup Sound effect obtained from https://www.zapsplat.com
+**Credits:**
+* Main sprites from [Moon Tribe](https://moon-tribe.itch.io/dungeon-crawler-2d)  
+* Weapon Powerup Sound effect obtained from https://www.zapsplat.com
+
+## Screenshots
+### Main Menu
+![image](https://github.com/sdam53/Space-Doomers/assets/66283215/4c50eaf1-2c11-4853-8427-b16b4362d70a)
+### Level Select
+![image](https://github.com/sdam53/Space-Doomers/assets/66283215/4601b51d-1255-408c-a020-e2790ce6e463)
+### Level 1 Intro Screen & Difficulty Option
+![image](https://github.com/sdam53/Space-Doomers/assets/66283215/0e5e6058-fb3f-418c-9a5f-4262b29abb87)
+### Level Example
+![image](https://github.com/sdam53/Space-Doomers/assets/66283215/0379231c-9a9d-48e8-9ea4-1ecd4b937587)
